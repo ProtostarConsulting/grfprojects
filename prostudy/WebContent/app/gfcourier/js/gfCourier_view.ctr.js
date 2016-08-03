@@ -21,6 +21,7 @@ angular
 											$scope.tempCourier.courierDispatchDate = new Date(
 													$scope.tempCourier.courierDispatchDate);
 											$scope.tempCourier.schoolName = $scope.tempCourier.schoolName.schoolName;
+										//	$scope.TotalFeesInWord = NumToWord($scope.tempCourier.totalFees);
 										});
 					}
 
