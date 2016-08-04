@@ -1,16 +1,15 @@
 <md-content layout-padding>
 <form name="ChangeTheme">
 
-<div layout="row">
+	<div layout="row">
 		<h3 class="md-headline">Institute Current Theme:-</h3>
-		<h3 class="md-headline" style="color:{{Institute.theme}};">{{Institute.theme | uppercase}}</h3>
+		<h3 class="md-headline" style="color: {{Institute.theme">{{Institute.theme
+			| uppercase}}</h3>
 	</div>
-	
+
 	<div>
 		<span class="md-title">Change your application theme</span>
 	</div>
-
-	
 
 	<div layout="row" layout-align="left left" layout-wrap flex>
 		<md-button ng-repeat="themeName in themeList"
@@ -18,15 +17,14 @@
 			ng-click="checkTheme(themeName)"> {{themeName}} </md-button>
 	</div>
 
-<div layout="row">
+	<div layout="row">
 		<h3 class="md-headline">Current Selected Theme:-</h3>
-		<h3 style="color:{{theme}};">{{theme | uppercase}}</h3>
+		<h3 style="color: {{theme">{{theme | uppercase}}</h3>
 	</div>
-	
+
 </form>
 <md-button class="md-raised md-primary" ng-click="updateTheme(theme)">Update
-	Theme</md-button>
-</md-content>
+Theme</md-button> </md-content>
 
 
 <!-- <md-content layout="column">

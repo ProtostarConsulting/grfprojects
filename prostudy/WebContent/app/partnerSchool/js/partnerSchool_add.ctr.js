@@ -235,7 +235,9 @@ angular
 						}
 						var PartnerSchoolService = appEndpointSF
 								.getPartnerSchoolService();
-
+						
+						$scope.getExamByYear();
+						
 						PartnerSchoolService
 								.addPartnerSchool($scope.partnerSchool)
 								.then(
@@ -280,6 +282,7 @@ angular
 					$scope.getPSchoolByPSID = function() {
 						var PartnerSchoolService = appEndpointSF
 								.getPartnerSchoolService();
+					
 						if ($scope.selectedPSchoolId != "") {
 							PartnerSchoolService
 									.getPSchoolByPSID($scope.selectedPSchoolId)

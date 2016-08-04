@@ -62,9 +62,9 @@
 	<table width="100%">
 		<thead>
 			<tr>
-				<th style="border: 1px solid black; padding-right:10px; padding-left:10px;" align="right">Sr_No</th>
-				<th style="border: 1px solid black; padding-right:10px; padding-left:10px;" align="right">Book Name</th>
-				<th style="border: 1px solid black; padding-right:10px; padding-left:10px;" align="right">Qty</th>
+				<th style="border: 1px solid black; text-align: center; width: 20px">Sr_No</th>
+				<th style="border: 1px solid black; text-align: center;">Book Name</th>
+				<th style="border: 1px solid black; text-align: center;">Qty</th>
 
 			</tr>
 		</thead>
@@ -81,20 +81,22 @@
 							ng-if="book.id==item.id">{{book.bookName}}({{book.bookMedium}})</li>
 					</ol></td>
 
-				<td style="border: 1px solid black; padding-right:10px; padding-left:10px;">{{item.bookQty}}</td>
+				<td style="border: 1px solid black; text-align: right">{{item.bookQty | number : 1}}</td>
 			</tr>
 			<tr>
 				<td style="border: 1px solid black; padding-right:10px; padding-left:10px;"></td>
-				<td style="border: 1px solid black; padding-right:10px; padding-left:10px;"><b>Total Weight :</b></td>
-				<td style="border: 1px solid black; padding-right:10px; padding-left:10px;"><b>{{tempCourier.totalWeight}}</b></td>
+				<td style="border: 1px solid black; text-align: right"><b>Total Weight :</b></td>
+				<td style="border: 1px solid black; text-align: right"><b>{{tempCourier.totalWeight | number:2}}</b></td>
 				
 			</tr>
 
 			<tr>
 				<td style="border: 1px solid black; padding-right:10px; padding-left:10px;"></td>
-				<td style="border: 1px solid black; padding-right:10px; padding-left:10px;"><b>Total Fees :</b></td>
-				<td style="border: 1px solid black; padding-right:10px; padding-left:10px;"><b>{{tempCourier.totalFees}}</b></td>
-				
+				<td style="border: 1px solid black; text-align: right;"><b>Total Fees :</b></td>
+				<td style="border: 1px solid black; text-align: right;"><b>{{tempCourier.totalFees | number:2}}</b></td>
+			</tr>
+			<tr>
+			{{TotalFeesInWord}}
 			</tr>
 		</tbody>
 	</table>
