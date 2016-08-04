@@ -3,8 +3,8 @@ angular
 		.controller(
 				"indexCtr",
 				function($scope, $rootScope, $window, $log, $q, $timeout,
-						$mdToast, $mdBottomSheet, $state,
-						$localStorage, $location, $anchorScroll, appEndpointSF) {
+						$mdToast, $mdBottomSheet, $state, $localStorage,
+						$location, $anchorScroll, appEndpointSF) {
 
 					$log.debug("Inside indexCtr");
 
@@ -35,7 +35,7 @@ angular
 					$scope.curUser = null;
 					$scope.flag = true;
 					$scope.initDone = false;
-					var defaultTheme = 'default';
+					var defaultTheme = 'grf-theme';
 					$scope.theme = defaultTheme
 					$scope.loginPersonIconUrl = defaulLogingUserIconURL;
 					$scope.logoURL = defaulInstituteLogoURL;
@@ -374,8 +374,10 @@ angular
 							return; // else it goes to login state but continues
 							// the this js flow
 						}
-						$scope.theme = $scope.curUser.instituteObj.theme;
-						if ($scope.curUser.instituteObj.logBlobKey) {
+						if ($scope.curUser && $scope.curUser.instituteObj) {
+							$scope.theme = $scope.curUser.instituteObj.theme;
+						}
+						if ($scope.curUser.instituteObj && $scope.curUser.instituteObj.logBlobKey) {
 							$scope.logoURL = '//' + window.location.host
 									+ '/serve?blob-key='
 									+ $scope.curUser.instituteObj.logBlobKey;
@@ -440,12 +442,12 @@ angular
 							this.$apply(fn);
 						}
 					};
-					
+
 					$rootScope.$on('$stateChangeSuccess', function(event,
 							toState, toParams, fromState, fromParams) {
-						//On any state change go the the top
-						$location.hash('topRight');						    
-					    $anchorScroll();
+						// On any state change go the the top
+						$location.hash('topRight');
+						$anchorScroll();
 					});
 
 				}).controller('AppCtrl',
@@ -573,5 +575,5 @@ angular
 					 * toParams, fromState, fromParams) { alert("State Change
 					 * "); })
 					 * 
-					 */					
+					 */
 				});
