@@ -377,7 +377,8 @@ angular
 						if ($scope.curUser && $scope.curUser.instituteObj) {
 							$scope.theme = $scope.curUser.instituteObj.theme;
 						}
-						if ($scope.curUser.instituteObj && $scope.curUser.instituteObj.logBlobKey) {
+						if ($scope.curUser.instituteObj
+								&& $scope.curUser.instituteObj.logBlobKey) {
 							$scope.logoURL = '//' + window.location.host
 									+ '/serve?blob-key='
 									+ $scope.curUser.instituteObj.logBlobKey;
@@ -448,6 +449,10 @@ angular
 						// On any state change go the the top
 						$location.hash('topRight');
 						$anchorScroll();
+					});
+					$rootScope.$on('$stateChangeStart', function(e, toState,
+							toParams, fromState, fromParams) {
+						//check access permission here.
 					});
 
 				}).controller('AppCtrl',
@@ -576,4 +581,5 @@ angular
 					 * "); })
 					 * 
 					 */
+
 				});

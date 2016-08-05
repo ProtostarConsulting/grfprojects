@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="prostudyApp" ng-controller="indexCtr">
 <head>
-<title>ProStudy App</title>
+<title>ProStudy - Gandhi Research Foundation</title>
 <meta name="viewport" content="initial-scale=1" />
 
 <link rel="stylesheet" href="/lib/base/css/angular-material.min.css">
@@ -22,438 +22,267 @@
 
 </head>
 <body layout="column" ng-cloak md-theme="{{theme}}">
-	<!-- <div layout="column" layout-fill> -->
+	<md-content> <!-- Parent tag--> <md-card
+		name="outerMdCard"> <!-- <div layout="column" layout-fill> -->
 	<div ng-show="loading">Loading...</div>
-	<md-content ng-hide="loading" id="topRight"> <!-- Top Navigation Pane -->
-	<!-- 	<md-toolbar>
-	<div class="md-toolbar-tools">
+	<md-content id="topRight"> <!-- Top Navigation Pane --> <md-toolbar
+		style="height: 80px; width: 100%">
+	<div id="container" class="md-toolbar-tools">
+		<img id="image" src="img/images/GVSP_GRF_Logo_2.png"
+			style="height: 79px; width: 319px" /> <span flex></span>
+		<div layout="row" layout-align="end start">
+			<md-button ng-hide="curUser !== null" ng-show="curUser == null"
+				ng-click="loginClick()"> <span
+				style="color: red; font-weight: bold">Login</span> <md-tooltip>
+			Login </md-tooltip> </md-button>
 
-		<div>
-				<div style="height: 80px; width:120px;  float: left; margin: 3px;  padding: 3px;">
-			<img ng-src="{{logoURL}}" class="md-card-image" alt="Compnay Logo" style=" max-width: 100%;  max-height: 100%;" />
-		</div>	
-
-			<img hide-xs ng-click="show_info()" ng-src="{{logoURL}}"
-				class="md-card-image" height="60px" width="120px" />
-			<img ng-hide="institute.logBlobKey"
-				ng-click="show_info()" src="img/images/grf_logo_new.gif"
-				height="60px" width="120px">
+			<md-button class="md-primary" aria-label="Logout"
+				ng-hide="curUser == null" ng-click="signOut()"> <span
+				style="color: yellow; font-weight: bold">Logout</span> <md-tooltip>
+			{{ curUser.firstName + " " + curUser.lastName + " | " +
+			curUser.email_id}} </md-tooltip> </md-button>
 		</div>
-		<span hide-xs ng-show="curUser==null">ProStudy - Where learning
-			meets teaching, self study, tutorials and practice!</span> <span hide-xs
-			ng-show="curUser!=null">{{institute.name}}</span> <span
-			ng-show="online==false" style="color: red">There is no
-			internet connection. You are offline. </span>
-
-
-		fill up the space between left and right area
-		<span flex></span>
-		<section layout="row">
-			<div layout="row" layout-align="end start">
-				<md-button aria-label="Login" ng-hide="curUser !== null"
-					ng-show="curUser == null" ng-click="loginClick()">
-				Login <md-tooltip> Login </md-tooltip> </md-button>
-
-				<md-button aria-label="Logout" ng-hide="curUser == null"
-					ng-click="signOut()"> Logout <md-tooltip>
-				{{ curUser.firstName + " " + curUser.lastName + " | " +
-				curUser.email_id}} </md-tooltip> </md-button>
-
-				<md-button class="md-icon-button" aria-label="More"
-				ng-click="toggleRight()"> <md-icon
-				md-svg-icon="img/icons/more_vert.svg"></md-icon> </md-button>
-
-				<md-button aria-label="Open Settings"
-				ng-click="showListBottomSheet($event)"> <md-tooltip>
-			{{ curUser.getName() + "|" + curUser.getEmail()}} </md-tooltip> <ng-md-icon
-				icon="more_vert"></ng-md-icon> </md-button>
-				<img ng-show="true" ng-src="{{loginPersonIconUrl}}" class=circular>
+		<div layout="row" layout-align="end start" hide-xs hide-sm>
+			<img id="image2" src="img/images/320px_98px_GVSP_2_1.JPG"
+				style="height: 98px; width: 320px; float: right;" />
+		</div>
+	</div>
+	</md-toolbar>
+	<div ng-controller="AppCtrl">
+		<section layout="row" flex>
+			<!-- Left Navigation Pane -->
+			<md-sidenav class="md-sidenav-left md-whiteframe-z2"
+				md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+			<md-toolbar class="md-theme-indigo">
+			<h1 class="md-toolbar-tools">Apps Module</h1>
+			</md-toolbar> <md-content layout="column" ng-controller="LeftCtrl"> <md-content
+				ng-hide="curUser == null" ng-clock>
+			<div style="padding-top: 1px;"></div>
+			<div class="md-accordion">
+				<md-toolbar flex ui-sref="welcome" ng-click="close()">
+				<div class="md-toolbar-tools">
+					<h2>
+						<span>Home</span>
+					</h2>
+				</div>
+				</md-toolbar>
 			</div>
+			<div class="md-accordion">
+				<md-toolbar ng-init="data.expanded = false"
+					ng-click="data.expanded = !data.expanded">
+				<div class="md-toolbar-tools">
+					<h2>
+						<span>School</span>
+					</h2>
+					<span flex=""></span> <span
+						ng-class="{expandCollapse:true, active:data.expanded}"></span>
+				</div>
+				</md-toolbar>
+				<div style="margin-left: 15px;"
+					ng-class="{dataContent:true, activeContent:data.expanded}">
+					<md-content layout="column" layout-xs="column"
+						layout-align="center start"> <md-button
+						ui-sref="partnerSchool.addPartnerSchool({selectedPSchoolId:''})"
+						ng-click=close() class="md-primary"> Add School </md-button> <md-button
+						ui-sref="partnerSchool.listPartnerSchool" ng-click=close()
+						class="md-primary"> School List </md-button> </md-content>
+				</div>
+			</div>
+
+			<div class="md-accordion">
+				<md-toolbar ng-init="data.expanded1 = false"
+					ng-click="data.expanded1 = !data.expanded1">
+				<div class="md-toolbar-tools">
+					<h2>
+						<span>Students</span>
+					</h2>
+					<span flex=""></span> <span
+						ng-class="{expandCollapse:true, active:data.expanded1}"></span>
+				</div>
+				</md-toolbar>
+				<div style="margin-left: 15px;"
+					ng-class="{dataContent:true, activeContent:data.expanded1}">
+					<md-content layout="column" layout-xs="column"
+						layout-align="center start"> <md-button
+						ui-sref="studentModule.add" ng-click="close()" class="md-primary">Add
+					Student</md-button> <md-button ui-sref="studentModule.list" ng-click="close()"
+						class="md-primary">Student List </md-button> </md-content>
+				</div>
+			</div>
+
+			<div class="md-accordion">
+				<md-toolbar ng-init="data.expanded2 = false"
+					ng-click="data.expanded2 = !data.expanded2">
+				<div class="md-toolbar-tools">
+					<h2>
+						<span>Books</span>
+					</h2>
+					<span flex=""></span> <span
+						ng-class="{expandCollapse:true, active:data.expanded2}"></span>
+				</div>
+				</md-toolbar>
+				<div style="margin-left: 15px;"
+					ng-class="{dataContent:true, activeContent:data.expanded2}">
+					<md-content layout="column" layout-xs="column"
+						layout-align="center start"> <md-button
+						ui-sref="bookModule.add" ng-click="close()" class="md-primary">Add
+					Book</md-button> <md-button ui-sref="bookModule.stockAdd" ng-click="close()"
+						class="md-primary">Book Stock Add </md-button> <md-button
+						ui-sref="bookModule.list" ng-click="close()" class="md-primary">Book
+					List </md-button> <md-button ui-sref="bookModule.stockTransaction"
+						ng-click="close()" class="md-primary">Book
+					Transactions </md-button> </md-content>
+				</div>
+			</div>
+
+			<div class="md-accordion">
+				<md-toolbar ng-init="data.expanded3 = false"
+					ng-click="data.expanded3 = !data.expanded3">
+				<div class="md-toolbar-tools">
+					<h2>
+						<span>Couriers</span>
+					</h2>
+					<span flex=""></span> <span
+						ng-class="{expandCollapse:true, active:data.expanded3}"></span>
+				</div>
+				</md-toolbar>
+				<div style="margin-left: 15px;"
+					ng-class="{dataContent:true, activeContent:data.expanded3}">
+					<md-content flex layout="column" layout-xs="column"
+						layout-align="center start"> <md-button flex
+						ui-sref="courierModule.add" ng-click="close()" class="md-primary">Add
+					Courier</md-button> <md-button flex ui-sref="courierModule.list"
+						ng-click="close()" class="md-primary">Courier List </md-button> <md-button
+						flex ui-sref="courierModule.search" ng-click="close()"
+						class="md-primary">Courier Search </md-button> </md-content>
+				</div>
+			</div>
+
+			<div class="md-accordion">
+				<md-toolbar ng-init="data.expanded4 = false"
+					ng-click="data.expanded4 = !data.expanded4">
+				<div class="md-toolbar-tools">
+					<h2>
+						<span>Other Actions</span>
+					</h2>
+					<span flex=""></span> <span
+						ng-class="{expandCollapse:true, active:data.expanded4}"></span>
+				</div>
+				</md-toolbar>
+				<div style="margin-left: 15px;"
+					ng-class="{dataContent:true, activeContent:data.expanded4}">
+					<md-content flex layout="column" layout-xs="column"
+						layout-align="center start"> <md-button
+						ng-repeat="auth in curUser.userAuthMasterEntity.authorizations"
+						ui-sref="{{auth.uiStateName}}" ng-click="close()"
+						class="menu-heading md-primary" aria-label="auth.authDisplayName"
+						show-gt-md> <menu-link section="child"
+						ng-if="auth.authDisplayName === 'Home'"></menu-link> <menu-toggle
+						section="child" ng-if="auth.authDisplayName === 'Setup'"></menu-toggle>
+					<span ng-bind="auth.authDisplayName"> </span></md-button> </md-content>
+				</div>
+			</div>
+
+			</md-content> </md-content> </md-sidenav>
+
+			<!-- ng-show="curUser.role == 'Admin' || curUser.role == 'Teacher' || curUser.role == 'Student'" -->
+
+			<md-content flex layout-padding>
+			<div class="md-toolbar-tools" hide-gt-md>
+				<div>
+					<md-button ng-click="toggleLeft()" class="md-fab md-mini"
+						aria-label="Mini FAB" hide-gt-md> <md-icon
+						md-svg-src="img/icons/menu.svg"></md-icon> </md-button>
+				</div>
+			</div>
+			<md-card>
+			<div layout="column" layout-align="top stretch">
+				<!--<div ng-view></div>-->
+				<div ui-view>
+					<!--This is the center page of all main modules for the index module. -->
+
+
+					<md-toolbar>
+					<div class="md-toolbar-tools">
+						<section layout="row">
+							<div layout="row" layout-align="end start">
+								<md-button aria-label="Login" ng-hide="curUser !== null"
+									ng-show="curUser == null" ng-click="loginClick()">
+								Login <md-tooltip> Login </md-tooltip> </md-button>
+
+								<md-button aria-label="Logout" ng-hide="curUser == null"
+									ng-click="signOut()"> Logout <md-tooltip>
+								{{ curUser.firstName + " " + curUser.lastName + " | " +
+								curUser.email_id}} </md-tooltip> </md-button>
+
+								<md-button class="md-icon-button" aria-label="More"
+									ng-click="toggleRight()"> <md-icon
+									md-svg-icon="img/icons/more_vert.svg"></md-icon> </md-button>
+
+								<md-button aria-label="Open Settings"
+									ng-click="showListBottomSheet($event)"> <md-tooltip>
+								{{ curUser.getName() + "|" + curUser.getEmail()}} </md-tooltip> <ng-md-icon
+									icon="more_vert"></ng-md-icon> </md-button>
+								<img ng-show="true" ng-src="{{loginPersonIconUrl}}"
+									class=circular>
+							</div>
+						</section>
+					</div>
+					</md-toolbar>
+
+
+				</div>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+			</div>
+			</md-card> <!--This is a botton section of the app--> <!-- <md-divider></md-divider> -->
 		</section>
-	
- style="height: 100px; width: 1347px"
- </div>
-	</md-toolbar> -->
-
-	<div>
-		<!-- 
-<img src="img/images/Capture.PNG" style="height: 100px; width: 100%"></img>
-     
-</div>
-<div style="background-color: pink; height: 10px"></div>
- -->
-
-		<div id="container">
-			<img id="image" src="img/images/Capture.PNG"
-				style="height: 100px; width: 100%" />
-			<!-- <img id="image" hide-gt-md hide-xl src="img/images/grf_logo_new.gif"  style="height: 100px; width: 100%"/> -->
-			<p id="text">
-				<!--     <md-button layout-align="end start" class="md-raised " ng-click="">Login</md-button>
-    <button style="position: relative; right: 1px;">Login1</button> -->
-
-				<section layout="row" layout-align="end start">
-					<div layout="row" layout-align="end start">
-						<md-button ng-hide="curUser !== null" ng-show="curUser == null"
-							ng-click="loginClick()">
-						<span style="color: red; font-weight: bold">Login</span> <md-tooltip>
-						Login </md-tooltip> </md-button>
-
-						<md-button class="md-primary" aria-label="Logout"
-							ng-hide="curUser == null" ng-click="signOut()">
-						<span style="color: yellow; font-weight: bold">Logout</span> <md-tooltip>
-						{{ curUser.firstName + " " + curUser.lastName + " | " +
-						curUser.email_id}} </md-tooltip> </md-button>
-
-					</div>
-				</section>
-			</p>
-		</div>
-
-		<div ng-controller="AppCtrl">
-			<section layout="row" flex>
-				<!-- Left Navigation Pane -->
-				<md-sidenav class="md-sidenav-left md-whiteframe-z2"
-					md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
-				<md-toolbar class="md-theme-indigo">
-				<h1 class="md-toolbar-tools">Apps Module</h1>
-				</md-toolbar> <md-content layout="column" ng-controller="LeftCtrl">
-				<!--  <md-button
-				class="md-primary" ng-click="close()" hide-gt-md> Close
-			Sidenav </md-button> <md-button ui-sref="home" ng-click="close()"
-				class="md-primary" show-gt-md> Home </md-button> <md-button ui-sref="setup"
-				ng-show="curUser.authority.indexOf('admin') > -1 || modules[0].modules.indexOf('setup') > -1"
-				ng-click="close()" class="md-primary" show-gt-md>Setup </md-button>
-
-			<md-button ui-sref="proadmin"
-				ng-show="curUser.authority.indexOf('admin') > -1 || modules[0].modules.indexOf('proadmin') > -1"
-				ng-click="close()" class="md-primary" show-gt-md> Pro
-			Admin </md-button> <md-button ui-sref="student"
-				ng-show="curUser.authority.indexOf('admin') > -1 || modules[0].modules.indexOf('student') > -1"
-				ng-click="close()" class="md-primary" show-gt-md>Student
-			</md-button> <md-button ui-sref="attendance"
-				ng-show="curUser.authority.indexOf('admin') > -1 || modules[0].modules.indexOf('attendance') > -1"
-				ng-click="close()" class="md-primary" show-gt-md>Attendance
-			</md-button> <md-button ui-sref="exam"
-				ng-show="curUser.authority.indexOf('admin') > -1 || modules[0].modules.indexOf('exam') > -1"
-				ng-click="close()" class="md-primary" show-gt-md> Exam </md-button>
-
-			<md-button ui-sref="scheduledExam"
-				ng-show="curUser.authority.indexOf('admin') > -1 || modules[0].modules.indexOf('scheduledExam') > -1"
-				ng-click="close()" class="md-primary" show-gt-md>Scheduled
-			Exam </md-button> <md-button ui-sref="book"
-				ng-show="curUser.authority.indexOf('admin') > -1 || modules[0].modules.indexOf('book') > -1"
-				ng-click="close()" class="md-primary" show-gt-md>Book </md-button> <md-button
-				ui-sref="favourite"
-				ng-show="curUser.authority.indexOf('admin') > -1 || modules[0].modules.indexOf('favourite') > -1"
-				ng-click="close()" class="md-primary" show-gt-md>Favourite</md-button>
-
-			<md-button ui-sref="report"
-				ng-show="curUser.authority.indexOf('admin') > -1 || modules[0].modules.indexOf('report') > -1"
-				ng-click="close()" class="md-primary" show-gt-md> Report
-			</md-button> <md-button ui-sref="syllabus"
-				ng-show="curUser.authority.indexOf('admin') > -1 || modules[0].modules.indexOf('syllabus') > -1"
-				ng-click="close()" class="md-primary" show-gt-md>Syllabus</md-button>
-
-			<md-button ui-sref="updatemyprofile"
-				ng-show="curUser.authority.indexOf('admin') > -1 || modules[0].modules.indexOf('updatemyprofile') > -1"
-				ng-click="close()" ng-hide="curUser == null" class="md-primary"
-				show-gt-md>Edit profile </md-button> <md-button
-				ui-sref="certificateMgmt"
-				ng-show="curUser.authority.indexOf('admin') > -1 || modules[0].modules.indexOf('certificateMgmt') > -1"
-				ng-click="close()" class="md-primary" show-gt-md>
-			Certificate Management </md-button> <md-button ui-sref="admissionMgmt"
-				ng-show="curUser.authority.indexOf('admin') > -1 || modules[0].modules.indexOf('admissionMgmt') > -1"
-				ng-click="close()" class="md-primary" show-gt-md>
-			Admission Management </md-button> <md-button ui-sref="gfe"
-				ng-show="curUser.authority.indexOf('admin') > -1 || modules[0].modules.indexOf('gfe') > -1"
-				ng-click="close()" class="md-primary" show-gt-md>Google
-			Apps Integration</md-button> <md-button ui-sref="gandhifoundation"
-				ng-click="close()" class="md-primary" show-gt-md>Gandhi
-			Research Foundation </md-button> --> <!--  Acordian Pane		 --> <md-content
-					ng-clock>
-				<div style="padding-top: 1px;"></div>
-				<div class="md-accordion">
-					<md-toolbar flex ui-sref="welcome"
-							ng-click="close()">
-					<div class="md-toolbar-tools">
-						<h2>
-							<span>Home</span>
-						</h2>						
-					</div>
-					</md-toolbar>				
-				</div>
-				<div class="md-accordion">
-					<md-toolbar ng-init="data.expanded = false"
-						ng-click="data.expanded = !data.expanded">
-					<div class="md-toolbar-tools">
-						<h2>
-							<span>School</span>
-						</h2>
-						<span flex=""></span> <span
-							ng-class="{expandCollapse:true, active:data.expanded}"></span>
-					</div>
-					</md-toolbar>
-					<div style="margin-left: 15px;"
-						ng-class="{dataContent:true, activeContent:data.expanded}">
-						<md-content layout="column" layout-xs="column"
-							layout-align="center start"> <md-button
-							ui-sref="partnerSchool.addPartnerSchool({selectedPSchoolId:''})" ng-click=close()
-							class="md-primary"> Add School </md-button> <md-button
-							ui-sref="partnerSchool.listPartnerSchool" ng-click=close()
-							class="md-primary"> School List </md-button> </md-content>
-					</div>
-				</div>
-
-				<div class="md-accordion">
-					<md-toolbar ng-init="data.expanded1 = false"
-						ng-click="data.expanded1 = !data.expanded1">
-					<div class="md-toolbar-tools">
-						<h2>
-							<span>Students</span>
-						</h2>
-						<span flex=""></span> <span
-							ng-class="{expandCollapse:true, active:data.expanded1}"></span>
-					</div>
-					</md-toolbar>
-					<div style="margin-left: 15px;"
-						ng-class="{dataContent:true, activeContent:data.expanded1}">
-						<md-content layout="column" layout-xs="column"
-							layout-align="center start"> <md-button
-							ui-sref="studentModule.add" ng-click="close()" class="md-primary">Add
-						Student</md-button> <md-button ui-sref="studentModule.list" ng-click="close()"
-							class="md-primary">Student List </md-button> </md-content>
-					</div>
-				</div>
-
-				<div class="md-accordion">
-					<md-toolbar ng-init="data.expanded2 = false"
-						ng-click="data.expanded2 = !data.expanded2">
-					<div class="md-toolbar-tools">
-						<h2>
-							<span>Books</span>
-						</h2>
-						<span flex=""></span> <span
-							ng-class="{expandCollapse:true, active:data.expanded2}"></span>
-					</div>
-					</md-toolbar>
-					<div style="margin-left: 15px;"
-						ng-class="{dataContent:true, activeContent:data.expanded2}">
-						<md-content layout="column" layout-xs="column"
-							layout-align="center start"> <md-button
-							ui-sref="bookModule.add" ng-click="close()" class="md-primary">Add
-						Book</md-button> <md-button ui-sref="bookModule.stockAdd" ng-click="close()"
-							class="md-primary">Book Stock Add </md-button> <md-button
-							ui-sref="bookModule.list" ng-click="close()"
-							class="md-primary">Book List </md-button> <md-button
-							ui-sref="bookModule.stockTransaction" ng-click="close()"
-							class="md-primary">Book Transactions </md-button> </md-content>
-					</div>
-				</div>
-
-				<div class="md-accordion">
-					<md-toolbar ng-init="data.expanded3 = false"
-						ng-click="data.expanded3 = !data.expanded3">
-					<div class="md-toolbar-tools">
-						<h2>
-							<span>Couriers</span>
-						</h2>
-						<span flex=""></span> <span
-							ng-class="{expandCollapse:true, active:data.expanded3}"></span>
-					</div>
-					</md-toolbar>
-					<div style="margin-left: 15px;"
-						ng-class="{dataContent:true, activeContent:data.expanded3}">
-						<md-content flex layout="column" layout-xs="column"
-							layout-align="center start"> <md-button flex
-							ui-sref="courierModule.add" ng-click="close()" class="md-primary">Add
-						Courier</md-button> <md-button flex ui-sref="courierModule.list"
-							ng-click="close()" class="md-primary">Courier List </md-button> <md-button
-							flex ui-sref="courierModule.search" ng-click="close()"
-							class="md-primary">Courier Search </md-button> </md-content>
-					</div>
-				</div>
-
-				<div class="md-accordion">
-					<md-toolbar ng-init="data.expanded4 = false"
-						ng-click="data.expanded4 = !data.expanded4">
-					<div class="md-toolbar-tools">
-						<h2>
-							<span>Other Actions</span>
-						</h2>
-						<span flex=""></span> <span
-							ng-class="{expandCollapse:true, active:data.expanded4}"></span>
-					</div>
-					</md-toolbar>
-					<div style="margin-left: 15px;"
-						ng-class="{dataContent:true, activeContent:data.expanded4}">
-						<md-content flex layout="column" layout-xs="column"
-							layout-align="center start"> <md-button
-							ng-repeat="auth in curUser.userAuthMasterEntity.authorizations"
-							ui-sref="{{auth.uiStateName}}" ng-click="close()"
-							class="menu-heading md-primary" aria-label="auth.authDisplayName"
-							show-gt-md>
-						<menu-link section="child" ng-if="auth.authDisplayName === 'Home'"></menu-link>
-						<menu-toggle section="child"
-							ng-if="auth.authDisplayName === 'Setup'"></menu-toggle> <span
-							ng-bind="auth.authDisplayName"> </span></md-button> </md-content>
-					</div>
-				</div>
-
-				</md-content> <!--  Acordian Pane		 --> <!-- <div layout="column" layout-align="start start">
-			<md-button  ng-click="toggleMenu('school')"
-				class="md-primary"> School						
-						<md-icon ng-if="!schoolCounter" class="md-fab md-primary md-hue-2"
-							md-svg-src="img/icons/ic_keyboard_arrow_right_black_24px.svg"></md-icon><md-icon ng-if="schoolCounter"
-							md-svg-src="img/icons/ic_keyboard_arrow_down_black_24px.svg">&nbsp;&nbsp;&nbsp;&nbsp;</md-button>
-				
-				<div ng-if="schoolCounter == 1" style = "margin-left: 15px;">
-					<md-content layout="column" layout-xs="column" layout-align="center start"> 
-						<md-button ui-sref="partnerSchool.addPartnerSchool" ng-click=close() class="md-primary"> Add School </md-button> 
-						<md-button ui-sref="partnerSchool.listPartnerSchool" ng-click=close()  class="md-primary"> School List </md-button>
-					</md-content>
-				</div>
-				
-			<md-button layout="column" ng-click="toggleMenu('students')" 
-				class="md-primary"> Students <md-icon ng-if="!studentsCounter"
-							md-svg-src="img/icons/ic_keyboard_arrow_right_black_24px.svg"></md-icon><md-icon ng-if="studentsCounter"
-							md-svg-src="img/icons/ic_keyboard_arrow_down_black_24px.svg"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</md-button>
-			<div ng-if="studentsCounter == 1" style = "margin-left: 15px;"">
-				<md-content layout="column"  layout-xs="column" layout-align="center start"> 
-					<md-button ui-sref="studentModule.add" ng-click="close()" class="md-primary">Add Student</md-button> 
-					<md-button ui-sref="studentModule.list" ng-click="close()" class="md-primary">Student List </md-button> 
-				</md-content>
-			</div>
-
-			<md-button layout="column" ng-click="toggleMenu('books')" 
-				class="md-primary"> Books <md-icon ng-if="!booksCounter"
-							md-svg-src="img/icons/ic_keyboard_arrow_right_black_24px.svg"></md-icon><md-icon ng-if="booksCounter"
-							md-svg-src="img/icons/ic_keyboard_arrow_down_black_24px.svg"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</md-button>
-			<div ng-if="booksCounter == 1" style = "margin-left: 15px;">
-				<md-content layout="column" layout-xs="column" layout-align="center start"> 
-					<md-button ui-sref="bookModule.add" ng-click="close()" class="md-primary">Add Book</md-button> 
-					<md-button ui-sref="bookModule.stockAdd" ng-click="close()" class="md-primary">Book Stock Add </md-button> 
-					<md-button ui-sref="bookModule.stockList" ng-click="close()" class="md-primary">Book List </md-button>
-					<md-button ui-sref="bookModule.stockTransaction" ng-click="close()" class="md-primary">Book Transactions </md-button> 
-				</md-content>
-			</div>
-
-			<md-button layout="column" ng-click="toggleMenu('courier')" 
-				class="md-primary"> Couriers <md-icon ng-if="!courierCounter"
-							md-svg-src="img/icons/ic_keyboard_arrow_right_black_24px.svg"></md-icon><md-icon ng-if="courierCounter"
-							md-svg-src="img/icons/ic_keyboard_arrow_down_black_24px.svg">  &nbsp;&nbsp;&nbsp;&nbsp;</md-button>
-			<div  ng-if="courierCounter == 1" style = "margin-left: 15px;">
-				<md-content layout="column" layout-xs="column" layout-align="center start"> 
-					<md-button ui-sref="courierModule.add" ng-click="close()" class="md-primary">Add Courier</md-button> 
-					<md-button ui-sref="courierModule.list" ng-click="close()" class="md-primary">Courier List </md-button>
-					<md-button ui-sref="courierModule.search" ng-click="close()" class="md-primary">Courier Search </md-button> 
-				</md-content>
-			</div>
-		</div> --> <!-- <md-button 
-				ng-repeat="auth in curUser.userAuthMasterEntity.authorizations"
-				ui-sref="{{auth.uiStateName}}" ng-click="close()" class="menu-heading md-primary"
-				aria-label="auth.authDisplayName" show-gt-md><menu-link
-						section="child" ng-if="auth.authDisplayName === 'Home'"></menu-link> <menu-toggle
-						section="child" ng-if="auth.authDisplayName === 'Setup'"></menu-toggle> <span
-				ng-bind="auth.authDisplayName"> </span></md-button>  --> </md-content> </md-sidenav>
-
-				<!-- ng-show="curUser.role == 'Admin' || curUser.role == 'Teacher' || curUser.role == 'Student'" -->
-
-				<md-content flex layout-padding>
-				<div class="md-toolbar-tools" hide-gt-md>
-					<div>
-						<md-button ng-click="toggleLeft()" class="md-fab md-mini"
-							aria-label="Mini FAB" hide-gt-md> <md-icon
-							md-svg-src="img/icons/menu.svg"></md-icon> </md-button>
-					</div>
-				</div>
-				<md-card>
-				<div layout="column" layout-align="top stretch">
-					<!--<div ng-view></div>-->
-					<div ui-view>
-						<!--This is the center page of all main modules for the index module. -->
-
-
-						<md-toolbar>
-						<div class="md-toolbar-tools">
-							<section layout="row">
-								<div layout="row" layout-align="end start">
-									<md-button aria-label="Login" ng-hide="curUser !== null"
-										ng-show="curUser == null" ng-click="loginClick()">
-									Login <md-tooltip> Login </md-tooltip> </md-button>
-
-									<md-button aria-label="Logout" ng-hide="curUser == null"
-										ng-click="signOut()"> Logout <md-tooltip>
-									{{ curUser.firstName + " " + curUser.lastName + " | " +
-									curUser.email_id}} </md-tooltip> </md-button>
-
-									<md-button class="md-icon-button" aria-label="More"
-										ng-click="toggleRight()"> <md-icon
-										md-svg-icon="img/icons/more_vert.svg"></md-icon> </md-button>
-
-									<md-button aria-label="Open Settings"
-										ng-click="showListBottomSheet($event)"> <md-tooltip>
-									{{ curUser.getName() + "|" + curUser.getEmail()}} </md-tooltip> <ng-md-icon
-										icon="more_vert"></ng-md-icon> </md-button>
-									<img ng-show="true" ng-src="{{loginPersonIconUrl}}"
-										class=circular>
-								</div>
-							</section>
-						</div>
-						</md-toolbar>
-
-
-					</div>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-				</div>
-				</md-card> <!--This is a botton section of the app--> <md-divider></md-divider>
-			</section>
-		</div>
-	</md-content>
-
+	</div>
+	</md-content> </md-card> </md-content>
+	<!-- Parent tag ends-->
 	<!-- All JS Dependencies -->
 	<script src="/lib/base/jquery.min.js"></script>
 	<script src="/lib/base/bootstrap.min.js"></script>
