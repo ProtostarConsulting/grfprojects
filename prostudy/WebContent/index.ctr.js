@@ -27,6 +27,10 @@ angular
 						$mdToast.show($mdToast.simple().content(errorMsg)
 								.position("top").capsule(true).hideDelay(9000));
 					};
+					$scope.back = function() {
+						window.history.back();
+					};
+					
 					$scope.data = {
 						expanded : true
 					};

@@ -22,11 +22,17 @@
 
 </head>
 <body layout="column" ng-cloak md-theme="{{theme}}">
+	<div ng-show="loading">
+		<h4 class="md-title">Loading...Please wait...</h4>
+
+		<md-progress-linear class="md-warn" md-mode="buffer" value="30"
+			md-buffer-value="70" ng-disabled="false"></md-progress-linear>
+	</div>
 	<md-content> <!-- Parent tag--> <md-card
 		name="outerMdCard"> <!-- <div layout="column" layout-fill> -->
-	<div ng-show="loading">Loading...</div>
-	<md-content id="topRight"> <!-- Top Navigation Pane --> <md-toolbar
-		style="height: 80px; width: 100%">
+
+	<md-content id="topRight" ng-hide="loading"> <!-- Top Navigation Pane -->
+	<md-toolbar style="height: 80px; width: 100%">
 	<div id="container" class="md-toolbar-tools">
 		<img id="image" src="img/images/GVSP_GRF_Logo_2.png"
 			style="height: 79px; width: 319px" /> <span flex></span>

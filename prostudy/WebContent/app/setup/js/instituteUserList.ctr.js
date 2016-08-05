@@ -15,6 +15,10 @@ angular
 					// $scope.curUser =
 					// appEndpointSF.getLocalUserService().getLoggedinUser();
 
+					$scope.changeAuthView = function(params) {
+						$state.go("setup.userauth", params);
+					}
+					
 					$scope.getInstituteUsers = function(refresh) {
 						var userListCacheKey = "getInstituteUsers";
 						// Note this key has to be unique across application
