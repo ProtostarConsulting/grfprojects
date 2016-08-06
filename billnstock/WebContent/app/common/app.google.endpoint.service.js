@@ -1071,12 +1071,11 @@ function googleEndpointSF($log, $q) {
 	
 	
 	
-	AccountService.getaccountlist=function(){
+	AccountService.getAccountList=function(){
 		var deferred = $q.defer();
-		gapi.client.accountService.getaccountlist().execute(
+		gapi.client.accountService.getAccountList().execute(
 				function(resp) {
-					$log.debug("getaccountlist#resp at enpoint:"
-							+ angular.toJson(resp));
+					
 					deferred.resolve(resp.items);
 				});
 		return deferred.promise;
@@ -1106,24 +1105,7 @@ function googleEndpointSF($log, $q) {
 	}
 	
 	
-	/*AccountService.getaccountlist = function() {
-		var deferred = $q.defer();
-		gapi.client.accountService.getaccountlist({
-			"id" : accountId
-		}).execute(function(resp) {
-			$log.debug("getaccountlist at enpoint" + resp);
-			deferred.resolve(resp);
-		});
-		return deferred.promise;
-	}*/
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	AccountService.getAllAccountsByBusiness = function(id) {
 		var deferred = $q.defer();
@@ -1235,8 +1217,8 @@ function googleEndpointSF($log, $q) {
 	AccountEntryService.getAccountEntryList = function() {
 		var deferred = $q.defer();
 		gapi.client.accountEntryService.getAccountEntryList().execute(function(resp) {
-			$log.debug("List at enpoint" + resp);
-			deferred.resolve(resp);
+			$log.debug("List at enpoint" + resp.items);
+			deferred.resolve(resp.items);
 		});
 		return deferred.promise;
 	}
