@@ -300,6 +300,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl : '/app/accounting/generalEntitylist.html',
 		controller :'generalListCtr'
 	})
+	.state('accounting.voucher', {
+		url : "/generalEntitylist",
+		templateUrl : '/app/accounting/voucher.html',
+		controller :'voucherCtr'
+	})
 	
 	
 	

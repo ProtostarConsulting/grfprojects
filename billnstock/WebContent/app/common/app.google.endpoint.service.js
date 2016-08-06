@@ -1097,6 +1097,13 @@ function googleEndpointSF($log, $q) {
 	}
 	
 	
+	AccountService.deleteaccByid = function(id) {
+		var deferred = $q.defer();
+		gapi.client.accountService.deleteaccByid({"id":id}).execute(function(resp) {
+			deferred.resolve(resp);
+		});
+		return deferred.promise;
+	}
 	
 	
 	/*AccountService.getaccountlist = function() {
