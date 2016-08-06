@@ -42,8 +42,8 @@ public class AccountService {
 	}
 
 	
-@ApiMethod(name = "getaccountlist")
-	public List<AccountEntity> getaccountlist() {
+@ApiMethod(name = "getAccountList")
+	public List<AccountEntity> getAccountList() {
 
 		List<AccountEntity> filteredAccounts = ofy().load().type(AccountEntity.class)
 				.list();
