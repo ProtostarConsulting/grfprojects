@@ -2,6 +2,7 @@ package com.protostar.billingnstock.account.entities;
 
 import java.util.List;
 
+import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Ignore;
 import com.protostar.billnstock.entity.BaseEntity;
@@ -21,7 +22,18 @@ public class AccountEntity extends BaseEntity {
 	private Integer displayOrderNo;
 	private Boolean contra = false;
 	private String accountType;
+	Ref<AccountGroupEntity> accountgroup;
 	
+
+
+	public AccountGroupEntity getAccountgroup() {
+		return accountgroup.get();
+	}
+
+	public void setAccountgroup(AccountGroupEntity accountgroup) {
+		this.accountgroup = Ref.create(accountgroup);
+	}
+
 	public AccountEntity(){
 		
 	}
