@@ -1,4 +1,4 @@
-var app = angular.module("stockApp");
+/*var app = angular.module("stockApp");
 
 app.controller("accountlistCtr", function($scope, $window, $mdToast, $timeout,
 		$mdSidenav, $mdUtil, $log, $stateParams, objectFactory, appEndpointSF,$mdDialog,$mdMedia, $state  ) {
@@ -10,14 +10,17 @@ app.controller("accountlistCtr", function($scope, $window, $mdToast, $timeout,
 	};
 
 
-	$scope.getaccountlist=function(){
+	$scope.getAccountList=function(){
 		
-	var getlist=appEndpointSF.getAccountService();
-	getlist.getaccountlist().then(function(list){
+	var AccountService=appEndpointSF.getAccountService();
+	AccountService.getAccountList().then(function(list){
 		$scope.accounts=list;
 	
 			});
 		}
+
+	$scope.getAccountList();
+
 	
 	
 	$scope.delAccByid=function(daccountid){
@@ -26,7 +29,7 @@ app.controller("accountlistCtr", function($scope, $window, $mdToast, $timeout,
 		
 		delrecord.deleteaccByid(daccountid).then(function(){
 			$scope.showDelToast();
-			$scope.getaccountlist();
+			$scope.getAccountList();
 			
 			
 		});
@@ -48,4 +51,45 @@ app.controller("accountlistCtr", function($scope, $window, $mdToast, $timeout,
 	       $timeout($scope.waitForServiceLoad, 1000);
 	      }
 	     }
+});
+*/
+var app = angular.module("stockApp");
+
+app.controller("accountlistCtr", function($scope, $window, $mdToast, $timeout,
+		$mdSidenav, $mdUtil, $log, $stateParams, objectFactory, appEndpointSF,$mdDialog,$mdMedia, $state  ) {
+
+	$scope.query = {
+		order : 'name',
+		limit : 5,
+		page : 1
+	};
+
+
+	$scope.getAccountList=function(){
+		
+	var AccountService=appEndpointSF.getAccountService();
+	AccountService.getAccountList().then(function(list){
+		$scope.accounts=list;
+	
+			});
+		}
+	$scope.getAccountList();
+	
+	$scope.delAccByid=function(daccountid){
+		
+		var delrecord=appEndpointSF.getAccountService();
+		
+		delrecord.deleteaccByid(daccountid).then(function(){
+			$scope.showDelToast();
+			$scope.getAccountList();
+			
+			
+		});
+		
+		
+		
+	}
+	
+	
+	
 });
