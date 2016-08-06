@@ -9,21 +9,26 @@
 	[<span style="color: red;">Field Marked as asterik (*) are
 		mandetory</span>]
 
-	<div layout layout-sm="column">
-		<md-input-container flex> <label>Date</label> <input
-			name="date" id="date" ng-model="tempGeneralEntry.date" readonly>
-		</md-input-container>
+	<div layout layout-sm="column" >
 
+		<label style= "margin-top: 10px">Date</label>
+
+		<md-datepicker id="date" name="date" ng-model="tempGeneralEntry.date"
+			md-placeholder="Enter date"></md-datepicker>
+		<div ng-messages="generalEntryForm.date.$error"
+			ng-if="generalEntryForm.date.$submitted || generalEntryForm.date.$touched">
+			<div ng-message="required">Please Select Date.</div>
+		</div>
 	</div>
 
 
-	<div layout layout-sm="column">
+	<div layout layout-sm="column" style= "margin-top: 20px">
 
-		<md-input-container flex> <label> Choose
-			DebitAccount<span style="color: red;">*</span>
-		</label> <md-select name="debitAcc" ng-model="debitAccount"
-			ng-required="true"> <md-option ng-value="account"
-			ng-repeat="account in accounts">{{account.accountName}}</md-option> </md-select>
+		<md-input-container flex>Dr &nbsp; <label>
+			Choose Debit Account<span style="color: red;">*</span>
+		</label> <md-select name="debitAcc" ng-model="debitAccount" ng-required="true">
+		<md-option ng-value="account" ng-repeat="account in accounts">{{account.accountName}}</md-option>
+		</md-select>
 
 
 		<div ng-messages="generalEntryForm.debitAcc.$error"
@@ -32,24 +37,34 @@
 		</div>
 		</md-input-container>
 
+		<md-input-container flex> &nbsp;<label>Amount</label>
+		<input type="number" name="amount" id="amount"
+			ng-model="tempGeneralEntry.amount" ng-required="true">
 
-		<md-input-container flex> <label> Choose
-			CreditAccount<span style="color: red;">*</span>
-		</label> <md-select name="creditAcc"
-			ng-model="creditAccount" ng-required="true">
-		<md-option ng-value="account" ng-repeat="account in accounts">{{account.accountName}}</md-option>
-		</md-select>
+
+		<div ng-messages="generalEntryForm.amount.$error"
+			ng-if="generalEntryForm.amount.$submitted || generalEntryForm.amount.$touched">
+			<div ng-message="required">Please Enter Account</div>
+		</div>
+		</md-input-container>
+
+
+
+	</div>
+	<div layout layout-sm="column">
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<md-input-container flex>Cr &nbsp; <label>
+			Choose Credit Account<span style="color: red;">*</span>
+		</label> <md-select name="creditAcc" ng-model="creditAccount"
+			ng-required="true"> <md-option ng-value="account"
+			ng-repeat="account in accounts">{{account.accountName}}</md-option> </md-select>
 
 		<div ng-messages="generalEntryForm.creditAcc.$error"
 			ng-if="generalEntryForm.creditAcc.$submitted || generalEntryForm.creditAcc.$touched">
 			<div ng-message="required">Please Choose Credit Account</div>
 		</div>
 		</md-input-container>
-
-
-	</div>
-	<div layout layout-sm="column">
-		<md-input-container flex> <label>Narration</label>
+		<md-input-container flex>&nbsp; <label>Narration</label>
 		<input name="narration" id="narration"
 			ng-model="tempGeneralEntry.narration" ng-required="true">
 		<div ng-messages="generalEntryForm.narration.$error"
@@ -58,21 +73,10 @@
 		</div>
 		</md-input-container>
 
-		<md-input-container flex> <label>Amount</label> <input type="number"
-			name="amount" id="amount" ng-model="tempGeneralEntry.amount"
-			ng-required="true">
-
-		<div ng-messages="generalEntryForm.amount.$error"
-			ng-if="generalEntryForm.amount.$submitted || generalEntryForm.amount.$touched">
-			<div ng-message="required">Please Enter Account</div>
-		</div>
-		</md-input-container>
-
 	</div>
 	<div layout="row" layout-align="center center">
 		<md-button class="md-raised md-primary" name="btn"
-			ng-disabled="generalEntryForm.$invalid" ng-click="addGeneralEntry()">Add
-		general Entry</md-button>
+			ng-disabled="generalEntryForm.$invalid" ng-click="addGeneralEntry()">Save</md-button>
 		<md-button class="md-raised md-primary" ng-click="cancelButton()">Cancel</md-button>
 
 	</div>
@@ -80,3 +84,4 @@
 
 </form>
 </md-content>
+ 

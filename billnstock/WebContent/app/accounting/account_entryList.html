@@ -1,7 +1,8 @@
 <style>
 table {
 	border: 1px solid black;
-	border-collapse: collapse; border : 1px solid black;
+	border-collapse: collapse;
+	border: 1px solid black;
 	width: 90%;
 	border: 1px solid black;
 }
@@ -16,40 +17,27 @@ td {
 	<u>Account Entry List</u>
 </h3>
 
+<form name="searchForm">
 
-<!-- <div layout="row" layout-align="centre centre" layout-xs="column"> -->
-		
-		
+	<label style="margin-top: 10px">From Date</label>
 
-		<label style= "margin-top: 10px">From Date</label>
+	<md-datepicker id="fromDate" name="fromDate" ng-model="fromDate"
+		md-placeholder="Enter From date" ng-required="true"></md-datepicker>
 
-		<md-datepicker id="fromDate" name="fromDate" ng-model="fromDate"
-			md-placeholder="Enter From date"></md-datepicker>
-	
-		
-		<label style= "margin-top: 10px">To Date</label>
 
-		<md-datepicker id="toDate" name="toDate" ng-model="toDate"
-			md-placeholder="Enter To date"></md-datepicker>
-		<md-button class="md-raised md-primary" ng-click="getAccountList(fromDate,toDate)">Get EntriesBy Date </md-button>
-		
-		
-	
-		<!-- 
-		
-		
-			
-			
-			<md-input-container flex> <label>Account Name
-			State</label> <md-select ng-model="searchAccName"
-			ng-change="getAccountEntryList()"> <md-option
-			ng-value="acc" ng-repeat="acc in accountList">{{acc.accountName}}</md-option>
-		</md-select> </md-input-container> -->
-		
-	<!-- 	</div> -->
+	<label style="margin-top: 10px">To Date</label>
 
-		
+	<md-datepicker id="toDate" name="toDate" ng-model="toDate"
+		md-placeholder="Enter To date" ng-required="true"></md-datepicker>
 
+	<md-input-container flex> <label>Account
+		Name State</label> <md-select ng-model="searchAccName" id="accountName"
+		name="accountName" ng-required="true"
+		ng-change="getAccountEntryList(searchAccName,fromDate,toDate)">
+	<md-option ng-value="acc.accountName" ng-repeat="acc in accountList"
+		ng-selected="$first">{{acc.accountName}}</md-option> </md-select> </md-input-container>
+
+</form>
 
 <div>
 	<table>
@@ -69,19 +57,27 @@ td {
 				<td>{{entry.date|formatDate}}</td>
 				<td>{{entry.accountEntity.accountName}}</td>
 				<td>{{entry.narration}}</td>
-				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{entry.debit|number:2}}</td>	
+				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{entry.debit|number:2}}</td>
 				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{entry.credit|number:2}}
-				</td>			
+				</td>
 			</tr>
-		</tbody>
 
-	<!-- 	<tr style="border: 1px solid black;">
-			<td></td>
-			<td><b>Total:</b></td>
-			<td style="text-align: right;"><b>{{total|number:2}} </b></td>
-			<td style="text-align: right;"><b>{{total|number:2}} </b></td>
-		</tr> -->
+			<tr>
+				<td colspan="3" style="text-align: right;"><b>Total:</b></td>
+				<td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{totaldebit}}</b></td>
+				<td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{totalcredit}}
+				</b></td>
+			</tr>
+			<tr>
+				<th colspan="3" style="text-align: right;"><b>Closing
+						Balance:</b></th>
+				<th></th>
+				<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{closingBalance}}</th>
+			</tr>
+
+		</tbody>
 	</table>
+
 
 </div>
 </md-content>
