@@ -1,21 +1,28 @@
 <div layout="column">
 	<div>
-		<section layout="row">
-			<div class="md-toolbar-tools">
+		<section >
+			<div layout="row" layout-align="left left" layout-wrap flex>
 				<md-button hide-xs ui-sref="accounting.account_add2" ng-click="close()"
 					class="md-primary"> Add Account</md-button>
 					
 				<md-button hide-xs ui-sref="accounting.accountlist" ng-click="close()"
 					class="md-primary"> Account List</md-button>
-
-
-				<md-button hide-xs ui-sref="accounting.accountGroupAdd" class="md-primary">Add Account Group</md-button>
-
-				<md-button hide-xs ui-sref="accounting.accountGroupList" class="md-primary"> Account Group List</md-button>
-			<md-button ui-sref="accounting.addGeneralEntry"	class="md-primary">Add Account General Entry</md-button>	
-				<md-button ui-sref="accounting.generalEntitylist"  class="md-primary"> General Entry List</md-button>	
-					
+					<md-button hide-xs ui-sref="accounting.accountGroupAdd" class="md-primary">Add Account Group</md-button>
+					<md-button hide-xs ui-sref="accounting.accountGroupList" class="md-primary"> Account Group List</md-button>
+				<md-button ui-sref="accounting.addGeneralEntry"	class="md-primary">Add Account General Entry</md-button>	
+				<md-button ui-sref="accounting.generalEntitylist"  class="md-primary"> General Entry List</md-button>
+				
+	
+				<md-button ui-sref="accounting.voucher"  class="md-primary">Voucher</md-button>
+				
+				
 			</div>
+			
+		
+			
+			
+			
+		
 
 			<div class="md-toolbar-tools">
 				<span flex></span>
@@ -36,9 +43,9 @@
 			<h1 class="md-toolbar-tools">Accounting </h1>
 			
 			</md-toolbar>
-			<md-button show-xs ui-sref="accounting.account_add2" ng-click="close()"	class="md-primary"> Add Account</md-button>
+			<md-button show-xs ui-sref="accounting.account_add2" ng-click="close()"	class="md-accent"> Add Account</md-button>
 					
-				<md-button show-xs ui-sref="accounting.accountlist" ng-click="close()"	class="md-primary"> Account List</md-button>
+				<md-button show-xs ui-sref="accounting.accountlist" ng-click="close()"	class="md-accent"> Account List</md-button>
 
 				<md-button show-xs ui-sref="accounting.accountGroupAdd" class="md-primary">Add Account Group</md-button>
 
