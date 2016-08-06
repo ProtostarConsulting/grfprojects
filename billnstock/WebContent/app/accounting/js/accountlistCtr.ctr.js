@@ -18,7 +18,7 @@ app.controller("accountlistCtr", function($scope, $window, $mdToast, $timeout,
 	
 			});
 		}
-	$scope.getaccountlist();
+	
 	
 	$scope.delAccByid=function(daccountid){
 		
@@ -34,7 +34,18 @@ app.controller("accountlistCtr", function($scope, $window, $mdToast, $timeout,
 		
 		
 	}
+	  $scope.getaccountlist();
 	
 	
-	
+	$scope.waitForServiceLoad = function() {
+	      if (appEndpointSF.is_service_ready) {
+	       
+	    	  $scope.getaccountlist();
+	       
+
+	      } else {
+	       $log.debug("Services Not Loaded, watiting...");
+	       $timeout($scope.waitForServiceLoad, 1000);
+	      }
+	     }
 });
