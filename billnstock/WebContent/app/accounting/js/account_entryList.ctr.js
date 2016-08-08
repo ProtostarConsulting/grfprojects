@@ -33,6 +33,8 @@ app.controller(
 												$scope.totalcredit = 0;
 
 												$scope.closingBalance = 0;
+												$scope.openingBalance = 0;
+												
 
 												for (var i = 0; i < entryList.length; i++) {
 													if (entryList[i].accountEntity.accountName == accName
@@ -72,8 +74,8 @@ app.controller(
 													}
 													if (entryList[i].accountEntity.accountType
 															.trim() == "NOMINAL") {
-														$scope.closingBalance = $scope.totaldebit
-																- $scope.totalcredit;
+														$scope.closingBalance = $scope.totalcredit
+																- $scope.totaldebit;
 													}
 
 												}
