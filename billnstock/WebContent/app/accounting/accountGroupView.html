@@ -1,0 +1,73 @@
+<style>
+table {
+	border: 1px solid black;
+	border-collapse: collapse;
+	border: 1px solid black;
+	width: 90%;
+	border: 1px solid black;
+}
+
+td {
+	border: 1px solid black;
+}
+</style>
+<md-content layout-padding>
+
+<h3 class="md-headline">
+	<u>Account Group View</u>
+</h3>
+
+<form name="searchForm">
+</form>
+
+<div>
+	<table>		
+	 <tr  style="text-align: center;">
+	 <td rowspan="4" colspan="3">Particulars</td>
+   	<td colspan="2" >
+   	<md-input-container flex> <md-select
+				ng-model="groupName" name="group" ng-required="true" ng-change="getAccountListByGroupId(groupName)"><lable>Account Group<span style="color: red;">*</span></lable>
+			<md-option ng-value="group.id"  ng-repeat="group in GroupList" selected="$first">{{group.groupName}}
+			
+			</md-option> </md-select>	
+				
+			 </md-input-container></td>   		
+   	
+   	</tr>
+  	<tr  style="text-align: center;">
+   		<td colspan="2">Closing Balance</td>
+   </tr>
+   	<tr  style="text-align: center;">
+   		<td><md-datepicker id="fromDate" name="fromDate" ng-model="fromDate" ng-change="getAccountListByGroupId(groupName)"
+		md-placeholder="Enter From date" ng-required="true" ></md-datepicker></td>
+   		
+   		<td><md-datepicker id="toDate" name="toDate" ng-model="toDate" ng-change="getAccountListByGroupId(groupName)"
+		md-placeholder="Enter To date" ng-required="true" ></md-datepicker>
+   		</td>
+   </tr>
+  <tr  style="text-align: center;">
+   <td>Debit </td>
+   <td>  Credit</td>
+  </tr>
+	
+<tr  style="text-align: center;">
+   
+  </tr>
+  
+  <tr ng-repeat="acc in accountList" >
+ 
+				<td  colspan="3" ng-init="getAccountEntryByAccountId(acc.id,$index)">{{acc.accountName}}</td>
+				<td style="text-align: right;">{{acc.totaldebit |number:2}}</td>
+				<td style="text-align: right;">{{acc.totalcredit |number:2}}</td>
+			</tr>			
+			
+			<tr>
+			<th colspan="3" style="text-align: right;"><b>Grand Total:</b></th>
+				<th style="text-align: right;">{{grandDebitTotal}}</th>
+				<th style="text-align: right;">{{grandCreditTotal}}</th>
+			</tr>
+	</table>	
+
+</div>
+
+</md-content>
