@@ -278,7 +278,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			
 			}
 	})
-
+	.state('accounting.accountGroupView', {
+		url : "/accountGroupView",
+		templateUrl : '/app/accounting/accountGroupView.html',
+		controller : 'accountGroupViewCtr',
+			params:{							
+			}
+	})
+	
 
  .state('accounting.addGeneralEntry', {
 		url : "/addGeneralEntry",
