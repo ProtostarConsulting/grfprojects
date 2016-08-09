@@ -2,6 +2,7 @@ package com.protostar.prostudy.service;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -20,9 +21,14 @@ public class InstituteService {
 
 	@ApiMethod(name = "addInstitute")
 	public InstituteEntity addInstitute(InstituteEntity insti) {
-		InstituteEntity now = insti;
+		InstituteEntity instEntity = new InstituteEntity();
+		
+		InstituteEntity inst = insti;
+		
+		Date date = new Date();
+		instEntity.setCreatedDate(date);
 		ofy().save().entity(insti).now();
-		return now;
+		return inst;
 	}
 
 	@ApiMethod(name = "getInstitutes")
