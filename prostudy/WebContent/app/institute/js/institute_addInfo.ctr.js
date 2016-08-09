@@ -120,7 +120,7 @@ angular.module("prostudyApp").controller(
 			$scope.tempInstitute = {
 				name : "",
 				desc : "",
-				address : "",
+				address : {},
 				phone_no : "",
 				accounttype :''
 
@@ -146,16 +146,14 @@ angular.module("prostudyApp").controller(
 						$scope.selectedTeachers).then(function(institute) {
 				
 					$scope.userEntity.instituteID=institute.result.id;
-					$scope.userEntity.authority.push("admin");
+/*					$scope.userEntity.authority.push("admin");
 					$scope.userEntity.role = "Admin";
 					
 					var UserService = appEndpointSF.getUserService();
 					UserService.addUser($scope.userEntity).then(function(msgBean) {
 
 						});
-/*					$state.reload();
-					$state.go("home");
-*/					
+*/				
 					$state.go("institute.addAdmins", {
 						currentInstID : $scope.userEntity.instituteID
 					});

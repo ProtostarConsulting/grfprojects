@@ -30,7 +30,7 @@
 
 
 		<div layout="row" layout-xs="column" flex>
-			<md-input-container flex> <label>Institute
+<!-- 			<md-input-container flex> <label>Institute
 				Address<span style="color: red"
 				ng-show="editInstituteForm.address.$error.required"
 				class="mandatory">*</span>
@@ -41,8 +41,8 @@
 				<div ng-message="required">Please Enter Institute Address.</div>
 			</div>
 			</md-input-container>
-
-			<md-input-container flex> <label>Contact
+ -->
+			<md-input-container flex=50> <label>Contact
 				No<span style="color: red"
 				ng-show="editInstituteForm.phone_no.$error.required"
 				class="mandatory">*</span>
@@ -59,42 +59,88 @@
 			</md-input-container>
 		</div>
 
-		
 
+		<div layout="row" layout-xs="column" flex>
+			<!-- <span flex="10"></span> -->
+			<h3 class="md-subhead">Address</h3>
+		</div>
 
-		<div flex layout="row">
-			<md-input-container flex> <label>Institute
-			Name</label> <input name="Plan"
-			ng-model="tempInstitute.accounttype.accountName" ng-disabled="true"> </md-input-container>
-		
-
-<!-- 
-			<md-input-container flex="100"> <md-select
-				ng-model="accountName" name="account"
-				placeholder="Account Name"
-				ng-required="true"> <md-option ng-value="{{account.accountName}}" 
-				ng-repeat="account in accountTypes" >{{account.accountName}} ( {{account.description}} )</md-option>
-			</md-select> -->
+		<div layout="row" layout-xs="column">
+			<md-input-container flex> <label>Address1
+				<span style="color: red;"
+				ng-show="editInstituteForm.line1.$error.required">*</span>
+			</label> <input name="line1" id="line1"
+				ng-model="tempInstitute.address.line1" ng-required="true">
+			<div ng-messages="editInstituteForm.line1.$error"
+				ng-if="editInstituteForm.line1.$submitted || editInstituteForm.line1.$touched">
+				<div ng-message="required">Please Enter Address.</div>
 			</div>
-			
+			</md-input-container>
+			<md-input-container flex> <label>Address2
+			</label> <input name="line2" id="line2"
+				ng-model="tempInstitute.address.line2"></md-input-container>
+		</div>
+
+		<div layout="row" layout-xs="column">
+			<md-input-container flex> <label>At
+				Post/City <!-- <span style="color: red;"
+				ng-show="editInstituteForm.city.$error.required">*</span> -->
+			</label> <input name="city" id="city" ng-model="tempInstitute.address.city">
+			<div ng-messages="editInstituteForm.city.$error"
+				ng-if="editInstituteForm.city.$submitted || editInstituteForm.city.$touched">
+				<div ng-message="required">Please Enter City Name.</div>
+			</div>
+			</md-input-container>
+
+			<md-input-container flex> <input name="state"
+				id="state" placeholder="State"
+				ng-model="tempInstitute.address.state"></md-input-container>
+			</md-input-container>
+		</div>
+
+		<div layout="row" layout-xs="column">
+
+			<md-input-container flex> <input name="state"
+				id="state" placeholder="District"
+				ng-model="tempInstitute.address.dist"></md-input-container>
+			</md-input-container>
+
+			<md-input-container flex> <input name="taluka"
+				id="taluka" placeholder="Taluka"
+				ng-model="tempInstitute.address.tal"></md-input-container>
+			</md-input-container>
+		</div>
+
+		<div layout="row" layout-xs="column">
+			<md-input-container flex> <label>At
+				Post/City <span style="color: red;"
+				ng-show="editInstituteForm.pin.$error.required">*</span>
+			</label> <input name="pin" id="pin" ng-model="tempInstitute.address.pin"
+				ng-required="true">
+			<div ng-messages="editInstituteForm.pin.$error"
+				ng-if="editInstituteForm.pin.$submitted || editInstituteForm.pin.$touched">
+				<div ng-message="required">Please Enter PIN Code.</div>
+			</div>
+			</md-input-container>
+
+			<md-input-container flex> <label>Institute
+				Name</label> <input name="Plan"
+				ng-model="tempInstitute.accounttype.accountName" ng-disabled="true">
+			</md-input-container>
+
+		</div>
+
 
 	</form>
 </div>
 
 <div layout="row" layout-align="center center" layout-xs="column">
-
-	<md-button
-			class="md-raised md-primary" ng-click="updateInstitute()"
-			ng-disabled="editInstituteForm.$invalid">Update </md-button> </a>
+	<md-button class="md-raised md-primary" ng-click="updateInstitute()"
+		ng-disabled="editInstituteForm.$invalid">Update </md-button>
+	</a>
 
 	<!-- <md-button class="md-raised md-primary" ng-click="showAlert($event)" ng-disabled="editInstituteForm.$invalid">Add
 	Institute </md-button> -->
 
 	<md-button class="md-raised " ng-click="cancelButton()">Cancel</md-button>
-
 </div>
-
-
-
-
-

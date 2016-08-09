@@ -22,6 +22,12 @@ angular
 								'New Record Saved Successfully.').position(
 								"top").hideDelay(3000));
 					};
+					
+					$scope.show400Toast = function() {
+						$mdToast.show($mdToast.simple().content(
+								'Something goes wrong. Record not saved.').position(
+								"top").hideDelay(4000));
+					};
 
 					$scope.showErrorToast = function(errorMsg) {
 						$mdToast.show($mdToast.simple().content(errorMsg)
@@ -30,10 +36,12 @@ angular
 					$scope.back = function() {
 						window.history.back();
 					};
+
 					
 					$scope.data = {
 						expanded : true
 					};
+
 
 					$scope.loading = true;
 					$scope.curUser = null;

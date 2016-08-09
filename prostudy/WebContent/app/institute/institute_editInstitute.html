@@ -31,17 +31,6 @@
 		</div>
 
 		<div layout="row" layout-align="centre centre" layout-xs="column">
-			<md-input-container flex> <label>Institute
-				Address<span style="color: red"
-				ng-show="instituteEditForm.address.$error.required"
-				class="mandatory">*</span>
-			</label> <input name="address" id="address" ng-model="Institute.address"
-				required name="address">
-			<div ng-messages="instituteEditForm.address.$error"
-				ng-if="instituteEditForm.address.$submitted || instituteEditForm.address.$touched">
-				<div ng-message="required">Please Enter Institute Address.</div>
-			</div>
-			</md-input-container>
 
 			<md-input-container flex> <label>Contact<span
 				style="color: red"
@@ -58,6 +47,76 @@
 			</div>
 			</md-input-container>
 		</div>
+
+		<div layout="row" layout-xs="column" flex>
+			<!-- <span flex="10"></span> -->
+			<h3 class="md-subhead">Address</h3>
+		</div>
+
+		<div layout="row" layout-xs="column">
+			<md-input-container flex> <label>Address1
+				<span style="color: red;"
+				ng-show="instituteEditForm.line1.$error.required">*</span>
+			</label> <input name="line1" id="line1"
+				ng-model="Institute.address.line1" ng-required="true">
+			<div ng-messages="instituteEditForm.line1.$error"
+				ng-if="instituteEditForm.line1.$submitted || instituteEditForm.line1.$touched">
+				<div ng-message="required">Please Enter Address.</div>
+			</div>
+			</md-input-container>
+			<md-input-container flex> <label>Address2
+			</label> <input name="line2" id="line2"
+				ng-model="Institute.address.line2"></md-input-container>
+		</div>
+
+		<div layout="row" layout-xs="column">
+			<md-input-container flex> <label>At
+				Post/City <!-- <span style="color: red;"
+				ng-show="instituteEditForm.city.$error.required">*</span> -->
+			</label> <input name="city" id="city" ng-model="Institute.address.city">
+			<div ng-messages="instituteEditForm.city.$error"
+				ng-if="instituteEditForm.city.$submitted || instituteEditForm.city.$touched">
+				<div ng-message="required">Please Enter City Name.</div>
+			</div>
+			</md-input-container>
+
+			<md-input-container flex> <input name="state"
+				id="state" placeholder="State"
+				ng-model="Institute.address.state"></md-input-container>
+			</md-input-container>
+		</div>
+
+		<div layout="row" layout-xs="column">
+
+			<md-input-container flex> <input name="state"
+				id="state" placeholder="District"
+				ng-model="Institute.address.dist"></md-input-container>
+			</md-input-container>
+
+			<md-input-container flex> <input name="taluka"
+				id="taluka" placeholder="Taluka"
+				ng-model="Institute.address.tal"></md-input-container>
+			</md-input-container>
+		</div>
+
+<div layout="row" layout-xs="column">
+		<md-input-container flex> <label>At
+			Post/City <span style="color: red;"
+			ng-show="instituteEditForm.pin.$error.required">*</span>
+		</label> <input name="pin" id="pin" ng-model="Institute.address.pin"
+			ng-required="true">
+		<div ng-messages="instituteEditForm.pin.$error"
+			ng-if="instituteEditForm.pin.$submitted || instituteEditForm.pin.$touched">
+			<div ng-message="required">Please Enter PIN Code.</div>
+		</div>
+		</md-input-container>
+
+		<md-input-container flex> <md-select 
+			ng-model="selectedaccount" placeholder="Plan"
+			ng-change="accountDDLChange($index, selectedaccount)"> <md-option
+			ng-value="list" ng-repeat="list in accountlist">{{list.accountName}}
+		( {{list.description}} ) </md-option> </md-select> </md-input-container>
+</div>
 
 
 		<div layout="row" layout-align="center center" layout-xs="column">

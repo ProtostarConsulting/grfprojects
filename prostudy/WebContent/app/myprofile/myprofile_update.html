@@ -92,12 +92,11 @@
 		
 		<div layout="row" layout-align="center end">
 
-			<td><md-button class="md-primary md-raised"
-					ng-click="showAdvanced($event)" ng-hide="flag"> Change password</md-button></td>
+			<md-button class="md-primary md-raised"
+					ng-click="showAdvanced($event)" ng-hide="curUser.isGoogleUser"> Change password</md-button>
 			<md-button class="md-raised md-primary" ng-disabled="profileForm.$invalid" ng-click="showConfirm($event)">Update
 			Profile</md-button>
-<!-- 			<md-button class="md-raised md-primary" ng-click="skip()">Skip</md-button>
- -->
+
 		</div>
 	</form>
 

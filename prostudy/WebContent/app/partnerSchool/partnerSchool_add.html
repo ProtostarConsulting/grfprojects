@@ -686,14 +686,14 @@
 								ng-if="book.standard==bb.standard">{{book.bookName}}({{book.bookMedium}})</md-option>
 							</md-select> </md-input-container></td>
 						<td><md-input-container flex> <!-- <input
-							type="number" ng-model="bb.bookPrise"> --> {{bb.bookPrise}}</md-input-container></td>
+							type="number" ng-model="bb.bookPrise"> --> {{bb.bookPrise | number : 2}}</md-input-container></td>
 						<td><md-input-container flex> <input
 								type="number" name="totalStud" min="1"
 								ng-blur="calculate($index,bb.totalStud)" ng-model="bb.totalStud">
 							</md-input-container></td>
 						<td><md-input-container flex> <!-- <input
 							type="number" name="totalFees" ng-model="bb.totalFees"> -->
-							{{bb.totalFees}}</md-input-container></td>
+							{{bb.totalFees | number : 2}}</md-input-container></td>
 						<td><md-button class="md-icon-button"
 								ng-click="removeBook($index)" layout-align="end end">
 							<md-tooltip> Remove Book</md-tooltip> <md-icon
@@ -759,7 +759,7 @@
 
 			<tr>
 				<td>Total :-</td>
-				<td>{{bookSummary.total}}</td>
+				<td>{{bookSummary.total | number : 2}}</td>
 				<td></td>
 				<td></td>
 				<td></td>
@@ -768,7 +768,7 @@
 			</tr>
 			<tr>
 				<td>20% Fees for Institute :-</td>
-				<td>{{bookSummary.amtForInst20per}}</td>
+				<td>{{bookSummary.amtForInst20per | number : 2}}</td>
 				<td></td>
 				<td></td>
 				<td></td>
@@ -777,7 +777,7 @@
 			</tr>
 			<tr>
 				<td>80% Fees for GRF :-</td>
-				<td>{{bookSummary.amtForGRF80per}}</td>
+				<td>{{bookSummary.amtForGRF80per | number : 2}}</td>
 				<td></td>
 				<td></td>
 				<td></td>
