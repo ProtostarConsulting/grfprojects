@@ -2,7 +2,7 @@ package com.protostar.billingnstock.account.services;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +17,6 @@ import com.protostar.billingnstock.account.entities.PayableEntity;
 import com.protostar.billingnstock.account.entities.ReceivableEntity;
 import com.protostar.billingnstock.cust.entities.Customer;
 import com.protostar.billingnstock.user.entities.BusinessEntity;
-import com.twilio.sdk.resource.instance.Account;
 
 @Api(name = "accountService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.billingnstock.stock.cust.services", ownerName = "com.protostar.billingnstock.stock.cust.services", packagePath = ""))
 public class AccountService {
@@ -35,45 +34,58 @@ public class AccountService {
 
 	}
 
-	
-@ApiMethod(name = "addAccount1")
+	@ApiMethod(name = "addAccount1")
 	public void addAccount1(AccountEntity accountEntity) {
 		ofy().save().entity(accountEntity).now();
 	}
 
-	
-@ApiMethod(name = "getAccountList")
+	@ApiMethod(name = "getAccountList")
 	public List<AccountEntity> getAccountList() {
 
-		List<AccountEntity> filteredAccounts = ofy().load().type(AccountEntity.class)
-				.list();
+		List<AccountEntity> filteredAccounts = ofy().load()
+				.type(AccountEntity.class).list();
 
 		return filteredAccounts;
 	}
 
-@ApiMethod(name = "getAccountById")
+	@ApiMethod(name = "getAccountListByGroupId", path = "getAccountListByGroupId")
+	public List<AccountEntity> getAccountListByGroupName(@Named("id") Long groupId) {
+		System.out.println("groupId" + groupId);
+
+		List<AccountEntity> filteredAccounts = new ArrayList<AccountEntity>();
+		List<AccountEntity> accountList = ofy().load().type(AccountEntity.class).list();
+
+		for (AccountEntity ss : accountList) {
+			if (ss.getAccountgroup().getId().equals(groupId)) {
+				filteredAccounts.add(ss);
+			}
+			
+		}
+
+		return filteredAccounts;
+	}
+
+	@ApiMethod(name = "getAccountById")
 	public AccountEntity getAccountById(@Named("id") Long accountId) {
 
-		AccountEntity accountById = ofy().load().type(AccountEntity.class).id(accountId).now();
+		AccountEntity accountById = ofy().load().type(AccountEntity.class)
+				.id(accountId).now();
 
 		return accountById;
 	}
-	
 
-@ApiMethod(name = "deleteaccByid")
-public void deleteaccByid(@Named("id") Long accountId) {
+	@ApiMethod(name = "deleteaccByid")
+	public void deleteaccByid(@Named("id") Long accountId) {
 
- ofy().delete().type(AccountEntity.class).id(accountId).now(); 
+		ofy().delete().type(AccountEntity.class).id(accountId).now();
 
-	
-}
+	}
 
+	/*
+	 * &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+	 * &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+	 */
 
-
-
-/*&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&*/	
-	
-	
 	@ApiMethod(name = "getAllAccountsByBusiness")
 	public List<AccountEntity> getAllAccountsByBusiness(@Named("id") Long busId) {
 
@@ -87,8 +99,6 @@ public void deleteaccByid(@Named("id") Long accountId) {
 		return filteredAccounts;
 	}
 
-	
-	
 	@ApiMethod(name = "getCustomerByID")
 	public Customer getCustomerByID(@Named("Id") Long Id) {
 
@@ -111,7 +121,7 @@ public void deleteaccByid(@Named("id") Long accountId) {
 		} else {
 			payableEntity.setModifiedDate(new Date());
 		}
-		
+
 		ofy().save().entity(payableEntity).now();
 
 	}
@@ -129,15 +139,17 @@ public void deleteaccByid(@Named("id") Long accountId) {
 		return filteredPayables;
 	}
 
-	@ApiMethod(name = "getPayableByID", path="getPayableByID")
+	@ApiMethod(name = "getPayableByID", path = "getPayableByID")
 	public PayableEntity getPayableByID(@Named("id") Long payableId) {
 
-		PayableEntity payableById = ofy().load().type(PayableEntity.class).id(payableId).now();
+		PayableEntity payableById = ofy().load().type(PayableEntity.class)
+				.id(payableId).now();
 
 		return payableById;
 	}
+
 	/*
-	 =========================Account Receivable Methods======================
+	 * =========================Account Receivable Methods======================
 	 */
 
 	@ApiMethod(name = "addReceivable")
@@ -167,10 +179,11 @@ public void deleteaccByid(@Named("id") Long accountId) {
 		return filteredReceivables;
 	}
 
-	@ApiMethod(name = "getReceivableByID", path="getReceivableByID")
+	@ApiMethod(name = "getReceivableByID", path = "getReceivableByID")
 	public ReceivableEntity getReceivableByID(@Named("id") Long receivableId) {
 
-		ReceivableEntity receivableById = ofy().load().type(ReceivableEntity.class).id(receivableId).now();
+		ReceivableEntity receivableById = ofy().load()
+				.type(ReceivableEntity.class).id(receivableId).now();
 
 		return receivableById;
 	}

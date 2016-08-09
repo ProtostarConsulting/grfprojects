@@ -36,7 +36,7 @@ public class GeneralEntryService {
 		creditAcc.setDate(entryEntity.getDate());
 		creditAcc.setNarration(entryEntity.getNarration());
 		creditAcc.setCredit(entryEntity.getAmount());
-		creditAcc.setAccountEntity(entryEntity.getDebitAccount());
+		creditAcc.setAccountEntity(entryEntity.getCreditAccount());
 		creditAcc.setCreatedDate(new Date());
 		
 		aes.addAccountEntry(creditAcc);
