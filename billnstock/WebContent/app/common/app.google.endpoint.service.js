@@ -1082,7 +1082,14 @@ function googleEndpointSF($log, $q) {
 	}
 	
 	
-	
+	AccountService.getAccountListByGroupId = function(groupId) {
+		var deferred = $q.defer();
+		gapi.client.accountService.getAccountListByGroupId({"id" : groupId}).execute(function(resp) {
+			$log.debug("xx enpoint" + resp.items);
+			deferred.resolve(resp.items);
+		});
+		return deferred.promise;
+	}
 	
 	AccountService.getAccountById = function(accountId) {
 		var deferred = $q.defer();
@@ -1222,6 +1229,20 @@ function googleEndpointSF($log, $q) {
 		});
 		return deferred.promise;
 	}
+	
+	AccountEntryService.getAccountEntryByAccountId = function(accId) {
+		var deferred = $q.defer();
+		gapi.client.accountEntryService.getAccountEntryByAccountId({"id" : accId}).execute(function(resp) {
+			$log.debug("accountEntryService enpoint" + resp.items);
+			deferred.resolve(resp.items);
+		});
+		return deferred.promise;
+	}
+	
+	
+	
+	
+	
 	/* =============================================================================================================================== */
 	
 	
