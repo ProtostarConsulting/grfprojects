@@ -1,4 +1,26 @@
+
 <div layout="column">
+<style>
+
+.animate-show {
+  line-height: 20px;
+  opacity: 1;
+  padding: 10px;
+    background: white;
+}
+
+.animate-show.ng-hide-add, .animate-show.ng-hide-remove {
+  transition: all linear 0.2s;
+}
+
+.animate-show.ng-hide {
+  line-height: 0;
+  opacity: 0;
+  padding: 0 10px;
+}
+
+
+</style>
 	<div>
 		<section >
 			<div layout="row" layout-align="left left" layout-wrap flex>
@@ -16,12 +38,18 @@
 			<md-button ui-sref="accounting.addGeneralEntry"	class="md-primary">Add General Entry</md-button>	
 				<md-button ui-sref="accounting.generalEntitylist"  class="md-primary"> General Entry List</md-button>
 				<md-button ui-sref="accounting.entryList"class="md-primary">Account EntryList</md-button>	
-				<md-button ui-sref="accounting.voucher"  class="md-primary">Voucher</md-button>				
-
+				<md-button ui-sref="accounting.voucher"  class="md-primary">Voucher</md-button>	
+					<md-button ui-sref="accounting.voucherList"  class="md-primary">Voucher List</md-button>	
+							
+	<!-- 	<md-button show-xs  ng-click="click(tv)" id="v" class="md-primary">Vouche2r</md-button> -->
 			</div>
 			
+			<div class="animate-show">			
+			<md-button ng-show="vt" ui-sref="accounting.voucher"  id ="vt" class="md-primary animate-show">Voucher Type</md-button>
+						</div>
 		
 			
+</div>
 			
 			
 		
@@ -52,12 +80,19 @@
 				<md-button show-xs ui-sref="accounting.accountGroupAdd" class="md-primary">Add Account Group</md-button>
 
 				<md-button show-xs ui-sref="accounting.accountGroupList" class="md-primary"> Account Group List</md-button>
+
+							
+
 				<md-button hide-xs ui-sref="accounting.accountGroupView" class="md-primary"> Group View</md-button>	
 				
+
 				<md-button ui-sref="accounting.addGeneralEntry"	class="md-primary">Add Account General Entry</md-button>	
 				<md-button ui-sref="accounting.generalEntitylist"  class="md-primary">General Entry List</md-button>
-				
-			<md-button ui-sref="accounting.voucher"  class="md-primary">Voucher</md-button>
+				<md-button ui-sref="accounting.voucher" id="v" class="md-primary">Voucher</md-button>
+			<md-button ui-sref="accounting.voucherList" id="v" class="md-primary">VoucherList</md-button>
+			
+			
+			
 			
 			
 			 <!-- 			Sidenav Buttons --> </md-sidenav>

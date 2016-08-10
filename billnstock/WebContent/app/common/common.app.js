@@ -308,12 +308,20 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		controller :'generalListCtr'
 	})
 	.state('accounting.voucher', {
-		url : "/generalEntitylist",
+		url : "/voucher",
 		templateUrl : '/app/accounting/voucher.html',
-		controller :'voucherCtr'
+		controller :'voucherCtr',
+		params : {
+			Account : ""
+		}
 	})
-	
-	
+	.state('accounting.voucherList', {
+		url : "/voucherList",
+		templateUrl : '/app/accounting/voucherList.html',
+		controller :'voucherListCtr'
+			
+	})
+	//88888888888888888888888888888888888888888
 	
 	
 	

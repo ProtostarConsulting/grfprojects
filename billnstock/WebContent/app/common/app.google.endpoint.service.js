@@ -1039,6 +1039,35 @@ function googleEndpointSF($log, $q) {
 	// ==*****************************************************************************^^^^^^^^^^^^^^^^^********************====================
 	// Add Account Service
 
+	
+	var VoucherService={};
+	serviceFactory.getVoucherService=function(){
+		return VoucherService;	}
+	
+	VoucherService.addvoucher=function(vaccount){
+		var deferred=$q.defer();
+		gapi.client.voucherService.addvoucher(vaccount).execute(function(resp){
+			$log.debug("addvoucher#resp at enpoint:" + resp);
+			deferred.resolve(resp);
+			
+		});
+		return deferred.promise;
+	}
+	
+	VoucherService.listVoucher=function(){
+	var deferred=$q.defer();
+	gapi.client.voucherService.listVoucher().execute(function(resp){
+		$log.debug("listvoucher#resp at enpoint:" + resp);
+		deferred.resolve(resp.items);
+		
+	});
+	return deferred.promise;
+	}
+	
+	
+	
+	
+	//___________________________________________________________________________________________________________________________________________________________________________________________________
 	var AccountService = {};
 
 	serviceFactory.getAccountService = function() {
