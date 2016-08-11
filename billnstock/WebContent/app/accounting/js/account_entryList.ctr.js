@@ -6,7 +6,7 @@ app.controller(
 						$mdUtil, $log, $stateParams, objectFactory,
 						appEndpointSF, $mdDialog, $mdMedia) {					
 					
-
+					$scope.openingBalance=0;
 					$scope.selectdAccount=$stateParams.selectdAccount;
 					
 					if($scope.selectdAccount)
