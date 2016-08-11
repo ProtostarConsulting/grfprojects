@@ -281,9 +281,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	.state('accounting.accountGroupView', {
 		url : "/accountGroupView",
 		templateUrl : '/app/accounting/accountGroupView.html',
-		controller : 'accountGroupViewCtr',
-			params:{							
-			}
+		controller : 'accountGroupViewCtr'
+			
 	})
 	
 
@@ -300,7 +299,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	}).state('accounting.entryList', {
 		url : "/entryList",
 		templateUrl : '/app/accounting/account_entryList.html',
-		controller : 'accountEntryListController'
+		controller : 'accountEntryListController',
+		params:{	
+			selectdAccount:null
+		}
+		
 	})
 	.state('accounting.generalEntitylist', {
 		url : "/generalEntitylist",
@@ -321,10 +324,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		controller :'voucherListCtr'
 			
 	})
-	//88888888888888888888888888888888888888888
-	
-	
-	
+		
 	.state('journal', {
 		url : "/journal",
 		templateUrl : '/app/journal/journal_module.html',
