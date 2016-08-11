@@ -14,14 +14,15 @@ app.controller(
 					$scope.accountList=[];
 					$scope.entryList=[];
 					
-						$scope.getAccountListByGroupId=function(groupId){
+						$scope.getAccountListByGroupId=function(groupId){	
 							
-						$log.debug("groupId :"+groupId);
+							$scope.accountList=[];							
+						
 						var AccountService=appEndpointSF.getAccountService();						
 						AccountService.getAccountListByGroupId(groupId)
 						.then(
 								function(list) {			
-									$log.debug("list:"+angular.toJson(list));									
+																	
 									
 									for (var i = 0; i < list.length; i++) {
 											list[i].totaldebit=0;
@@ -42,9 +43,9 @@ app.controller(
 						AccountGroupService.getAccountGroupList()
 						.then(
 								function(list) {			
-									$log.debug("list:"+angular.toJson(list));
-									$scope.GroupList=list;	
 									
+									$scope.GroupList=list;	
+									$scope.accountList=[];
 									
 								})
 							
@@ -52,14 +53,13 @@ app.controller(
 					
 				
 							
-					$scope.getAccountEntryByAccountId=function(accId,acIndex){
+					$scope.getAccountEntryByAccountId=function(accId,acIndex){						
 						
-						$log.debug("groupId :"+accId);
 						var AccountEntryService = appEndpointSF.getAccountEntryService();						
 						AccountEntryService.getAccountEntryByAccountId(accId)
 						.then(
 								function(list) {			
-									$log.debug("list:"+angular.toJson(list));
+									
 									$scope.entryList=list;	
 									
 								
@@ -73,25 +73,27 @@ app.controller(
 											if ($scope.accountList.length>0) {
 											if (angular.isNumber(list[i].debit)) {											
 										
-												
-												$scope.accountList[acIndex].totaldebit= $scope.totaldebit
-														+ parseFloat(list[i].debit);
+												 $scope.totaldebit= $scope.totaldebit+ parseFloat(list[i].debit);												
 												
 											}}
-											if ($scope.accountList.length>0) {
-												
+											if ($scope.accountList.length>0) {												
 												if (angular.isNumber(list[i].credit)) {
-											
-												$scope.accountList[acIndex].totalcredit= $scope.totalcredit	+ parseFloat(list[i].credit);
-												
+													 $scope.totalcredit= $scope.totalcredit	+ parseFloat(list[i].credit);																								
 												}
 											}
 											
 										}
 
+										if ($scope.accountList.length>0) {
+										$scope.accountList[acIndex].totaldebit= $scope.totaldebit;
+										$scope.accountList[acIndex].totalcredit= $scope.totalcredit;
+										}
+										
 									}	
+									if ($scope.accountList.length>0) {
 									$scope.grandCreditTotal =$scope.grandCreditTotal+$scope.accountList[acIndex].totalcredit ;
 									$scope.grandDebitTotal = $scope.grandDebitTotal+$scope.accountList[acIndex].totaldebit;
+									}
 									
 								})
 							
