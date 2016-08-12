@@ -4,7 +4,7 @@ angular
 				"partnerSchoolAddCtr",
 				function($scope, $window, $mdToast, $timeout, $mdSidenav,
 						$mdUtil, $log, $q, tableTestDataFactory, $state,
-						$stateParams, appEndpointSF, partnerSchoolLevels,
+						$stateParams, $location, $anchorScroll, appEndpointSF, partnerSchoolLevels,
 						standardList) {
 
 					console.log("Inside partnerSchoolAddCtr");
@@ -255,6 +255,8 @@ angular
 													$scope.showAddToast();
 												}
 												$scope.addPaymentFlag = false;
+												$location.hash('topRight');
+												$anchorScroll();
 											}
 
 										});
@@ -265,7 +267,10 @@ angular
 
 					}
 					$scope.resetState = function() {
-						$state.reload();
+//						$state.reload({});
+						$state.transitionTo($state.current, {}, { 
+							  reload: true, inherit: false, notify: true
+							});
 					}
 					$scope.addPaymentFlag = false;
 					$scope.enableAddPaymentFlag = function() {

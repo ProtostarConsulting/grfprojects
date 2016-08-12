@@ -6,7 +6,7 @@ angular
 						$mdUtil, $log, $q, $mdDialog, $mdMedia,
 						tableTestDataFactory,ajsCache, $state, Upload, appEndpointSF) {
 					console.log("Inside studentListPageCtr");
-
+					$scope.loading = true;
 					$scope.curUser = appEndpointSF.getLocalUserService()
 							.getLoggedinUser();
 
@@ -22,11 +22,11 @@ angular
 					};
 
 					$scope.courierTypelist = [ "Book", "Certificate",
-							"Error Certificate", "Error books",
+							"Error Certificate", "Error Books",
 							"Prize Certificate" ];
 
 					$scope.getGFBookByInstituteId = function(refresh) {
-
+						$scope.loading = true;
 						var bookListCacheKey = "getGFBookByInstituteId";
 						// Note this key has to be unique across application
 						// else it will return unexpected result.
@@ -35,7 +35,7 @@ angular
 							$log.debug("Found List in Cache, return it.")
 							$scope.bookStocks = ajsCache
 									.get(bookListCacheKey);
-							
+							$scope.loading = false;
 							return;
 						}
 
@@ -49,6 +49,7 @@ angular
 									$scope.bookStocks = tempBooks;
 									ajsCache.put(bookListCacheKey,
 											tempBooks);
+									$scope.loading = false;
 									$log.debug ("Got books form Server...");
 
 								});
@@ -89,6 +90,7 @@ angular
 						$scope.uploadProgressMsg = null;
 						
 						$scope.uploadBooksCSV = function() {
+							$scope.loading = true;
 							var csvFile = $scope.csvFile;
 							Upload
 									.upload(
@@ -123,7 +125,7 @@ angular
 												$scope.cancel();
 												},3000);
 												//Load the books again in the end
-												getFreshBooks();
+												getFreshBooks(true);
 											},
 											function(resp) {
 												$log.debug('Error Ouccured, Error status: '
@@ -184,20 +186,17 @@ angular
 
 					$scope.threshold = false;
 					$scope.bookStocks1 = [];
-					$scope.showThresholdBooks = function(index, selected) {
-
+					$scope.showThresholdBooks = function() {
+						$scope.threshold = !$scope.threshold;
+						$scope.bookStocks1 = [];
 						if ($scope.threshold == true) {
 							for (var i = 0; i < $scope.bookStocks.length; i++) {
-
 								if ($scope.bookStocks[i].bookQty < $scope.bookStocks[i].bookThreshold) {
-
 									$scope.bookStocks1
-											.push($scope.bookStocks[i]);
-
-									$scope.bookStocks = $scope.bookStocks1;
+											.push($scope.bookStocks[i]);									
 								}
 							}
-
+							$scope.bookStocks = $scope.bookStocks1;
 						} else {
 							$state.reload();
 						}

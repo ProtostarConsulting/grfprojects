@@ -86,7 +86,6 @@ public class PartnerSchoolService {
 	@ApiMethod(name = "getPartnerByInstitute")
 	public List<PartnerSchoolEntity> getPartnerByInstitute(
 			@Named("instituteID") Long id) {
-
 		List<PartnerSchoolEntity> pSchool = ofy().load()
 				.type(PartnerSchoolEntity.class).filter("instituteID", id)
 				.list();

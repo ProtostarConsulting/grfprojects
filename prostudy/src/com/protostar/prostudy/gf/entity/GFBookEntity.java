@@ -1,12 +1,11 @@
 package com.protostar.prostudy.gf.entity;
 
 import java.util.Date;
-import java.util.List;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Ignore;
 import com.googlecode.objectify.annotation.Index;
-import com.protostar.prostudy.entity.BookEntity;
 
 @Entity
 public class GFBookEntity {
@@ -29,6 +28,7 @@ public class GFBookEntity {
 	private Date stockModifiedDate;
 	private int bookThreshold;
 	private String standard;
+	@Ignore
 	private String flag;
 	// Ref<PartnerSchoolEntity> schoolName;
 
