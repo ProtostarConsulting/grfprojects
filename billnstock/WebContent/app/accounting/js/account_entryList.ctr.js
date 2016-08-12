@@ -6,14 +6,7 @@ app.controller(
 						$mdUtil, $log, $stateParams, objectFactory,
 						appEndpointSF, $mdDialog, $mdMedia) {					
 					
-					$scope.openingBalance=0;
-					$scope.selectdAccount=$stateParams.selectdAccount;
-					
-					if($scope.selectdAccount)
-					{$scope.searchAccId=$scope.selectdAccount.id;					
-					}
-								
-					
+
 					$scope.accountList = [];
 					 var entryList = [];
 
@@ -22,6 +15,20 @@ app.controller(
 					$scope.fromDate.setDate($scope.toDate.getDate() - 30);
 
 					$scope.entries=[];
+					
+					
+					$scope.openingBalance=0;
+					$scope.selectdAccount=$stateParams.selectdAccount;
+					
+					if($scope.selectdAccount)
+					{$scope.searchAccId=$scope.selectdAccount.id;					
+					$scope.fromDate = $stateParams.fromDate;
+					$scope.toDate = $stateParams.toDate;
+				
+					
+					}
+								
+					
 					
 					$scope.getAccountEntryByAccountId=function(accId,fromDate,toDate){			
 						

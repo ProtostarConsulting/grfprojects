@@ -56,7 +56,7 @@ td {
   
   <tr ng-repeat="acc in accountList" >
  
-				<td  colspan="3" ng-init="getAccountEntryByAccountId(acc.id,$index)"><a ui-sref="accounting.entryList({selectdAccount:acc})">{{acc.accountName}}</a></td>
+				<td  colspan="3" ng-init="getAccountEntryByAccountId(acc.id,$index)"><a ui-sref="accounting.entryList({selectdAccount:acc,fromDate:fromDate,toDate:toDate})">{{acc.accountName}}</a></td>
 				<td style="text-align: right;">{{acc.totaldebit |number:2}}</td>
 				<td style="text-align: right;">{{acc.totalcredit |number:2}}</td>
 			</tr>			
