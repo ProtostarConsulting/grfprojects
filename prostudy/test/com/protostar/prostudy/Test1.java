@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.protostar.prostudy.until.EmailValidator;
+
 public class Test1 {
 
 	public static void main(String[] args) {
@@ -24,13 +26,16 @@ public class Test1 {
 		 * System.out.println("authorizations: " + authorizations);
 		 */
 
-		String lineSeparator = System.lineSeparator();
+		/*String lineSeparator = System.lineSeparator();
 		String aString = "This is a \n " + System.lineSeparator() + "string ";
 
 		byte[] bytes = aString.getBytes();
 		System.out.println("bytes:" + aString);
 		System.out.println("bytes:" + bytes);
-		System.out.println("All is well!");
+		System.out.println("All is well!");*/
+		
+		
+		System.out.println(EmailValidator.validate(""));
 	}
 
 	public static Map<String, List> getEmptyAuthorizationEntry(String authName,

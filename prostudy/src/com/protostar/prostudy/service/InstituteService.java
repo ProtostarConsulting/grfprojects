@@ -21,7 +21,7 @@ public class InstituteService {
 
 	@ApiMethod(name = "addInstitute")
 	public InstituteEntity addInstitute(InstituteEntity instituteEntity) {
-		String authorizations = "	{\"authorizations\":[{\"authName\":\"myprofile\",\"authorizations\":[]},{\"authName\":\"setup\",\"authorizations\":[]}]}";
+		String authorizations = "	{\"authorizations\":[{\"authName\":\"updatemyprofile\",\"authorizations\":[]},{\"authName\":\"setup\",\"authorizations\":[]}]}";
 		instituteEntity.setAuthorizations(authorizations);
 		Date date = new Date();
 		instituteEntity.setCreatedDate(date);

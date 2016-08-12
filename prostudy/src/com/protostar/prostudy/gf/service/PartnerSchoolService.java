@@ -20,7 +20,8 @@ public class PartnerSchoolService {
 
 	private final Logger logger = Logger.getLogger(PartnerSchoolService.class
 			.getName());
-	private boolean notificationEnabled = true;
+//	private boolean notificationEnabled = true;
+	private boolean notificationEnabled = false;
 
 	@ApiMethod(name = "addPartnerSchool")
 	public PartnerSchoolEntity addPartnerSchool(
@@ -40,7 +41,10 @@ public class PartnerSchoolService {
 		
 		if (notificationEnabled
 				&& partnerSchoolEntity.getExamDetailList() != null
-				&& partnerSchoolEntity.getExamDetailList().size() > 0) {
+				&& partnerSchoolEntity.getExamDetailList().size() > 0 
+				&& partnerSchoolEntity.getContactDetail() != null 
+				&& partnerSchoolEntity.getContactDetail().getCoordinatorDetail() != null
+				&& partnerSchoolEntity.getContactDetail().getCoordinatorDetail().size() > 0) {
 			// Send email
 			new EmailHandler()
 					.sendNewSchoolRegistrationEmail(partnerSchoolEntity);

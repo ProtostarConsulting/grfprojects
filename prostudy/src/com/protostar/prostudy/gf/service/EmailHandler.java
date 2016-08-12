@@ -14,6 +14,7 @@ import javax.mail.internet.MimeMessage;
 
 import com.protostar.prostudy.entity.UserEntity;
 import com.protostar.prostudy.gf.entity.PartnerSchoolEntity;
+import com.protostar.prostudy.until.EmailValidator;
 
 public class EmailHandler {
 
@@ -28,6 +29,14 @@ public class EmailHandler {
 	public void sendNewSchoolRegistrationEmail(
 			PartnerSchoolEntity partnerSchoolEntity) throws MessagingException,
 			IOException {
+		String headMasterEmailId = partnerSchoolEntity.getContactDetail()
+				.getHeadMasterEmailId();
+		String coordinatorEmailId = partnerSchoolEntity.getContactDetail()
+				.getCoordinatorDetail().get(0).getCoordinatorEmailId();
+		if (!EmailValidator.validate(headMasterEmailId)
+				&& !EmailValidator.validate(coordinatorEmailId)) {
+			return;
+		}
 		Properties props = new Properties();
 
 		Session session = Session.getDefaultInstance(props, null);
@@ -39,13 +48,14 @@ public class EmailHandler {
 		try {
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(EMAIL_FROM, EMAIL_FROM_NAME));
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(
-					partnerSchoolEntity.getContactDetail()
-							.getHeadMasterEmailId()));
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(
-					partnerSchoolEntity.getContactDetail()
-							.getCoordinatorDetail().get(0)
-							.getCoordinatorEmailId()));
+			if (EmailValidator.validate(headMasterEmailId)) {
+				message.addRecipient(Message.RecipientType.TO,
+						new InternetAddress(headMasterEmailId));
+			}
+			if (EmailValidator.validate(coordinatorEmailId)) {
+				message.addRecipient(Message.RecipientType.TO,
+						new InternetAddress(coordinatorEmailId));
+			}
 			message.setSubject(EMAIL_NEW_SCHOOL_SUBJECT);
 			message.setContent(messageBody, "text/html");
 			Transport.send(message);
