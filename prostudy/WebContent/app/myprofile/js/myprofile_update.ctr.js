@@ -136,6 +136,9 @@ angular
 						$scope.inputType1 = 'password';
 						$scope.inputType2 = 'password';
 
+						$scope.setpassinput1 = function() {
+							$scope.inputType1 = 'password';
+						}
 						$scope.showpass1 = function() {
 							if ($scope.inputType1 == 'password') {
 								$scope.inputType1 = 'text';
@@ -144,19 +147,33 @@ angular
 							}
 
 						}
-						$scope.showpass2 = function() {
+						/*$scope.showpass2 = function() {
 							if ($scope.inputType2 == 'password') {
 								$scope.inputType2 = 'text';
 							} else {
 								$scope.inputType2 = 'password';
 							}
 						}
-						$scope.setpassinput1 = function() {
-							$scope.inputType1 = 'password';
-						}
+						
+						
 						$scope.setpassinput2 = function() {
 							$scope.inputType2 = 'password';
 						}
+						*/
+						
+						$scope.setpassinput2 = function() {
+							$scope.inputType2 = 'password';
+						}
+						$scope.showpass2 = function() {
+							if ($scope.inputType2 == 'password') {
+								$scope.inputType2 = 'text';
+							} else {
+								$scope.inputType2 = 'password';
+							}
+
+						}
+						
+						
 						$scope.changepass = function() {
 
 							if ($scope.newPassword == $scope.cPassword) {
@@ -181,9 +198,11 @@ angular
 							if ($scope.newPassword != $scope.cPassword) {
 								$scope.passCheckError = "Re-entered password is not matched!";
 								$scope.passCheckFlag = false;
+								
 							}else{
 								$scope.passCheckError = "";
 								$scope.passCheckFlag = true;
+								
 							}
 						}
 
