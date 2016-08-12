@@ -1,7 +1,7 @@
 
 <div layout="column" layout-padding layout-align="centre centre"
 	layout-xs="column">
-	<div ng-hide="!flag" >
+	<div ng-hide="!flag">
 		<h3>Welcome {{tempUser.firstName.toUpperCase( )}}
 			{{tempUser.lastName.toUpperCase( )}} , Please Complete Your Rest Of
 			Profile.....</h3>
@@ -73,35 +73,31 @@
 
 				<md-input-container flex> <label>Role<span
 					style="color: red" ng-show="profileForm.role.$error.required"
-					class="mandatory">*</span></label>
-				<md-select required name="role" ng-model="tempUser.role"
-					placeholder="User role" ng-disabled="curUser.role"> <md-option>Admin</md-option>
+					class="mandatory">*</span></label> <md-select required name="role"
+					ng-model="tempUser.role" placeholder="User role"
+					ng-disabled="curUser.role"> <md-option>Admin</md-option>
 				<md-option>Student</md-option> <md-option>Teacher</md-option> </md-select>
-				
+
 				<div ng-messages="profileForm.role.$error" ng-if="!showHints">
 					<div ng-message="required">User Role is required.</div>
 				</div>
 				</md-input-container>
 
-				</div>
-				</div>
-
 			</div>
-		</div>
-
-		
-		<div layout="row" layout-align="center end">
-
-			<md-button class="md-primary md-raised"
-					ng-click="showAdvanced($event)" ng-hide="curUser.isGoogleUser"> Change password</md-button>
-			<md-button class="md-raised md-primary" ng-disabled="profileForm.$invalid" ng-click="showConfirm($event)">Update
-			Profile</md-button>
-
 		</div>
 	</form>
 
-	</form>	
 
+	<div layout="row" layout-align="center end">
+
+		<md-button class="md-primary md-raised"
+			ng-click="showAdvanced($event)" ng-hide="curUser.isGoogleUser">
+		Change password</md-button>
+		<md-button class="md-raised md-primary"
+			ng-disabled="profileForm.$invalid" ng-click="showConfirm($event)">Update
+		Profile</md-button>
+
+	</div>
 </div>
 
 
