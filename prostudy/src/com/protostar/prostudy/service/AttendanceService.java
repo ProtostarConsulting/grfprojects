@@ -12,7 +12,7 @@ import com.googlecode.objectify.Key;
 import com.protostar.prostudy.entity.AttendanceEntity;
 import com.protostar.prostudy.entity.StudentEntity;
 
-@Api(name = "attendanceService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.service", ownerName = "com.protostar.prostudy.service", packagePath = ""))
+//@Api(name = "attendanceService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.service", ownerName = "com.protostar.prostudy.service", packagePath = ""))
 public class AttendanceService {
 
 	@ApiMethod(name = "addAttendance")

@@ -204,7 +204,7 @@ angular
 												loggedInUser.institute = [];
 											}
 
-											if (loggedInUser.id == undefined) {
+											if (loggedInUser.id == undefined && loggedInUser.instituteID == undefined) {
 
 												loggedInUser.email_id = profile
 														.getEmail();

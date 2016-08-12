@@ -12,7 +12,6 @@ import com.googlecode.objectify.Key;
 import com.protostar.prostudy.entity.StudentEntity;
 
 @Api(name = "studentService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.service", ownerName = "com.protostar.prostudy.service", packagePath = ""))
-
 public class StudentService {
 	
 	@ApiMethod(name = "addStudent")

@@ -20,7 +20,7 @@ public class PartnerSchoolService {
 
 	private final Logger logger = Logger.getLogger(PartnerSchoolService.class
 			.getName());
-	private boolean notificationEnabled = false;
+	private boolean notificationEnabled = true;
 
 	@ApiMethod(name = "addPartnerSchool")
 	public PartnerSchoolEntity addPartnerSchool(

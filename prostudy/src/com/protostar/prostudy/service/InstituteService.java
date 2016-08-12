@@ -20,15 +20,13 @@ public class InstituteService {
 			.getName());
 
 	@ApiMethod(name = "addInstitute")
-	public InstituteEntity addInstitute(InstituteEntity insti) {
-		InstituteEntity instEntity = new InstituteEntity();
-		
-		InstituteEntity inst = insti;
-		
+	public InstituteEntity addInstitute(InstituteEntity instituteEntity) {
+		String authorizations = "	{\"authorizations\":[{\"authName\":\"myprofile\",\"authorizations\":[]},{\"authName\":\"setup\",\"authorizations\":[]}]}";
+		instituteEntity.setAuthorizations(authorizations);
 		Date date = new Date();
-		instEntity.setCreatedDate(date);
-		ofy().save().entity(insti).now();
-		return inst;
+		instituteEntity.setCreatedDate(date);
+		ofy().save().entity(instituteEntity).now();
+		return instituteEntity;
 	}
 
 	@ApiMethod(name = "getInstitutes")

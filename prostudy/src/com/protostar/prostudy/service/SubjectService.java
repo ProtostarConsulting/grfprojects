@@ -14,7 +14,7 @@ import com.googlecode.objectify.Key;
 import com.protostar.prostudy.entity.StudSubEntity;
 import com.protostar.prostudy.entity.SubjectEntity;
 
-@Api(name = "subjectService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.service", ownerName = "com.protostar.prostudy.service", packagePath = ""))
+//@Api(name = "subjectService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.service", ownerName = "com.protostar.prostudy.service", packagePath = ""))
 public class SubjectService {
 
 	@ApiMethod(name = "addSubject")

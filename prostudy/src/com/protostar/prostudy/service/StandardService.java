@@ -14,7 +14,7 @@ import com.protostar.prostudy.entity.StandardEntity;
 import com.protostar.prostudy.entity.StudSubEntity;
 
 
-@Api(name = "standardService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.service", ownerName = "com.protostar.prostudy.service", packagePath = ""))
+//@Api(name = "standardService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.service", ownerName = "com.protostar.prostudy.service", packagePath = ""))
 public class StandardService {
 
 	@ApiMethod(name = "addStandard")

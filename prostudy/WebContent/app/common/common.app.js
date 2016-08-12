@@ -1,7 +1,7 @@
 var app = angular.module("prostudyApp",
-		[ 'ngMaterial', 'ngMdIcons', 'ngMessages', "xeditable", "ui.bootstrap",
+		[ 'ngMaterial', 'ngMdIcons', 'ngMessages', "ui.bootstrap",
 				"ui.router", 'ngMaterialDatePicker', 'md.data.table',
-				'ngResource', 'textAngular', 'ngRoute', 'ngStorage', "ngAria",
+				'ngResource', 'ngRoute', 'ngStorage', "ngAria",
 				'directive.g+signin', 'ngFileUpload' ]);
 
 app.constant('boardList', [ "State Board", "CBSE", "ICSE" ]);

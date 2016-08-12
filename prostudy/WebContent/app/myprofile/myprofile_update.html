@@ -3,13 +3,15 @@
 	layout-xs="column">
 	<div ng-hide="!flag">
 		<h3>Welcome {{tempUser.firstName.toUpperCase( )}}
-			{{tempUser.lastName.toUpperCase( )}} , Please Complete Your Rest Of
-			Profile.....</h3>
+			{{tempUser.lastName.toUpperCase( )}},</h3>
+		<h4>Your account is not associated with any school/college. If
+			you would like to create account for your school/college, please
+			proceed and complete the basic registration process.</h4>
+		<md-button ui-sref="proadmin.instituteAddInfo" ng-click="close()"
+			class="md-primary">Institute Registration </md-button>
+
 	</div>
 	<div ng-hide="flag">
-		<h3>{{tempUser.firstName.toUpperCase( )}}
-			{{tempUser.lastName.toUpperCase( )}} , Upadte Your Profile.</h3>
-	</div>
 
 	<form name="profileForm" ng-model="profileForm"
 		ng-submit="profileForm.$valid " novalidate>
@@ -86,7 +88,7 @@
 			</div>
 		</div>
 	</form>
-
+</div>
 
 	<div layout="row" layout-align="center end">
 

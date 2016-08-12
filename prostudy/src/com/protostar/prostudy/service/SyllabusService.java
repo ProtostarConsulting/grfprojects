@@ -13,7 +13,7 @@ import com.protostar.prostudy.entity.PracticeExamEntity;
 import com.protostar.prostudy.entity.QuestionEntity;
 import com.protostar.prostudy.entity.SyllabusEntity;
 
-@Api(name = "syllabusService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.service", ownerName = "com.protostar.prostudy.service", packagePath = ""))
+//@Api(name = "syllabusService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.service", ownerName = "com.protostar.prostudy.service", packagePath = ""))
 public class SyllabusService {
 
 	@ApiMethod(name = "addSyllabus")
