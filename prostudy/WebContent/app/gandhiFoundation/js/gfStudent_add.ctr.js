@@ -1,111 +1,123 @@
-angular.module("prostudyApp").controller(
-		"gfStudentAddCtr",
-		function($scope, $window, $mdToast, $timeout, $mdSidenav, $mdUtil,
-				$log, $q, appEndpointSF, $state, $stateParams, $mdDialog,
-				objectFactory,answerOfMediumList,standardList) {
+angular
+		.module("prostudyApp")
+		.controller(
+				"gfStudentAddCtr",
+				function($scope, $window, $mdToast, $timeout, $mdSidenav,
+						$mdUtil, $log, $q, appEndpointSF, $state, $stateParams,
+						$mdDialog, objectFactory, answerOfMediumList,
+						standardList) {
 
-			$scope.answerOfMediumList = answerOfMediumList;
-			$scope.standardList = standardList
+					$scope.answerOfMediumList = answerOfMediumList;
+					$scope.standardList = standardList
 
-			$scope.tempStudent = {
-				fName : '',
-				mName : '',
-				lName : '',
-				standard : '',
-				mediumOfAnswer : '',
-				gender : '',
-				schoolName : '',
-				role : 'Student'
-			}
-
-			$scope.selectedGFStudID = $stateParams.selectedGFStudID;
-
-			$scope.addGFStudent = function() {
-				$scope.tempStudent.instituteID = $scope.curUser.instituteID;
-
-				var gfStudentService = appEndpointSF.getGFStudentService();
-
-				if(!$scope.selectedGFStudID){
-					if($scope.pSchoolList.length == 1){
-						$scope.tempStudent.schoolName =$scope.pSchoolList[0];
-					}else{
-					for(var i=0; i < $scope.pSchoolList.length; i++){
-						if($scope.pSchoolList[i].schoolName == $scope.tempStudent.schoolName.schoolName)
-						$scope.tempStudent.schoolName =$scope.tempStudent[i];
+					$scope.tempStudent = {
+						fName : '',
+						mName : '',
+						lName : '',
+						standard : '',
+						mediumOfAnswer : '',
+						gender : '',
+						schoolName : '',
+						role : 'Student'
 					}
+
+					$scope.selectedGFStudID = $stateParams.selectedGFStudID;
+
+					$scope.addGFStudent = function() {
+						$scope.tempStudent.instituteID = $scope.curUser.instituteID;
+
+						var gfStudentService = appEndpointSF
+								.getGFStudentService();
+
+						if (!$scope.selectedGFStudID) {
+							if ($scope.pSchoolList.length == 1) {
+								$scope.tempStudent.schoolName = $scope.pSchoolList[0];
+							} else {
+								for (var i = 0; i < $scope.pSchoolList.length; i++) {
+									if ($scope.pSchoolList[i].schoolName == $scope.tempStudent.schoolName.schoolName)
+										$scope.tempStudent.schoolName = $scope.pSchoolList[i];
+								}
+							}
+						} else {
+							for (var i = 0; i < $scope.pSchoolList.length; i++) {
+								if ($scope.pSchoolList[i].schoolName == $scope.tempStudent.schoolName.schoolName)
+									$scope.tempStudent.schoolName = $scope.pSchoolList[i];
+							}
+						}
+						gfStudentService.addGFStudent($scope.tempStudent).then(
+								function(resp) {
+									$scope.gfStudentForm.$setPristine();
+									$scope.gfStudentForm.$setValidity();
+									$scope.gfStudentForm.$setUntouched();
+									$scope.tempStudent = {};
+
+									
+									if (resp.code == 400 || resp.code == 500) {
+										$scope.show400Toast();
+									} else {
+										if ($scope.selectedGFStudID == "") {
+											$scope.showAddToast();
+											$state.reload();
+
+										} else {
+											$scope.showUpdateToast();
+											$state.go('studentModule.list');
+										}
+									}
+								});
 					}
-				}else{
-					for(var i=0; i < $scope.pSchoolList.length; i++){
-						if($scope.pSchoolList[i].schoolName == $scope.tempStudent.schoolName.schoolName)
-						$scope.tempStudent.schoolName =$scope.pSchoolList[i];
+
+					$scope.getGFStudentById = function() {
+
+						var gfStudentService = appEndpointSF
+								.getGFStudentService();
+						gfStudentService.getGFStudentById(
+								$scope.selectedGFStudID).then(
+								function(tempStudent) {
+									$scope.tempStudent = tempStudent;
+									// $scope.tempStudent.schoolName =
+									// $scope.tempStudent.schoolName.schoolName;
+								});
 					}
-				}
-				gfStudentService.addGFStudent($scope.tempStudent).then(
-						function() {
-							$scope.gfStudentForm.$setPristine();
-							$scope.gfStudentForm.$setValidity();
-							$scope.gfStudentForm.$setUntouched();
-							$scope.tempStudent = {};
 
-						});
-				if ($scope.selectedGFStudID == "") {
-					$scope.showAddToast();
-					$state.reload();
-					
-				} else {
-					$scope.showUpdateToast();
-					$state.go('studentModule.list');
-				}
-				
-			}
+					$scope.getPartnerByInstitute = function() {
 
-			$scope.getGFStudentById = function() {
+						var PartnerSchoolService = appEndpointSF
+								.getPartnerSchoolService();
+						PartnerSchoolService.getPartnerByInstitute(
+								$scope.curUser.instituteID).then(
+								function(pSchoolList) {
+									$scope.pSchoolList = pSchoolList;
 
-				var gfStudentService = appEndpointSF.getGFStudentService();
-				gfStudentService.getGFStudentById($scope.selectedGFStudID)
-						.then(function(tempStudent) {
-							$scope.tempStudent = tempStudent;
-					//		$scope.tempStudent.schoolName = $scope.tempStudent.schoolName.schoolName;
-						});
-			}
+								});
+					}
 
-			$scope.getPartnerByInstitute = function() {
+					$scope.cancel = function() {
+						$state.go('gandhifoundation');
+					}
 
-				var PartnerSchoolService = appEndpointSF
-						.getPartnerSchoolService();
-				PartnerSchoolService.getPartnerByInstitute(
-						$scope.curUser.instituteID).then(function(pSchoolList) {
-					$scope.pSchoolList = pSchoolList;
+					$scope.waitForServiceLoad = function() {
+						if (appEndpointSF.is_service_ready) {
 
+							if ($scope.selectedGFStudID != "") {
+								$scope.getGFStudentById();
+							}
+							$scope.getPartnerByInstitute();
+
+						} else {
+							$log.debug("Services Not Loaded, watiting...");
+							$timeout($scope.waitForServiceLoad, 1000);
+						}
+					}
+
+					$scope.waitForServiceLoad();
+
+					$scope.query = {
+						order : 'description',
+						limit : 5,
+						page : 1
+					};
+					$scope.cancelButton = function() {
+						$state.go("studentModule", {});
+					}
 				});
-			}
-
-			$scope.cancel = function() {
-				$state.go('gandhifoundation');
-			}
-
-			$scope.waitForServiceLoad = function() {
-				if (appEndpointSF.is_service_ready) {
-
-					if ($scope.selectedGFStudID != "") {
-						$scope.getGFStudentById();
-					}
-					$scope.getPartnerByInstitute();
-
-				} else {
-					$log.debug("Services Not Loaded, watiting...");
-					$timeout($scope.waitForServiceLoad, 1000);
-				}
-			}
-
-			$scope.waitForServiceLoad();
-
-			$scope.query = {
-				order : 'description',
-				limit : 5,
-				page : 1
-			};
-			$scope.cancelButton = function() {
-				$state.go("studentModule", {});
-			}
-		});
