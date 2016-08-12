@@ -147,7 +147,7 @@
 				<md-select name="state" ng-model="partnerSchool.address.state"
 					ng-change="getDistricts($index, partnerSchool.address.state)"
 					ng-required="true"> <md-option ng-value="states.name"
-					ng-repeat="states in Country.states |  orderBy : 'states.name'">{{states.name}}</md-option>
+					ng-repeat="states in Country.states |  orderBy : states.name">{{states.name}}</md-option>
 				</md-select>
 				<div ng-messages="partnerSchoolForm.state.$error"
 					ng-if="partnerSchoolForm.state.$submitted || partnerSchoolForm.state.$touched">
