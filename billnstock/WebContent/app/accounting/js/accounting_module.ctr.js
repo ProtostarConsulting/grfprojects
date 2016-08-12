@@ -2,7 +2,8 @@ angular.module("stockApp").controller(
 		"accountModuleCtr",
 		function($scope, $window, $mdToast, $timeout, $mdSidenav, $mdUtil,
 				$log, objectFactory, appEndpointSF) {
-
+$scope.vt=false;
+$scope.tv=true;
 			$log.debug("Inside customerModuleCtr");
 
 			$scope.testGAPICall = function() {
@@ -19,6 +20,18 @@ angular.module("stockApp").controller(
 						});
 
 			};
+			$scope.click=function(flag){
+				if(flag==true){
+					$scope.vt=true;
+				$scope.tv=false;
+				}
+				else {
+					$scope.vt=false;
+					$scope.tv=true;
+				}
+					
+				
+			}
 
 			/* Setup menu */
 			$scope.toggleRight = buildToggler('right');
