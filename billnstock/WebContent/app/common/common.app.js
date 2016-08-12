@@ -312,21 +312,43 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl : '/app/accounting/generalEntitylist.html',
 		controller :'generalListCtr'
 	})
-	.state('accounting.voucher', {
-		url : "/voucher",
-		templateUrl : '/app/accounting/voucher.html',
-		controller :'voucherCtr',
+	.state('accounting.voucherSales', {
+		url : "/SalesVoucher",
+		templateUrl : '/app/accounting/voucherSales.html',
+		controller :'voucherSalesCtr',
 		params : {
 			Account : ""
 		}
 	})
-	.state('accounting.voucherList', {
-		url : "/voucherList",
-		templateUrl : '/app/accounting/voucherList.html',
-		controller :'voucherListCtr'
+	.state('accounting.voucherSalesList', {
+		url : "/SalesVoucherList",
+		templateUrl : '/app/accounting/voucherSalesList.html',
+		controller :'voucherSalesListCtr'
 			
 	})
+
+	.state('accounting.voucherRecieptList', {
+		url : "/RecieptVoucherList",
+		templateUrl : '/app/accounting/voucherRecieptList.html',
+		controller :'voucherRecieptListCtr'
+			
+	})
+	.state('accounting.voucherReceipt', {
+		url : "/ReceiptVoucher",
+		templateUrl : '/app/accounting/voucherReceipt.html',
+		controller :'voucherRecieptCtr',
+			params : {
+				Account : ""
+			}
+			
+	})
+	//88888888888888888888888888888888888888888
+	
+	
+	
+
 		
+
 	.state('journal', {
 		url : "/journal",
 		templateUrl : '/app/journal/journal_module.html',
@@ -761,6 +783,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl : '/app/setup/setup_viewuser.html',
 		controller : 'setup.viewuser'
 	})
+	
 	
 
 });

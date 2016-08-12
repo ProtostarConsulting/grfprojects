@@ -1065,6 +1065,25 @@ function googleEndpointSF($log, $q) {
 	}
 	
 	
+	VoucherService.addvoucherReciept=function(vaccount){
+		var deferred=$q.defer();
+		gapi.client.voucherService.addvoucherReciept(vaccount).execute(function(resp){
+			$log.debug("addvoucherReciept#resp at enpoint:" + resp);
+			deferred.resolve(resp);
+			
+		});
+		return deferred.promise;
+	}
+	
+	VoucherService.listVoucherReciept=function(){
+	var deferred=$q.defer();
+	gapi.client.voucherService.listVoucherReciept().execute(function(resp){
+		$log.debug("listVoucherReciept#resp at enpoint:" + resp);
+		deferred.resolve(resp.items);
+		
+	});
+	return deferred.promise;
+	}
 	
 	
 	//___________________________________________________________________________________________________________________________________________________________________________________________________
