@@ -301,7 +301,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl : '/app/accounting/account_entryList.html',
 		controller : 'accountEntryListController',
 		params:{	
-			selectdAccount:null
+			selectdAccount:null,
+			fromDate:null,
+			toDate:null
 		}
 		
 	})
