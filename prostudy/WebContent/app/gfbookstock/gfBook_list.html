@@ -73,8 +73,8 @@
 					<td ng-if="book.bookQty < book.bookThreshold"><b><font color="red">{{book.bookAuther}}</font></b></td>
 					<td ng-if="book.bookQty > book.bookThreshold">{{book.bookAuther}}</b></td>
 					
-					<td ng-if="book.bookQty < book.bookThreshold"><b><font color="red">{{book.weight}}</font></b></td>
-					<td ng-if="book.bookQty > book.bookThreshold">{{book.weight}}</b></td>
+					<td ng-if="book.bookQty < book.bookThreshold"><b><font color="red">{{book.weight | number : 2}}</font></b></td>
+					<td ng-if="book.bookQty > book.bookThreshold">{{book.weight | number : 2}}</b></td>
 					
 					<td ng-if="book.bookQty < book.bookThreshold"><b><font color="red">{{book.bookPrice}}</font></b></td>
 					<td ng-if="book.bookQty > book.bookThreshold">{{book.bookPrice}}</b></td>
