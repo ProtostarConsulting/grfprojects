@@ -59,13 +59,11 @@ app.controller(
 									for (var i = 0; i < entryList.length; i++) {
 										if (entryList[i].accountEntity.accountType
 												.trim() == "PERSONAL") {
-											$scope.closingBalance = $scope.totaldebit
-													- $scope.totalcredit;
+											$scope.closingBalance =$scope.totalcredit- $scope.totaldebit;
 										}
 										if (list[i].accountEntity.accountType
 												.trim() == "REAL") {
-											$scope.closingBalance = $scope.totaldebit
-													- $scope.totalcredit;
+											$scope.closingBalance = $scope.totaldebit- $scope.totalcredit;
 										}
 										if (list[i].accountEntity.accountType
 												.trim() == "NOMINAL") {
