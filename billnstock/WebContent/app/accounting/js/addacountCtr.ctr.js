@@ -38,6 +38,7 @@ app
 
 							$scope.addAccount = function() {
 
+								
 								var accountservice = appEndpointSF
 										.getAccountService();
 
@@ -86,6 +87,36 @@ app
 										});
 
 					}
+					
+					$scope.checkAccountExist=function(name){
+						
+			   			if($scope.account.accountName){
+			var checkAccount = appEndpointSF.getAccountService();
+			checkAccount.checkAccountAlreadyExist($scope.account.accountName)
+			.then(function(response){
+				if (response.returnBool == true) {
+					$scope.error = "Account Already Exists";				
+					
+					angular.element(document.getElementById('addButton'))[0].disabled = true;
+					//accountForm.accountName.$error=true;
+					 //$scope.accountForm.accountName.$setValidity(true);
+				} 
+				else {
+					$scope.error = "";
+					
+				}
+				
+			});
+				
+				
+			}
+			
+		}
+					
+					
+					
+					
+					
 
 					$scope.getAccByid = function() {
 
