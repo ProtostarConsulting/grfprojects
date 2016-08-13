@@ -342,11 +342,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			}
 			
 	})
-	//88888888888888888888888888888888888888888
-	
-	
-	
-
 		
 
 	.state('journal', {
