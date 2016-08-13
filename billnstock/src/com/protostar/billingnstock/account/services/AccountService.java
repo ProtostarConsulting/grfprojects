@@ -17,6 +17,7 @@ import com.protostar.billingnstock.account.entities.PayableEntity;
 import com.protostar.billingnstock.account.entities.ReceivableEntity;
 import com.protostar.billingnstock.cust.entities.Customer;
 import com.protostar.billingnstock.user.entities.BusinessEntity;
+import com.protostar.billnstock.until.data.ServerMsg;
 
 @Api(name = "accountService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.billingnstock.stock.cust.services", ownerName = "com.protostar.billingnstock.stock.cust.services", packagePath = ""))
 public class AccountService {
@@ -34,19 +35,45 @@ public class AccountService {
 
 	}
 
+
 	@ApiMethod(name = "addAccount1")
+
 	public void addAccount1(AccountEntity accountEntity) {
 		ofy().save().entity(accountEntity).now();
 	}
+	
+	
+	@ApiMethod(name = "checkAccountAlreadyExist")
+	public ServerMsg checkAccountAlreadyExist(@Named("accountName") String accountName) {
+		ServerMsg serverMsg = new ServerMsg();
+		List<AccountEntity> list = ofy().load().type(AccountEntity.class).filter("accountName",accountName).list();
+
+		System.out.println(list);
+		
+		if (list == null || list.size() == 0)
+		{
+			
+			serverMsg.setReturnBool(false);
+		} 
+		else {
+			serverMsg.setReturnBool(true);
+		}
+
+		return serverMsg;
+	}
+
 
 	@ApiMethod(name = "getAccountList")
+
 	public List<AccountEntity> getAccountList() {
+
 
 		List<AccountEntity> filteredAccounts = ofy().load()
 				.type(AccountEntity.class).list();
 
 		return filteredAccounts;
 	}
+
 
 	@ApiMethod(name = "getAccountListByGroupId", path = "getAccountListByGroupId")
 	public List<AccountEntity> getAccountListByGroupName(@Named("id") Long groupId) {
@@ -66,6 +93,7 @@ public class AccountService {
 	}
 
 	@ApiMethod(name = "getAccountById")
+
 	public AccountEntity getAccountById(@Named("id") Long accountId) {
 
 		AccountEntity accountById = ofy().load().type(AccountEntity.class)
