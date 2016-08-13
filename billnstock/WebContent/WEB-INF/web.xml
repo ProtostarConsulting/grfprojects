@@ -99,4 +99,44 @@
     <servlet-name>ExcelAccountsUpload</servlet-name>
     <url-pattern>/ExcelAccountsUpload</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description/>
+    <display-name>UploadAccountsServlet</display-name>
+    <servlet-name>UploadAccountsServlet</servlet-name>
+    <servlet-class>com.protostar.billingnstock.account.services.UploadAccountsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UploadAccountsServlet</servlet-name>
+    <url-pattern>/UploadAccountsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description/>
+    <display-name>DownloadAccountsServlet</display-name>
+    <servlet-name>DownloadAccountsServlet</servlet-name>
+    <servlet-class>com.protostar.billingnstock.account.services.DownloadAccountsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DownloadAccountsServlet</servlet-name>
+    <url-pattern>/DownloadAccountsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description/>
+    <display-name>UploadGroupsListServlet</display-name>
+    <servlet-name>UploadGroupsListServlet</servlet-name>
+    <servlet-class>com.protostar.billingnstock.account.services.UploadGroupsListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UploadGroupsListServlet</servlet-name>
+    <url-pattern>/UploadGroupsListServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description/>
+    <display-name>DownloadGroupListServlet</display-name>
+    <servlet-name>DownloadGroupListServlet</servlet-name>
+    <servlet-class>com.protostar.billingnstock.account.services.DownloadGroupListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DownloadGroupListServlet</servlet-name>
+    <url-pattern>/DownloadGroupListServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
