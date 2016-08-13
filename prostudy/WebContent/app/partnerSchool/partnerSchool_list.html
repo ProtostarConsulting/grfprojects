@@ -17,8 +17,7 @@
 
 			</md-select> </md-input-container>
 		</div>
-		<md-toolbar class="md-table-toolbar md-default"
-			ng-hide="selected.length">
+		<md-toolbar class="md-table-toolbar md-default">
 		<div class="md-toolbar-tools">
 			<span>Schools List</span>
 			<div flex></div>
@@ -38,26 +37,17 @@
 
 		</div>
 		</md-toolbar>
-
-		<md-toolbar class="md-table-toolbar alternate"
-			ng-show="selected.length">
-		<div class="md-toolbar-tools">
-			<span>{{selected.length}} {{selected.length > 1 ? 'Schools' :
-				'School'}} selected</span>
-		</div>
-		</md-toolbar>
-
 		<div>
 			<md-data-table-container>
-			<table md-data-table md-row-select="selected" class="md-primary"
+			<table md-data-table class="md-primary"
 				md-progress="deferred">
 				<thead md-order="query.order" md-trigger="onorderchange">
 
 					<tr>
-						<th order-by="School Name" name="School Name"></th>
-						<th order-by="Institute Name" name="Institute Name"></th>
-						<th order-by="Address" name="Address"></th>
-						<th order-by="Form Number" name="Form Number"></th>
+						<th order-by="schoolName" name="School Name"></th>
+						<th order-by="instName" name="Institute Name"></th>
+						<th order-by="address.city" name="City"></th>
+						<th order-by="formNumber" name="Form Number"></th>
 						<th name="Action"></th>
 					</tr>
 				</thead>
