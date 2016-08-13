@@ -230,6 +230,13 @@ function googleEndpointSF($log, $q) {
 		return deferred.promise;
 	}
 	
+	AccountGroupService.checkAccountGrpAlreadyExist = function(name) {
+		var deferred = $q.defer();
+		gapi.client.accountGroupService.checkAccountGrpAlreadyExist({"groupName":name}).execute(function(resp) {
+			deferred.resolve(resp);
+		});
+		return deferred.promise;
+	}
 
 //==================================================================================================================================//	
 	
@@ -1116,6 +1123,13 @@ function googleEndpointSF($log, $q) {
 		return deferred.promise;
 	}
 	
+	AccountService.checkAccountAlreadyExist = function(accName) {
+		var deferred = $q.defer();
+		gapi.client.accountService.checkAccountAlreadyExist({"accountName":accName}).execute(function(resp) {
+			deferred.resolve(resp);
+		});
+		return deferred.promise;
+	}
 	
 	
 	
@@ -1141,9 +1155,8 @@ function googleEndpointSF($log, $q) {
 	
 	AccountService.getAccountById = function(accountId) {
 		var deferred = $q.defer();
-		gapi.client.accountService.getAccountById({
-			"id" : accountId
-		}).execute(function(resp) {
+		gapi.client.accountService.getAccountById({"id" : accountId}).execute(function(resp) 
+		{
 			$log.debug("getAccountById at enpoint" + resp);
 			deferred.resolve(resp);
 		});
