@@ -13,16 +13,17 @@
 	<div layout layout-sm="column">
 		<md-input-container flex>
 		<label>Enter Account Group Name <span style="color: red;">*</span></label>
-		<input type="text" ng-model="tempAccountGrp.groupName" name="grpName" ng-required="true">
+		<input type="text" ng-model="tempAccountGrp.groupName" id="grpName" name="grpName"  ng-blur="checkGroupExist(tempAccountGrp.groupName)" ng-required="true">
 		
 		<div ng-messages="accGrp.grpName.$error" ng-if="accGrp.grpName.$submitted || accGrp.grpName.$touched">
 			<div ng-message="required">Please Enter Account Group Name</div>
+			<span> {{error}}</span>
 			</div>
 		</md-input-container>
 	
 		<md-input-container flex>
 		<label>Enter Description<span style="color: red;">*</span></label>
-		<input type="text" ng-model="tempAccountGrp.description" name="descrip" ng-required="true">
+		<input type="text" ng-model="tempAccountGrp.description"  id="descrip" name="descrip" ng-required="true">
 		
 		<div ng-messages="accGrp.descrip.$error" ng-if="accGrp.descrip.$submitted || accGrp.descrip.$touched">
 			<div ng-message="required">Please Enter Description</div>
@@ -33,7 +34,7 @@
 	<div layout layout-sm="column">
 		<md-input-container flex>
 		<label>Enter Order No <span style="color: red;">*</span></label>
-		<input type="number" ng-model="tempAccountGrp.displayOrderNo" name="orderNo" ng-required="true">
+		<input type="number" ng-model="tempAccountGrp.displayOrderNo" id="orderNo" name="orderNo" ng-required="true">
 			
 		<div ng-messages="accGrp.orderNo.$error" ng-if="accGrp.orderNo.$submitted || accGrp.orderNo.$touched">
 			<div ng-message="required">Please Enter Order Number</div>
@@ -41,7 +42,7 @@
 		</md-input-container>
 	</div>
 <section layout="row" layout-sm="column" layout-align="center center">
-	<md-button class="md-raised md-primary" ng-disabled="accGrp.$invalid || accGrp.$pristine || accGrp.$touched"
+	<md-button class="md-raised md-primary" name="addButton" id="addButton" ng-disabled="accGrp.$invalid || accGrp.$pristine || accGrp.$touched"
 	 ng-click="addAccountGroup()">Add</md-button>
 	
 	<md-button class="md-raised md-primary" ng-click="cancelBtn()">Cancel</md-button>
