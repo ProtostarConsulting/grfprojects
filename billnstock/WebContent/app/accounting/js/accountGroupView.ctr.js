@@ -83,18 +83,17 @@ app.controller(
 											}
 											
 										}
-
-										if ($scope.accountList.length>0) {
-										$scope.accountList[acIndex].totaldebit= $scope.totaldebit;
-										$scope.accountList[acIndex].totalcredit= $scope.totalcredit;
+		
+										if ($scope.accountList.length>0 && $scope.accountList[acIndex]!=undefined) {
+											$scope.accountList[acIndex].totaldebit= $scope.totaldebit;
+											$scope.accountList[acIndex].totalcredit= $scope.totalcredit;
+											}
+											
+										}	
+										if ($scope.accountList.length>0 && $scope.accountList[acIndex]!=undefined) {
+										$scope.grandCreditTotal =$scope.grandCreditTotal+$scope.accountList[acIndex].totalcredit ;
+										$scope.grandDebitTotal = $scope.grandDebitTotal+$scope.accountList[acIndex].totaldebit;
 										}
-										
-									}	
-									if ($scope.accountList.length>0) {
-									$scope.grandCreditTotal =$scope.grandCreditTotal+$scope.accountList[acIndex].totalcredit ;
-									$scope.grandDebitTotal = $scope.grandDebitTotal+$scope.accountList[acIndex].totaldebit;
-									}
-									
 								})
 							
 					};

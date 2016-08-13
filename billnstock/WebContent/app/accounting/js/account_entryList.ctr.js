@@ -3,7 +3,7 @@ var app = angular.module("stockApp");
 app.controller(
 				"accountEntryListController",
 				function($scope, $window, $mdToast, $timeout, $mdSidenav,
-						$mdUtil, $log, $stateParams, objectFactory,
+						$mdUtil, $log, $stateParams, objectFactory,$state,
 						appEndpointSF, $mdDialog, $mdMedia) {					
 					
 
@@ -103,6 +103,11 @@ app.controller(
 								});
 					}
 
+					$scope.cancelButton = function() {
+						$state.go("accounting.accountGroupView", {groupId :$scope.groupId,flag:true});
+						
+					}
+					
 					$scope.waitForServiceLoad = function() {
 						if (appEndpointSF.is_service_ready) {
 							$scope.getAccountList();
