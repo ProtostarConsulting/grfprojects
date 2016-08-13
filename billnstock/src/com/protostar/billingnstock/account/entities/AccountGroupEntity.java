@@ -5,11 +5,12 @@ import java.util.List;
 
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Index;
 import com.protostar.billnstock.entity.BaseEntity;
 
 @Entity
 public class AccountGroupEntity extends BaseEntity {
-
+@Index
 	private String groupName;
 	private String description;
 	//private List<Ref<AccountEntity>> accountList;

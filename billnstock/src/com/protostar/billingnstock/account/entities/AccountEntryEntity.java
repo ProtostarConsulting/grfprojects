@@ -18,7 +18,7 @@ public class AccountEntryEntity extends BaseEntity {
 	@Index
 	private Ref<AccountEntity> accountEntity;
 
-	@Parent
+	//@Parent
 	@Index
 	private Ref<AccountingFYEntity> fyEntity;
 
