@@ -1,10 +1,21 @@
 
 <md-content layout-padding>
 
+<section layout="row" layout-align="end end" flex>
+
+ <md-button  class="md-raised md-primary"  id="downloadExcel" ng-click="downloadExcel()">Download AccountList
+  <md-tooltip> Download AccountList</md-tooltip> </md-button>
+
+ <md-button class="md-raised md-primary" id="uplodeExcel" ng-click="uploadExcel($event)">Upload AccountList 
+ 	<md-tooltip> Upload AccountList</md-tooltip> </md-button>
+ 
+</section>
 <h3 class="md-headline" >
 	<u>Account List</u>
 </h3>
-<div flex></div>
+
+
+<div flex>
             <md-button class="md-icon-button" ng-click="getaccountlist()">
               <md-icon md-svg-src="img/icons/ic_refresh_24px.svg">refresh</md-icon>
             </md-button>
