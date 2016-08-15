@@ -29,23 +29,25 @@ public class EmailHandler {
 	public void sendNewSchoolRegistrationEmail(
 			PartnerSchoolEntity partnerSchoolEntity) throws MessagingException,
 			IOException {
-		String headMasterEmailId = partnerSchoolEntity.getContactDetail()
-				.getHeadMasterEmailId();
-		String coordinatorEmailId = partnerSchoolEntity.getContactDetail()
-				.getCoordinatorDetail().get(0).getCoordinatorEmailId();
-		if (!EmailValidator.validate(headMasterEmailId)
-				&& !EmailValidator.validate(coordinatorEmailId)) {
-			return;
-		}
-		Properties props = new Properties();
 
-		Session session = Session.getDefaultInstance(props, null);
-
-		String messageBody = "";
-		messageBody = new EmailTemplateHandlerUtil()
-				.registerSchoolForExamTemplate(partnerSchoolEntity);
-		logger.info("messageBody :" + messageBody);
 		try {
+			String headMasterEmailId = partnerSchoolEntity.getContactDetail()
+					.getHeadMasterEmailId();
+			String coordinatorEmailId = partnerSchoolEntity.getContactDetail()
+					.getCoordinatorDetail().get(0).getCoordinatorEmailId();
+			if (!EmailValidator.validate(headMasterEmailId)
+					&& !EmailValidator.validate(coordinatorEmailId)) {
+				return;
+			}
+			Properties props = new Properties();
+
+			Session session = Session.getDefaultInstance(props, null);
+
+			String messageBody = "";
+			messageBody = new EmailTemplateHandlerUtil()
+					.registerSchoolForExamTemplate(partnerSchoolEntity);
+			logger.info("messageBody :" + messageBody);
+
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(EMAIL_FROM, EMAIL_FROM_NAME));
 			if (EmailValidator.validate(headMasterEmailId)) {

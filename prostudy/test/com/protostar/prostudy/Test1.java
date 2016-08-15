@@ -1,11 +1,11 @@
 package com.protostar.prostudy;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.protostar.prostudy.until.EmailValidator;
 
 public class Test1 {
 
@@ -26,16 +26,25 @@ public class Test1 {
 		 * System.out.println("authorizations: " + authorizations);
 		 */
 
-		/*String lineSeparator = System.lineSeparator();
-		String aString = "This is a \n " + System.lineSeparator() + "string ";
+		/*
+		 * String lineSeparator = System.lineSeparator(); String aString =
+		 * "This is a \n " + System.lineSeparator() + "string ";
+		 * 
+		 * byte[] bytes = aString.getBytes(); System.out.println("bytes:" +
+		 * aString); System.out.println("bytes:" + bytes);
+		 * System.out.println("All is well!");
+		 */
 
-		byte[] bytes = aString.getBytes();
-		System.out.println("bytes:" + aString);
-		System.out.println("bytes:" + bytes);
-		System.out.println("All is well!");*/
+		// System.out.println(EmailValidator.validate(""));
+
+		Date date = new Date();
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		Integer year = cal.get(Calendar.YEAR);
+		String currentYear = "".concat(year.toString()).concat("-")
+				.concat("" + (year - 1999));
 		
-		
-		System.out.println(EmailValidator.validate(""));
+		System.out.println("Curernt year is:" + currentYear);
 	}
 
 	public static Map<String, List> getEmptyAuthorizationEntry(String authName,
