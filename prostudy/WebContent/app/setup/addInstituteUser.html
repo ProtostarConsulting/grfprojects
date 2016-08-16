@@ -41,7 +41,7 @@
 			<input name="address " ng-model="tempUser.address" id="address">
 			</md-input-container>
 
-			<md-input-container class="md-block" flex-gt-sm> 
+			<md-input-container class="md-block" flex-gt-sm>
 			<label>Phone Number<span style="color: red"
 				ng-show="instituteAddUserForm.contact.$error.required"
 				class="mandatory">*</span></label> <input name="contact"
@@ -70,14 +70,17 @@
 			ng-show="instituteAddUserForm.email_id.$error.required"
 			class="mandatory">*</span></label> <input type="email" name="email_id"
 			ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"
-			ng-blur="checkUserAlreadyExist(tempUser.email_id)"
-			ng-model="tempUser.email_id" ng-required="true">
+			ng-model="tempUser.email_id" ng-required="true" pro-userexists>
 		<div ng-messages="instituteAddUserForm.email_id.$error"
 			ng-if="instituteAddUserForm.email_id.$submitted || instituteAddUserForm.email_id.$touched">
 			<div ng-message="required">Email-Id should not Empty.</div>
 			<div ng-message="pattern">Please Enter Valid Email-Id.</div>
+			<div ng-message="userexists">User Already Exists</div>
 		</div>
-		<span style="color: red" id="error">{{error}}</span> </md-input-container>
+		<!-- <span style="color: red" id="error">{{error}}</span> </md-input-container> -->
+
+		<!-- ng-blur="checkUserAlreadyExist(tempUser.email_id)",
+			ng-change="instituteAddUserForm.$invalid=true" -->
 	</div>
 
 	<div layout="row" layout-xs="column">
