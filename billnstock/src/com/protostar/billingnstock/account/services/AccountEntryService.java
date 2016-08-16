@@ -33,8 +33,7 @@ public class AccountEntryService {
 	
 	@ApiMethod(name = "getAccountEntryByAccountId", path = "getAccountEntryByAccountId")
 	public List<AccountEntryEntity> getAccountEntryByAccountId(@Named("id") Long AccId) {
-		System.out.println("groupId" + AccId);
-
+		
 		List<AccountEntryEntity> filteredEntries = new ArrayList<AccountEntryEntity>();
 		List<AccountEntryEntity> accountEntries = ofy().load().type(AccountEntryEntity.class).list();
 
