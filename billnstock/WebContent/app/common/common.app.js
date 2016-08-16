@@ -274,17 +274,18 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl : '/app/accounting/accountGroupEdit.html',
 		controller : 'accountGrpEditCtr',
 			params:{
-				record:null
-			
+				record:null		
 			}
 	})
 	.state('accounting.accountGroupView', {
 		url : "/accountGroupView",
 		templateUrl : '/app/accounting/accountGroupView.html',
-		controller : 'accountGroupViewCtr'
-			
+		controller : 'accountGroupViewCtr',
+		params:{
+			flag:null,
+			selectdAccount:null
+		}			
 	})
-	
 
  .state('accounting.addGeneralEntry', {
 		url : "/addGeneralEntry",
