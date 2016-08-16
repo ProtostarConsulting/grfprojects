@@ -25,7 +25,7 @@ app.controller("voucherRecieptCtr", function($scope, $window, $mdToast, $timeout
 			for (var x = 0; x < list.length; x++) {
 				$scope.vaccounts1.push(list[x]);
 				$scope.vaccounts2.push(list[x]);
-
+$scope.s=x;
 			}
 
 		});

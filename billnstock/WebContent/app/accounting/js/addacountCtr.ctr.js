@@ -138,24 +138,9 @@ app
 								});
 					}
 
-/*					$scope.waitForServiceLoad = function() {
-						if (appEndpointSF.is_service_ready) {
 
-							$scope.getGrouplist();
-							if ($scope.accountId != undefined) {
-
-								$scope.getAccByid();
-
-							}
-
-						} else {
-							$log.debug("Services Not Loaded, watiting...");
-							$timeout($scope.waitForServiceLoad, 1000);
-						}
-					}
-*/
 					$scope.getGrouplist();
 					$scope.getAccByid();
-					/*$scope.waitForServiceLoad();*/
+				
 
 				});
