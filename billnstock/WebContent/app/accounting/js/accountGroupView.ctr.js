@@ -4,18 +4,19 @@ app
 		.controller(
 				"accountGroupViewCtr",
 				function($scope, $window, $mdToast, $timeout, $mdSidenav,
-						$mdUtil, $log, $stateParams, objectFactory,
+						$mdUtil, $log, $stateParams, objectFactory,$state,
 						appEndpointSF, $mdDialog, $mdMedia, ajsCache) {
 
 					$scope.fromDate = new Date();
 					$scope.toDate = new Date();
 					$scope.fromDate.setDate($scope.toDate.getDate() - 30);
-					$scope.groupName;
+			
 					$scope.accountList = [];
 					$scope.entryList = [];
-
+					$scope.flag=$stateParams.flag;
+			
 					$scope.getAccountListByGroupId = function(groupId) {
-
+						
 						$scope.accountList = [];
 
 						var AccountService = appEndpointSF.getAccountService();
@@ -34,7 +35,8 @@ app
 								})
 
 					};
-
+					
+					
 					$scope.getAccountGroupList = function() {
 
 						var AccountGroupService = appEndpointSF
@@ -44,6 +46,16 @@ app
 
 									$scope.GroupList = list;
 									$scope.accountList = [];
+									if($scope.flag)
+									{
+										$scope.groupId=$stateParams.selectdAccount.accountgroup.id;
+										$scope.getAccountListByGroupId($scope.groupId);
+									}else{
+										if($scope.GroupList && $scope.GroupList.length > 0){
+											$scope.groupId = $scope.GroupList[0].id;
+											$scope.getAccountListByGroupId($scope.groupId);
+										}
+									}
 
 								})
 

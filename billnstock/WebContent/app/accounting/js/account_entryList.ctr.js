@@ -35,9 +35,7 @@ app
 								.getAccountEntryByAccountId(accId)
 								.then(
 										function(list) {
-											$log.debug("list:"
-													+ angular.toJson(list));
-
+											
 											$scope.totaldebit = 0;
 											$scope.totalcredit = 0;
 
@@ -112,7 +110,7 @@ app
 
 					$scope.cancelButton = function() {
 						$state.go("accounting.accountGroupView", {
-							groupId : $scope.groupId,
+							selectdAccount : $scope.selectdAccount,
 							flag : true
 						});
 
