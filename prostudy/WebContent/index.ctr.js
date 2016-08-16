@@ -82,6 +82,21 @@ angular
 						}
 						return true;
 					}
+					
+					$scope.isAuthorized = function(authName) {
+						var found= false;
+						if(!$scope.curUser.userAuthMasterEntity || !$scope.curUser.userAuthMasterEntity.authorizations){
+							return found;
+						}
+						for(var index=0; index<$scope.curUser.userAuthMasterEntity.authorizations.length; index++){							
+							if($scope.curUser.userAuthMasterEntity.authorizations[index].authName == authName){
+								found= true;
+								break;
+							}
+						}
+						return found;
+					}
+					
 
 					$scope.showUpdateToast = function() {
 						$mdToast.show($mdToast.simple().content(

@@ -238,10 +238,14 @@ angular
 						
 						$scope.getExamByYear();
 						
+						$location.hash('topRight');
+						$anchorScroll();
+						$scope.loading = true;
 						PartnerSchoolService
 								.addPartnerSchool($scope.partnerSchool)
 								.then(
 										function(schoolid) {
+											$scope.loading = false;
 											if (schoolid.code) {
 												$scope
 														.showErrorToast("Error occured while saving data. Please try latter on or contact technical support. Error Details:"
