@@ -96,14 +96,24 @@ app
 			.then(function(response){
 				if (response.returnBool == true) {
 					$scope.error = "Account Already Exists";				
-					
+					//angular.element(document.getElementById('accountName'))[0].disabled = true;
+					angular.element(document.getElementById('accountType'))[0].disabled = true;
+					angular.element(document.getElementById('accountNo'))[0].disabled = true;
+					angular.element(document.getElementById('description'))[0].disabled = true;
+					angular.element(document.getElementById('displayOrderNo'))[0].disabled = true;
+					angular.element(document.getElementById('accountlist'))[0].disabled = true;
 					angular.element(document.getElementById('addButton'))[0].disabled = true;
-					//accountForm.accountName.$error=true;
-					 //$scope.accountForm.accountName.$setValidity(true);
+					
 				} 
 				else {
 					$scope.error = "";
-					
+					//angular.element(document.getElementById('accountName'))[0].disabled = false;
+					angular.element(document.getElementById('accountType'))[0].disabled = false;
+					angular.element(document.getElementById('accountNo'))[0].disabled = false;
+					angular.element(document.getElementById('description'))[0].disabled = false;
+					angular.element(document.getElementById('displayOrderNo'))[0].disabled = false;
+					angular.element(document.getElementById('accountlist'))[0].disabled = false;
+					angular.element(document.getElementById('addButton'))[0].disabled = false;
 				}
 				
 			});
