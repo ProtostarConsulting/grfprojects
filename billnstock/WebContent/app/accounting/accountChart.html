@@ -1,0 +1,55 @@
+<style>
+table {
+	border: 0px solid black;
+	border-collapse: collapse;
+	width: 90%;
+}
+
+td {
+	/* border: 1px solid black; */
+	
+}
+</style>
+
+<md-content ng-show="$loading"> Loding.... </md-content>
+<md-content layout-padding ng-show="!loading">
+
+<h3 class="md-headline">
+	<u>Account Chart</u>
+</h3>
+
+<form name="searchForm"></form>
+
+<div>
+
+	<table>
+		<thead>
+			<th colspan="6">Accounts</th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th>Account Balance</th>			
+		</thead>
+	</table>
+	<br>
+	<br>
+	<div ng-repeat="groupTypeObj in accountGroupTypeGroupList">
+		<p>{{groupTypeObj.groupType}}</p>
+		<div ng-repeat="grp in groupTypeObj.groupList">
+			<p style="margin-left: 100px">{{grp.groupName}}</p>
+
+			<div ng-repeat="acc in grp.accountList">
+			 <p style="margin-left: 200px">{{acc.accountName}}&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<b>{{acc.balance}}</b></p>
+			 			
+			</div>
+
+		</div>
+	</div>
+
+
+
+</div>
+
+</md-content>

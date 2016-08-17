@@ -45,40 +45,6 @@ td {
 				</div>
 
 
-
-	<md-input-container flex> <label>Account Name State</label>
-	 <md-select ng-model="searchAccName" id="accountName"
-		name="accountName" ng-required="true"
-		ng-change="getAccountEntryList(searchAccName,fromDate,toDate)">
-	<md-option ng-value="acc.accountName" ng-repeat="acc in accountList"
-		ng-selected="$first">{{acc.accountName}}</md-option> </md-select> </md-input-container>
-
- 
-</th>
-<th>
-<div ng-if="selectdAccount.accountName!=undefined"> <md-input-container flex> <label>Account
-		Name State</label> <md-select ng-model="searchAccId" id="accountId"
-		name="accountId" ng-required="true"
-		ng-change="getAccountEntryByAccountId(searchAccId,fromDate,toDate)">
-	<md-option ng-value="acc.id" ng-repeat="acc in accountList" >{{acc.accountName}}</md-option> </md-select> </md-input-container></div> 	
-		
-		
-		
-	<div ng-if="selectdAccount.accountName==undefined"> <md-input-container flex> <label>Account
-		Name State</label> <md-select ng-model="searchAccId" id="accountId"
-		name="accountId" ng-required="true"
-		ng-change="getAccountEntryByAccountId(searchAccId,fromDate,toDate)">
-	<md-option ng-value="acc.id" ng-repeat="acc in accountList" ng-selected="$first">{{acc.accountName}}</md-option> </md-select> </md-input-container></div> 
-	
-</th>
-</tr>
-
-
-
-
-</table>
-	
-
 			</th>
 			<th><md-button class="md-raised md-primary"
 					ng-show="selectdAccount.accountName!=undefined"

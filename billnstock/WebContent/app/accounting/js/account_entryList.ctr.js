@@ -1,3 +1,4 @@
+
 var app = angular.module("stockApp");
 
 app
@@ -66,8 +67,8 @@ app
 											for (var i = 0; i < entryList.length; i++) {
 												if (entryList[i].accountEntity.accountType
 														.trim() == "PERSONAL") {
-													$scope.closingBalance = $scope.totalcredit
-															- $scope.totaldebit;
+													$scope.closingBalance = $scope.totaldebit
+															- $scope.totalcredit;
 												}
 												if (list[i].accountEntity.accountType
 														.trim() == "REAL") {
@@ -127,3 +128,4 @@ app
 					}
 					$scope.waitForServiceLoad();
 				});
+
