@@ -230,7 +230,7 @@ function googleEndpointSF($log, $q) {
 		return deferred.promise;
 	}
 	
-	AccountGroupService.checkAccountGrpAlreadyExist = function(name) {
+	AccountGroupService.checkAccountGroupAlreadyExist = function(name) {
 		var deferred = $q.defer();
 		gapi.client.accountGroupService.checkAccountGrpAlreadyExist({"groupName":name}).execute(function(resp) {
 			deferred.resolve(resp);
