@@ -215,6 +215,17 @@ function googleEndpointSF($log, $q) {
 		});
 		return deferred.promise;	
 	}
+	AccountGroupService.getAccountGroupListByType=function(type){
+		var deferred = $q.defer();
+		gapi.client.accountGroupService.getAccountGroupListByType({"accountGroupType":type}).execute(function(resp) {
+			
+			deferred.resolve(resp.items);
+			$log.debug("resp getAccountGroupListByType :"+angular.toJson(resp));
+		});
+		return deferred.promise;	
+	}
+	
+	
 	AccountGroupService.updateAccountGrp = function(updateAccountGrp) {
 		var deferred = $q.defer();
 		gapi.client.accountGroupService.updateAccountGrp(updateAccountGrp).execute(function(resp) {
@@ -1152,6 +1163,16 @@ function googleEndpointSF($log, $q) {
 		});
 		return deferred.promise;
 	}
+	
+	AccountService.getAccountBalance = function(id) {
+		var deferred = $q.defer();
+		gapi.client.accountService.getAccountBalance({"id" : id}).execute(function(resp) {
+			$log.debug("balance " + angular.toJson(resp.returnBalance));
+			deferred.resolve(resp);
+		});
+		return deferred.promise;
+	}
+		
 	
 	AccountService.getAccountById = function(accountId) {
 		var deferred = $q.defer();
