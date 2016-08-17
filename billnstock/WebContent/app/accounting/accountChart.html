@@ -5,9 +5,11 @@ table {
 	width: 90%;
 }
 
-td {
-	/* border: 1px solid black; */
-	
+div.one {
+	border-radius: 25px;
+	padding: 20px;
+	border-style: solid;
+	border-color: black;
 }
 </style>
 
@@ -18,31 +20,27 @@ td {
 	<u>Account Chart</u>
 </h3>
 
-<form name="searchForm"></form>
-
-<div>
+<div class="one">
 
 	<table>
 		<thead>
-			<th colspan="6">Accounts</th>
+			<th>Accounts</th>			
 			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th>Account Balance</th>			
+			<th>Account Balance</th>
 		</thead>
 	</table>
-	<br>
-	<br>
+	<br> <br>
 	<div ng-repeat="groupTypeObj in accountGroupTypeGroupList">
 		<p>{{groupTypeObj.groupType}}</p>
 		<div ng-repeat="grp in groupTypeObj.groupList">
 			<p style="margin-left: 100px">{{grp.groupName}}</p>
 
 			<div ng-repeat="acc in grp.accountList">
-			 <p style="margin-left: 200px">{{acc.accountName}}&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<b>{{acc.balance}}</b></p>
-			 			
+				<p style="margin-left: 200px">
+					{{acc.accountName}} <span align="right"
+						style="position: absolute; right: 600px;""><b>{{acc.balance}}</b></span>
+				</p>
+				
 			</div>
 
 		</div>
