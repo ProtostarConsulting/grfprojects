@@ -38,7 +38,6 @@ app
 
 							$scope.addAccount = function() {
 
-								
 								var accountservice = appEndpointSF
 										.getAccountService();
 
@@ -87,47 +86,8 @@ app
 										});
 
 					}
-					
-					$scope.checkAccountExist=function(name){
-						
-			   			if($scope.account.accountName){
-			var checkAccount = appEndpointSF.getAccountService();
-			checkAccount.checkAccountAlreadyExist($scope.account.accountName)
-			.then(function(response){
-				if (response.returnBool == true) {
-					$scope.error = "Account Already Exists";				
-					//angular.element(document.getElementById('accountName'))[0].disabled = true;
-					angular.element(document.getElementById('accountType'))[0].disabled = true;
-					angular.element(document.getElementById('accountNo'))[0].disabled = true;
-					angular.element(document.getElementById('description'))[0].disabled = true;
-					angular.element(document.getElementById('displayOrderNo'))[0].disabled = true;
-					angular.element(document.getElementById('accountlist'))[0].disabled = true;
-					angular.element(document.getElementById('addButton'))[0].disabled = true;
-					
-				} 
-				else {
-					$scope.error = "";
-					//angular.element(document.getElementById('accountName'))[0].disabled = false;
-					angular.element(document.getElementById('accountType'))[0].disabled = false;
-					angular.element(document.getElementById('accountNo'))[0].disabled = false;
-					angular.element(document.getElementById('description'))[0].disabled = false;
-					angular.element(document.getElementById('displayOrderNo'))[0].disabled = false;
-					angular.element(document.getElementById('accountlist'))[0].disabled = false;
-					angular.element(document.getElementById('addButton'))[0].disabled = false;
-				}
-				
-			});
-				
-				
-			}
-			
-		}
-					
-					
-					
-					
-					
 
+					
 					$scope.getAccByid = function() {
 
 						var getrecord = appEndpointSF.getAccountService();
@@ -138,9 +98,54 @@ app
 								});
 					}
 
+					/*
+					 * $scope.waitForServiceLoad = function() { if
+					 * (appEndpointSF.is_service_ready) {
+					 * 
+					 * $scope.getGrouplist(); if ($scope.accountId != undefined) {
+					 * 
+					 * $scope.getAccByid(); } } else { $log.debug("Services Not
+					 * Loaded, watiting...");
+					 * $timeout($scope.waitForServiceLoad, 1000); } }
+					 */
 
 					$scope.getGrouplist();
 					$scope.getAccByid();
-				
 
+				});
+
+angular
+		.module("stockApp")
+		.directive(
+				'accountUserexists',
+				function($log, $q, appEndpointSF) {
+					return {
+						restrict : 'A',
+						require : 'ngModel',
+						link : function($scope, $element, $attrs, ngModel) {
+							$log.debug("Inside of accountUserexists....");
+							ngModel.$asyncValidators.userexists = function(
+									accountValue) {
+								var deferred = $q.defer();
+								var AccountService = appEndpointSF
+										.getAccountService();
+								$log.debug("accountValue:" + accountValue);
+								AccountService
+										.checkAccountAlreadyExist(accountValue)
+										.then(
+												function(response) {
+													$log
+															.debug("Inside of userexists validator fn: "
+																	+ response.returnBool);
+													if (response.returnBool == true) {
+														deferred.reject();
+													} else {
+														deferred.resolve();
+													}
+												});
+								return deferred.promise;
+							}
+
+						}
+					};
 				});
