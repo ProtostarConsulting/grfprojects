@@ -36,6 +36,11 @@ public class AccountGroupService {
 	public List<AccountGroupEntity> getAccountGroupList() {
 		return ofy().load().type(AccountGroupEntity.class).list();
 	}
+	@ApiMethod(name = "getAccountGroupListByType",path="getAccountGroupListByType")
+	public List<AccountGroupEntity> getAccountGroupListByType(@Named("accountGroupType") String type) {
+		return ofy().load().type(AccountGroupEntity.class).filter("accountGroupType",type).list();
+	}
+	
 	
 	@ApiMethod(name = "updateAccountGrp")
 	public AccountGroupEntity updateAccountGrp(AccountGroupEntity update) {
