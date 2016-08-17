@@ -375,6 +375,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			}
 			
 	})
+	.state('accounting.accountChart', {
+		url : "/accountChart",
+		templateUrl : '/app/accounting/accountChart.html',
+		controller :'accountChartCtr'			
+	})
 		
 
 	.state('journal', {
