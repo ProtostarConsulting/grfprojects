@@ -3,30 +3,31 @@
 
 <section layout="row" layout-align="end end" flex>
 
- <md-button  class="md-raised md-primary"  id="downloadExcel" ng-click="downloadExcel()">Download AccountList
-  <md-tooltip> Download AccountList</md-tooltip> </md-button>
+	<md-button class="md-raised md-primary" id="downloadExcel"
+		ng-click="downloadExcel()">Download AccountList <md-tooltip>
+	Download AccountList</md-tooltip> </md-button>
 
- <md-button class="md-raised md-primary" id="uplodeExcel" ng-click="uploadExcel($event)">Upload AccountList 
- 	<md-tooltip> Upload AccountList</md-tooltip> </md-button>
- 
+	<md-button class="md-raised md-primary" id="uplodeExcel"
+		ng-click="uploadExcel($event)">Upload AccountList <md-tooltip>
+	Upload AccountList</md-tooltip> </md-button>
+
 </section>
-<h3 class="md-headline" >
+<h3 class="md-headline">
 	<u>Account List</u>
 </h3>
 
 
 <div flex>
-            <md-button class="md-icon-button" ng-click="getaccountlist()">
-              <md-icon md-svg-src="img/icons/ic_refresh_24px.svg">refresh</md-icon>
-            </md-button>
-          </div>
+	<md-button class="md-icon-button" ng-click="getaccountlist()">
+	<md-icon md-svg-src="img/icons/ic_refresh_24px.svg">refresh</md-icon> </md-button>
+</div>
 
 
 <div>
 	<md-data-table-container>
 	<table md-data-table md-row-select="selected" md-progress="deferred">
 		<thead md-order="query.order" md-trigger="onOrderChange">
-		
+
 			<tr>
 				<th name="Account_Name" order-by="accountName"></th>
 				<th name="Account_No" order-by="accountNo"></th>
@@ -51,17 +52,17 @@
 				<td>{{account.accountgroup.groupName}}</td>
 
 				<td><section layout="row" layout-sm="column">
-						 <md-button class="md-fab md-primary md-hue-2 "> <md-icon md-svg-src="img/icons/edit.svg"
-							ui-sref="accounting.account_add2({AccountId: account.id})"></md-icon> <md-tooltip>Edit
-					</md-tooltip>
-						</md-button> 
+						<md-button class="md-fab md-primary md-hue-2 "> <md-icon
+							md-svg-src="img/icons/edit.svg"
+							ui-sref="accounting.account_add2({AccountId: account.id})"></md-icon>
+						<md-tooltip>Edit </md-tooltip> </md-button>
 					</section></td>
-					
-					<!-- <td><md-button class="md-fab md-primary md-hue-2"> <md-icon
+
+				<!-- <td><md-button class="md-fab md-primary md-hue-2"> <md-icon
 			md-svg-src="img/icons/remove.svg"  ng-click="delAccByid(account.id)" ></md-icon> <md-tooltip>Delete
 					</md-tooltip></md-button></td>
 				 -->
-			
+
 			</tr>
 
 		</tbody>
