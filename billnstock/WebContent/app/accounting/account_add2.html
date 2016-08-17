@@ -18,12 +18,12 @@
 		<md-input-container flex> <label>Account
 			Name <span style="color: red;">*</span>
 		</label> <input ng-model="account.accountName" name="accountName" id="accountName" 
-		                ng-blur="checkAccountExist(account.accountName)" ng-required="true" minlength="3">
+		                ng-required="true" account-userexists minlength="3">
 
 		<div ng-messages="accountForm.accountName.$error" ng-if="accountForm.accountName.$submitted || accountForm.accountName.$touched">
 			<div ng-message="required">Please Enter Account Name</div>
 			<div ng-message="minlength">Please Enter more than 3 character</div>
-			<span>{{error}}</span>
+			<div ng-message="userexists">User Already Exists</div>
 		</div>
 		</md-input-container>
 
