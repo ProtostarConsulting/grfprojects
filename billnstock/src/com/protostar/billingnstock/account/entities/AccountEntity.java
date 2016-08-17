@@ -15,7 +15,8 @@ public class AccountEntity extends BaseEntity {
 /*	public static enum AccountType {
 		PERSONAL, REAL, NOMINAL
 	};
-*/
+*/ 
+
 	@Index
 	private String accountName;
 //	private AccountType accountType;
