@@ -24,6 +24,14 @@
     <filter-name>ObjectifyFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+  <!--
+  <filter>
+    <filter-name>ObjectifyFilter</filter-name>
+    <filter-class>com.protostar.billnstock.until.data.BasicChecksFilter</filter-class>
+  </filter> <filter-mapping>
+    <filter-name>BasicChecksFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping> -->
   <listener>
     <listener-class>
         com.protostar.billnstock.until.data.AppServletContextListener
