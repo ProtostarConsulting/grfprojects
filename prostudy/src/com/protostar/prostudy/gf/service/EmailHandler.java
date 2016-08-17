@@ -18,6 +18,8 @@ import com.protostar.prostudy.until.EmailValidator;
 
 public class EmailHandler {
 
+	private static final String EMAIL_REPLY_TO = "gandhiexam@gandhifoundation.net";
+
 	private final Logger logger = Logger
 			.getLogger(EmailHandler.class.getName());
 
@@ -57,7 +59,10 @@ public class EmailHandler {
 			if (EmailValidator.validate(coordinatorEmailId)) {
 				message.addRecipient(Message.RecipientType.TO,
 						new InternetAddress(coordinatorEmailId));
+
 			}
+			message.setReplyTo(new javax.mail.Address[] { new javax.mail.internet.InternetAddress(
+					EMAIL_REPLY_TO) });
 			message.setSubject(EMAIL_NEW_SCHOOL_SUBJECT);
 			message.setContent(messageBody, "text/html");
 			Transport.send(message);

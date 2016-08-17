@@ -14,7 +14,7 @@
 				ng-show="instituteAddUserForm.firstName.$error.required"
 				class="mandatory">*</span>
 			</label> <input name="firstName" ng-model="tempUser.firstName" id="firstName"
-				ng-required="true">
+				required>
 			<div ng-messages="instituteAddUserForm.firstName.$error"
 				ng-if="instituteAddUserForm.firstName.$submitted || instituteAddUserForm.firstName.$touched">
 				<div ng-message="required">Please Enter User First Name.</div>
@@ -77,6 +77,7 @@
 			<div ng-message="pattern">Please Enter Valid Email-Id.</div>
 			<div ng-message="userexists">User Already Exists</div>
 		</div>
+		</md-input-container>
 		<!-- <span style="color: red" id="error">{{error}}</span> </md-input-container> -->
 
 		<!-- ng-blur="checkUserAlreadyExist(tempUser.email_id)",

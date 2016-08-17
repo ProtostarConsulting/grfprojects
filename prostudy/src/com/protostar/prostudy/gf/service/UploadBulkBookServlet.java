@@ -90,7 +90,7 @@ public class UploadBulkBookServlet extends HttpServlet {
 
 					try {
 						String[] split = split2[row].split(",");
-						if (split == null || split.length < 5) {
+						if (split == null || split.length < 8) {
 							continue;
 						}
 						log.fine(" Row: " + row);

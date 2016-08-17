@@ -85,8 +85,8 @@
 					ng-show="gfBookStockForm.standard.$error.required"
 					class="mandatory">*</span>
 				</label> <md-select name="standard" ng-model="tempBook.standard"
-					ng-required="true"> <md-option ng-value="standard"
-					ng-repeat="standard in standardList" ng-selected="$first">{{standard}}</md-option>
+					ng-required="true" aria-label="Select Std"> <md-option ng-value="standard"
+					ng-repeat="standard in standardList">{{standard}}</md-option>
 				</md-select>
 				<div ng-messages="gfBookStockForm.standard.$error"
 					ng-if="gfBookStockForm.standard.$submitted || gfBookStockForm.standard.$touched">
