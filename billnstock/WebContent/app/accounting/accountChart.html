@@ -8,8 +8,9 @@ table {
 div.one {
 	border-radius: 25px;
 	padding: 20px;
-	border-style: solid;
-	border-color: black;
+	/* border-style: solid;
+	border-color: black; */
+	border: 1px solid black;
 }
 </style>
 
@@ -19,8 +20,15 @@ div.one {
 <h3 class="md-headline">
 	<u>Account Chart</u>
 </h3>
-
-<div class="one">
+<section layout="row">
+		<md-button class="md-icon-button md-accent"
+			ng-click="printDiv('accountChartDiv')" aria-label="Favorite">
+		<md-icon md-svg-icon="img/icons/print.svg"></md-icon> </md-button>
+		
+		<button ng-click="openPdf()">Open Pdf</button>
+    <button ng-click="downloadPdf()">Download Pdf</button>
+	</section>
+<div class="one" id="accountChartDiv">
 
 	<table>
 		<thead>
@@ -37,8 +45,9 @@ div.one {
 
 			<div ng-repeat="acc in grp.accountList">
 				<p style="margin-left: 200px">
-					{{acc.accountName}} <span align="right"
-						style="position: absolute; right: 600px;""><b>{{acc.balance}}</b></span>
+					{{acc.accountName}} <!-- <span align="right"
+						style="position: absolute; right: 600px;""><b>{{acc.balance}}</b></span> -->
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{acc.balance}}</b>
 				</p>
 				
 			</div>
@@ -46,8 +55,10 @@ div.one {
 		</div>
 	</div>
 
-
-
+<iframe name="print_frame" width="0" height="0" frameborder="0"
+		src="about:blank"></iframe>
 </div>
+
+
 
 </md-content>
