@@ -29,7 +29,7 @@ div.one {
 
 	<table>
 		<thead>
-			<th>Accounts</th>			
+			<th colspan="5">Accounts</th>			
 			<th></th>
 			<th>Account Balance</th>
 		</thead>
@@ -38,13 +38,13 @@ div.one {
 	<div ng-repeat="groupTypeObj in accountGroupTypeGroupList">
 		<p>{{groupTypeObj.groupType}}</p>
 		<div ng-repeat="grp in groupTypeObj.groupList">
-			<p style="margin-left: 100px">{{grp.groupName}}</p>
+			<p style="margin-left: 50px">{{grp.groupName}}</p>
 
 			<div ng-repeat="acc in grp.accountList">
-				<p style="margin-left: 200px">
-					{{acc.accountName}} <!-- <span align="right"
-						style="position: absolute; right: 600px;""><b>{{acc.balance}}</b></span> -->
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{acc.balance}}</b>
+				<p style="margin-left: 100px">
+					{{acc.accountName}}  <span align="right"
+						style="position: absolute; right: 400px;""><b>{{acc.balance}}</b></span> 
+						<!-- <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{acc.balance}}</b> --> 
 				</p>
 				
 			</div>
