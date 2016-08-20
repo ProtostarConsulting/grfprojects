@@ -1081,14 +1081,21 @@ app
 								}
 							})
 					.state('partnerSchool.print',{
-								url : "/print/:PSchoolId/:yearOfExam",
+								url : "/print/:yearOfExam",
 								templateUrl : '/app/partnerSchool/printBookDetail.html',
-								controller : 'printBookDtailCtr'
+								controller : 'printBookDtailCtr',
+								params: {
+									selectedSchoolObj: null,
+									bookStocks: null
+								}
 							})
 					.state('partnerSchool.printAddress', {
-						url : "/printAddress/:PSchoolId/:yearOfExam",
+						url : "/printAddress/:yearOfExam",
 						templateUrl : '/app/partnerSchool/printAddress.html',
-						controller : 'printBookDtailCtr'
+						controller : 'printBookDtailCtr',
+						params: {
+							selectedSchoolObj: null
+						}
 					})
 					.state('partnerSchool.listPartnerSchool',{
 								url : "/listPartnerSchool",
