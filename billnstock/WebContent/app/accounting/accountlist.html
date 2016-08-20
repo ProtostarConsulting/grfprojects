@@ -1,9 +1,26 @@
 
+
 <md-content layout-padding>
 
+<section layout="row" layout-align="end end" flex>
+
+ <md-button  class="md-raised md-primary"  id="downloadExcel" ng-click="downloadExcel()">Download AccountList
+  <md-tooltip> Download AccountList</md-tooltip> </md-button>
+
+ <md-button class="md-raised md-primary" id="uplodeExcel" ng-click="uploadExcel($event)">Upload AccountList 
+ 	<md-tooltip> Upload AccountList</md-tooltip> </md-button>
+ 
+</section>
 <h3 class="md-headline" >
 	<u>Account List</u>
 </h3>
+
+
+<div flex>
+            <md-button class="md-icon-button" ng-click="getaccountlist()">
+              <md-icon md-svg-src="img/icons/ic_refresh_24px.svg">refresh</md-icon>
+            </md-button>
+          </div>
 
 
 <div>
@@ -18,6 +35,7 @@
 				<th name="Order_No" order-by="displayOrderNo"></th>
 				<th name="Description" order-by="description"></th>
 				<th name="Contra" order-by="contra"></th>
+				<th name="Account Group" order-by="accountgroup"></th>
 			</tr>
 		</thead>
 
@@ -31,6 +49,7 @@
 				<td>{{account.displayOrderNo}}</td>
 				<td>{{account.description}}</td>
 				<td>{{account.contra}}</td>
+				<td>{{account.accountgroup.groupName}}</td>
 
 				<td><section layout="row" layout-sm="column">
 						 <md-button class="md-fab md-primary md-hue-2 "> <md-icon md-svg-src="img/icons/edit.svg"
@@ -39,13 +58,11 @@
 						</md-button> 
 					</section></td>
 					
-					<td><md-button class="md-fab md-primary md-hue-2"> <md-icon
+					<!-- <td><md-button class="md-fab md-primary md-hue-2"> <md-icon
 			md-svg-src="img/icons/remove.svg"  ng-click="delAccByid(account.id)" ></md-icon> <md-tooltip>Delete
 					</md-tooltip></md-button></td>
 				
-					
-					
-				<td>
+				<td> -->
 			</tr>
 
 		</tbody>
@@ -57,21 +74,92 @@
 </div>
 
 
+</md-content>
+
+<!-- 
+<md-content layout-padding>
+
+<section layout="row" layout-align="end end" flex>
+
+	<md-button class="md-raised md-primary" id="downloadExcel"
+		ng-click="downloadExcel()">Download AccountList <md-tooltip>
+	Download AccountList</md-tooltip> </md-button>
+
+	<md-button class="md-raised md-primary" id="uplodeExcel"
+		ng-click="uploadExcel($event)">Upload AccountList <md-tooltip>
+	Upload AccountList</md-tooltip> </md-button>
+
+</section>
+<h3 class="md-headline">
+	<u>Account List</u>
+</h3>
 
 
+<div flex>
+	<md-button class="md-icon-button" ng-click="getaccountlist()">
+	<md-icon md-svg-src="img/icons/ic_refresh_24px.svg">refresh</md-icon> </md-button>
+</div>
 
 
+<div>
+	<md-data-table-container>
+	<table md-data-table md-row-select="selected" md-progress="deferred">
+		<thead md-order="query.order" md-trigger="onOrderChange">
 
+			<tr>
+				<th name="Account_Name" order-by="accountName"></th>
+				<th name="Account_No" order-by="accountNo"></th>
+				<th name="Account_Type" order-by="accountType"></th>
+				<th name="Order_No" order-by="displayOrderNo"></th>
+				<th name="Description" order-by="description"></th>
+				<th name="Contra" order-by="contra"></th>
+				<th name="Account Group" order-by="accountgroup"></th>
+			</tr>
+		</thead>
 
+		<tbody>
+			<tr md-auto-select
+				ng-repeat="account in accounts | orderBy: query.order | limitTo: query.limit: (query.page - 1) * query.limit"">
 
+				<td>{{account.accountName}}</td>
+				<td>{{account.accountNo}}</td>
+				<td>{{account.accountType}}</td>
+				<td>{{account.displayOrderNo}}</td>
+				<td>{{account.description}}</td>
+				<td>{{account.contra}}</td>
+				<td>{{account.accountgroup.groupName}}</td>
 
+				<td><section layout="row" layout-sm="column">
+						<md-button class="md-fab md-primary md-hue-2 "> <md-icon
+							md-svg-src="img/icons/edit.svg"
+							ui-sref="accounting.account_add2({AccountId: account.id})"></md-icon>
+						<md-tooltip>Edit </md-tooltip> </md-button>
+					</section></td>
+<<<<<<< .mine
+					
+					<td><md-button class="md-fab md-primary md-hue-2"> <md-icon
+=======
 
+				<!-- <td><md-button class="md-fab md-primary md-hue-2"> <md-icon
+>>>>>>> .r1855
+			md-svg-src="img/icons/remove.svg"  ng-click="delAccByid(account.id)" ></md-icon> <md-tooltip>Delete
+					</md-tooltip></md-button></td>
+<<<<<<< .mine
+				
+				<td>
+=======
+	
+			</tr>
 
+		</tbody>
+	</table>
 
-
-
-
-
+	<md-data-table-pagination md-limit="query.limit" md-page="query.page"
+		md-total={{accounts.length}} md-trigger="onpagechange"></md-data-table-pagination>
+	</md-data-table-container>
+</div>
 
 
 </md-content>
+ -->
+ 

@@ -1,78 +1,76 @@
-<h3 class="md-headline">School List</h3>
-<section layout="row" layout-align="end end" flex>
-
-	<md-button class="md-raised md-primary" id="uplodeExcel"
-		ng-click="UplodeExcel($event)">Upload Schools <md-tooltip>
-	Add Bulk Schools</md-tooltip> </md-button>
-	
-		<md-button class="md-raised md-primary" id="downloadExcel"
-		ng-click="downloadData()">Download Schools <md-tooltip>
-	download Bulk Schools Data</md-tooltip> </md-button>
-</section>
-
-<div>
-	<div layout="row" layout-xs="column" flex>
-		<md-input-container flex> <label>Search</label> <input
-			ng-model="searchText"> </md-input-container>
-		<md-input-container flex> <md-select
-			ng-model="yearOfExam" id="selectedYear"
-			ng-change="changeSchoolList(yearOfExam)" placeholder="--Select Exam Year--"> 
-			<md-option ng-value="Other" ng-model="other">All</md-option>
-			<md-option ng-value="Year" ng-repeat="Year in Years  | orderBy:Year" >{{Year}}</md-option>
-			
-		</md-select> </md-input-container>
+<div ng-if="loading">
+	<div layout="row" layout-sm="column" layout-align="space-around">
+		<md-progress-circular md-diameter="100" md-mode="indeterminate"></md-progress-circular>
 	</div>
- 	<md-toolbar class="md-table-toolbar md-default"
-		ng-hide="selected.length">
-	<div class="md-toolbar-tools">
-		<span>Schools List</span>
-		<div flex></div>
-		<md-button class="md-icon-button"
-			ng-click="getPartnerSchoolByInstitute(true)"> <md-icon src="img/icon/ic_refresh_24px.svg">refresh</md-icon>
-		</md-button>
-	</div>
-	</md-toolbar>
-        
-        <md-toolbar class="md-table-toolbar alternate" ng-show="selected.length">
-          <div class="md-toolbar-tools">
-            <span>{{selected.length}} {{selected.length > 1 ? 'Schools' : 'School'}} selected</span>
-          </div>
-        </md-toolbar>
-	
+</div>
+<div ng-if="!loading">
 	<div>
-		<md-data-table-container>
-		<table md-data-table md-row-select="selected" class="md-primary"
-			md-progress="deferred">
-			<thead md-order="query.order" md-trigger="onorderchange">
+		<div layout="row" layout-xs="column" flex>
+			<md-input-container flex> <label>Search</label>
+			<input ng-model="searchText"> </md-input-container>
+			<md-input-container flex> <md-select
+				ng-model="yearOfExam" id="selectedYear"
+				ng-change="changeSchoolList(yearOfExam)"
+				placeholder="--Select Exam Year--"> <md-option
+				ng-value="Other" ng-model="other">All</md-option> <md-option
+				ng-value="Year" ng-repeat="Year in Years  | orderBy:Year">{{Year}}</md-option>
 
-				<tr>
-					<th order-by="School Name" name="School Name"></th>
-					<th order-by="Institute Name" name="Logistics"></th>
-					<th order-by="Address" name="Dispatch"></th>
-					<th order-by="Form Number" name="To"></th>
+			</md-select> </md-input-container>
+		</div>
+		<md-toolbar class="md-table-toolbar md-default">
+		<div class="md-toolbar-tools">
+			<span>Schools List</span>
+			<div flex></div>
+			<section layout="row" layout-align="end end" flex>
 
-				</tr>
-			</thead>
-			<tbody>
-				<tr md-auto-select
-					ng-repeat="pSchool in schools | orderBy: query.order | filter: searchText | limitTo: query.limit: (query.page - 1) * query.limit">
+				<md-button class="md-raised md-primary" id="uplodeExcel"
+					ng-click="UplodeExcel($event)">Upload Schools <md-tooltip>
+				Add Bulk Schools</md-tooltip> </md-button>
 
-				<td>{{pSchool.schoolName}}</td>
-				<td>{{pSchool.instName}}</td>
-				<td>{{pSchool.address.city}}</td>
-				<td>{{pSchool.formNumber}}</td>
-				<td><md-button class="md-raised md-primary"
-						ui-sref="partnerSchool.addPartnerSchool({selectedPSchoolId: pSchool.id, selectedPSchool: pSchool})">
-					Edit</md-button> <!-- <a
+				<md-button class="md-raised md-primary" id="downloadExcel"
+					ng-click="downloadData()">Download Schools <md-tooltip>
+				download Bulk Schools Data</md-tooltip> </md-button>
+				<md-button class="md-icon-button"
+					ng-click="getPartnerSchoolByInstitute(true)"> <md-icon
+					src="img/icon/ic_refresh_24px.svg">refresh</md-icon> </md-button>
+			</section>
+
+		</div>
+		</md-toolbar>
+		<div>
+			<md-data-table-container>
+			<table md-data-table class="md-primary"
+				md-progress="deferred">
+				<thead md-order="query.order" md-trigger="onorderchange">
+
+					<tr>
+						<th order-by="schoolName" name="School Name"></th>
+						<th order-by="instName" name="Institute Name"></th>
+						<th order-by="address.city" name="City"></th>
+						<th order-by="formNumber" name="Form Number"></th>
+						<th name="Action"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr md-auto-select
+						ng-repeat="pSchool in schools | orderBy: query.order | filter: searchText | limitTo: query.limit: (query.page - 1) * query.limit">
+
+						<td>{{pSchool.schoolName}}</td>
+						<td>{{pSchool.instName}}</td>
+						<td>{{pSchool.address.city}}</td>
+						<td>{{pSchool.formNumber}}</td>
+						<td><md-button class="md-raised md-primary"
+								ui-sref="partnerSchool.addPartnerSchool({selectedPSchoolId: pSchool.id, selectedPSchool: pSchool})">
+							Edit</md-button> <!-- <a
 					ui-sref="partnerSchool.addPartnerSchool({selectedPSchoolId: pSchool.id})"><md-button>
 						<md-icon md-svg-src="img/icons/edit.svg"></md-icon> <md-tooltip>Edit
 						</md-tooltip></md-button></a> --></td>
-				</tr>
-			</tbody>
-		</table>
-		</md-data-table-container>
-		<md-data-table-pagination md-limit="query.limit" md-page="query.page"
-			md-total={{schools.length}} md-trigger="onpagechange"></md-data-table-pagination>
+					</tr>
+				</tbody>
+			</table>
+			</md-data-table-container>
+			<md-data-table-pagination md-limit="query.limit" md-page="query.page"
+				md-total={{schools.length}} md-trigger="onpagechange"></md-data-table-pagination>
+		</div>
 	</div>
 </div>
-

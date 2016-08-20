@@ -13,7 +13,7 @@ import com.protostar.prostudy.entity.DivisionEntity;
 import com.protostar.prostudy.entity.SubjectEntity;
 
 
-@Api(name = "divisionService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.service", ownerName = "com.protostar.prostudy.service", packagePath = ""))
+//@Api(name = "divisionService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.service", ownerName = "com.protostar.prostudy.service", packagePath = ""))
 public class DivisionService {
 
 

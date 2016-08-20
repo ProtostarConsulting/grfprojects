@@ -18,7 +18,8 @@ public class AccountEntryEntity extends BaseEntity {
 	@Index
 	private Ref<AccountEntity> accountEntity;
 
-	@Parent
+
+	//@Parent
 	@Index
 	private Ref<AccountingFYEntity> fyEntity;
 
@@ -39,7 +40,7 @@ public class AccountEntryEntity extends BaseEntity {
 	}
 
 	public Double getDebit() {
-		return debit;
+		return debit==null?null:debit;
 	}
 
 	public void setDebit(Double debit) {
@@ -47,7 +48,7 @@ public class AccountEntryEntity extends BaseEntity {
 	}
 
 	public Double getCredit() {
-		return credit;
+		return credit==null?null:credit;
 	}
 
 	public void setCredit(Double credit) {

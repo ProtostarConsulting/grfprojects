@@ -23,6 +23,22 @@ app.controller("generalListCtr", function($scope, $window, $mdToast, $timeout,
 		});
 
 	}
-	$scope.getGeneralEntryList();
+
+	
+	
+	
+	$scope.waitForServiceLoad = function() {
+	      if (appEndpointSF.is_service_ready) {
+	       
+	    		$scope.getGeneralEntryList();
+	       
+
+	      } else {
+	       $log.debug("Services Not Loaded, watiting...");
+	       $timeout($scope.waitForServiceLoad, 1000);
+	      }
+	     }
+
+	
 
 });

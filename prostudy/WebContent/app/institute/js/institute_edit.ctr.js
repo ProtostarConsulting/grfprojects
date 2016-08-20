@@ -14,7 +14,7 @@ angular.module("prostudyApp").controller(
 				name : "",
 				email_id : "",
 				phone_no : "",
-				address : ""
+				address : {}
 			};
 			$scope.institutes = [];
 

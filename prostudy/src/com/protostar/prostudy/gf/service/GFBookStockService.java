@@ -20,22 +20,23 @@ public class GFBookStockService {
 	@ApiMethod(name = "addGFBook", path = "addGFBook")
 	public GFBookEntity addGFBook(GFBookEntity gfBookEntity) {
 
-		if (gfBookEntity.getFlag() != null) {
+		/*
+		 * if (gfBookEntity.getFlag() != null) {
+		 * ofy().save().entity(gfBookEntity).now(); } String bookname =
+		 * gfBookEntity.getBookName(); String bookmedium =
+		 * gfBookEntity.getBookMedium();
+		 * 
+		 * GFBookEntity foundBook = ofy().load().type(GFBookEntity.class)
+		 * .filter("bookName", bookname).filter("bookMedium", bookmedium)
+		 * .first().now(); if (foundBook != null) { return gfBookEntity; } else
+		 * { ofy().save().entity(gfBookEntity).now(); return gfBookEntity; }
+		 */
 
-			ofy().save().entity(gfBookEntity).now();
+		Key<GFBookEntity> now = ofy().save().entity(gfBookEntity).now();
+		if (gfBookEntity.getId() == null) {
+			gfBookEntity.setId(now.getId());
 		}
-		String bookname = gfBookEntity.getBookName();
-		String bookmedium = gfBookEntity.getBookMedium();
-
-		GFBookEntity foundBook = ofy().load().type(GFBookEntity.class)
-				.filter("bookName", bookname).filter("bookMedium", bookmedium)
-				.first().now();
-		if (foundBook != null) {
-			return gfBookEntity;
-		} else {
-			ofy().save().entity(gfBookEntity).now();
-			return gfBookEntity;
-		}
+		return gfBookEntity;
 	}
 
 	@ApiMethod(name = "addTranAfterAddBook", path = "addTranAfterAddBook")

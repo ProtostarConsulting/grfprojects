@@ -14,6 +14,7 @@ import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
 import com.protostar.billingnstock.account.entities.AccountGroupEntity;
 import com.protostar.billingnstock.user.entities.BusinessEntity;
+import com.protostar.billnstock.until.data.ServerMsg;
 
 @Api(name = "accountGroupService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.billingnstock.services", ownerName = "com.protostar.billingnstock.services", packagePath = ""))
 public class AccountGroupService {
@@ -35,6 +36,11 @@ public class AccountGroupService {
 	public List<AccountGroupEntity> getAccountGroupList() {
 		return ofy().load().type(AccountGroupEntity.class).list();
 	}
+	@ApiMethod(name = "getAccountGroupListByType",path="getAccountGroupListByType")
+	public List<AccountGroupEntity> getAccountGroupListByType(@Named("accountGroupType") String type) {
+		return ofy().load().type(AccountGroupEntity.class).filter("accountGroupType",type).list();
+	}
+	
 	
 	@ApiMethod(name = "updateAccountGrp")
 	public AccountGroupEntity updateAccountGrp(AccountGroupEntity update) {
@@ -51,13 +57,28 @@ public class AccountGroupService {
 
 		 
 		 }
-	/*@ApiMethod(name = "addAccountGroups")
-	public void addAccountGroups(List<AccountGroupEntity> accountGroupEntities) {
-		for (AccountGroupEntity accountGroupEntity : accountGroupEntities) {
-			addAccountGroup(accountGroupEntity);
+	
+
+	@ApiMethod(name = "checkAccountGrpAlreadyExist")
+	public ServerMsg checkAccountGrpAlreadyExist(@Named("groupName") String groupName) {
+		ServerMsg serverMsg = new ServerMsg();
+		List<AccountGroupEntity> list = ofy().load().type(AccountGroupEntity.class).filter("groupName",groupName).list();
+
+		
+		System.out.println("list ######"+list);
+		if (list == null || list.size() == 0)
+		{
+			System.out.println("list888888888"+list);
+			serverMsg.setReturnBool(false);
+		} 
+		else {
+			serverMsg.setReturnBool(true);
 		}
 
-	}*/
+		return serverMsg;
+	}
+	
+
 
 	@ApiMethod(name = "getAllAccountGroupsByBusiness")
 	public List<AccountGroupEntity> getAllAccountGroupsByBusiness(

@@ -1,4 +1,10 @@
 <html>
+<style>
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+</style>
 <body>
 <section layout="row">
 	<md-button class="md-icon-button md-accent"
@@ -25,7 +31,7 @@
 
 	<hr>
 	<div>
-	<table style="width: 100%;">
+	<table style="width: 100%; border-collapse: collapse;">
 		<tbody>
 		
 			<tr>
@@ -59,7 +65,7 @@
 	</div>
 	<hr>
 	<h3>Books Details :</h3>
-	<table width="100%">
+	<table style="width: 100%; border-collapse: collapse;">
 		<thead>
 			<tr>
 				<th style="border: 1px solid black; text-align: center; width: 20px">Sr_No</th>
@@ -81,7 +87,7 @@
 							ng-if="book.id==item.id">{{book.bookName}}({{book.bookMedium}})</li>
 					</ol></td>
 
-				<td style="border: 1px solid black; text-align: right">{{item.bookQty | number : 1}}</td>
+				<td style="border: 1px solid black; text-align: right">{{item.bookQty | number : 2}}</td>
 			</tr>
 			<tr>
 				<td style="border: 1px solid black; padding-right:10px; padding-left:10px;"></td>
@@ -96,7 +102,7 @@
 				<td style="border: 1px solid black; text-align: right;"><b>{{tempCourier.totalFees | number:2}}</b></td>
 			</tr>
 			<tr>
-			{{TotalFeesInWord}}
+			
 			</tr>
 		</tbody>
 	</table>

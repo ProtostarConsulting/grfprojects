@@ -215,6 +215,17 @@ function googleEndpointSF($log, $q) {
 		});
 		return deferred.promise;	
 	}
+	AccountGroupService.getAccountGroupListByType=function(type){
+		var deferred = $q.defer();
+		gapi.client.accountGroupService.getAccountGroupListByType({"accountGroupType":type}).execute(function(resp) {
+			
+			deferred.resolve(resp.items);
+			$log.debug("resp getAccountGroupListByType :"+angular.toJson(resp));
+		});
+		return deferred.promise;	
+	}
+	
+	
 	AccountGroupService.updateAccountGrp = function(updateAccountGrp) {
 		var deferred = $q.defer();
 		gapi.client.accountGroupService.updateAccountGrp(updateAccountGrp).execute(function(resp) {
@@ -230,6 +241,13 @@ function googleEndpointSF($log, $q) {
 		return deferred.promise;
 	}
 	
+	AccountGroupService.checkAccountGroupAlreadyExist = function(name) {
+		var deferred = $q.defer();
+		gapi.client.accountGroupService.checkAccountGrpAlreadyExist({"groupName":name}).execute(function(resp) {
+			deferred.resolve(resp);
+		});
+		return deferred.promise;
+	}
 
 //==================================================================================================================================//	
 	
@@ -1039,6 +1057,54 @@ function googleEndpointSF($log, $q) {
 	// ==*****************************************************************************^^^^^^^^^^^^^^^^^********************====================
 	// Add Account Service
 
+	
+	var VoucherService={};
+	serviceFactory.getVoucherService=function(){
+		return VoucherService;	}
+	
+	VoucherService.addvoucher=function(vaccount){
+		var deferred=$q.defer();
+		gapi.client.voucherService.addvoucher(vaccount).execute(function(resp){
+			$log.debug("addvoucher#resp at enpoint:" + resp);
+			deferred.resolve(resp);
+			
+		});
+		return deferred.promise;
+	}
+	
+	VoucherService.listVoucher=function(){
+	var deferred=$q.defer();
+	gapi.client.voucherService.listVoucher().execute(function(resp){
+		$log.debug("listvoucher#resp at enpoint:" + resp);
+		deferred.resolve(resp.items);
+		
+	});
+	return deferred.promise;
+	}
+	
+	
+	VoucherService.addvoucherReciept=function(vaccount){
+		var deferred=$q.defer();
+		gapi.client.voucherService.addvoucherReciept(vaccount).execute(function(resp){
+			$log.debug("addvoucherReciept#resp at enpoint:" + resp);
+			deferred.resolve(resp);
+			
+		});
+		return deferred.promise;
+	}
+	
+	VoucherService.listVoucherReciept=function(){
+	var deferred=$q.defer();
+	gapi.client.voucherService.listVoucherReciept().execute(function(resp){
+		$log.debug("listVoucherReciept#resp at enpoint:" + resp);
+		deferred.resolve(resp.items);
+		
+	});
+	return deferred.promise;
+	}
+	
+	
+	//___________________________________________________________________________________________________________________________________________________________________________________________________
 	var AccountService = {};
 
 	serviceFactory.getAccountService = function() {
@@ -1068,28 +1134,50 @@ function googleEndpointSF($log, $q) {
 		return deferred.promise;
 	}
 	
-	
-	
-	
-	AccountService.getaccountlist=function(){
+	AccountService.checkAccountAlreadyExist = function(accName) {
 		var deferred = $q.defer();
-		gapi.client.accountService.getaccountlist().execute(
+		gapi.client.accountService.checkAccountAlreadyExist({"accountName":accName}).execute(function(resp) {
+			deferred.resolve(resp);
+		});
+		return deferred.promise;
+	}
+	
+	
+	
+	AccountService.getAccountList=function(){
+		var deferred = $q.defer();
+		gapi.client.accountService.getAccountList().execute(
 				function(resp) {
-					$log.debug("getaccountlist#resp at enpoint:"
-							+ angular.toJson(resp));
+					
 					deferred.resolve(resp.items);
 				});
 		return deferred.promise;
 	}
 	
 	
+	AccountService.getAccountListByGroupId = function(groupId) {
+		var deferred = $q.defer();
+		gapi.client.accountService.getAccountListByGroupId({"id" : groupId}).execute(function(resp) {
+			$log.debug("xx enpoint" + resp.items);
+			deferred.resolve(resp.items);
+		});
+		return deferred.promise;
+	}
 	
+	AccountService.getAccountBalance = function(id) {
+		var deferred = $q.defer();
+		gapi.client.accountService.getAccountBalance({"id" : id}).execute(function(resp) {
+			$log.debug("balance " + angular.toJson(resp.returnBalance));
+			deferred.resolve(resp);
+		});
+		return deferred.promise;
+	}
+		
 	
 	AccountService.getAccountById = function(accountId) {
 		var deferred = $q.defer();
-		gapi.client.accountService.getAccountById({
-			"id" : accountId
-		}).execute(function(resp) {
+		gapi.client.accountService.getAccountById({"id" : accountId}).execute(function(resp) 
+		{
 			$log.debug("getAccountById at enpoint" + resp);
 			deferred.resolve(resp);
 		});
@@ -1097,26 +1185,16 @@ function googleEndpointSF($log, $q) {
 	}
 	
 	
-	
-	
-	/*AccountService.getaccountlist = function() {
+	AccountService.deleteaccByid = function(id) {
 		var deferred = $q.defer();
-		gapi.client.accountService.getaccountlist({
-			"id" : accountId
-		}).execute(function(resp) {
-			$log.debug("getaccountlist at enpoint" + resp);
+		gapi.client.accountService.deleteaccByid({"id":id}).execute(function(resp) {
 			deferred.resolve(resp);
 		});
 		return deferred.promise;
-	}*/
+	}
 	
 	
-	
-	
-	
-	
-	
-	
+
 	
 	AccountService.getAllAccountsByBusiness = function(id) {
 		var deferred = $q.defer();
@@ -1228,11 +1306,25 @@ function googleEndpointSF($log, $q) {
 	AccountEntryService.getAccountEntryList = function() {
 		var deferred = $q.defer();
 		gapi.client.accountEntryService.getAccountEntryList().execute(function(resp) {
-			$log.debug("List at enpoint" + resp);
-			deferred.resolve(resp);
+			$log.debug("List at enpoint" + resp.items);
+			deferred.resolve(resp.items);
 		});
 		return deferred.promise;
 	}
+	
+	AccountEntryService.getAccountEntryByAccountId = function(accId) {
+		var deferred = $q.defer();
+		gapi.client.accountEntryService.getAccountEntryByAccountId({"id" : accId}).execute(function(resp) {
+			$log.debug("accountEntryService enpoint" + resp.items);
+			deferred.resolve(resp.items);
+		});
+		return deferred.promise;
+	}
+	
+	
+	
+	
+	
 	/* =============================================================================================================================== */
 	
 	

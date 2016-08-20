@@ -77,9 +77,11 @@
 
 	<div id="changeState" ng-show="activeselected.length == 1">
 
-
 		<md-button class="md-raised md-primary"
-			ng-click="inactiveUserStatus('active')">Inactive </md-button>
+			ng-click="changeAuthView({selectedUserEmailId: activeselected[0].email_id})">Authorizations </md-button>
+			
+		<md-button class="md-raised md-primary"
+			ng-click="inactiveUserStatus('active')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Inactive </md-button>
 
 		<md-button class="md-raised md-primary" ng-model="suspend"
 			value="suspend" ng-click="suspendUserStatus('active')">Suspend
@@ -88,9 +90,6 @@
 		<md-button class="md-primary md-raised"
 			ng-hide="activeselected[0].isGoogleUser"
 			ng-click="changePassword($event)"> Change Password </md-button>
-		<md-button class="md-raised md-primary"
-			ui-sref="setup.userauth({selectedUserEmailId: activeselected[0].email_id})">Edit
-		User Authorizations </md-button>
 
 	</div>
 

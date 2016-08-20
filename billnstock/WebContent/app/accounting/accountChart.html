@@ -1,0 +1,61 @@
+<style>
+table {
+	border: 0px solid black;
+	border-collapse: collapse;
+	width: 90%;
+}
+
+div.one {
+	border-radius: 25px;
+	padding: 20px;
+	/* border-style: solid;
+	border-color: black; */
+	border: 1px solid black;
+}
+</style>
+
+<md-content ng-show="$loading"> Loding.... </md-content>
+<md-content layout-padding ng-show="!loading">
+
+<h3 class="md-headline">
+	<u>Account Chart</u>
+</h3>
+<section layout="row" layout-align="end end">
+		<md-button class="md-icon-button md-accent"
+			ng-click="printDiv('accountChartDiv')" aria-label="Favorite">
+		<md-icon md-svg-icon="img/icons/print.svg"></md-icon> </md-button>
+	</section>
+<div class="one" id="accountChartDiv">
+
+	<table>
+		<thead>
+			<th colspan="5">Accounts</th>			
+			<th></th>
+			<th>Account Balance</th>
+		</thead>
+	</table>
+	<br> <br>
+	<div ng-repeat="groupTypeObj in accountGroupTypeGroupList">
+		<p>{{groupTypeObj.groupType}}</p>
+		<div ng-repeat="grp in groupTypeObj.groupList">
+			<p style="margin-left: 50px">{{grp.groupName}}</p>
+
+			<div ng-repeat="acc in grp.accountList">
+				<p style="margin-left: 100px">
+					{{acc.accountName}}  <span align="right"
+						style="position: absolute; right: 400px;""><b>{{acc.balance}}</b></span> 
+						<!-- <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{acc.balance}}</b> --> 
+				</p>
+				
+			</div>
+
+		</div>
+	</div>
+
+<iframe name="print_frame" width="0" height="0" frameborder="0"
+		src="about:blank"></iframe>
+</div>
+
+
+
+</md-content>

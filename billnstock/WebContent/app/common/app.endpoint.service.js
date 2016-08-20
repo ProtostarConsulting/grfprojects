@@ -60,6 +60,13 @@ function appEndpointSFFn($log, localDBServiceFactory, googleEndpointSF) {
 		else
 			return googleEndpointSF.getAccountService();
 	};
+	//------------------------------------------------------------------
+	endpointFactory.getVoucherService = function() {
+		if (isTestMode)
+			return localDBServiceFactory.getVoucherService();
+		else
+			return googleEndpointSF.getVoucherService();
+	};
 	// ----------------------------------------------------
 	endpointFactory.getAccountEntryService = function() {
 		if (isTestMode)
@@ -168,6 +175,11 @@ function appEndpointSFFn($log, localDBServiceFactory, googleEndpointSF) {
 			return googleEndpointSF.getPurchaseOrderService();
 	};
 	// ----------------------------------------------------
+	
+	
+	
+	
+	
 
 	endpointFactory.getAssetManagementService = function() {
 		if (isTestMode)
@@ -256,7 +268,10 @@ function appEndpointSFFn($log, localDBServiceFactory, googleEndpointSF) {
 			$log.debug("accountGroupService Loaded....");
 		}, apiRoot);
 		
-
+		gapi.client.load('voucherService', 'v0.1', function() {
+			$log.debug("voucherService Loaded....");
+		}, apiRoot);
+		
 
 		gapi.client.load('accountEntryService', 'v0.1', function() {
 			$log.debug("accountEntryService Loaded....");

@@ -9,7 +9,7 @@
     <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
     <init-param>
       <param-name>services</param-name>
-      <param-value>com.protostar.billingnstock.account.services.AccountEntityService,com.protostar.billingnstock.account.services.AccountEntryService,com.protostar.billingnstock.account.services.AccountGroupService,com.protostar.billingnstock.account.services.AccountService,com.protostar.billingnstock.account.services.GeneralEntryService,com.protostar.billingnstock.account.services.GeneralJournalService,com.protostar.billingnstock.assetmanagement.services.AssetService,com.protostar.billingnstock.crm.services.CrmService,com.protostar.billingnstock.crm.services.OpportunityService,com.protostar.billingnstock.cust.services.CustomerService,com.protostar.billingnstock.hr.services.HrService,com.protostar.billingnstock.invoice.services.InvoiceService,com.protostar.billingnstock.proadmin.services.ProAdminService,com.protostar.billingnstock.purchase.services.PurchaseOrderService,com.protostar.billingnstock.purchase.services.SupplierService,com.protostar.billingnstock.sales.services.SalesOrderService,com.protostar.billingnstock.setup.services.UploadURLService,com.protostar.billingnstock.setup.services.setupService,com.protostar.billingnstock.stock.services.StockItemService,com.protostar.billingnstock.tax.services.TaxService,com.protostar.billingnstock.user.services.UserService,com.protostar.billingnstock.warehouse.services.WarehouseService,com.protostar.billnstock.service.TestService</param-value>
+      <param-value>com.protostar.billingnstock.account.services.AccountEntityService,com.protostar.billingnstock.account.services.AccountEntryService,com.protostar.billingnstock.account.services.AccountGroupService,com.protostar.billingnstock.account.services.AccountService,com.protostar.billingnstock.account.services.GeneralEntryService,com.protostar.billingnstock.account.services.GeneralJournalService,com.protostar.billingnstock.account.services.VoucherService,com.protostar.billingnstock.assetmanagement.services.AssetService,com.protostar.billingnstock.crm.services.CrmService,com.protostar.billingnstock.crm.services.OpportunityService,com.protostar.billingnstock.cust.services.CustomerService,com.protostar.billingnstock.hr.services.HrService,com.protostar.billingnstock.invoice.services.InvoiceService,com.protostar.billingnstock.proadmin.services.ProAdminService,com.protostar.billingnstock.purchase.services.PurchaseOrderService,com.protostar.billingnstock.purchase.services.SupplierService,com.protostar.billingnstock.sales.services.SalesOrderService,com.protostar.billingnstock.setup.services.UploadURLService,com.protostar.billingnstock.setup.services.setupService,com.protostar.billingnstock.stock.services.StockItemService,com.protostar.billingnstock.tax.services.TaxService,com.protostar.billingnstock.user.services.UserService,com.protostar.billingnstock.warehouse.services.WarehouseService,com.protostar.billnstock.service.TestService</param-value>
     </init-param>
   </servlet>
   <servlet-mapping>
@@ -24,6 +24,14 @@
     <filter-name>ObjectifyFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+  <!--
+  <filter>
+    <filter-name>ObjectifyFilter</filter-name>
+    <filter-class>com.protostar.billnstock.until.data.BasicChecksFilter</filter-class>
+  </filter> <filter-mapping>
+    <filter-name>BasicChecksFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping> -->
   <listener>
     <listener-class>
         com.protostar.billnstock.until.data.AppServletContextListener
@@ -98,5 +106,45 @@
   <servlet-mapping>
     <servlet-name>ExcelAccountsUpload</servlet-name>
     <url-pattern>/ExcelAccountsUpload</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description/>
+    <display-name>UploadAccountsServlet</display-name>
+    <servlet-name>UploadAccountsServlet</servlet-name>
+    <servlet-class>com.protostar.billingnstock.account.services.UploadAccountsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UploadAccountsServlet</servlet-name>
+    <url-pattern>/UploadAccountsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description/>
+    <display-name>DownloadAccountsServlet</display-name>
+    <servlet-name>DownloadAccountsServlet</servlet-name>
+    <servlet-class>com.protostar.billingnstock.account.services.DownloadAccountsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DownloadAccountsServlet</servlet-name>
+    <url-pattern>/DownloadAccountsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description/>
+    <display-name>UploadGroupsListServlet</display-name>
+    <servlet-name>UploadGroupsListServlet</servlet-name>
+    <servlet-class>com.protostar.billingnstock.account.services.UploadGroupsListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UploadGroupsListServlet</servlet-name>
+    <url-pattern>/UploadGroupsListServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description/>
+    <display-name>DownloadGroupListServlet</display-name>
+    <servlet-name>DownloadGroupListServlet</servlet-name>
+    <servlet-class>com.protostar.billingnstock.account.services.DownloadGroupListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DownloadGroupListServlet</servlet-name>
+    <url-pattern>/DownloadGroupListServlet</url-pattern>
   </servlet-mapping>
 </web-app>

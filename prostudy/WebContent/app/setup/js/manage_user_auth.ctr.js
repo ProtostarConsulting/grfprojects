@@ -24,16 +24,16 @@ angular
 					};
 
 					$scope.institute = $scope.curUser.instituteObj;
-					
-					if($scope.curUser.instituteObj.authorizations){
-					$scope.existingInstituteAuthObject = angular
-							.fromJson($scope.curUser.instituteObj.authorizations);
-					}else{
+
+					if ($scope.curUser.instituteObj.authorizations) {
+						$scope.existingInstituteAuthObject = angular
+								.fromJson($scope.curUser.instituteObj.authorizations);
+					} else {
 						$scope.existingInstituteAuthObject = {
-								authorizations : []
+							authorizations : []
 						};
 					}
-					
+
 					$log.debug("$scope.curUser.instituteObj.authorizations: "
 							+ $scope.curUser.instituteObj.authorizations);
 
@@ -111,7 +111,8 @@ angular
 					}
 
 					$scope.cancelButton = function() {
-						$state.go("^", {});
+						$scope.back();
+						// $state.go("^", {});
 					}
 
 					$scope.waitForServiceLoad = function() {

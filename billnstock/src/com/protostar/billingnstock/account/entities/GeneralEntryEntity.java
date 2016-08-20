@@ -19,7 +19,8 @@ public class GeneralEntryEntity extends BaseEntity {
 	private String narration;
 	private Double amount;
 
-	@Parent
+
+	//@Parent
 	@Index
 	private Ref<AccountingFYEntity> fyEntity;
 

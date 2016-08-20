@@ -1,22 +1,36 @@
 package com.protostar.billingnstock.account.entities;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Index;
 import com.protostar.billnstock.entity.BaseEntity;
 
 @Entity
 public class AccountGroupEntity extends BaseEntity {
-
+	
+	
+	/*public static enum AccountGroupType {
+		ASSETS, EQUITY, LIABILITIES,INCOME,EXPENSES,OTHERINCOMES,OTHEREXPENCES
+	};*/
+	@Index
 	private String groupName;
 	private String description;
+	@Index
+	private String accountGroupType;
+	
 	//private List<Ref<AccountEntity>> accountList;
 	private Integer displayOrderNo;
 	//private Ref<AccountGroupEntity> parent;
 
 	
+	public String getAccountGroupType() {
+		return accountGroupType;
+	}
+
+	public void setAccountGroupType(String accountGroupType) {
+		this.accountGroupType = accountGroupType;
+	}
+
 	public AccountGroupEntity() {
 
 	}

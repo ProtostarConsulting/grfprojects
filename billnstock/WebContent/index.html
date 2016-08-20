@@ -96,23 +96,7 @@
 					src="img/images/ic_person_black_24px.svg" class=circular> </md-button>
 
 				<script type="text/ng-template" id="popover.html">
-<div flex layout="row">
-		<div layout-align-xs ="start start">
-     		 <md-button >
-				<img ng-show="true" ng-show="curUser.imageURl" ngf-src="curUser.imageURl" class=circular> 
-				<img alt="Logo" ng-hide="curUser.imageURl" src="img/images/ic_person_black_24px.svg" class=circular>
-			 </md-button>
-	    </div>
 
- 	    <div  layout-align-xs ="center center">
-			<b><font size="1px" color="Black">{{ curUser.firstName}}&nbsp;{{curUser.lastName}}</b><br>
-    		{{ curUser.email_id }} </font><br>
-			<md-button aria-label="Logout" ng-hide="curUser == null"
-			ng-click="signOut()"> <font color="Black">Logout</font> <md-tooltip>
-			{{ curUser.firstName + " " + curUser.lastName + "|" +
-			curUser.email_id}} </md-tooltip> </md-button>
-        </div>
-</div>
 </script>
 
 				<!-- <md-button aria-label="Logout" ng-hide="curUser == null"
@@ -237,52 +221,52 @@
 		<div ui-view>
 			<!--This is the center page of all main modules for the index module. -->
 		</div>
-		
-		     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
+
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
 	</div>
 
 	</md-card> </md-content>
@@ -410,7 +394,18 @@
 	<script src="/app/accounting/js/accountGroupAdd.js"></script>
 	<script src="/app/accounting/js/accountGroupEdit.js"></script>
 	<script src="/app/accounting/js/accountGroupList.js"></script>
-	
+	<script src="/app/accounting/js/accountGroupView.ctr.js"></script>
+	<script src="/app/accounting/js/accountChart.ctr.js"></script>
+	<script src="/app/accounting/js/accountGroupView.ctr.js"></script>
+
+	<script src="/app/accounting/js/voucherSalesCtr.ctr.js"></script>
+	<script src="/app/accounting/js/voucherSalesListCtr.ctr.js"></script>
+
+	<script src="/app/accounting/js/voucherRecieptCtr.ctr.js"></script>
+
+	<script src="/app/accounting/js/voucherRecieptListCtr.ctr.js"></script>
+
+	<script src="/app/accounting/js/accountBalanceSheet.js"></script>
 	<script src="/app/accounting/js/generallistCtr2.ctr.js"></script>
 
 	<!-- Complete Accounting entity -->
@@ -671,6 +666,8 @@
 	<!--popover botstrap lib  -->
 	<script
 		src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.4.js"></script>
+
+
 
 	<!--end botstrap  -->
 	<!--end send mail  -->

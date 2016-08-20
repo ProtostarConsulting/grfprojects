@@ -14,8 +14,11 @@ import javax.mail.internet.MimeMessage;
 
 import com.protostar.prostudy.entity.UserEntity;
 import com.protostar.prostudy.gf.entity.PartnerSchoolEntity;
+import com.protostar.prostudy.until.EmailValidator;
 
 public class EmailHandler {
+
+	private static final String EMAIL_REPLY_TO = "gandhiexam@gandhifoundation.net";
 
 	private final Logger logger = Logger
 			.getLogger(EmailHandler.class.getName());
@@ -28,24 +31,38 @@ public class EmailHandler {
 	public void sendNewSchoolRegistrationEmail(
 			PartnerSchoolEntity partnerSchoolEntity) throws MessagingException,
 			IOException {
-		Properties props = new Properties();
 
-		Session session = Session.getDefaultInstance(props, null);
-
-		String messageBody = "";
-		messageBody = new EmailTemplateHandlerUtil()
-				.registerSchoolForExamTemplate(partnerSchoolEntity);
-		logger.info("messageBody :" + messageBody);
 		try {
+			String headMasterEmailId = partnerSchoolEntity.getContactDetail()
+					.getHeadMasterEmailId();
+			String coordinatorEmailId = partnerSchoolEntity.getContactDetail()
+					.getCoordinatorDetail().get(0).getCoordinatorEmailId();
+			if (!EmailValidator.validate(headMasterEmailId)
+					&& !EmailValidator.validate(coordinatorEmailId)) {
+				return;
+			}
+			Properties props = new Properties();
+
+			Session session = Session.getDefaultInstance(props, null);
+
+			String messageBody = "";
+			messageBody = new EmailTemplateHandlerUtil()
+					.registerSchoolForExamTemplate(partnerSchoolEntity);
+			logger.info("messageBody :" + messageBody);
+
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(EMAIL_FROM, EMAIL_FROM_NAME));
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(
-					partnerSchoolEntity.getContactDetail()
-							.getHeadMasterEmailId()));
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(
-					partnerSchoolEntity.getContactDetail()
-							.getCoordinatorDetail().get(0)
-							.getCoordinatorEmailId()));
+			if (EmailValidator.validate(headMasterEmailId)) {
+				message.addRecipient(Message.RecipientType.TO,
+						new InternetAddress(headMasterEmailId));
+			}
+			if (EmailValidator.validate(coordinatorEmailId)) {
+				message.addRecipient(Message.RecipientType.TO,
+						new InternetAddress(coordinatorEmailId));
+
+			}
+			message.setReplyTo(new javax.mail.Address[] { new javax.mail.internet.InternetAddress(
+					EMAIL_REPLY_TO) });
 			message.setSubject(EMAIL_NEW_SCHOOL_SUBJECT);
 			message.setContent(messageBody, "text/html");
 			Transport.send(message);

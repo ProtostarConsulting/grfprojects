@@ -618,7 +618,7 @@ angular
 					}
 					$scope.waitForServiceLoad = function() {
 						if (appEndpointSF.is_service_ready) {
-							$scope.getStandardByInstitute();
+							//$scope.getStandardByInstitute();
 							$scope.getUserByInstitute();
 							$scope.getPartnerByInstitute();
 							$scope.getLogUploadURL();

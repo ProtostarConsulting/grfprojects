@@ -26,10 +26,10 @@ app.controller("addAccountGeneralEntryCtr", function($scope, $window, $mdToast,
 
 	$scope.accounts = [];
 
-	$scope.getaccountlist = function() {
+	$scope.getAccountList = function() {
 
 		var getlist = appEndpointSF.getAccountService();
-		getlist.getaccountlist().then(function(list) {
+		getlist.getAccountList().then(function(list) {
 			$scope.accounts = list;
 			
 		});
@@ -59,7 +59,7 @@ app.controller("addAccountGeneralEntryCtr", function($scope, $window, $mdToast,
 
 	$scope.waitForServiceLoad = function() {
 		if (appEndpointSF.is_service_ready) {
-			$scope.getaccountlist();
+			$scope.getAccountList();
 		} else {
 			$log.debug("Services Not Loaded, watiting...");
 			$timeout($scope.waitForServiceLoad, 1000);

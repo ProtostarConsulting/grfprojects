@@ -6,9 +6,10 @@ angular
 						$mdUtil, $log, appEndpointSF, $state, $sce,
 						$stateParams, $q, $mdDialog, $mdMedia, Upload, ajsCache) {
 
+					$scope.loading = true;
 					$scope.query = {
 						order : 'name',
-						limit : 5,
+						limit : 10,
 						page : 1
 					};
 
@@ -44,7 +45,7 @@ angular
 
 					$scope.pSchoolList = [];
 					$scope.getPartnerSchoolByInstitute = function(refresh) {
-
+						$scope.loading = true;
 						var schoolListCacheKey = "getPartnerByInstitute";
 						// Note this key has to be unique across application
 						// else it will return unexpected result.
@@ -53,6 +54,7 @@ angular
 								&& !refresh) {
 							$log.debug("Found List in Cache, return it.")
 							$scope.schools = ajsCache.get(schoolListCacheKey);
+							$scope.loading = false;
 							return;
 						}
 						if (refresh)
@@ -70,6 +72,7 @@ angular
 											pSchoolList);
 
 									$scope.changeSchoolList();
+									$scope.loading = false;
 								});
 					}
 
@@ -126,7 +129,7 @@ angular
 
 					$scope.query = {
 						order : 'description',
-						limit : 5,
+						limit : 10,
 						page : 1,
 
 					};

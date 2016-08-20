@@ -13,7 +13,7 @@ import com.protostar.prostudy.entity.PaymentEntity;
 import com.protostar.prostudy.entity.PracticeExamEntity;
 import com.protostar.prostudy.entity.QuestionEntity;
 
-@Api(name = "paymentService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.service", ownerName = "com.protostar.prostudy.service", packagePath = ""))
+//@Api(name = "paymentService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.service", ownerName = "com.protostar.prostudy.service", packagePath = ""))
 public class PaymentService {
 
 

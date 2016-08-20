@@ -1,0 +1,108 @@
+<md-content layout-padding>
+<h3 class="md-headline" ng-hide="account.id">
+	<u> Reciept Vaucher</u>
+</h3>
+
+<form name="voucherRecieptForm">
+
+<div layout layout-xs="column"  ng-if="!vouchersReview1">
+			
+			 <md-input-container flex>  <label>Credit Account <span
+			style="color: red;">*</span></label>
+	 <md-select ng-model="vouchersRe.accountType1" id="accountName"
+		name="Account1" ng-required="true"  ng-change="remSelected(vouchersRe.accountType1)">
+			<md-option ng-value="type" ng-repeat="type in vaccounts1">
+			{{type.accountName}}</md-option> </md-select> 
+			
+			<div ng-messages="voucherRecieptForm.Account1.$error"
+			ng-if="voucherRecieptForm.Account1.$submitted || voucherRecieptForm.Account1.$touched">
+			<div ng-message="required">Please Select Credit Account</div>
+</div>		
+		<div>
+			Current Balance:<span>{{0}}</span>
+		</div>
+			
+			</md-input-container>
+			<md-input-container flex>  <label>Debit Account<span
+			style="color: red;">*</span></label>
+	 <md-select ng-model="vouchersRe.accountType2" id="accountName"
+		name="Account" ng-required="true"  >
+			<md-option ng-value="type" ng-repeat="type in vaccounts2">
+			{{type.accountName}}</md-option> </md-select> 
+			
+			<div ng-messages="voucherRecieptForm.Account.$error"
+			ng-if="voucherRecieptForm.Account.$submitted || voucherRecieptForm.Account.$touched">
+			<div ng-message="required">Please Select Credit Account</div>
+				</div>
+	<div>
+		Current Balance:<span>{{0}}</span>
+	</div>
+		</md-input-container>
+	</div>
+	
+	<div layout layout-xs="column" ng-if="!vouchersReview1">
+		<md-input-container flex> <label>Amount <span
+			style="color: red;">*</span>
+		</label> <input ng-model="vouchersRe.amount" name="amount" type="number" ng-required="true">
+
+		<div ng-messages="voucherRecieptForm.amount.$error"
+			ng-if="voucherRecieptForm.amount.$submitted || voucherRecieptForm.amount.$touched">
+			<div ng-message="required">Please Enter Amount</div>
+		</div>
+		</md-input-container>
+		
+		
+		
+		<md-input-container flex> <label>Narration</label>
+		 <textarea name="narration" ng-model="account.narration"
+			 maxlength="300"></textarea>
+	</md-input-container>
+		
+	</div>
+
+<!-- ----------------------------------------------------------------------------- -->
+<div layout layout-xs="column" ng-if="vouchersReview1">
+		<md-input-container flex> <label>Credit Account 
+		</label> <input ng-model="vouchersReview1.accountType1.accountName"  readonly="true">
+		</md-input-container>
+		
+		<md-input-container flex> <label>Debit Account
+		</label> <input ng-model="vouchersReview1.accountType2.accountName"  readonly="true">
+		</md-input-container>
+</div>		
+
+	<div layout layout-xs="column" ng-if="vouchersReview1">
+		<md-input-container flex> <label>Amount <span
+			style="color: red;">*</span>
+		</label> <input ng-model="vouchersReview1.amount" name="amount" ng-required="true" readonly="true">
+
+		
+		</md-input-container>
+			<md-input-container flex> <label>Narration</label>
+		 <textarea name="narration" ng-model="vouchersReview1.narration"
+			 readonly="true" maxlength="300"></textarea>
+	</md-input-container>
+
+	</div>
+<!-- ----------------------------------------------------------------------------- -->	
+
+
+
+	<section layout="row" layout-xs="column" layout-align="left left" ng-if="!vouchersReview1">
+		<md-button class="md-raised md-primary"
+			ng-disabled="voucherRecieptForm.$invalid || accountForm.$pristine || accountForm.$touched"
+			ng-hide="account.id" ng-click="addvoucher()">Add</md-button>
+
+
+		<md-button class="md-raised md-primary" ng-click="cancle()">Cancle</md-button>
+
+		<md-button class="md-raised md-primary"
+			ng-disabled="voucherRecieptForm.$invalid" ng-show="account.id" ng-click="">Update</md-button>
+
+
+	</section>
+	</div>
+
+
+</form>
+</md-content>

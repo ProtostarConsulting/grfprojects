@@ -1,10 +1,16 @@
+
 <md-content>
 <div><h3><u>Account Group List</u></h3></div>
 
 <section layout="row" layout-align="end end" flex>
-	<md-button class="md-raised md-primary" id="uplodeExcel"
-		ng-click="UplodeExcel($event)">UplodeExcel</md-button>
-	</section>
+	 <md-button  class="md-raised md-primary"  id="downloadExcel" ng-click="downloadExcel()">Download GroupList
+  <md-tooltip> Download GroupList</md-tooltip> </md-button>
+
+ <md-button class="md-raised md-primary" id="uplodeExcel" ng-click="uploadExcel($event)">Upload GroupList 
+ 	<md-tooltip> Upload GroupList</md-tooltip> </md-button>
+ 
+</section>
+	
 <br>
 <br>
 <div>
@@ -49,14 +55,21 @@
 						</md-button>
 						</section>
 						</td>	
-						<td>
+						<!-- <td>
 						 <section>
 							<md-button class="md-fab md-primary md-hue-2" ng-click="deleteAccountGrp(acc.id)">
 							<md-icon md-svg-src="img/icons/remove.svg"></md-icon>
 							</md-button>
 						</section>
+						</td>
+						<td>
+						<section>
+							<md-button class="md-fab md-primary md-hue-2" ng-click="" ui-sref="accounting.accountGroupDisplay">
+							<md-icon md-svg-src="img/icons/view.svg"></md-icon>
+							</md-button>
+						</section>
 						</td>	
-										
+								 -->		
 					</tr>
 				</tbody>
 		
@@ -65,9 +78,6 @@
 
 		<md-data-table-pagination md-limit="query.limit" md-page="query.page" md-total={{List.length}} md-trigger="onpagechange"></md-data-table-pagination>
 			</md-data-table-container>
-
-
-
 </div>
 
 </div>

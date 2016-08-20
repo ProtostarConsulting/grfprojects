@@ -15,7 +15,7 @@ import com.protostar.prostudy.until.data.ServerMsg;
 
 
 
-@Api(name = "testservice", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.service", ownerName = "com.protostar.prostudy.service", packagePath = ""))
+//@Api(name = "testservice", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.service", ownerName = "com.protostar.prostudy.service", packagePath = ""))
 public class TestService
 {
 	

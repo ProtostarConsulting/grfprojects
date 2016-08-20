@@ -11,7 +11,7 @@ import com.google.api.server.spi.config.Named;
 import com.protostar.prostudy.entity.PracticeExamResultEntity;
 
 
-@Api(name = "practiceExamResultService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.service", ownerName = "com.protostar.prostudy.service", packagePath = ""))
+//@Api(name = "practiceExamResultService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.service", ownerName = "com.protostar.prostudy.service", packagePath = ""))
 public class PracticeExamResultService {
 
 	@ApiMethod(name = "addPracticeExamResult")

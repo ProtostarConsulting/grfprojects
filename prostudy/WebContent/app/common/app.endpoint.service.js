@@ -243,10 +243,10 @@ function appEndpointSF($log, localDBServiceFactory, googleEndpointSF) {
 
 		}, apiRoot);
 
-		gapi.client.load('chapterService', 'v0.1', function() {
+	/*	gapi.client.load('chapterService', 'v0.1', function() {
 			$log.debug("chapterService Loaded....");
 
-		}, apiRoot);
+		}, apiRoot);*/
 
 		gapi.client.load('bookService', 'v0.1', function() {
 			$log.debug("bookService Loaded....");
@@ -258,7 +258,7 @@ function appEndpointSF($log, localDBServiceFactory, googleEndpointSF) {
 
 		}, apiRoot);
 
-		gapi.client.load('paymentService', 'v0.1', function() {
+	/*	gapi.client.load('paymentService', 'v0.1', function() {
 			$log.debug("paymentService Loaded....");
 		}, apiRoot);
 
@@ -286,7 +286,7 @@ function appEndpointSF($log, localDBServiceFactory, googleEndpointSF) {
 
 		}, apiRoot);
 
-		gapi.client.load('syllabusService', 'v0.1', function() {
+		/*gapi.client.load('syllabusService', 'v0.1', function() {
 			$log.debug("syllabusService Loaded......");
 
 		}, apiRoot);
@@ -294,14 +294,14 @@ function appEndpointSF($log, localDBServiceFactory, googleEndpointSF) {
 		gapi.client.load('practiceExamResultService', 'v0.1', function() {
 			$log.debug("PracticeExamResultService Loaded......");
 
-		}, apiRoot);
+		}, apiRoot);*/
 
 		gapi.client.load('instituteService', 'v0.1', function() {
 			$log.debug("InstituteService Loaded......");
 
 		}, apiRoot);
 
-		gapi.client.load('attendanceService', 'v0.1', function() {
+		/*gapi.client.load('attendanceService', 'v0.1', function() {
 			$log.debug("AttendanceService Loaded......");
 
 		}, apiRoot);
@@ -319,14 +319,14 @@ function appEndpointSF($log, localDBServiceFactory, googleEndpointSF) {
 		gapi.client.load('subjectService', 'v0.1', function() {
 			$log.debug("SubjectService Loaded......");
 
-		}, apiRoot);
+		}, apiRoot);*/
 
 		// This loads google chart api
 		google.charts.load('43', {
 			packages : [ 'corechart' ]
 		});
 
-		gapi.client.load('certificateService', 'v0.1', function() {
+		/*gapi.client.load('certificateService', 'v0.1', function() {
 			$log.debug("CertificateService Loaded......");
 			deferred.resolve();
 
@@ -336,7 +336,7 @@ function appEndpointSF($log, localDBServiceFactory, googleEndpointSF) {
 			$log.debug("StudSubService Loaded......");
 			deferred.resolve();
 
-		}, apiRoot);
+		}, apiRoot);*/
 
 		gapi.client.load('partnerSchoolService', 'v0.1', function() {
 			$log.debug("partnerSchoolService Loaded......");

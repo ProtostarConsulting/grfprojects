@@ -3,8 +3,8 @@ angular
 		.controller(
 				"indexCtr",
 				function($scope, $rootScope, $window, $log, $q, $timeout,
-						$mdToast, $mdBottomSheet, $state,
-						$localStorage, $location, $anchorScroll, appEndpointSF) {
+						$mdToast, $mdBottomSheet, $state, $localStorage,
+						$location, $anchorScroll, appEndpointSF) {
 
 					$log.debug("Inside indexCtr");
 
@@ -22,20 +22,32 @@ angular
 								'New Record Saved Successfully.').position(
 								"top").hideDelay(3000));
 					};
+					
+					$scope.show400Toast = function() {
+						$mdToast.show($mdToast.simple().content(
+								'Something goes wrong. Record not saved.').position(
+								"top").hideDelay(4000));
+					};
 
 					$scope.showErrorToast = function(errorMsg) {
 						$mdToast.show($mdToast.simple().content(errorMsg)
 								.position("top").capsule(true).hideDelay(9000));
 					};
+					$scope.back = function() {
+						window.history.back();
+					};
+
+					
 					$scope.data = {
 						expanded : true
 					};
+
 
 					$scope.loading = true;
 					$scope.curUser = null;
 					$scope.flag = true;
 					$scope.initDone = false;
-					var defaultTheme = 'default';
+					var defaultTheme = 'grf-theme';
 					$scope.theme = defaultTheme
 					$scope.loginPersonIconUrl = defaulLogingUserIconURL;
 					$scope.logoURL = defaulInstituteLogoURL;
@@ -70,6 +82,21 @@ angular
 						}
 						return true;
 					}
+					
+					$scope.isAuthorized = function(authName) {
+						var found= false;
+						if(!$scope.curUser.userAuthMasterEntity || !$scope.curUser.userAuthMasterEntity.authorizations){
+							return found;
+						}
+						for(var index=0; index<$scope.curUser.userAuthMasterEntity.authorizations.length; index++){							
+							if($scope.curUser.userAuthMasterEntity.authorizations[index].authName == authName){
+								found= true;
+								break;
+							}
+						}
+						return found;
+					}
+					
 
 					$scope.showUpdateToast = function() {
 						$mdToast.show($mdToast.simple().content(
@@ -192,7 +219,7 @@ angular
 												loggedInUser.institute = [];
 											}
 
-											if (loggedInUser.id == undefined) {
+											if (loggedInUser.id == undefined && loggedInUser.instituteID == undefined) {
 
 												loggedInUser.email_id = profile
 														.getEmail();
@@ -374,8 +401,11 @@ angular
 							return; // else it goes to login state but continues
 							// the this js flow
 						}
-						$scope.theme = $scope.curUser.instituteObj.theme;
-						if ($scope.curUser.instituteObj.logBlobKey) {
+						if ($scope.curUser && $scope.curUser.instituteObj) {
+							$scope.theme = $scope.curUser.instituteObj.theme;
+						}
+						if ($scope.curUser.instituteObj
+								&& $scope.curUser.instituteObj.logBlobKey) {
 							$scope.logoURL = '//' + window.location.host
 									+ '/serve?blob-key='
 									+ $scope.curUser.instituteObj.logBlobKey;
@@ -440,12 +470,16 @@ angular
 							this.$apply(fn);
 						}
 					};
-					
+
 					$rootScope.$on('$stateChangeSuccess', function(event,
 							toState, toParams, fromState, fromParams) {
-						//On any state change go the the top
-						$location.hash('topRight');						    
-					    $anchorScroll();
+						// On any state change go the the top
+						$location.hash('topRight');
+						$anchorScroll();
+					});
+					$rootScope.$on('$stateChangeStart', function(e, toState,
+							toParams, fromState, fromParams) {
+						//check access permission here.
 					});
 
 				}).controller('AppCtrl',
@@ -573,5 +607,6 @@ angular
 					 * toParams, fromState, fromParams) { alert("State Change
 					 * "); })
 					 * 
-					 */					
+					 */
+
 				});

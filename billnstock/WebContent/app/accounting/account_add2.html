@@ -1,6 +1,5 @@
 
-<md-content layout-padding>
-<!-- <section layout="row" layout-align="end end" flex>
+<md-content layout-padding> <!-- <section layout="row" layout-align="end end" flex>
 	<md-button class="md-raised md-primary" id="uplodeExcel"
 		ng-click="UplodeExcel($event)">UplodeExcel</md-button>
 </section> -->
@@ -11,31 +10,30 @@
 	<u>Edit Account</u>
 </h3>
 <form name="accountForm">
-	[<span style="color: red;">Field Marked as asterik (*) are
-		mandetory</span>] <br>
+	[<span style="color: red;">Field Marked as asterik (*) are 	mandetory</span>] <br>
 
 	<div layout layout-xs="column">
 
 
 		<md-input-container flex> <label>Account
 			Name <span style="color: red;">*</span>
-		</label> <input ng-model="account.accountName" name="accountName"
-			ng-required="true" minlength="3">
+		</label> <input ng-model="account.accountName" name="accountName" id="accountName" 
+		                ng-required="true" account-userexists minlength="3">
 
-		<div ng-messages="accountForm.accountName.$error"
-			ng-if="accountForm.accountName.$submitted || accountForm.accountName.$touched">
+		<div ng-messages="accountForm.accountName.$error" ng-if="accountForm.accountName.$submitted || accountForm.accountName.$touched">
 			<div ng-message="required">Please Enter Account Name</div>
 			<div ng-message="minlength">Please Enter more than 3 character</div>
+			<div ng-message="userexists">User Already Exists</div>
 		</div>
 		</md-input-container>
 
-	
-		<md-input-container flex> <md-select  
-			ng-model="account.accountType" name="accountType" ng-required="true" > 	<label>AccountType<span style="color: red;">*</span></label>
 
-		<md-option ng-repeat="type in accountType "> {{type}} </md-option> </md-select>
+		<md-input-container flex> <md-select
+			ng-model="account.accountType" id="accountType" name="accountType" ng-required="true">
+		<label>AccountType<span style="color: red;">*</span></label> <md-option
+			ng-repeat="type in accountType "> {{type}} </md-option> </md-select>
 
-		<div ng-messages="accountForm.accountType.$error" 
+		<div ng-messages="accountForm.accountType.$error"
 			ng-if="accountForm.accountType.$submitted || accountForm.accountType.$touched">
 			<div ng-message="required">Please Select the Type</div>
 
@@ -44,13 +42,10 @@
 
 	</div>
 
-
-
-
 	<div layout layout-xs="column">
 		<md-input-container flex> <label>Account
 			No <span style="color: red;">*</span>
-		</label> <input ng-model="account.accountNo" name="accountNo"
+		</label> <input ng-model="account.accountNo" name="accountNo" id="accountNo"
 			ng-required="true" minlength="3">
 
 		<div ng-messages="accountForm.accountNo.$error"
@@ -62,7 +57,7 @@
 
 		<md-input-container flex> <label>Description
 			<span style="color: red;">*</span>
-		</label> <textarea name="description" ng-model="account.description"
+		</label> <textarea name="description" ng-model="account.description" id="description"
 			ng-required="true" maxlength="300"></textarea>
 
 		<div ng-messages="accountForm.description.$error"
@@ -79,7 +74,7 @@
 
 		<md-input-container flex> <label>Display Order No
 			<span style="color: red;">*</span>
-		</label> <input name="displayOrderNo" type="number"
+		</label> <input name="displayOrderNo" type="number" id="displayOrderNo"
 			ng-model="account.displayOrderNo" ng-required="true" maxlength="4"
 			min="1"></input>
 
@@ -91,22 +86,27 @@
 			<div ng-message="min">Please Enter Positive No!</div>
 		</div>
 		</md-input-container>
+		<md-input-container flex> <md-select
+				ng-model="account.accountgroup.groupName" placeholder="AccountGroup" id="accountlist" name="accountlist" ng-required="true"><lable>Account Group<span style="color: red;">*</span></lable>
+			<md-option ng-value="accountlist.groupName"  ng-repeat="accountlist in accountgroupList">{{accountlist.groupName}}
+			
+			</md-option> </md-select>
+			
+		<div ng-messages="accountForm.accountlist.$error"
+			ng-if="accountForm.accountlist.$submitted || accountForm.accountlist.$touched">
+			<div ng-message="required">Please Select the Type</div>
 
-		
-
-
-	</div>
-
+		</div>
+			
+			 </md-input-container>
+</div>
 <label>Contra</label>
-		<md-checkbox ng-model="account.contra" ng-true-value="true"
-			ng-false-value="false" > </md-checkbox>
-
-
-
-	<section layout="row" layout-xs="column" layout-align="left left">
-		<md-button class="md-raised md-primary"
-			ng-disabled="accountForm.$invalid || accountForm.$pristine || accountForm.$touched" ng-hide="account.id"
-			ng-click="addAccount()">Add</md-button>
+	<md-checkbox ng-model="account.contra" ng-true-value="true" 
+		ng-false-value="false"> </md-checkbox>
+		<section layout="row" layout-xs="column" layout-align="left left">
+		<md-button class="md-raised md-primary" name="addButton" id="addButton"
+			ng-disabled="accountForm.$invalid || accountForm.$pristine || accountForm.$touched"
+			ng-hide="account.id" ng-click="addAccount()">Add</md-button>
 
 
 		<md-button class="md-raised md-primary" ng-click="cancle(account.id)">Cancle</md-button>
@@ -115,25 +115,5 @@
 			ng-disabled="accountForm.$invalid" ng-show="account.id"
 			ng-click="addAccount()">Update</md-button>
 
-	</section>
-
-
-	<section layout-xs="column"></section>
-
-
-
-
-
-
-
-
-
-
-	<!-- <section layout="row" layout-xs="column" >
-		<md-button class="md-raised md-primary"
-			ng-disabled="accountForm.$invalid" ng-show="account.id"
-			ng-click="addAccount()">Update</md-button>
-	</section>
- -->
 </form>
 </md-content>

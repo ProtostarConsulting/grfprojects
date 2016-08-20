@@ -13,6 +13,7 @@ angular
 					};
 					
 					$scope.flag = false;
+					$scope.errmsg = "";
 
 					$scope.tempUser = {
 						userId : "",
@@ -47,6 +48,7 @@ angular
 					}
 					
 					$scope.login = function() {
+						$scope.loading = true;
 						var UserService = appEndpointSF.getUserService();
 						UserService
 								.login($scope.tempUser.email_id,
@@ -55,6 +57,7 @@ angular
 									
 									if (result.result.status == "suspended" || result.result.status == "inactive") {
 										$scope.ErrorMsg = "Your account is Inactive or Suspended please contact to admin";
+										$scope.loading = false;
 									}else{
 										
 											if (result.result.email_id) {
@@ -70,7 +73,8 @@ angular
 																+ $scope.tempUser.email_id);
 												//$window.location.reload();
 												$scope.$emit('customLoginEvent', { curUser: result.result });
-									            $scope.$broadcast('customLoginEvent', { curUser: result.result });												
+									            $scope.$broadcast('customLoginEvent', { curUser: result.result });		
+									            $scope.loading = false;
 
 											} else {
 
@@ -79,10 +83,11 @@ angular
 																function(user) {
 																	$scope.user = user;																	
 																	if ($scope.user.email_id==$scope.tempUser.email_id) {																
-																		document.getElementById("errmsg").innerHTML = "Password Does Not Match.";
+																		$scope.ErrorMsg = "Password did not match.";
 																	} else {
-																		document.getElementById("errmsg").innerHTML = "You are not registered user.";
+																		$scope.ErrorMsg = "You are not registered user.";
 																	}
+																	 $scope.loading = false;
 																});											
 												$scope.loginMsg = "Login failed.";
 											}

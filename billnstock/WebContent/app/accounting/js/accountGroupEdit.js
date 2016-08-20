@@ -5,6 +5,7 @@ angular
 	//$scope.tempAccountGrp={"groupName":"","description":"","displayOrderNo":""};
 	
 	$scope.tempAccountGrp=$stateParams.record;
+	$scope.accountGroupTypeList=["ASSETS", "EQUITY", "LIABILITIES","INCOME","EXPENSES","OTHERINCOMES","OTHEREXPENCES"];
 	
 	$scope.updateAccountGrp=function(){
 		var AccountGroupService=appEndpointSF.getAccountGroupService();
