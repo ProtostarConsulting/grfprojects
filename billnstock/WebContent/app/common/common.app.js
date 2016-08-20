@@ -286,6 +286,16 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			}
 
 	})
+	.state('accounting.balanceSheet', {
+		url : "/accountBalanceSheet",
+		templateUrl : '/app/accounting/accountBalanceSheet.html',
+		controller : 'accountBalanceSheetCtr',
+			params:{
+
+				record:null		
+			}
+
+	})
 
 	.state('accounting.accountGroupView', {
 		url : "/accountGroupView",
