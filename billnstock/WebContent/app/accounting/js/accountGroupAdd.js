@@ -39,5 +39,41 @@ angular
 				}
 		
 		});
+angular
+.module("stockApp")
+.directive(
+		'accountGroupUserexists',
+		function($log, $q, appEndpointSF) {
+			return {
+				restrict : 'A',
+				require : 'ngModel',
+				link : function($scope, $element, $attrs, ngModel) {
+					$log.debug("Inside of accountGroupUserexists....");
+					ngModel.$asyncValidators.groupexists = function(
+							accountGroupValue) {
+						var deferred = $q.defer();
+						var AccountGroupService = appEndpointSF
+								.getAccountGroupService();
+						$log.debug("accountValue:" + accountGroupValue);
+						AccountGroupService
+								.checkAccountGroupAlreadyExist(accountGroupValue)
+								.then(
+										function(response) {
+											$log
+													.debug("Inside of userexists validator fn: "
+															+ response.returnBool);
+											if (response.returnBool == true) {
+												deferred.reject();
+											} else {
+												deferred.resolve();
+											}
+										});
+						return deferred.promise;
+					}
+
+				}
+			};
+		});
+
 
 
