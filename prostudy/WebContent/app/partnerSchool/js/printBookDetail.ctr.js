@@ -6,6 +6,7 @@ angular
 						$mdUtil, $log, appEndpointSF, $state, $sce,
 						$stateParams, $q, $mdDialog, $mdMedia) {
 
+					$scope.loading = true;
 					$scope.selectedPSchoolId = $stateParams.PSchoolId;
 					$scope.yearOfExam = $stateParams.yearOfExam;
 					$scope.date = new Date();
@@ -19,7 +20,7 @@ angular
 							'<link href="/lib/base/css/angular-material.min.css"" rel="stylesheet" type="text/css">'
 									+ '<link href="/lib/base/css/bootstrap.min.css"" rel="stylesheet" type="text/css">')
 
-					$scope.printSalSlipDiv = function(bookDetailDiv) {
+					$scope.printBookDetailDiv = function(bookDetailDiv) {
 
 						/*
 						 * document.getElementById('hidetr').style.display =
@@ -35,6 +36,21 @@ angular
 						window.frames["print_frame"].window.print();
 
 					}
+
+					/*$scope.printDiv = function(divName) {
+						var printContents = document.getElementById(divName).innerHTML;
+						var popupWin = window
+								.open(
+										'',
+										'_blank',
+										'width=1200,height=750,location=no,menubar=no,scrollbars=no,resizable=no,fullscreen=no');
+						popupWin.document.open();
+					
+						popupWin.document
+								.write('<html><head><link rel="stylesheet" type="text/css" href="/css/printstyle.css" /></head><body>'
+										+ printContents + '</body></html>');
+						popupWin.document.close();
+					}*/
 
 					$scope.getPSchoolByPSID = function() {
 						var PartnerSchoolService = appEndpointSF
@@ -61,6 +77,7 @@ angular
 														+ ($scope.date
 																.getFullYear() - 2000);
 												$scope.getPrintDetail();
+												$scope.loading = false;												
 											});
 						}
 					}
@@ -95,7 +112,7 @@ angular
 						if (appEndpointSF.is_service_ready) {
 							if ($scope.selectedPSchoolId != undefined) {
 								$scope.getPSchoolByPSID();
-								$scope.getPrintDetail();
+								// $scope.getPrintDetail();
 							}
 
 						} else {
