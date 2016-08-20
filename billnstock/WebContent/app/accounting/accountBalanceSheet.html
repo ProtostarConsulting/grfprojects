@@ -1,4 +1,5 @@
- <style>
+
+<style>
 table {
 	border: 0px solid black;
 	border-collapse: collapse;
@@ -14,7 +15,8 @@ div.one {
 }
 </style>
 
-<md-content ng-show="$loading"> Loding.... </md-content>
+<md-content ng-show="loading"> <md-progress-circular
+	class="md-accent md-accent" md-diameter="80"></md-progress-circular></md-content>
 <md-content layout-padding ng-show="!loading">
 
 <h3 class="md-headline">
@@ -25,7 +27,7 @@ div.one {
 
 	<table>
 		<thead>
-			<th>Group Type</th>			
+			<th>Group Type</th>
 			<th></th>
 			<th>Group Balance</th>
 		</thead>
@@ -36,112 +38,18 @@ div.one {
 		<div ng-repeat="grp in groupTypeObj.groupList">
 			<p style="margin-left: 100px">{{grp.groupName}}</p>
 
-			<div ng-repeat="acc in grp.accountList">
+			<!-- 	<div ng-repeat="acc in grp.accountList">
 				<p style="margin-left: 200px">
 					{{acc.accountName}} <span align="right"
 						style="position: absolute; right: 600px;""><b>{{acc.balance}}</b></span>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{acc.balance}}</b>
+						
 				</p>
 				
-			</div>
+			</div> -->
+			<p style="margin-left: 200px">{{grp.totalBalance}}</p>
 
 		</div>
 	</div>
 
-
 </div>
-
-
-
-</md-content> 
-
-<!-- 
- <style>
-<style>
-table {
-    
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
-
-td, th {
-   // border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-}
-
-
-</style>
-</style>
-<md-content layout-padding>
-	<h3 class="md-headline">
-		<u>Balance Sheet</u>
-	</h3>
-	
-	<form>
-		<div>
-<table  style="width:100%; border:2px solid #dddddd; border-radius:25px; border-color:black;">
- <tr>
-    <th colspan="2">Balance Sheet</th>
-   
-    <th>ProERP</th>
-  </tr>
-  <tr>
-    <td colspan="3"></td>
-    
-  </tr>
-  <tr>
-    <td colspan="3"><u><b>Sources of Funds:</b></u></td>
-    
-  </tr>
-  <tr  ng-repeat="groupTypeObj in accountGroupTypeGroupList">
-    <td colspan="2">
-		<p>{{groupTypeObj.groupType}}</p></td>
-		<div ng-repeat="acc in grp.accountList">
-				<p style="margin-left: 200px">
-					{{acc.accountName}} <span align="right"
-						style="position: absolute; right: 600px;""><b>{{acc.balance}}</b></span>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{acc.balance}}</b>
-				</p>
-				
-			</div>
-   
-    <td>{{groupTypeObj.totalBalance}}</td>
-  </tr>
-  <tr>  
-  
-  
-    <td colspan="2">Liabilty</td>
-    
-    <td>{total}</td>
-  </tr>
-  <tr>
-    <td colspan="2"><b>Total</b></td>
-    
-    <td>{total}</td>
-  </tr>
-  <tr>
-    <td colspan="3"><u><b>Application of Funds:</b></u></td>
-    
-  </tr>
-   <tr ng-repeat="groupTypeObj in accountGroupTypeGroupList">
-    <td colspan="2"><p>{{groupTypeObj.groupType}}</p></td>
- 
-    <td>{total}</td>
-  </tr>
-   <tr>
-    <td colspan="2">Magazzini Alimentari Riuniti</td>
-   
-    <td>Italy</td>
-  </tr>
-   <tr>
-    <td colspan="2"><b>Total</b></td>
-    
-    <td>{total}</td>
-  </tr>
-</table>
-		----{{groupTypeObj}}	
-		</div>
-	</form>
-</md-content> -->
+</md-content>
