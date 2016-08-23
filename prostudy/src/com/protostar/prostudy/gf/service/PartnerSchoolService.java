@@ -3,6 +3,7 @@ package com.protostar.prostudy.gf.service;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +15,8 @@ import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.config.Named;
+import com.google.appengine.api.memcache.MemcacheService;
+import com.google.appengine.api.memcache.MemcacheServiceFactory;
 import com.googlecode.objectify.Key;
 import com.protostar.prostudy.gf.entity.ExamDetail;
 import com.protostar.prostudy.gf.entity.NotificationData;
@@ -23,6 +26,7 @@ import com.protostar.prostudy.until.data.UtilityService;
 @Api(name = "partnerSchoolService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.gf.service", ownerName = "com.protostar.prostudy.gf.service", packagePath = ""))
 public class PartnerSchoolService {
 
+	private static final String CURRENT_YEAR_SCHOOL_AND_STUDENT_COUNT_KEY = "CurrentYearSchoolAndStudentCount";
 	private final Logger logger = Logger.getLogger(PartnerSchoolService.class
 			.getName());
 	private boolean notificationEnabled = true;
@@ -48,7 +52,7 @@ public class PartnerSchoolService {
 		}
 		ExamDetail examDeatil = getExamDeatilByCurretnYear(partnerSchoolEntity);
 		if (notificationEnabled
-				&& examDeatil !=null
+				&& examDeatil != null
 				&& examDeatil.getNotificationData().getRegistrationSmsSent() == 0
 				&& partnerSchoolEntity.getExamDetailList() != null
 				&& partnerSchoolEntity.getExamDetailList().size() > 0
@@ -82,6 +86,8 @@ public class PartnerSchoolService {
 			examDeatil.getNotificationData().setRegistrationSmsSent(1);
 
 		}
+
+		partnerSchoolEntity.setLastModifiedDate(new Date());
 		Key<PartnerSchoolEntity> now = ofy().save().entity(partnerSchoolEntity)
 				.now();
 		partnerSchoolEntity.setId(now.getId());
@@ -106,8 +112,9 @@ public class PartnerSchoolService {
 				break;
 			}
 		}
-		
-		if (currentYearExamDetail != null && currentYearExamDetail.getNotificationData() == null) {
+
+		if (currentYearExamDetail != null
+				&& currentYearExamDetail.getNotificationData() == null) {
 			currentYearExamDetail.setNotificationData(new NotificationData());
 		}
 
@@ -122,6 +129,76 @@ public class PartnerSchoolService {
 				.type(PartnerSchoolEntity.class).id(id).now();
 		return pSchool;
 
+	}
+
+	@ApiMethod(name = "getCurrentYearSchoolAndStudentCount", path = "getCurrentYearSchoolAndStudentCount")
+	public SchoolAndStudentCount getCurrentYearSchoolAndStudentCount() {
+
+		SchoolAndStudentCount schoolAndStudentCount = new SchoolAndStudentCount();
+		MemcacheService memcacheService = MemcacheServiceFactory
+				.getMemcacheService();
+		Object object = memcacheService
+				.get(CURRENT_YEAR_SCHOOL_AND_STUDENT_COUNT_KEY);
+
+		if (object instanceof SchoolAndStudentCount) {
+			schoolAndStudentCount = (SchoolAndStudentCount) object;
+		}
+
+		return schoolAndStudentCount;
+
+	}
+
+	@ApiMethod(name = "updateCurrentYearSchoolAndStudentCount", path = "updateCurrentYearSchoolAndStudentCount")
+	public void updateCurrentYearSchoolAndStudentCount() {
+
+		SchoolAndStudentCount schoolAndStudentCount = new SchoolAndStudentCount();
+		MemcacheService memcacheService = MemcacheServiceFactory
+				.getMemcacheService();
+		Object object = memcacheService
+				.get(CURRENT_YEAR_SCHOOL_AND_STUDENT_COUNT_KEY);
+
+		if (object instanceof SchoolAndStudentCount) {
+			schoolAndStudentCount = (SchoolAndStudentCount) object;
+		}
+
+		long schoolCount = 0;
+		long studentCount = 0;
+
+		/*
+		 * List<PartnerSchoolEntity> list = ofy() .load()
+		 * .type(PartnerSchoolEntity.class) .filter("lastModifiedDate >=",
+		 * schoolAndStudentCount.getLastModifiedDate()).list();
+		 */
+		List<PartnerSchoolEntity> list = ofy().load()
+				.type(PartnerSchoolEntity.class).list();
+		schoolCount = ofy().load().type(PartnerSchoolEntity.class).count();
+		logger.info("list: " + list);
+		logger.info("list.size(): " + (list == null ? "null" : list.size()));
+		for (PartnerSchoolEntity schoolEntity : list) {
+			ExamDetail examDeatilByCurretnYear = getExamDeatilByCurretnYear(schoolEntity);
+			if (examDeatilByCurretnYear != null) {
+				try {
+					studentCount += Long.parseLong(examDeatilByCurretnYear
+							.getTotal());
+				} catch (Exception ex) {
+					logger.warning("updateCurrentYearSchoolAndStudentCount: "
+							+ ex.getMessage());
+				}
+			}
+		}
+		logger.info("schoolCount: " + schoolCount);
+		logger.info("studentCount: " + studentCount);
+		schoolAndStudentCount.setSchoolCount(schoolCount);
+		/*
+		 * schoolAndStudentCount.setStudentcount(schoolAndStudentCount
+		 * .getStudentcount() + studentCount);
+		 */
+		schoolAndStudentCount.setStudentcount(studentCount);
+
+		schoolAndStudentCount.setLastModifiedDate(new Date());
+
+		memcacheService.put(CURRENT_YEAR_SCHOOL_AND_STUDENT_COUNT_KEY,
+				schoolAndStudentCount);
 	}
 
 	@ApiMethod(name = "getPartnerByInstitute")
@@ -144,6 +221,39 @@ public class PartnerSchoolService {
 				.filter("autoGenerated", autoGenerated).first().now();
 
 		return pSchool;
+
+	}
+
+	static class SchoolAndStudentCount implements Serializable {
+		private static final long serialVersionUID = 1L;
+		long schoolCount;
+		long studentcount;
+		private Date lastModifiedDate = new Date(System.currentTimeMillis()
+				- (long) 365 * 24 * 60 * 60 * 1000);
+
+		public long getSchoolCount() {
+			return schoolCount;
+		}
+
+		public void setSchoolCount(long schoolCount) {
+			this.schoolCount = schoolCount;
+		}
+
+		public long getStudentcount() {
+			return studentcount;
+		}
+
+		public void setStudentcount(long studentcount) {
+			this.studentcount = studentcount;
+		}
+
+		public Date getLastModifiedDate() {
+			return lastModifiedDate;
+		}
+
+		public void setLastModifiedDate(Date lastModifiedDate) {
+			this.lastModifiedDate = lastModifiedDate;
+		}
 
 	}
 
