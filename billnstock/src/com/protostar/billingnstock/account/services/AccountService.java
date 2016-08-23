@@ -117,7 +117,8 @@ public class AccountService {
 			}
 
 		}
-
+if(!(filteredEntries.isEmpty()))
+{
 		if (filteredEntries.get(0).getAccountEntity().getAccountType().trim()
 				.equals("PERSONAL")) {
 			accBalance = totalDebit - totalCredit;
@@ -130,6 +131,7 @@ public class AccountService {
 				.equals("NOMINAL")) {
 			accBalance = totalDebit - totalCredit;
 		}
+}
 		ServerMsg serverMsg = new ServerMsg();
 		serverMsg.setReturnBalance(accBalance);
 		return serverMsg;
