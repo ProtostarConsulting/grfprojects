@@ -1,4 +1,3 @@
-
 var app = angular.module("stockApp");
 
 app
@@ -8,19 +7,19 @@ app
 						$mdUtil, $log, $stateParams, objectFactory, $state,
 						appEndpointSF, $mdDialog, $mdMedia) {
 
+					$scope.loading = true;
 					$scope.accountList = [];
 					var entryList = [];
-
-					$scope.fromDate = new Date();
-					$scope.toDate = new Date();
-					$scope.fromDate.setDate($scope.toDate.getDate() - 30);
-
+					$scope.closingBalance = 0;
+				
 					$scope.entries = [];
-
 					$scope.openingBalance = 0;
-					$scope.selectdAccount = $stateParams.selectdAccount;
 
-					if ($scope.selectdAccount) {
+					if ($stateParams.selectdAccount) {
+						$scope.selectdAccount = $stateParams.selectdAccount;
+					}
+
+					if ($stateParams.selectdAccount) {
 						$scope.searchAccId = $scope.selectdAccount.id;
 						$scope.fromDate = $stateParams.fromDate;
 						$scope.toDate = $stateParams.toDate;
@@ -29,6 +28,8 @@ app
 
 					$scope.getAccountEntryByAccountId = function(accId,
 							fromDate, toDate) {
+						$scope.loading = true;
+						$scope.wait = true;
 
 						var AccountEntryService = appEndpointSF
 								.getAccountEntryService();
@@ -36,7 +37,7 @@ app
 								.getAccountEntryByAccountId(accId)
 								.then(
 										function(list) {
-											
+
 											$scope.totaldebit = 0;
 											$scope.totalcredit = 0;
 
@@ -64,6 +65,7 @@ app
 											}
 
 											$scope.entries = [];
+											$scope.closingBalance = 0;
 											for (var i = 0; i < entryList.length; i++) {
 												if (entryList[i].accountEntity.accountType
 														.trim() == "PERSONAL") {
@@ -84,8 +86,48 @@ app
 											}
 
 											$scope.entries = entryList;
+
+											if ($scope.entries.length == 0) {
+												$scope.showAlert();
+											}
+
+											var maxWaitTime = 1000 * 5;
+											var currentWaitTime = 0;
+
+											$scope.waitFn = function() {
+												if (currentWaitTime < maxWaitTime) {
+													$log
+															.debug("Wating for account  Data ...");
+													currentWaitTime += 1000;
+													$timeout($scope.waitFn,
+															1000);
+												} else if (currentWaitTime == maxWaitTime) {
+													$scope.loading = false;
+													$scope.wait = false;
+
+												}
+											}
+											$scope.waitFn();
+
 										})
 
+					};
+
+					$scope.showAlert = function(ev) {
+						$scope.wait = true ;
+						$mdDialog
+								.show($mdDialog
+										.alert()
+										.parent(
+												angular
+														.element(document
+																.querySelector('#popupContainer')))
+										.clickOutsideToClose(true)
+										.title('No Data Found')
+										.textContent(
+												'Related Account Data with in Date not Found.')
+										.ariaLabel('Alert Dialog Demo').ok(
+												'Got it!').targetEvent(ev));
 					};
 
 					$scope.getAccountList = function() {
@@ -112,9 +154,39 @@ app
 					$scope.cancelButton = function() {
 						$state.go("accounting.accountGroupView", {
 							selectdAccount : $scope.selectdAccount,
-							flag : true
+							flag : true,
+							fromDate : $scope.fromDate,
+							toDate : $scope.toDate
 						});
 
+					}
+					$scope.clear = function() {
+						$scope.loading = true;
+						if ($scope.toDate != undefined) {
+							$scope.toDate = "";
+						}
+						if ($scope.fromDate != undefined) {
+
+							$scope.fromDate = "";
+						}
+						if ($scope.searchAccId != undefined) {
+
+							$scope.searchAccId = "";
+						}
+						$scope.searchForm.$setPristine();
+						$scope.searchForm.$setUntouched();
+
+					}
+
+					var printDivCSS = new String(
+							'<link href="/lib/base/css/angular-material.min.css"" rel="stylesheet" type="text/css">'
+									+ '<link href="/lib/base/css/bootstrap.min.css"" rel="stylesheet" type="text/css">')
+					$scope.printDiv = function(divId) {
+
+						window.frames["print_frame"].document.body.innerHTML = document
+								.getElementById(divId).innerHTML;
+						window.frames["print_frame"].window.focus();
+						window.frames["print_frame"].window.print();
 					}
 
 					$scope.waitForServiceLoad = function() {
@@ -128,4 +200,3 @@ app
 					}
 					$scope.waitForServiceLoad();
 				});
-

@@ -28,7 +28,7 @@ app
 						AccountService.getAccountListByGroupId(groupObj.id)
 								.then(function(list) {
 									$scope.fnReturnCount = 0;
-									var maxWaitTime = 1000 * 20;
+									var maxWaitTime = 1000 * 5;
 									var currentWaitTime = 0;
  									for (var i = 0; i < list.length; i++) {
 										getAccountBalance(list[i]);
