@@ -195,8 +195,7 @@
   <servlet-mapping>
     <servlet-name>UploadQuestionListServlet</servlet-name>
     <url-pattern>/UploadQuestionListServlet</url-pattern>
-  </servlet-mapping>
- 
+  </servlet-mapping> 
   <servlet>
     <description/>
     <display-name>DownloadQuestionListServlet</display-name>
@@ -207,4 +206,14 @@
     <servlet-name>DownloadQuestionListServlet</servlet-name>
     <url-pattern>/DownloadQuestionListServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description/>
+    <display-name>UpdateSchoolStudentCountHandler</display-name>
+    <servlet-name>UpdateSchoolStudentCountHandler</servlet-name>
+    <servlet-class>com.protostar.prostudy.gf.service.UpdateSchoolStudentCountHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateSchoolStudentCountHandler</servlet-name>
+    <url-pattern>/grf/cron/updatestudcounts</url-pattern>
+  </servlet-mapping>  
 </web-app>

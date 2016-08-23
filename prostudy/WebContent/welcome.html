@@ -39,14 +39,14 @@
 			<tr
 				style="border: 1px solid #dddddd; text-align: left; padding: 8px;">
 				<td>2015-2016</td>
-				<td>1604</td>
+				<td>1645</td>
 				<td>258754</td>
 			</tr>
 			<tr
 				style="border: 1px solid #dddddd; text-align: left; padding: 8px; background-color: #8cced4;">
-				<td>This year till date</td>
-				<td>1104</td>
-				<td>208345</td>
+				<td>This year till {{schoolStudCount.lastModifiedDate | date: "medium" : "IST"}}</td>
+				<td ng-bind="schoolStudCount.schoolCount"></td>
+				<td ng-bind="schoolStudCount.studentcount"></td>
 			</tr>
 		</table>
 	</div>

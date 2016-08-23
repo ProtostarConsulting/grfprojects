@@ -28,6 +28,27 @@ angular.module("prostudyApp").controller(
 				}
 			};
 
+			function getSchoolStudentCount() {
+				var PartnerSchoolService = appEndpointSF
+						.getPartnerSchoolService();
+
+				PartnerSchoolService.getCurrentYearSchoolAndStudentCount()
+						.then(function(resp) {
+							$scope.schoolStudCount = {
+								schoolCount : 0,
+								studentcount : 0,
+								lastModifiedDate : "NA"
+							};
+
+							if (resp.schoolCount != undefined) {
+								$scope.schoolStudCount = resp;
+							}
+
+						});
+			}
+
+			getSchoolStudentCount();
+
 			// Test upload file code
 			$scope.username = "testuser220";
 
@@ -53,7 +74,8 @@ angular.module("prostudyApp").controller(
 									.position("top").hideDelay(3000));
 						},
 						function(resp) {
-							console.log('Error Ouccured, Error status: ' + resp.status);
+							console.log('Error Ouccured, Error status: '
+									+ resp.status);
 							$scope.uploadProgressMsg = 'Error: ' + resp.status;
 						},
 						function(evt) {
@@ -81,8 +103,7 @@ angular.module("prostudyApp").controller(
 				}).then(
 						function(resp) {
 							console.log('Successfully uploaded '
-									+ resp.config.data.file.name
-									+ '.'
+									+ resp.config.data.file.name + '.'
 									+ angular.toJson(resp.data));
 							$scope.uploadProgressMsg = 'Successfully uploaded '
 									+ resp.config.data.file.name + '.';
@@ -92,18 +113,20 @@ angular.module("prostudyApp").controller(
 							$scope.csvFile = null;
 						},
 						function(resp) {
-							console.log('Error Ouccured, Error status: ' + resp.status);
+							console.log('Error Ouccured, Error status: '
+									+ resp.status);
 							$scope.uploadProgressMsg = 'Error: ' + resp.status;
 						},
 						function(evt) {
 							var progressPercentage = parseInt(100.0
 									* evt.loaded / evt.total);
-							console.log('Upload progress: ' + progressPercentage
-									+ '% ' + evt.config.data.file.name);
+							console.log('Upload progress: '
+									+ progressPercentage + '% '
+									+ evt.config.data.file.name);
 							$scope.uploadProgressMsg = 'Upload progress: '
 									+ progressPercentage + '% '
 									+ evt.config.data.file.name;
-									+ '...'
+							+'...'
 						});
 			};
 

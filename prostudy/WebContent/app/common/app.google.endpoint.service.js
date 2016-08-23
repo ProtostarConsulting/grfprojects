@@ -1719,7 +1719,14 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 				});
 		return deferred.promise;
 	}
-
+	PartnerSchoolService.getCurrentYearSchoolAndStudentCount = function() {
+		var deferred = $q.defer();
+		gapi.client.partnerSchoolService.getCurrentYearSchoolAndStudentCount()
+				.execute(function(resp) {
+					deferred.resolve(resp);
+				});
+		return deferred.promise;
+	}
 	PartnerSchoolService.getPartnerByInstitute = function(id) {
 		var deferred = $q.defer();
 		gapi.client.partnerSchoolService.getPartnerByInstitute({
