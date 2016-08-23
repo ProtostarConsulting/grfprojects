@@ -52,29 +52,14 @@ app
 											
 										}
 									}
-									$scope.waitForAllAccountData();
-									
-									
-									/*
-									 * for(var j = 0; j < list.length &&
-									 * $scope.fnReturnCount!=list.length ;j++){
-									 * $timeout(function(){}, 1000);
-									 * 
-									 * if(j==list.length-1) {
-									 * $log.debug("groupObj.accountList"+
-									 * angular.toJson($scope.accountGroupTypeGroupList)); }
-									 *  }
-									 */
+									$scope.waitForAllAccountData();														
 
 									$scope.accountList = list;
 									if (list == null) {
 										groupObj.accountList = [];
 									} else {
 										groupObj.accountList = list;
-									}
-									
-									
-
+									}			
 								})
 
 					};
@@ -86,35 +71,7 @@ app
 								.then(
 										function(objResp) {
 											accounObj.balance = objResp.returnBalance;
-											$scope.fnReturnCount = $scope.fnReturnCount + 1;
-
-											/*
-											 * for (var i = 0; i
-											 * <$scope.accountGroupTypeGroupList.length;
-											 * i++) {
-											 * if($scope.accountGroupTypeGroupList[i].groupList.length>0) {
-											 * for (var j = 0; j <
-											 * $scope.accountGroupTypeGroupList[i].groupList.length;
-											 * j++) { if(
-											 * $scope.accountGroupTypeGroupList[i].groupList[j].accountList.length
-											 * >0) { $scope.totalBalance=0; for
-											 * (var k = 0; k <
-											 * $scope.accountGroupTypeGroupList[i].groupList[j].accountList.length;
-											 * k++) {
-											 * 
-											 * $scope.totalBalance=$scope.totalBalance+$scope.accountGroupTypeGroupList[i].groupList[j].accountList[k].balance;
-											 *  } }
-											 * groupObj.totalBalance=$scope.totalBalance;
-											 * 
-											 * $log.debug("$scope.totalBalance"+
-											 * $scope.totalBalance); } }
-											 *  }
-											 */
-
-											// $scope.totalBalance=accounObj.balance;
-											// $log.debug("$scope.totalBalance---@@@
-											// #"+
-											// angular.toJson($scope.accountGroupTypeGroupList));
+											$scope.fnReturnCount = $scope.fnReturnCount + 1;										
 										});
 					}
 
@@ -138,8 +95,6 @@ app
 
 												}
 											}
-
-
 										})
 
 					};
@@ -152,8 +107,7 @@ app
 					}
 					function getGroupAccObject(groupObj) {
 						return {
-							groupObj : groupObj,
-						//	totalBalance : "",
+							groupObj : groupObj,						
 							accountList : []
 						};
 					}
@@ -176,10 +130,7 @@ app
 
 								}
 							}
-
-						}
-						$log.debug("$scope.totalBalance ......................."+ angular.toJson($scope.accountGroupTypeGroupList));
-
+						}						
 					}
 
 					$scope.waitForServiceLoad = function() {
