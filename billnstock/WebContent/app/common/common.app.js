@@ -303,7 +303,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		controller : 'accountGroupViewCtr',
 		params:{
 			flag:null,
-			selectdAccount:null
+			selectdAccount:null,
+			fromDate:null,
+			toDate:null
 		}			
 	})
 
