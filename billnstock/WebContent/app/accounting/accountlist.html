@@ -17,7 +17,7 @@
 
 
 <div flex>
-            <md-button class="md-icon-button" ng-click="getaccountlist()">
+            <md-button class="md-icon-button" ng-click="getAccountList(true)">
               <md-icon md-svg-src="img/icons/ic_refresh_24px.svg">refresh</md-icon>
             </md-button>
           </div>
@@ -53,7 +53,7 @@
 
 				<td><section layout="row" layout-sm="column">
 						 <md-button class="md-fab md-primary md-hue-2 "> <md-icon md-svg-src="img/icons/edit.svg"
-							ui-sref="accounting.account_add2({AccountId: account.id})"></md-icon> <md-tooltip>Edit
+							ui-sref="accounting.account_Edit({selectedAccount: account})"></md-icon> <md-tooltip>Edit
 					</md-tooltip>
 						</md-button> 
 					</section></td>
