@@ -73,6 +73,13 @@ public class AccountService {
 
 		return filteredAccounts;
 	}
+	@ApiMethod(name = "updateAccount")
+	public AccountEntity updateAccount(AccountEntity update) {
+		AccountEntity	 now = update;
+		ofy().save().entity(update).now();
+		System.out.println("inside update details now" + now);
+		return now;
+	}
 
 	@ApiMethod(name = "getAccountListByGroupId", path = "getAccountListByGroupId")
 	public List<AccountEntity> getAccountListByGroupName(
