@@ -1133,6 +1133,13 @@ function googleEndpointSF($log, $q) {
 
 		return deferred.promise;
 	}
+	AccountService.updateAccount = function(updateAccount) {
+		var deferred = $q.defer();
+		gapi.client.accountService.updateAccount(updateAccount).execute(function(resp) {
+			deferred.resolve(resp);
+		});
+		return deferred.promise;
+	}
 	
 	AccountService.checkAccountAlreadyExist = function(accName) {
 		var deferred = $q.defer();

@@ -255,6 +255,17 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		url : "/accountlist",
 		templateUrl : '/app/accounting/accountlist.html',
 		controller : 'accountlistCtr',
+		
+	})
+	
+	.state('accounting.account_Edit', {
+		url : "/account_Edit",
+		templateUrl : '/app/accounting/account_Edit.html',
+		controller : 'accountEditCtr',
+		params:{
+
+			selectedAccount:null
+				}
 	})
 	
 	.state('accounting.accountGroupAdd', {
