@@ -1,0 +1,115 @@
+<md-content layout-padding> <!-- <section layout="row" layout-align="end end" flex>
+	<md-button class="md-raised md-primary" id="uplodeExcel"
+		ng-click="UplodeExcel($event)">UplodeExcel</md-button>
+</section> -->
+<h3 class="md-headline" ng-hide="account.id">
+	<u>Edit Account</u>
+</h3>
+<h3 class="md-headline" ng-show="account.id">
+	<u>Edit Account</u>
+</h3>
+<form name="accountForm">
+	[<span style="color: red;">Field Marked as asterik (*) are 	mandetory</span>] <br>
+
+	<div layout layout-xs="column">
+
+
+		<md-input-container flex> <label>Account
+			Name <span style="color: red;">*</span>
+		</label> <input ng-model="tempAccount.accountName" name="accountName" id="accountName" 
+		                ng-required="true"  minlength="3">
+
+		<div ng-messages="accountForm.accountName.$error" ng-if="accountForm.accountName.$submitted || accountForm.accountName.$touched">
+			<div ng-message="required">Please Enter Account Name</div>
+			<div ng-message="minlength">Please Enter more than 3 character</div>
+			
+		</div>
+		</md-input-container>
+
+
+		<md-input-container flex> <md-select
+			ng-model="tempAccount.accountType" id="accountType" name="accountType" ng-required="true">
+		<label>AccountType<span style="color: red;">*</span></label> <md-option
+			ng-repeat="type in accountType "> {{type}} </md-option> </md-select>
+
+		<div ng-messages="accountForm.accountType.$error"
+			ng-if="accountForm.accountType.$submitted || accountForm.accountType.$touched">
+			<div ng-message="required">Please Select the Type</div>
+
+		</div>
+		</md-input-container>
+
+	</div>
+
+	<div layout layout-xs="column">
+		<md-input-container flex> <label>Account
+			No <span style="color: red;">*</span>
+		</label> <input ng-model="tempAccount.accountNo" name="accountNo" id="accountNo"
+			ng-required="true" minlength="3">
+
+		<div ng-messages="accountForm.accountNo.$error"
+			ng-if="accountForm.accountNo.$submitted || accountForm.accountNo.$touched">
+			<div ng-message="required">Please Enter Account No</div>
+		</div>
+		</md-input-container>
+
+
+		<md-input-container flex> <label>Description
+			<span style="color: red;">*</span>
+		</label> <textarea name="description" ng-model="tempAccount.description" id="description"
+			ng-required="true" maxlength="300"></textarea>
+
+		<div ng-messages="accountForm.description.$error"
+			ng-if="accountForm.description.$submitted || accountForm.description.$touched">
+			<div ng-message="required">Please Enter Description</div>
+
+
+		</div>
+
+		</md-input-container>
+	</div>
+
+	<div layout layout-xs="column">
+
+		<md-input-container flex> <label>Display Order No
+			<span style="color: red;">*</span>
+		</label> <input name="displayOrderNo" type="number" id="displayOrderNo"
+			ng-model="tempAccount.displayOrderNo" ng-required="true" maxlength="4"
+			min="1"></input>
+
+		<div ng-messages="accountForm.displayOrderNo.$error"
+			ng-if="accountForm.displayOrderNo.$submitted || accountForm.displayOrderNo.$touched">
+			<div ng-message="required">Please Enter Integer Only!</div>
+			<div ng-message="maxlength">Please Enter value less than 4
+				digit!</div>
+			<div ng-message="min">Please Enter Positive No!</div>
+		</div>
+		</md-input-container>
+		<md-input-container flex> <md-select
+				ng-model="tempAccount.accountgroup.groupName" placeholder="AccountGroup" id="accountlist" name="accountlist" ng-required="true"><lable>Account Group<span style="color: red;">*</span></lable>
+			<md-option ng-value="accountlist.groupName"  ng-repeat="accountlist in accountgroupList">{{accountlist.groupName}}
+			
+			</md-option> </md-select>
+			
+		<div ng-messages="accountForm.accountlist.$error"
+			ng-if="accountForm.accountlist.$submitted || accountForm.accountlist.$touched">
+			<div ng-message="required">Please Select the Type</div>
+
+		</div>
+			
+			 </md-input-container>
+</div>
+<label>Contra</label>
+	<md-checkbox ng-model="tempAccount.contra" ng-true-value="true" 
+		ng-false-value="false"> </md-checkbox>
+		<section layout="row" layout-xs="column" layout-align="left left">
+		
+		<!-- 	<md-button class="md-raised md-primary"  ng-click="updateAcc()" ng-disabled="accountForm.$invalid"> Update</md-button> -->
+	<md-button class="md-raised md-primary" ng-click="updateAcc()">Update</md-button>
+
+		<md-button class="md-raised md-primary" ng-click="cancelBtn()">Cancle</md-button>
+
+		</section>
+</form>
+--------------{{accountlist}}
+</md-content>
