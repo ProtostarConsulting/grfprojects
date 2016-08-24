@@ -1,4 +1,4 @@
-
+<!-- 
 <style>
 table {
 	border: 0px solid black;
@@ -38,18 +38,103 @@ div.one {
 		<div ng-repeat="grp in groupTypeObj.groupList">
 			<p style="margin-left: 100px">{{grp.groupName}}</p>
 
-			<!-- 	<div ng-repeat="acc in grp.accountList">
+				<div ng-repeat="acc in grp.accountList">
 				<p style="margin-left: 200px">
 					{{acc.accountName}} <span align="right"
 						style="position: absolute; right: 600px;""><b>{{acc.balance}}</b></span>
 						
 				</p>
 				
-			</div> -->
+			</div>
 			<p style="margin-left: 200px">{{grp.totalBalance}}</p>
 
 		</div>
 	</div>
 
 </div>
+</md-content> -->
+
+
+
+
+<style>
+table {
+ font-family: arial, sans-serif;
+ border-collapse: collapse;
+ width: 100%;
+}
+
+td, th { /* //border: 1px solid #dddddd; */
+ text-align: left;
+ padding: 8px;
+}
+</style>
+<md-content ng-show="loading"> <md-progress-circular
+	class="md-accent md-accent" md-diameter="80"></md-progress-circular></md-content>
+<md-content layout-padding ng-show="!loading">
+
+<md-content layout-padding>
+<h3 class="md-headline">
+ <u>Balance Sheet</u>
+</h3>
+<section layout="row" layout-align="end end">
+ <md-button class="md-icon-button md-accent"
+  ng-click="printDiv('balanceSheetDiv')" aria-label="Favorite">
+ <md-icon md-svg-icon="img/icons/print.svg"></md-icon> </md-button>
+</section>
+<form>
+ <div id="balanceSheetDiv">
+  <table
+   style="width: 100%; border: 1px solid #dddddd; border-color: black;">
+   <tr>
+    <th colspan="2">Balance Sheet</th>
+
+    <th style="text-align: center;">ProERP<br>
+    <span> {{date | formatDate}}</span></th>
+   </tr>
+   <tr>
+    <td colspan="3"></td>
+
+   </tr>
+   <tr>
+    <td colspan="3"><u><b>Sources of Funds:</b></u></td>
+
+   </tr>
+   <tr ng-repeat="groupTypeObj in accountGroupTypeGroupList">
+    <td colspan="2">{{groupTypeObj.groupType}}</td>
+
+    <td style="text-align: right;">
+    <div  ng-repeat="grp in groupTypeObj.groupList">
+    {{grp.totalBalance}}</div></td>
+   </tr>
+   
+  <!--  <tr>
+    <td colspan="2" style="text-align: center;"><b>Total</b></td>
+
+    <td style="text-align: right;">{total}</td>
+   </tr> -->
+  <!--  <tr>
+    <td colspan="3"><u><b>Application of Funds:</b></u></td>
+
+   </tr>
+   <tr>
+    <td colspan="2">Fixed Assets</td>
+
+    <td style="text-align: right;">{total}</td>
+   </tr>
+   <tr>
+    <td colspan="2">Working Capital</td>
+
+    <td style="text-align: right;">{total}</td>
+   </tr>
+   <tr>
+    <td colspan="2" style="text-align: center;"><b>Total</b></td>
+
+    <td style="text-align: right;">{total}</td>
+   </tr> -->
+  </table>
+  <iframe name="print_frame" width="0" height="0" frameborder="0"
+   src="about:blank"></iframe>
+ </div>
+</form>
 </md-content>
