@@ -1,66 +1,10 @@
 <md-content layout-padding>
-<style>
-table {
-	border: 1px solid black;
-	border-collapse: collapse;
-	border: 1px solid black;
-	width: 90%;
-	border: 1px solid black;
-}
-
-td {
-	border: 1px solid black;
-}
-</style>
-<md-content layout-padding>
 
 <h3 class="md-headline">
 	<u>Account View </u>
 </h3>
 
 <form name="searchForm" layout-align="center center">
-
-
-	<!-- <div layout layout-sm="column">
-
-		<md-input-container flex> <label>Select
-			Account Name</label> <md-select ng-model="searchAccId" id="accountId"
-			ng-disabled="selectdAccount.accountName!=undefined" name="accountId"
-			ng-required="true"> <md-option ng-value="acc.id"
-			ng-repeat="acc in accountList">{{acc.accountName}}</md-option> </md-select> </md-input-container>
-		<md-input-container flex> </md-input-container>
-
-	</div>
-	<div layout layout-sm="column">
-
-		<label style="margin-top: 10px">From Date</label>
-		<md-datepicker id="fromDate" name="fromDate" ng-model="fromDate"
-			md-placeholder="Enter From date" ng-required="true"
-			md-max-date="toDate"
-			ng-disabled="selectdAccount.accountName!=undefined"></md-datepicker>
-		<label style="margin-top: 10px">To Date</label>
-		<md-datepicker id="toDate" name="toDate" ng-model="toDate"
-			md-placeholder="Enter To date" ng-required="true"
-			md-min-date="fromDate"
-			ng-disabled="selectdAccount.accountName!=undefined"></md-datepicker>
-	</div>
-	<div layout layout-sm="column">
-
-		<md-button class="md-raised md-primary"
-			ng-show="selectdAccount.accountName!=undefined"
-			ng-click="cancelButton()">Back</md-button>
-		<md-button ng-disabled="searchForm.$invalid"
-			ng-show="selectdAccount.accountName==undefined"
-			class="md-raised md-primary"
-			ng-click="getAccountEntryByAccountId(searchAccId,fromDate,toDate)">Account
-		View</md-button>
-
-		<md-button ng-show="selectdAccount.accountName==undefined"
-			class="md-raised md-primary" ng-click="clear()">Clear</md-button>
-	</div>
-
- -->
-
 	<table style="border: 0px">
 		<tr>
 			<th><md-input-container flex> <label>Select
@@ -110,8 +54,8 @@ td {
 <div id="accountDiv"
 	ng-show="!loading && !wait && wait!=undefined && entries.length > 0">
 
-	<h2 align="center">{{selectdAccount.accountName}}</h2>
-	<table>
+	<h2 align="center">{{selectdAccountName}}</h2>
+	<table style="border: 1px solid black; border-collapse: collapse; width: 90%;">
 		<thead>
 			<tr style="border: 1px solid black; background-color: gray">
 				<th>Date</th>
@@ -123,33 +67,33 @@ td {
 
 		<tbody>
 			<tr>
-				<th colspan="2" style="text-align: right;"><b>Opening
+				<th colspan="2" style="border: 1px solid black;text-align: right;"><b>Opening
 						Balance:</b></th>
-				<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{openingBalance|number:2}}</th>
+				<th style="border: 1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{openingBalance|number:2}}</th>
 				<th></th>
 
 			</tr>
 
 			<tr ng-repeat="entry in entries ">
 
-				<td>{{entry.date|formatDate}}</td>
-				<td>{{entry.narration}}</td>
-				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{entry.debit|number:2}}</td>
-				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{entry.credit|number:2}}
+				<td style="border: 1px solid black;">{{entry.date|formatDate}}</td>
+				<td style="border: 1px solid black;">{{entry.narration}}</td>
+				<td style="border: 1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{entry.debit|number:2}}</td>
+				<td style="border: 1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{entry.credit|number:2}}
 				</td>
 			</tr>
 
 			<tr>
-				<td colspan="2" style="text-align: right;"><b>Total:</b></td>
-				<td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{totaldebit|number:2}}</b></td>
-				<td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{totalcredit|number:2}}
+				<td colspan="2" style="border: 1px solid black;text-align: right;"><b>Total:</b></td>
+				<td style="border: 1px solid black;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{totaldebit|number:2}}</b></td>
+				<td style="border: 1px solid black;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{totalcredit|number:2}}
 				</b></td>
 			</tr>
 			<tr>
-				<th colspan="2" style="text-align: right;"><b>Closing
+				<th colspan="2" style="border: 1px solid black;text-align: right;"><b>Closing
 						Balance:</b></th>
 				<th></th>
-				<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{closingBalance|number:2}}</th>
+				<th style="border: 1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{closingBalance|number:2}}</th>
 			</tr>
 
 		</tbody>
@@ -158,4 +102,4 @@ td {
 	<iframe name="print_frame" width="0" height="0" frameborder="0"
 		src="about:blank"></iframe>
 </div>
-</md-content> </md-content>
+</md-content>

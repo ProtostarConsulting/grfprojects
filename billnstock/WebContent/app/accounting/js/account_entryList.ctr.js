@@ -108,11 +108,20 @@ app
 												}
 											}
 											$scope.waitFn();
-
+											$scope.getselectdAccountName(accId);
 										})
 
 					};
 
+					
+					
+					$scope.getselectdAccountName = function(accId) {
+						for (var i = 0; i < $scope.accountList.length; i++) {
+							if ($scope.accountList[i].id == accId) {
+								$scope.selectdAccountName = $scope.accountList[i].accountName;
+							}
+						}
+					}
 					$scope.showAlert = function(ev) {
 						$scope.wait = true ;
 						$mdDialog
