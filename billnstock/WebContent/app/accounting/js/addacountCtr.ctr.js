@@ -87,7 +87,6 @@ app
 
 					}
 
-					
 					$scope.getAccByid = function() {
 
 						var getrecord = appEndpointSF.getAccountService();

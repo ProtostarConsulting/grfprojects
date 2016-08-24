@@ -2,7 +2,7 @@
 var app = angular.module("stockApp");
 
 app.controller("accountlistCtr", function($scope, $window, $mdToast, $timeout,Upload,
-		$mdSidenav, $mdUtil, $log, $stateParams, objectFactory, appEndpointSF,$mdDialog,$mdMedia, $state  ) {
+		$mdSidenav, $mdUtil, $log, $stateParams, objectFactory, appEndpointSF,$mdDialog,$mdMedia, $state,ajsCache  ) {
 
 	$scope.query = {
 		order : 'name',
@@ -11,15 +11,34 @@ app.controller("accountlistCtr", function($scope, $window, $mdToast, $timeout,Up
 	};
 	$scope.selected=[];
 
-	$scope.getAccountList=function(){
+	$scope.getAccountList=function(refresh){
+		var AccountServiceCacheKey = "getAccountByName";
+		
+		if (!angular.isUndefined(ajsCache.get(AccountServiceCacheKey)) && !refresh)
+	      {
+	       $log.debug("Found List in Cache, return it.");
+	       $scope.List = ajsCache.get(AccountServiceCacheKey);
+	       return;
+	      }
 		
 	var AccountService=appEndpointSF.getAccountService();
 	AccountService.getAccountList().then(function(list){
 		$scope.accounts=list;
+		ajsCache.put(AccountServiceCacheKey,list);
 	
 			});
 		}
 	$scope.getAccountList();
+	
+	 $scope.waitForServiceLoad = function() {
+		   if (appEndpointSF.is_service_ready) {
+			   $scope.getAccountList();
+		   } else {
+		    $log.debug("Services Not Loaded, watiting...");
+		    $timeout($scope.waitForServiceLoad, 1000);
+		   }
+		  }
+		  $scope.waitForServiceLoad();
 	
 	$scope.delAccByid=function(daccountid){
 		

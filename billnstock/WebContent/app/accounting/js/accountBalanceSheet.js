@@ -148,4 +148,17 @@ app
 						}
 					}
 					$scope.waitForServiceLoad();
+					
+					
+					
+					var printDivCSS = new String(
+							'<link href="/lib/base/css/angular-material.min.css"" rel="stylesheet" type="text/css">'
+									+ '<link href="/lib/base/css/bootstrap.min.css"" rel="stylesheet" type="text/css">')
+					$scope.printDiv = function(divId) {
+						
+						window.frames["print_frame"].document.body.innerHTML = document
+								.getElementById(divId).innerHTML;
+						window.frames["print_frame"].window.focus();
+						window.frames["print_frame"].window.print();
+					}	
 				});

@@ -49,7 +49,7 @@ angular
 				require : 'ngModel',
 				link : function($scope, $element, $attrs, ngModel) {
 					$log.debug("Inside of accountGroupUserexists....");
-					ngModel.$asyncValidators.groupexists = function(
+					ngModel.$asyncValidators.userexists = function(
 							accountGroupValue) {
 						var deferred = $q.defer();
 						var AccountGroupService = appEndpointSF
