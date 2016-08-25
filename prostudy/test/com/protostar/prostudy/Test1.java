@@ -36,7 +36,7 @@ public class Test1 {
 		 */
 
 		// System.out.println(EmailValidator.validate(""));
-
+/*
 		Date date = new Date();
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
@@ -44,7 +44,12 @@ public class Test1 {
 		String currentYear = "".concat(year.toString()).concat("-")
 				.concat("" + (year - 1999));
 		
-		System.out.println("Curernt year is:" + currentYear);
+		System.out.println("Curernt year is:" + currentYear);*/
+		
+		
+		Date lastModifiedDate = new Date(System.currentTimeMillis()
+				- (long) 365 * 24 * 60 * 60 * 1000);
+		System.out.println("lastModifiedDate:" + lastModifiedDate);
 	}
 
 	public static Map<String, List> getEmptyAuthorizationEntry(String authName,

@@ -15,6 +15,10 @@ import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.config.Named;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
 import com.googlecode.objectify.Key;
@@ -26,10 +30,14 @@ import com.protostar.prostudy.until.data.UtilityService;
 @Api(name = "partnerSchoolService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.gf.service", ownerName = "com.protostar.prostudy.gf.service", packagePath = ""))
 public class PartnerSchoolService {
 
-	private static final String CURRENT_YEAR_SCHOOL_AND_STUDENT_COUNT_KEY = "CurrentYearSchoolAndStudentCount";
+	private static final String CURRENT_YEAR_SCHOOL_AND_STUDENT_COUNT_KIND = "CurrentYearSchoolAndStudentCount";
+	private static final String CURRENT_YEAR_SCHOOL_AND_STUDENT_COUNT_KEY = "1";
 	private final Logger logger = Logger.getLogger(PartnerSchoolService.class
 			.getName());
 	private boolean notificationEnabled = true;
+	private Entity schoolAndStudentCountEntity = new Entity(
+			CURRENT_YEAR_SCHOOL_AND_STUDENT_COUNT_KIND,
+			CURRENT_YEAR_SCHOOL_AND_STUDENT_COUNT_KEY);;
 
 	// private boolean notificationEnabled = false;
 
@@ -99,6 +107,8 @@ public class PartnerSchoolService {
 			PartnerSchoolEntity partnerSchoolEntity) {
 		ExamDetail currentYearExamDetail = null;
 
+		if (partnerSchoolEntity == null)
+			return null;
 		Date date = new Date();
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
@@ -137,11 +147,30 @@ public class PartnerSchoolService {
 		SchoolAndStudentCount schoolAndStudentCount = new SchoolAndStudentCount();
 		MemcacheService memcacheService = MemcacheServiceFactory
 				.getMemcacheService();
-		Object object = memcacheService
-				.get(CURRENT_YEAR_SCHOOL_AND_STUDENT_COUNT_KEY);
+		Object cacheObject = memcacheService.get(schoolAndStudentCountEntity
+				.getKey());
 
-		if (object instanceof SchoolAndStudentCount) {
-			schoolAndStudentCount = (SchoolAndStudentCount) object;
+		if (cacheObject != null && cacheObject instanceof SchoolAndStudentCount) {
+			schoolAndStudentCount = (SchoolAndStudentCount) cacheObject;
+		} else {
+			DatastoreService datastore = DatastoreServiceFactory
+					.getDatastoreService();
+
+			try {
+				schoolAndStudentCountEntity = datastore
+						.get(schoolAndStudentCountEntity.getKey());
+				schoolAndStudentCount
+						.setSchoolCount((Long) schoolAndStudentCountEntity
+								.getProperty("schoolCount"));
+				schoolAndStudentCount
+						.setStudentcount((Long) schoolAndStudentCountEntity
+								.getProperty("studentCount"));
+				schoolAndStudentCount.setLastModifiedDate(new Date(
+						(Long) schoolAndStudentCountEntity
+								.getProperty("lastModifiedDate")));
+			} catch (EntityNotFoundException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return schoolAndStudentCount;
@@ -151,54 +180,55 @@ public class PartnerSchoolService {
 	@ApiMethod(name = "updateCurrentYearSchoolAndStudentCount", path = "updateCurrentYearSchoolAndStudentCount")
 	public void updateCurrentYearSchoolAndStudentCount() {
 
-		SchoolAndStudentCount schoolAndStudentCount = new SchoolAndStudentCount();
-		MemcacheService memcacheService = MemcacheServiceFactory
-				.getMemcacheService();
-		Object object = memcacheService
-				.get(CURRENT_YEAR_SCHOOL_AND_STUDENT_COUNT_KEY);
-
-		if (object instanceof SchoolAndStudentCount) {
-			schoolAndStudentCount = (SchoolAndStudentCount) object;
-		}
-
 		long schoolCount = 0;
 		long studentCount = 0;
 
-		/*
-		 * List<PartnerSchoolEntity> list = ofy() .load()
-		 * .type(PartnerSchoolEntity.class) .filter("lastModifiedDate >=",
-		 * schoolAndStudentCount.getLastModifiedDate()).list();
-		 */
 		List<PartnerSchoolEntity> list = ofy().load()
 				.type(PartnerSchoolEntity.class).list();
 		schoolCount = ofy().load().type(PartnerSchoolEntity.class).count();
 		logger.info("list: " + list);
 		logger.info("list.size(): " + (list == null ? "null" : list.size()));
 		for (PartnerSchoolEntity schoolEntity : list) {
-			ExamDetail examDeatilByCurretnYear = getExamDeatilByCurretnYear(schoolEntity);
-			if (examDeatilByCurretnYear != null) {
-				try {
-					studentCount += Long.parseLong(examDeatilByCurretnYear
-							.getTotal());
-				} catch (Exception ex) {
-					logger.warning("updateCurrentYearSchoolAndStudentCount: "
-							+ ex.getMessage());
+			try {
+				ExamDetail examDeatilByCurretnYear = getExamDeatilByCurretnYear(schoolEntity);
+				if (examDeatilByCurretnYear != null) {
+					try {
+						studentCount += Long.parseLong(examDeatilByCurretnYear
+								.getTotal());
+					} catch (Exception ex) {
+						logger.warning("updateCurrentYearSchoolAndStudentCount: "
+								+ ex.getMessage());
+					}
 				}
+			} catch (Exception ex) {
+				logger.warning("ex: " + ex.getMessage());
+				continue;
 			}
 		}
 		logger.info("schoolCount: " + schoolCount);
 		logger.info("studentCount: " + studentCount);
-		schoolAndStudentCount.setSchoolCount(schoolCount);
-		/*
-		 * schoolAndStudentCount.setStudentcount(schoolAndStudentCount
-		 * .getStudentcount() + studentCount);
-		 */
-		schoolAndStudentCount.setStudentcount(studentCount);
 
+		SchoolAndStudentCount schoolAndStudentCount = new SchoolAndStudentCount();
+
+		schoolAndStudentCount.setSchoolCount(schoolCount);
+		schoolAndStudentCount.setStudentcount(studentCount);
 		schoolAndStudentCount.setLastModifiedDate(new Date());
 
-		memcacheService.put(CURRENT_YEAR_SCHOOL_AND_STUDENT_COUNT_KEY,
+		MemcacheService memcacheService = MemcacheServiceFactory
+				.getMemcacheService();
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
+
+		schoolAndStudentCountEntity.setProperty("schoolCount",
+				schoolAndStudentCount.getSchoolCount());
+		schoolAndStudentCountEntity.setProperty("studentCount",
+				schoolAndStudentCount.getStudentcount());
+		schoolAndStudentCountEntity.setProperty("lastModifiedDate",
+				schoolAndStudentCount.getLastModifiedDate().getTime());
+
+		memcacheService.put(schoolAndStudentCountEntity.getKey(),
 				schoolAndStudentCount);
+		datastore.put(schoolAndStudentCountEntity);
 	}
 
 	@ApiMethod(name = "getPartnerByInstitute")
@@ -230,6 +260,17 @@ public class PartnerSchoolService {
 		long studentcount;
 		private Date lastModifiedDate = new Date(System.currentTimeMillis()
 				- (long) 365 * 24 * 60 * 60 * 1000);
+
+		public SchoolAndStudentCount() {
+
+		}
+
+		public SchoolAndStudentCount(long schoolCount, long studentcount,
+				long lastModifiedDate) {
+			this.schoolCount = schoolCount;
+			this.studentcount = studentcount;
+			this.lastModifiedDate = new Date(lastModifiedDate);
+		}
 
 		public long getSchoolCount() {
 			return schoolCount;

@@ -157,7 +157,8 @@
 				<div style="margin-left: 15px;"
 					ng-class="{dataContent:true, activeContent:data.expanded3}">
 					<md-content flex layout="column" layout-xs="column"
-						layout-align="center start"> <md-button flex
+						layout-align="center start"><md-button flex
+						ui-sref="courierModule.dailyDispatchReport" ng-click="close()" class="md-primary">Daily Dispatch Report</md-button> <md-button flex
 						ui-sref="courierModule.add" ng-click="close()" class="md-primary">Add
 					Courier</md-button> <md-button flex ui-sref="courierModule.list"
 						ng-click="close()" class="md-primary">Courier List </md-button> <md-button
@@ -531,7 +532,8 @@
 	<script src="/app/gfcourier/js/gfCourier_add.ctr.js"></script>
 	<script src="/app/gfcourier/js/gfCourier_list.ctr.js"></script>
 	<script src="/app/gfcourier/js/gfCourier_view.ctr.js"></script>
-	<script src="/app/gfcourier/js/gfCourier_search.ctr.js"></script>
+	<script src="/app/gfcourier/js/gfCourier_search.ctr.js"></script>	
+	<script src="/app/gfcourier/js/dailyDispatchReport.js"></script>
 
 	<script src="/app/gfcourier/js/gfCourier_directAddFromPS.ctr.js"></script>
 	<!-- End Gandhi Found. Courier  -->

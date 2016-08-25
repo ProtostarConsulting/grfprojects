@@ -1341,6 +1341,10 @@ app
 						url : "/courierModule.search/",
 						templateUrl : '/app/gfcourier/gfCourier_search.html',
 						controller : 'gfCourierSearchCtr'
+					}).state('courierModule.dailyDispatchReport', {
+						url : "/courierModule.dailyDispatchReport/",
+						templateUrl : '/app/gfcourier/dailyDispatchReport.html',
+						controller : 'courierDailyDispatchReportCtr'
 					})
 
 					.state('courierModule.addFromPS',{
