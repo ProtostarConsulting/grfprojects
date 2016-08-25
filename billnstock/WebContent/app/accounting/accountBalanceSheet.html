@@ -1,61 +1,3 @@
-<!-- 
-<style>
-table {
-	border: 0px solid black;
-	border-collapse: collapse;
-	width: 90%;
-}
-
-div.one {
-	border-radius: 25px;
-	padding: 20px;
-	/* border-style: solid;
-	border-color: black; */
-	border: 1px solid black;
-}
-</style>
-
-<md-content ng-show="loading"> <md-progress-circular
-	class="md-accent md-accent" md-diameter="80"></md-progress-circular></md-content>
-<md-content layout-padding ng-show="!loading">
-
-<h3 class="md-headline">
-	<u>Balance Sheet</u>
-</h3>
-
-<div class="one" id="accountChartDiv">
-
-	<table>
-		<thead>
-			<th>Group Type</th>
-			<th></th>
-			<th>Group Balance</th>
-		</thead>
-	</table>
-	<br> <br>
-	<div ng-repeat="groupTypeObj in accountGroupTypeGroupList">
-		<p>{{groupTypeObj.groupType}}</p>
-		<div ng-repeat="grp in groupTypeObj.groupList">
-			<p style="margin-left: 100px">{{grp.groupName}}</p>
-
-				<div ng-repeat="acc in grp.accountList">
-				<p style="margin-left: 200px">
-					{{acc.accountName}} <span align="right"
-						style="position: absolute; right: 600px;""><b>{{acc.balance}}</b></span>
-						
-				</p>
-				
-			</div>
-			<p style="margin-left: 200px">{{grp.totalBalance}}</p>
-
-		</div>
-	</div>
-
-</div>
-</md-content> -->
-
-
-
 
 <style>
 table {
@@ -102,36 +44,12 @@ td, th { /* //border: 1px solid #dddddd; */
    </tr>
    <tr ng-repeat="groupTypeObj in accountGroupTypeGroupList">
     <td colspan="2">{{groupTypeObj.groupType}}</td>
-
     <td style="text-align: right;">
     <div  ng-repeat="grp in groupTypeObj.groupList">
-    {{grp.totalBalance}}</div></td>
+    <span ng-if="grp.totalBalance < 0">(</span>{{grp.totalBalance|positive|number:2}}<span ng-if="grp.totalBalance < 0">)</span></div></td>
    </tr>
    
-  <!--  <tr>
-    <td colspan="2" style="text-align: center;"><b>Total</b></td>
 
-    <td style="text-align: right;">{total}</td>
-   </tr> -->
-  <!--  <tr>
-    <td colspan="3"><u><b>Application of Funds:</b></u></td>
-
-   </tr>
-   <tr>
-    <td colspan="2">Fixed Assets</td>
-
-    <td style="text-align: right;">{total}</td>
-   </tr>
-   <tr>
-    <td colspan="2">Working Capital</td>
-
-    <td style="text-align: right;">{total}</td>
-   </tr>
-   <tr>
-    <td colspan="2" style="text-align: center;"><b>Total</b></td>
-
-    <td style="text-align: right;">{total}</td>
-   </tr> -->
   </table>
   <iframe name="print_frame" width="0" height="0" frameborder="0"
    src="about:blank"></iframe>

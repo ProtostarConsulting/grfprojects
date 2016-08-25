@@ -78,22 +78,22 @@
 
 				<td style="border: 1px solid black;">{{entry.date|formatDate}}</td>
 				<td style="border: 1px solid black;">{{entry.narration}}</td>
-				<td style="border: 1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{entry.debit|number:2}}</td>
-				<td style="border: 1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{entry.credit|number:2}}
+				<td style="border: 1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ng-if="entry.debit < 0">(</span>{{entry.debit|positive|number:2}}<span ng-if="entry.debit < 0">)</span></td>
+				<td style="border: 1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ng-if="entry.credit < 0">(</span>{{entry.credit|positive|number:2}}<span ng-if="entry.credit < 0">)</span>
 				</td>
 			</tr>
 
 			<tr>
 				<td colspan="2" style="border: 1px solid black;text-align: right;"><b>Total:</b></td>
-				<td style="border: 1px solid black;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{totaldebit|number:2}}</b></td>
-				<td style="border: 1px solid black;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{totalcredit|number:2}}
+				<td style="border: 1px solid black;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ng-if="totaldebit < 0">(</span>{{totaldebit|positive|number:2}}<span ng-if="totaldebit < 0">)</span></b></td>
+				<td style="border: 1px solid black;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ng-if="totalcredit < 0">(</span>{{totalcredit|positive|number:2}}<span ng-if="totalcredit < 0">)</span>
 				</b></td>
 			</tr>
 			<tr>
 				<th colspan="2" style="border: 1px solid black;text-align: right;"><b>Closing
 						Balance:</b></th>
 				<th></th>
-				<th style="border: 1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{closingBalance|number:2}}</th>
+				<th style="border: 1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ng-if="closingBalance < 0">(</span>{{closingBalance|positive|number:2}}<span ng-if="closingBalance < 0">)</span></th>
 			</tr>
 
 		</tbody>

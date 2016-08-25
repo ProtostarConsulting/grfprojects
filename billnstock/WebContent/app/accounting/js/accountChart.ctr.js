@@ -1,4 +1,13 @@
 var app = angular.module("stockApp");
+app.filter('positive', function() {
+    return function(input) {
+        if (!input) {
+            return 0;
+        }
+
+        return Math.abs(input);
+    };
+});
 
 app
 		.controller(
