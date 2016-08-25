@@ -73,9 +73,10 @@ public class AccountService {
 
 		return filteredAccounts;
 	}
+
 	@ApiMethod(name = "updateAccount")
 	public AccountEntity updateAccount(AccountEntity update) {
-		AccountEntity	 now = update;
+		AccountEntity now = update;
 		ofy().save().entity(update).now();
 		System.out.println("inside update details now" + now);
 		return now;
@@ -124,21 +125,20 @@ public class AccountService {
 			}
 
 		}
-if(!(filteredEntries.isEmpty()))
-{
-		if (filteredEntries.get(0).getAccountEntity().getAccountType().trim()
-				.equals("PERSONAL")) {
-			accBalance = totalDebit - totalCredit;
+		if (!(filteredEntries.isEmpty())) {
+			if (filteredEntries.get(0).getAccountEntity().getAccountType()
+					.trim().equals("PERSONAL")) {
+				accBalance = totalDebit - totalCredit;
+			}
+			if (filteredEntries.get(0).getAccountEntity().getAccountType()
+					.trim().equals("REAL")) {
+				accBalance = totalDebit - totalCredit;
+			}
+			if (filteredEntries.get(0).getAccountEntity().getAccountType()
+					.trim().equals("NOMINAL")) {
+				accBalance = totalDebit - totalCredit;
+			}
 		}
-		if (filteredEntries.get(0).getAccountEntity().getAccountType().trim()
-				.equals("REAL")) {
-			accBalance = totalDebit - totalCredit;
-		}
-		if (filteredEntries.get(0).getAccountEntity().getAccountType().trim()
-				.equals("NOMINAL")) {
-			accBalance = totalDebit - totalCredit;
-		}
-}
 		ServerMsg serverMsg = new ServerMsg();
 		serverMsg.setReturnBalance(accBalance);
 		return serverMsg;
