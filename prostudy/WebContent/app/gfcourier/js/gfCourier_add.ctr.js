@@ -44,19 +44,20 @@ angular
 
 					$scope.registrationID1;
 					$scope.addGFCourier = function() {
-						$scope.tempCourierObj.instituteID = $scope.curUser.instituteID;
-
-						$scope.tempCourierObj.schoolName = $scope.institute;
-
+						$scope.loading = true;
+						if ($scope.selectedGFStudID == "") {
+							$scope.tempCourierObj.instituteID = $scope.curUser.instituteID;
+							$scope.tempCourierObj.schoolName = $scope.institute;
+						}
 						var gfCourierService = appEndpointSF
 								.getGFCourierService();
 
 						gfCourierService.addGFCourier($scope.tempCourierObj)
 								.then(function() {
-
-									$scope.gfCourierForm.$setPristine();
+									/*$scope.gfCourierForm.$setPristine();
 									$scope.gfCourierForm.$setValidity();
-									$scope.gfCourierForm.$setUntouched();
+									$scope.gfCourierForm.$setUntouched();*/
+									$scope.loading = false;
 
 								});
 						if ($scope.selectedGFStudID == "") {
@@ -70,20 +71,17 @@ angular
 					}
 
 					$scope.getGFCourierById = function() {
-
+						$scope.loading = true;
 						var gfCourierService = appEndpointSF
 								.getGFCourierService();
 						gfCourierService
 								.getGFCourierById($scope.selectedGFCourierID)
 								.then(
 										function(tempCourier) {
-
+											$scope.loading = false;
 											$scope.tempCourierObj = tempCourier;
 											$scope.tempCourierObj.courierDispatchDate = new Date(
 													$scope.tempCourierObj.courierDispatchDate);
-
-											$scope.tempCourierObj.schoolName = $scope.tempCourierObj.schoolName.schoolName;
-
 										});
 					}
 
@@ -151,9 +149,10 @@ angular
 
 							if ($scope.selectedGFCourierID != "") {
 								$scope.getGFCourierById();
+							} else {
+								$scope.getPartnerByInstitute();
+								$scope.getGFBookByInstituteId();
 							}
-							$scope.getPartnerByInstitute();
-							$scope.getGFBookByInstituteId();
 
 						} else {
 							$log.debug("Services Not Loaded, watiting...");
@@ -184,7 +183,8 @@ angular
 					$scope.bookStocks = [];
 
 					$scope.waitForServiceLoad1 = function() {
-						if (appEndpointSF.is_service_ready) {
+						if (appEndpointSF.is_service_ready
+								&& $scope.selectedGFCourierID == "") {
 
 							$scope.getGFBookStockByInstituteId();
 
@@ -282,13 +282,4 @@ angular
 										.ariaLabel('Alert Dialog Demo').ok(
 												'close!').targetEvent(ev));
 					};
-
-					/*
-					 * $scope.showAlert1 = function(item,ev) { $mdDialog.show(
-					 * $mdDialog.alert()
-					 * .parent(angular.element(document.querySelector('#popupContainer')))
-					 * .clickOutsideToClose(true) .title('Alert')
-					 * .textContent('The book quantity hit the threshold
-					 * value.') .ariaLabel('Alert Dialog Demo') .ok('close!')
-					 * .targetEvent(ev) ); };
-					 */});
+				});

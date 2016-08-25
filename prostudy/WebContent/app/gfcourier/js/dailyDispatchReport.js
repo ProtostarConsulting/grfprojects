@@ -6,19 +6,16 @@ angular
 						$mdUtil, $log, $q, $mdDialog, $mdMedia, $state,
 						appEndpointSF) {
 					console.log("Inside courierDailyDispatchReportCtr");
-					
+
 					$scope.loading = true;
-					$scope.courierDispatchDate;
+					$scope.courierDispatchDate == null;
 					$scope.couriertFilteredList = [];
-					$scope.query = {
-						order : 'description',
-						limit : 5,
-						page : 1
-					};
+					$scope.parseInt = parseInt;
+					
 					var printDivCSS = new String(
 							'<link href="/lib/base/css/angular-material.min.css"" rel="stylesheet" type="text/css">'
 									+ '<link href="/lib/base/css/bootstrap.min.css"" rel="stylesheet" type="text/css">')
-					
+
 					$scope.printDiv = function(bookDetailDiv) {
 
 						/*
@@ -52,10 +49,20 @@ angular
 
 						$scope.loading = true;
 						$scope.couriertFilteredList = [];
-						$scope.couriertFilteredList = $scope.gfCouriertList
-						$scope.loading = false;
+						for (var i = 0; i < $scope.gfCouriertList.length; i++) {
+							var courierDate = new Date($scope.gfCouriertList[i].courierDispatchDate);
+							if ($scope.courierDispatchDate.getFullYear() == courierDate
+									.getFullYear()
+									&& $scope.courierDispatchDate.getMonth() == courierDate
+											.getMonth()
+									&& $scope.courierDispatchDate.getDate() == courierDate
+											.getDate()) {
+								$scope.couriertFilteredList
+										.push($scope.gfCouriertList[i]);
+							}
+						}
 
-						
+						$scope.loading = false;
 					}
 
 					$scope.waitForServiceLoad = function() {

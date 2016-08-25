@@ -1,9 +1,16 @@
-<div id="studentListDiv">
+<div ng-if="loading">
+	<div layout="row" layout-sm="column" layout-align="space-around">
+		<md-progress-circular md-diameter="100" md-mode="indeterminate"></md-progress-circular>
+	</div>
+</div>
+
+<div ng-if="!loading">
 	<h3 class="md-headline">Courier List</h3>
 
 	<div layout="row" layout-align="end end" layout-xs="column">
 
-		<md-button class="md-raised md-primary" ng-click="refresh()">Refresh </md-button>
+		<md-button class="md-raised md-primary" ng-click="refresh()">Refresh
+		</md-button>
 	</div>
 
 	<div layout="row" layout-xs="column">
@@ -14,28 +21,25 @@
 	<div layout="row" layout-xs="column">
 		<md-input-container flex> <label>Courier
 			Type </label> <md-select name="courierType" ng-model="courierType ">
-			<md-option ng-value="Other" ng-model="other">All</md-option>
-		<md-option ng-value="courierType"
-			ng-repeat="courierType in courierTypelist">{{courierType}}</md-option>
+		<md-option ng-value="Other" ng-model="other">All</md-option> <md-option
+			ng-value="courierType" ng-repeat="courierType in courierTypelist">{{courierType}}</md-option>
 		</md-select> </md-input-container>
 
 		<md-input-container flex> <label>Logistics
-		</label> <md-select name="logistics" ng-model="logistics">
-		<md-option ng-value="Other" ng-model="other">All</md-option>
-		<md-option ng-value="logistics" ng-repeat="logistics in logisticsList">{{logistics}}</md-option>
+		</label> <md-select name="logistics" ng-model="logistics"> <md-option
+			ng-value="Other" ng-model="other">All</md-option> <md-option
+			ng-value="logistics" ng-repeat="logistics in logisticsList">{{logistics}}</md-option>
 		</md-select> </md-input-container>
 
 		<md-input-container flex> <label>Search
-			By School / College / Institute
-		</label> <md-select name="level" ng-model="schoolName">
-		<md-option ng-value="Other" ng-model="other">All</md-option>
-		<md-option ng-value="schoolName.schoolName"
+			By School / College / Institute </label> <md-select name="level"
+			ng-model="schoolName"> <md-option ng-value="Other"
+			ng-model="other">All</md-option> <md-option
+			ng-value="schoolName.schoolName"
 			ng-repeat="schoolName in pSchoolList">{{schoolName.schoolName}}</md-option>
-			
-		</md-select>
 
-		</md-input-container>
-				
+		</md-select> </md-input-container>
+
 	</div>
 	<md-toolbar class="md-table-toolbar md-default"
 		ng-hide="selected.length">
@@ -43,16 +47,18 @@
 		<span>Courier List</span>
 		<div flex></div>
 		<md-button class="md-icon-button"
-			ng-click="getGFCourierByInstitute(true)"> <md-icon src="img/icon/ic_refresh_24px.svg">refresh</md-icon>
-		</md-button>
+			ng-click="getGFCourierByInstitute(true)"> <md-icon
+			src="img/icon/ic_refresh_24px.svg">refresh</md-icon> </md-button>
 	</div>
 	</md-toolbar>
-        
-        <md-toolbar class="md-table-toolbar alternate" ng-show="selected.length">
-          <div class="md-toolbar-tools">
-            <span>{{selected.length}} {{selected.length > 1 ? 'Couriers' : 'Courier'}} selected</span>
-          </div>
-        </md-toolbar>
+
+	<md-toolbar class="md-table-toolbar alternate"
+		ng-show="selected.length">
+	<div class="md-toolbar-tools">
+		<span>{{selected.length}} {{selected.length > 1 ? 'Couriers' :
+			'Courier'}} selected</span>
+	</div>
+	</md-toolbar>
 	<div>
 		<md-data-table-container>
 		<table md-data-table md-row-select="selected" class="md-primary"
@@ -87,15 +93,19 @@
 		<md-data-table-pagination md-limit="query.limit" md-page="query.page"
 			md-total={{gfCouriertList.length}} md-trigger="onpagechange"></md-data-table-pagination>
 	</div>
+	<div layout="row" layout-align="center center">
+		<md-button
+			ui-sref="courierModule.view({selectedGFCourierID : selected[0].id})"
+			ng-show="selected.length == 1" class="md-raised md-primary"
+			ng-click=""> View Courier <md-tooltip>View</md-tooltip></md-button>
+
+		<md-button
+			ui-sref="courierModule.add({selectedGFCourierID : selected[0].id})"
+			ng-show="selected.length == 1" class="md-raised md-primary"
+			ng-click=""> Edit Courier <md-tooltip>Edit </md-tooltip></md-button>
+	</div>
 </div>
 
-<div layout="row" layout-align="center center">
-	
-	<md-button
-		ui-sref="courierModule.view({selectedGFCourierID : selected[0].id})"
-		ng-show="selected.length == 1" class="md-fab md-primary md-hue-2"
-		ng-click=""> <md-icon md-svg-src="img/icons/result.svg"></md-icon>
-	<md-tooltip>View </md-tooltip></md-button>
-</div>
+
 
 

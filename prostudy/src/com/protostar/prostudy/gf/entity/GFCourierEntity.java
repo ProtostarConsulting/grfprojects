@@ -30,7 +30,10 @@ public class GFCourierEntity {
 	private int totalWeight;
 	private float totalFees;
 	private String note;
-	
+	private String courierName;
+	private String courierDocketID;
+	private float courierCost;
+	private String courierDispatchNotes;
 	
 	
 	public String getNote() {
@@ -147,5 +150,37 @@ public class GFCourierEntity {
 	}
 	public void setCourierTo(String courierTo) {
 		this.courierTo = courierTo;
+	}
+
+	public String getCourierName() {
+		return courierName;
+	}
+
+	public void setCourierName(String courierName) {
+		this.courierName = courierName;
+	}
+
+	public String getCourierDocketID() {
+		return courierDocketID;
+	}
+
+	public void setCourierDocketID(String courierDocketID) {
+		this.courierDocketID = courierDocketID;
+	}
+
+	public float getCourierCost() {
+		return courierCost;
+	}
+
+	public void setCourierCost(float courierCost) {
+		this.courierCost = courierCost;
+	}
+
+	public String getCourierDispatchNotes() {
+		return courierDispatchNotes;
+	}
+
+	public void setCourierDispatchNotes(String courierDispatchNotes) {
+		this.courierDispatchNotes = courierDispatchNotes;
 	}	
 }

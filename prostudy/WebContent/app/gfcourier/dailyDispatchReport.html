@@ -1,17 +1,16 @@
-<style>
+<!-- <style>
 tr:nth-child(even) {
 	background-color: #dddddd;
 }
-</style>
-
+</style> -->
 <div>
 	<h3 class="md-headline">Display Dispatch Report</h3>
 
 	<div layout="row" layout-xs="column">
-		<md-datepicker ng-model="courierDispatchDate"
-			md-placeholder="Select Date"></md-datepicker>
+		<md-datepicker ng-model="courierDispatchDate"  ng-change="loading=true;"
+			md-placeholder="Select Date"></md-datepicker><span></span>
 		<md-button class="md-raised md-primary"
-			ng-click="getCuriertFilteredList()">Display Report</md-button>
+			ng-click="getCuriertFilteredList()" ng-disabled="courierDispatchDate == null">Display Report</md-button>
 		<span flex></span>
 
 	</div>
@@ -52,9 +51,10 @@ tr:nth-child(even) {
 						<th
 							style="border: 1px solid black; text-align: left; padding: 2px;">Logistics</th>
 						<th
-							style="border: 1px solid black; text-align: left; padding: 2px;">Weight(gm)</th>
+							style="border: 1px solid black; text-align: left; padding: 2px;">Weight(Kg)</th>
 					</tr>
-					<tr ng-repeat="courier in couriertFilteredList">
+					<tr ng-repeat="courier in couriertFilteredList"
+						ng-style="$even && {	background-color: #dddddd;}">
 						<td
 							style="border: 1px solid black; text-align: left; padding: 2px;">{{$index
 							+ 1}}</td>
@@ -71,7 +71,7 @@ tr:nth-child(even) {
 						<td
 							style="border: 1px solid black; text-align: left; padding: 2px;">{{courier.logistics}}</td>
 						<td
-							style="border: 1px solid black; text-align: left; padding: 2px;">{{courier.totalWeight}}</td>
+							style="border: 1px solid black; text-align: left; padding: 2px;">{{parseInt(courier.totalWeight)/1000 | number:2}}</td>
 					</tr>
 				</table>
 			</div>
