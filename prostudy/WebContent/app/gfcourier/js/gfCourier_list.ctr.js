@@ -13,7 +13,7 @@ angular.module("prostudyApp").controller(
 			$scope.selected = [];
 			$scope.query = {
 				order : 'description',
-				limit : 5,
+				limit : 10,
 				page : 1
 			};
 			$scope.logisticsList = [ "By Post", "By Hand", "ST Postal",

@@ -6,7 +6,7 @@ angular
 						$mdUtil, $log, objectFactory,$http, appEndpointSF,
 						tableTestDataFactory, $state, $timeout, appEndpointSF,
 						$stateParams) {
-
+					$scope.loading = true;
 					$scope.selectedGFCourierID = $stateParams.selectedGFCourierID;
 					$scope.getGFCourierById = function() {
 
@@ -22,20 +22,10 @@ angular
 													$scope.tempCourier.courierDispatchDate);
 											$scope.tempCourier.schoolName = $scope.tempCourier.schoolName.schoolName;
 										//	$scope.TotalFeesInWord = NumToWord($scope.tempCourier.totalFees);
+											$scope.loading = false;
 										});
 					}
 
-/*					$scope.getPartnerByInstitute = function() {
-
-						var PartnerSchoolService = appEndpointSF
-								.getPartnerSchoolService();
-						PartnerSchoolService.getPartnerByInstitute(
-								$scope.curUser.instituteID).then(function(pSchoolList) {
-							$scope.pSchoolList = pSchoolList;
-
-						});
-					}
-	*/					
 					$scope.getGFBookStockByInstituteId = function() {
 						var gfBookStockService = appEndpointSF
 								.getGFBookStockService();
@@ -43,7 +33,7 @@ angular
 								$scope.curUser.instituteID).then(
 								function(tempBooks) {
 									$scope.bookStocks = tempBooks;
-
+									$scope.loading = false;
 									});
 					}
 					$scope.bookStocks = [];
@@ -53,8 +43,7 @@ angular
 
 							if ($scope.selectedGFCourierID != "") {
 								$scope.getGFCourierById();
-							}
-							
+							}							
 							$scope.getGFBookStockByInstituteId();
 						} else {
 							$log.debug("Services Not Loaded, watiting...");

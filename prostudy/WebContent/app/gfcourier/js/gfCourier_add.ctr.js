@@ -57,17 +57,16 @@ angular
 									/*$scope.gfCourierForm.$setPristine();
 									$scope.gfCourierForm.$setValidity();
 									$scope.gfCourierForm.$setUntouched();*/
+									if ($scope.selectedGFStudID == "") {
+										$scope.showAddToast();
+									} else {
+										$scope.showUpdateToast();
+									}
+									$state.reload();
 									$scope.loading = false;
 
 								});
-						if ($scope.selectedGFStudID == "") {
-							$scope.showAddToast();
-							$scope.tempCourierObj = {};
-						} else {
-							$scope.showUpdateToast();
-						}
-						$scope.tempCourierObj = {};
-						$state.reload();
+						
 					}
 
 					$scope.getGFCourierById = function() {

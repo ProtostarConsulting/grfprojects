@@ -7,10 +7,12 @@ tr:nth-child(even) {
 	<h3 class="md-headline">Display Dispatch Report</h3>
 
 	<div layout="row" layout-xs="column">
-		<md-datepicker ng-model="courierDispatchDate"  ng-change="loading=true;"
-			md-placeholder="Select Date"></md-datepicker><span></span>
+		<md-datepicker ng-model="courierDispatchDate"
+			ng-change="loading=true;" md-placeholder="Select Date"></md-datepicker>
+		<span></span>
 		<md-button class="md-raised md-primary"
-			ng-click="getCuriertFilteredList()" ng-disabled="courierDispatchDate == null">Display Report</md-button>
+			ng-click="getCuriertFilteredList()"
+			ng-disabled="courierDispatchDate == null">Display Report</md-button>
 		<span flex></span>
 
 	</div>
@@ -28,9 +30,10 @@ tr:nth-child(even) {
 			<div>
 				<table
 					style="font-family: arial, sans-serif; border-collapse: collapse; width: 100%;">
-					<caption>
-						<span ng-hide="true" flex>Display Dispatch Report: {{
-							courierDispatchDate | date:"dd-MM-yyyy" }}</span>
+					<caption style="text-align: center; padding: 2px;">
+						<span ng-hide="true" flex>Gandhi Research Foundation,
+							Jalgaon</span> <br> <span ng-hide="true" flex>Display
+							Dispatch Report: {{ courierDispatchDate | date:"dd-MM-yyyy" }}</span>
 					</caption>
 					<tr>
 						<th
@@ -67,11 +70,13 @@ tr:nth-child(even) {
 						<td
 							style="border: 1px solid black; text-align: left; padding: 2px;">{{courier.schoolName.contactDetail.coordinatorDetail[0].coordinatorMobileNum}}</td>
 						<td
-							style="border: 1px solid black; text-align: left; padding: 2px;">{{courier.schoolName.address.dist}}</td>
+							style="border: 1px solid black; text-align: left; padding: 2px;">{{courier.schoolName.address.tal
+							+ ', ' + courier.schoolName.address.dist}}</td>
 						<td
 							style="border: 1px solid black; text-align: left; padding: 2px;">{{courier.logistics}}</td>
 						<td
-							style="border: 1px solid black; text-align: left; padding: 2px;">{{parseInt(courier.totalWeight)/1000 | number:2}}</td>
+							style="border: 1px solid black; text-align: left; padding: 2px;">{{parseInt(courier.totalWeight)/1000
+							| number:2}}</td>
 					</tr>
 				</table>
 			</div>
