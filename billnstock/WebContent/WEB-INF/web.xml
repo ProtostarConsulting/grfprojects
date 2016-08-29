@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="WebApp_ID" version="2.5" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
   <display-name>BillnStock</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
@@ -24,21 +25,13 @@
     <filter-name>ObjectifyFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
-  <!--
-  <filter>
-    <filter-name>ObjectifyFilter</filter-name>
-    <filter-class>com.protostar.billnstock.until.data.BasicChecksFilter</filter-class>
-  </filter> <filter-mapping>
-    <filter-name>BasicChecksFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping> -->
   <listener>
     <listener-class>
         com.protostar.billnstock.until.data.AppServletContextListener
     </listener-class>
   </listener>
   <servlet>
-    <description/>
+    <description></description>
     <display-name>UploadLogo</display-name>
     <servlet-name>UploadLogo</servlet-name>
     <servlet-class>com.protostar.billingnstock.document.UploadLogo</servlet-class>
@@ -48,7 +41,7 @@
     <url-pattern>/UploadLogo</url-pattern>
   </servlet-mapping>
   <servlet>
-    <description/>
+    <description></description>
     <display-name>Serve</display-name>
     <servlet-name>Serve</servlet-name>
     <servlet-class>com.protostar.billingnstock.document.Serve</servlet-class>
@@ -58,7 +51,7 @@
     <url-pattern>/serve</url-pattern>
   </servlet-mapping>
   <servlet>
-    <description/>
+    <description></description>
     <display-name>UploadFooter</display-name>
     <servlet-name>UploadFooter</servlet-name>
     <servlet-class>com.protostar.billingnstock.document.UploadFooter</servlet-class>
@@ -68,7 +61,7 @@
     <url-pattern>/UploadFooter</url-pattern>
   </servlet-mapping>
   <servlet>
-    <description/>
+    <description></description>
     <display-name>UploadExcelSheetAddUsers</display-name>
     <servlet-name>UploadExcelSheetAddUsers</servlet-name>
     <servlet-class>com.protostar.billingnstock.document.UploadExcelSheetAddUsers</servlet-class>
@@ -78,7 +71,7 @@
     <url-pattern>/UploadExcelSheetAddUsers</url-pattern>
   </servlet-mapping>
   <servlet>
-    <description/>
+    <description></description>
     <display-name>ExcelStockUpload</display-name>
     <servlet-name>ExcelStockUpload</servlet-name>
     <servlet-class>com.protostar.billingnstock.document.ExcelStockUpload</servlet-class>
@@ -88,7 +81,7 @@
     <url-pattern>/ExcelStockUpload</url-pattern>
   </servlet-mapping>
   <servlet>
-    <description/>
+    <description></description>
     <display-name>ExcelCustomerUpload</display-name>
     <servlet-name>ExcelCustomerUpload</servlet-name>
     <servlet-class>com.protostar.billingnstock.document.ExcelCustomerUpload</servlet-class>
@@ -98,7 +91,7 @@
     <url-pattern>/ExcelCustomerUpload</url-pattern>
   </servlet-mapping>
   <servlet>
-    <description/>
+    <description></description>
     <display-name>ExcelAccountsUpload</display-name>
     <servlet-name>ExcelAccountsUpload</servlet-name>
     <servlet-class>com.protostar.billingnstock.document.ExcelAccountsUpload</servlet-class>
@@ -108,7 +101,7 @@
     <url-pattern>/ExcelAccountsUpload</url-pattern>
   </servlet-mapping>
   <servlet>
-    <description/>
+    <description></description>
     <display-name>UploadAccountsServlet</display-name>
     <servlet-name>UploadAccountsServlet</servlet-name>
     <servlet-class>com.protostar.billingnstock.account.services.UploadAccountsServlet</servlet-class>
@@ -118,7 +111,7 @@
     <url-pattern>/UploadAccountsServlet</url-pattern>
   </servlet-mapping>
   <servlet>
-    <description/>
+    <description></description>
     <display-name>DownloadAccountsServlet</display-name>
     <servlet-name>DownloadAccountsServlet</servlet-name>
     <servlet-class>com.protostar.billingnstock.account.services.DownloadAccountsServlet</servlet-class>
@@ -128,7 +121,7 @@
     <url-pattern>/DownloadAccountsServlet</url-pattern>
   </servlet-mapping>
   <servlet>
-    <description/>
+    <description></description>
     <display-name>UploadGroupsListServlet</display-name>
     <servlet-name>UploadGroupsListServlet</servlet-name>
     <servlet-class>com.protostar.billingnstock.account.services.UploadGroupsListServlet</servlet-class>
@@ -138,7 +131,7 @@
     <url-pattern>/UploadGroupsListServlet</url-pattern>
   </servlet-mapping>
   <servlet>
-    <description/>
+    <description></description>
     <display-name>DownloadGroupListServlet</display-name>
     <servlet-name>DownloadGroupListServlet</servlet-name>
     <servlet-class>com.protostar.billingnstock.account.services.DownloadGroupListServlet</servlet-class>
@@ -146,5 +139,15 @@
   <servlet-mapping>
     <servlet-name>DownloadGroupListServlet</servlet-name>
     <url-pattern>/DownloadGroupListServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DownloadAccountChartServlet</display-name>
+    <servlet-name>DownloadAccountChartServlet</servlet-name>
+    <servlet-class>com.protostar.billingnstock.account.entities.DownloadAccountChartServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DownloadAccountChartServlet</servlet-name>
+    <url-pattern>/DownloadAccountChartServlet</url-pattern>
   </servlet-mapping>
 </web-app>
