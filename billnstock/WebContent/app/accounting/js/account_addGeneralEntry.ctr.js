@@ -20,41 +20,67 @@ app.controller("addAccountGeneralEntryCtr", function($scope, $window, $mdToast,
 		narration : "",
 		amount : "",
 		debitAccount : "",
-		creditAccount :""
+		creditAccount : ""
 
 	};
-
-	$scope.accounts = [];
+	var i, flag;
+	$scope.generalAccount1 = [];
+	$scope.generalAccount2 = [];
 
 	$scope.getAccountList = function() {
 
 		var getlist = appEndpointSF.getAccountService();
 		getlist.getAccountList().then(function(list) {
-			$scope.accounts = list;
-			
+
+			for (i = 0; i <= list.length; i++) {
+				$scope.generalAccount1.push(list[i]);
+				$scope.generalAccount2.push(list[i]);
+			}
+
 		});
 	}
+	//$scope.getAccountList();
+
+	$scope.callFunction = function(selected) {
+
+		if (flag != undefined) {
+			$scope.generalAccount2.push(flag);
+
+		}
+
+		var getlist = appEndpointSF.getAccountService();
+		getlist.getAccountList().then(function(list) {
+			for(i=0;i<=$scope.generalAccount2.length;i++){
+				
+				$scope.generalAccount2.splice(i,1);
+				flag=selected;
+			}
+		});
+
+	}
+
+
 	$scope.cancelButton = function() {
 		window.history.back();
 
 	}
-	$scope.addGeneralEntry = function() {	
-		
-		$scope.tempGeneralEntry.debitAccount=$scope.debitAccount;
-		$scope.tempGeneralEntry.creditAccount=$scope.creditAccount;
+	$scope.addGeneralEntry = function() {
+
+		$scope.tempGeneralEntry.debitAccount = $scope.debitAccount;
+		$scope.tempGeneralEntry.creditAccount = $scope.creditAccount;
 		var GeneralEntryService = appEndpointSF.getGeneralEntryService();
-		GeneralEntryService.addGeneralEntry($scope.tempGeneralEntry).then(function(msgBean) {
-			$scope.tempGeneralEntry={};
-			$scope.showSimpleToast();
-		});
-		$scope.debitAccount="";
-		$scope.creditAccount="";
-	
-		
+		GeneralEntryService.addGeneralEntry($scope.tempGeneralEntry).then(
+				function(msgBean) {
+					$scope.tempGeneralEntry = {};
+					$scope.showSimpleToast();
+				});
+		$scope.debitAccount = "";
+		$scope.creditAccount = "";
+
 		$scope.generalEntryForm.$setPristine();
-        $scope.generalEntryForm.$setValidity();
-        $scope.generalEntryForm.$setUntouched();
-		
+		$scope.generalEntryForm.$setValidity();
+		$scope.generalEntryForm.$setUntouched();
+
 	}
 
 	$scope.waitForServiceLoad = function() {
