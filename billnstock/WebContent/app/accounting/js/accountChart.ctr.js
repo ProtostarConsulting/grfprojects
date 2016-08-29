@@ -111,6 +111,10 @@ app
 					}				
 				
 					
+					$scope.saveToPDF = function() {
+						document.location.href = "DownloadAccountChartServlet";
+					}
+					
 					$scope.waitForServiceLoad = function() {
 						if (appEndpointSF.is_service_ready) {
 

@@ -47,10 +47,11 @@ td, th { /* //border: 1px solid #dddddd; */
     <td style="text-align: right;">
     <div  ng-repeat="grp in groupTypeObj.groupList">
     <span ng-if="grp.totalBalance < 0">(</span>{{grp.totalBalance|positive|number:2}}<span ng-if="grp.totalBalance < 0">)</span></div></td>
-   </tr>
+   </tr>  
    
 
   </table>
+ Total Asset:
   <iframe name="print_frame" width="0" height="0" frameborder="0"
    src="about:blank"></iframe>
  </div>
