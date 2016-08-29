@@ -307,6 +307,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			}
 
 	})
+		.state('accounting.trialBalance', {
+		url : "/trialBalance",
+		templateUrl : '/app/accounting/accountTrialBalance.html',
+		controller : 'trialBalanceCtr'
+	})
+	
 
 	.state('accounting.accountGroupView', {
 		url : "/accountGroupView",
