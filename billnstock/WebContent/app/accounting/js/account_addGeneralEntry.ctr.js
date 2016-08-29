@@ -24,41 +24,44 @@ app.controller("addAccountGeneralEntryCtr", function($scope, $window, $mdToast,
 
 	};
 	var i, flag;
-	$scope.generalAccount1 = [];
-	$scope.generalAccount2 = [];
+	$scope.generalAccountDebit = [];
+	$scope.generalAccountCredit = [];
 
 	$scope.getAccountList = function() {
 
 		var getlist = appEndpointSF.getAccountService();
 		getlist.getAccountList().then(function(list) {
 
-			for (i = 0; i <= list.length; i++) {
-				$scope.generalAccount1.push(list[i]);
-				$scope.generalAccount2.push(list[i]);
+			for (i = 0; i < list.length; i++) {
+				$scope.generalAccountDebit.push(list[i]);
+				$scope.generalAccountCredit.push(list[i]);
 			}
 
 		});
 	}
-	//$scope.getAccountList();
+	// $scope.getAccountList();
 
 	$scope.callFunction = function(selected) {
-
-		if (flag != undefined) {
-			$scope.generalAccount2.push(flag);
-
-		}
-
 		var getlist = appEndpointSF.getAccountService();
 		getlist.getAccountList().then(function(list) {
-			for(i=0;i<=$scope.generalAccount2.length;i++){
-				
-				$scope.generalAccount2.splice(i,1);
-				flag=selected;
+			if (flag != undefined) {
+				$scope.generalAccountCredit.push(flag);
+
 			}
+
+			for (i = 0; i < $scope.generalAccountCredit.length; i++) {
+		
+				if(selected.accountName==$scope.generalAccountCredit[i].accountName){
+					$scope.generalAccountCredit.splice(i, 1);
+					flag = selected;
+					
+					
+				}break;
+				
+					}
 		});
 
 	}
-
 
 	$scope.cancelButton = function() {
 		window.history.back();
