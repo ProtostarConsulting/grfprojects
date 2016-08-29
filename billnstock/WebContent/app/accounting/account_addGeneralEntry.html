@@ -27,7 +27,7 @@
 		<md-input-container flex>Dr &nbsp; <label>
 			Choose Debit Account<span style="color: red;">*</span>
 		</label> <md-select name="debitAcc" ng-model="debitAccount" ng-change="callFunction(debitAccount)" ng-required="true">
-		<md-option ng-value="account" ng-repeat="account in generalAccount1">{{account.accountName}}</md-option>
+		<md-option ng-value="account" ng-repeat="account in generalAccountDebit">{{account.accountName}}</md-option>
 		</md-select>
 
 
@@ -57,7 +57,7 @@
 			Choose Credit Account<span style="color: red;">*</span>
 		</label> <md-select name="creditAcc" ng-model="creditAccount"
 			ng-required="true"> <md-option ng-value="account"
-			ng-repeat="account in generalAccount2">{{account.accountName}}</md-option> </md-select>
+			ng-repeat="account in generalAccountCredit">{{account.accountName}}</md-option> </md-select>
 
 		<div ng-messages="generalEntryForm.creditAcc.$error"
 			ng-if="generalEntryForm.creditAcc.$submitted || generalEntryForm.creditAcc.$touched">
