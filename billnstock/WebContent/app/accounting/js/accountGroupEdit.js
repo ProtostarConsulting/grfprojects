@@ -17,6 +17,16 @@ angular
 		});
 		
 	};
+	$scope.getGroupList=function(){
+		
+		var AccountGroupService= appEndpointSF.getAccountGroupService();
+		AccountGroupService.getAccountGroupList().then(function(list){
+			$scope.accountGroupList=list;
+			
+		});
+		
+	}
+	$scope.getGroupList();
 	$scope.showSavedToast = function() {
 		$mdToast.show($mdToast.simple().content(
 				'Account Group Edited ...!').position("top").hideDelay(
