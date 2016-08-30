@@ -17,12 +17,33 @@ public class AccountGroupEntity extends BaseEntity {
 	private String description;
 	@Index
 	private String accountGroupType;
-	
-	//private List<Ref<AccountEntity>> accountList;
+	private Boolean isPrimary ;
+	Ref<AccountGroupEntity> primaryGroup;
 	private Integer displayOrderNo;
-	//private Ref<AccountGroupEntity> parent;
+	
+	public AccountGroupEntity() {
+
+	}
 
 	
+	public Boolean getIsPrimary() {
+		return isPrimary;
+	}
+
+	public void setIsPrimary(Boolean isPrimary) {
+		this.isPrimary  = isPrimary;
+	}
+
+	
+	public AccountGroupEntity getPrimaryGroup() {
+		return primaryGroup == null?null:primaryGroup.get();
+	}
+
+	public void setPrimaryGroup(AccountGroupEntity primaryGroup) {
+		this.primaryGroup =Ref.create(primaryGroup);
+	}
+
+
 	public String getAccountGroupType() {
 		return accountGroupType;
 	}
@@ -31,10 +52,7 @@ public class AccountGroupEntity extends BaseEntity {
 		this.accountGroupType = accountGroupType;
 	}
 
-	public AccountGroupEntity() {
-
-	}
-
+	
 	public AccountGroupEntity(String groupName, Ref<AccountGroupEntity> parent) {
 		this.groupName = groupName;
 		//this.parent = parent;
