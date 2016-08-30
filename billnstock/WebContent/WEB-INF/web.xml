@@ -144,7 +144,7 @@
     <description></description>
     <display-name>DownloadAccountChartServlet</display-name>
     <servlet-name>DownloadAccountChartServlet</servlet-name>
-    <servlet-class>com.protostar.billingnstock.account.entities.DownloadAccountChartServlet</servlet-class>
+    <servlet-class>com.protostar.billingnstock.account.services.DownloadAccountChartServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>DownloadAccountChartServlet</servlet-name>
