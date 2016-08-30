@@ -83,7 +83,7 @@ public class AccountService {
 	}
 
 	@ApiMethod(name = "getAccountListByGroupId", path = "getAccountListByGroupId")
-	public List<AccountEntity> getAccountListByGroupName(
+	public List<AccountEntity> getAccountListByGroupId(
 			@Named("id") Long groupId) {
 		System.out.println("groupId" + groupId);
 
