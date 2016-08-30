@@ -13,20 +13,14 @@ import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import sun.java2d.loops.CustomComponent;
-
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreInputStream;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.protostar.billingnstock.cust.entities.Customer;
 import com.protostar.billingnstock.cust.services.CustomerService;
-import com.protostar.billingnstock.stock.entities.StockItemEntity;
-import com.protostar.billingnstock.stock.services.StockItemService;
 import com.protostar.billingnstock.user.entities.BusinessEntity;
 import com.protostar.billingnstock.user.services.UserService;
-import com.protostar.billingnstock.warehouse.entities.WarehouseEntity;
-import com.protostar.billingnstock.warehouse.services.WarehouseService;
 import com.protostar.billnstock.entity.Address;
 
 /**
