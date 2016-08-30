@@ -5,8 +5,6 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 import java.util.Date;
 import java.util.List;
 
-import sun.java2d.loops.CustomComponent;
-
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
