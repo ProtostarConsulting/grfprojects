@@ -47,7 +47,16 @@ angular.module("prostudyApp").controller(
 						});
 			}
 
-			getSchoolStudentCount();
+			$scope.waitForServiceLoad = function(authResult) {
+				if (!appEndpointSF.is_service_ready) {
+					$log.debug("Home Ctr: Services Not Loaded, watiting...");
+					$timeout($scope.waitForServiceLoad, 1000);
+
+				} else {
+					getSchoolStudentCount();
+				}
+			}
+			$scope.waitForServiceLoad();
 
 			// Test upload file code
 			$scope.username = "testuser220";
