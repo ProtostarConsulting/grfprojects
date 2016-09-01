@@ -34,7 +34,7 @@ public class PartnerSchoolService {
 	private static final String CURRENT_YEAR_SCHOOL_AND_STUDENT_COUNT_KEY = "1";
 	private final Logger logger = Logger.getLogger(PartnerSchoolService.class
 			.getName());
-	private boolean notificationEnabled = true;
+	public static boolean notificationEnabled = true;
 	private Entity schoolAndStudentCountEntity = new Entity(
 			CURRENT_YEAR_SCHOOL_AND_STUDENT_COUNT_KIND,
 			CURRENT_YEAR_SCHOOL_AND_STUDENT_COUNT_KEY);;
@@ -103,7 +103,7 @@ public class PartnerSchoolService {
 		return partnerSchoolEntity;
 	}
 
-	public ExamDetail getExamDeatilByCurretnYear(
+	public static ExamDetail getExamDeatilByCurretnYear(
 			PartnerSchoolEntity partnerSchoolEntity) {
 		ExamDetail currentYearExamDetail = null;
 

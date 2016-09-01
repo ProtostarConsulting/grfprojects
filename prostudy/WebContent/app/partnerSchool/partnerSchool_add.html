@@ -355,8 +355,9 @@
 		<div layout="row" layout-xs="column">
 			<md-input-container flex> <label>Total
 				Number Of Student In School<span style="color: red;">*</span>
-			</label> <input name="totalStudent" aria-label="totalStudent" id="totalStudent"
-				ng-model="examDetail.totalStudent" ng-required="true">
+			</label> <input name="totalStudent" aria-label="totalStudent"
+				id="totalStudent" ng-model="examDetail.totalStudent"
+				ng-required="true">
 			<div ng-messages="partnerSchoolForm.totalStudent.$error"
 				ng-if="partnerSchoolForm.totalStudent.$submitted || partnerSchoolForm.totalStudent.$touched">
 				<div ng-message="required">Please Enter Total Number Of
@@ -374,8 +375,9 @@
 
 			<md-input-container flex> <label>Male <span
 				style="color: red;">*</span>
-			</label> <input name="male" id="male" aria-label="male"  ng-model="examDetail.male"
-				ng-change="calculateTotal()" ng-required="true">
+			</label> <input name="male" id="male" aria-label="male"
+				ng-model="examDetail.male" ng-change="calculateTotal()"
+				ng-required="true">
 			<div ng-messages="partnerSchoolForm.male.$error"
 				ng-if="partnerSchoolForm.male.$submitted || partnerSchoolForm.male.$touched">
 				<div ng-message="required">Please Enter Male Number Of
@@ -385,8 +387,9 @@
 			<!-- 	<span flex="20"></span> -->
 			<md-input-container flex> <label>Female<span
 				style="color: red;">*</span>
-			</label> <input name="female" aria-label="female"  id="female" ng-model="examDetail.female"
-				ng-change="calculateTotal()" ng-required="true">
+			</label> <input name="female" aria-label="female" id="female"
+				ng-model="examDetail.female" ng-change="calculateTotal()"
+				ng-required="true">
 			<div ng-messages="partnerSchoolForm.female.$error"
 				ng-if="partnerSchoolForm.female.$submitted || partnerSchoolForm.female.$touched">
 				<div ng-message="required">Please Enter female Number Of
@@ -430,10 +433,11 @@
 		<div layout="row" layout-xs="column" flex>
 			<h3 class="md-subhead" flex="15">Select Year</h3>
 			<!-- 	<span flex="10"></span> -->
-			<md-input-container flex="25"> <md-select aria-label="YearOfExam"
-				ng-change="getExamByYear(yearOfExam)" ng-model="yearOfExam" 
-				id="selectedYear"> <md-option ng-value="Year"
-				ng-repeat="Year in Years | orderBy:Year">{{Year}}</md-option> </md-select> </md-input-container>
+			<md-input-container flex="25"> <md-select
+				aria-label="YearOfExam" ng-change="getExamByYear(yearOfExam)"
+				ng-model="yearOfExam" id="selectedYear"> <md-option
+				ng-value="Year" ng-repeat="Year in Years | orderBy:Year">{{Year}}</md-option>
+			</md-select> </md-input-container>
 		</div>
 
 		<section layout="row" layout-sm="column" layout-align="end end">
@@ -655,10 +659,9 @@
 			class="md-padding">
 
 
-
-
 		<div>
-			<table md-data-table md-progress="deferred">
+			<md-data-table-container>
+			<table md-data-table>
 				<thead md-order="query.order" md-trigger="onorderchange">
 					<tr>
 
@@ -673,7 +676,8 @@
 					<tr ng-repeat="bb in  bookSummary.bookDetail">
 
 						<td><md-input-container flex> <md-select
-								name="standard" aria-label="Select Standard" ng-model="bb.standard"> <md-option
+								name="standard" aria-label="Select Standard"
+								ng-model="bb.standard"> <md-option
 								ng-value="standard" ng-repeat="standard in standardList"
 								placeholder="standard">{{standard}}</md-option> </md-select> </md-input-container></td>
 						<td><md-input-container flex> <md-select
@@ -703,18 +707,19 @@
 
 
 			</table>
-
-
-			<span flex="10"> <md-button class="md-icon-button"
-					ng-click="addBook()" layout-align="end end"> <md-tooltip>
-				Add Book</md-tooltip> <md-icon md-svg-icon="img/icons/ic_add_black_24px.svg"
-					aria-label="Prev Week"></md-icon> </md-button>
-
-			</span>
+			</md-data-table-container>
 		</div>
+		<span flex="10"> <md-button class="md-icon-button"
+				ng-click="addBook()" layout-align="end end"> <md-tooltip>
+			Add Book</md-tooltip> <md-icon md-svg-icon="img/icons/ic_add_black_24px.svg"
+				aria-label="Prev Week"></md-icon> </md-button>
 
-		<table md-data-table md-progress="deferred">
-			<!-- <thead md-order="query.order" md-trigger="onorderchange">
+		</span>
+
+		<div>
+			<md-data-table-container>
+			<table md-data-table>
+				<!-- <thead md-order="query.order" md-trigger="onorderchange">
 			<tr>
 
 				<th width=20% name="Standard" order-by="standard"></th>
@@ -755,39 +760,38 @@
 
 			</tr> -->
 
-			<tr>
-				<td>Total :-</td>
-				<td>{{bookSummary.total | number : 2}}</td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>20% Fees for Institute :-</td>
-				<td>{{bookSummary.amtForInst20per | number : 2}}</td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>80% Fees for GRF :-</td>
-				<td>{{bookSummary.amtForGRF80per | number : 2}}</td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			</tbody>
+				<tr>
+					<td>Total :-</td>
+					<td>{{bookSummary.total | number : 2}}</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>20% Fees for Institute :-</td>
+					<td>{{bookSummary.amtForInst20per | number : 2}}</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>80% Fees for GRF :-</td>
+					<td>{{bookSummary.amtForGRF80per | number : 2}}</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				</tbody>
 
-		</table>
-
-		<!-- <md-data-table-pagination md-limit="query.limit" md-page="query.page"
-		md-total={{books.length}} md-trigger="onpagechange"></md-data-table-pagination> -->
+			</table>
+			</md-data-table-container>
+		</div>
 
 		<section layout="row" layout-sm="column" layout-align="end end">
 			<md-button
@@ -967,38 +971,60 @@
 			<md-button class="md-raised md-primary"
 				ng-click="enableAddPaymentFlag()"> Add Payment </md-button>
 		</section>
+		<div>
+			<md-data-table-container>
+			<table md-data-table>
+				<thead md-order="query.order" md-trigger="onorderchange">
+					<tr>
 
-		<table md-data-table md-progress="deferred">
-			<thead md-order="query.order" md-trigger="onorderchange">
-				<tr>
+						<th name="Payment Received Vai" order-by="payReceivedBy"></th>
+						<th name="Date"></th>
+						<th name="Bank Name"></th>
+						<th name="Payment Fees"></th>
 
-					<th name="Payment Received Vai" order-by="payReceivedBy"></th>
-					<th name="Date"></th>
-					<th name="Bank Name"></th>
-					<th name="Payment Fees"></th>
+						<th name="Pending Fees "></th>
 
-					<th name="Pending Fees "></th>
+					</tr>
+				</thead>
 
-				</tr>
-			</thead>
+				<tbody>
+					<tr md-auto-select
+						ng-repeat="pd in PaymentDet track by $index  | orderBy: query.order | limitTo: query.limit: (query.page - 1) * query.limit ">
+						<td
+							title=Branch:-{{pd.branchName}}-Transaction/DD/Slip:-{{pd.transactionNumber}}>{{pd.payReceivedBy}}</td>
+						<td>{{pd.paymentDate | formatDate}}</td>
+						<td>{{pd.nameOfBank}}</td>
+						<td>{{pd.payAmount}}</td>
+						<td>{{pd.pAmount}}</td>
 
-			<tbody>
-				<tr md-auto-select
-					ng-repeat="pd in PaymentDet track by $index  | orderBy: query.order | limitTo: query.limit: (query.page - 1) * query.limit ">
-					<td
-						title=Branch:-{{pd.branchName}}-Transaction/DD/Slip:-{{pd.transactionNumber}}>{{pd.payReceivedBy}}</td>
-					<td>{{pd.paymentDate | formatDate}}</td>
-					<td>{{pd.nameOfBank}}</td>
-					<td>{{pd.payAmount}}</td>
-					<td>{{pd.pAmount}}</td>
-
-				</tr>
-			</tbody>
-		</table>
-
-
+					</tr>
+				</tbody>
+			</table>
+			</md-data-table-container>
+		</div>
 		</md-content> </md-tab> <md-tab label="Notification"> <md-content
-			class="md-padding"> Notification </md-content> </md-tab> </md-tabs> </md-content>
+			class="md-padding">
 
+		<div class="md-toolbar-tools">
+			<table
+				style="font-family: arial, sans-serif; border-collapse: collapse; border: 1px solid black; width: 80%; margin-left: 20px;">
+				<tr
+					style="border: 1px solid #8cced4; text-align: left; padding: 8px; background-color: #44acb6;">
+					<th>Notification Type</th>
+					<th>No. of Notifications</th>
+				</tr>
+				<tr
+					style="border: 1px solid #dddddd; text-align: left; padding: 8px; background-color: #8cced4;">
+					<td>Registration SMS Count</td>
+					<td ng-bind="examDetail.notificationData.registrationSmsSent"></td>
+				</tr>
+				<tr
+					style="border: 1px solid #dddddd; text-align: left; padding: 8px; background-color: #8cced4;">
+					<td>Courier SMS Count</td>
+					<td ng-bind="examDetail.notificationData.currierSmsSent"></td>
+				</tr>
+			</table>
+		</div>
+		</md-content> </md-tab> </md-tabs> </md-content>
 	</form>
 </div>

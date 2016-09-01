@@ -1,7 +1,7 @@
 package com.protostar.prostudy;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -44,12 +44,18 @@ public class Test1 {
 		String currentYear = "".concat(year.toString()).concat("-")
 				.concat("" + (year - 1999));
 		
-		System.out.println("Curernt year is:" + currentYear);*/
+		System.out.println("Curernt year is:" + currentYear);
 		
 		
 		Date lastModifiedDate = new Date(System.currentTimeMillis()
 				- (long) 365 * 24 * 60 * 60 * 1000);
 		System.out.println("lastModifiedDate:" + lastModifiedDate);
+		*/
+		SimpleDateFormat sd = new SimpleDateFormat("MMM dd");
+		String dateStr = sd
+				.format(new Date());
+		System.out.println("sd:" + dateStr);
+		
 	}
 
 	public static Map<String, List> getEmptyAuthorizationEntry(String authName,
