@@ -18,6 +18,7 @@ import jxl.write.Label;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 
+import com.protostar.prostudy.gf.entity.ExamDetail;
 import com.protostar.prostudy.gf.entity.PartnerSchoolEntity;
 
 /**
@@ -45,142 +46,176 @@ public class DownloadPartnerSchools extends HttpServlet {
 		Long insId = Long.parseLong(request.getParameter("InstituteId"));
 
 		System.out.println("insid===" + insId);
-		PartnerSchoolService patss=new PartnerSchoolService();
-		
+		PartnerSchoolService patss = new PartnerSchoolService();
+
 		Date date = new Date();
 		String DATE_FORMAT = "dd/MMM/yyyy";
-		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT); 
-		
-		List<PartnerSchoolEntity> patse =patss.getPartnerByInstitute(insId);
-		
-		
+		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+
+		List<PartnerSchoolEntity> schoolList = patss
+				.getPartnerByInstitute(insId);
+
 		OutputStream out = null;
 		try {
 
-//			response.setContentType("application/vnd.ms-excel");
+			// response.setContentType("application/vnd.ms-excel");
 			response.setContentType("text/csv");
-			
-			response.setHeader("Content-Disposition",
-					"attachment; filename=SchoolData_"+sdf.format(date)+".csv");
 
-			
-			
+			response.setHeader("Content-Disposition",
+					"attachment; filename=SchoolData_" + sdf.format(date)
+							+ ".csv");
+
 			ServletOutputStream outputStream = response.getOutputStream();
 			OutputStreamWriter writer = new OutputStreamWriter(outputStream);
-
-			writer.append("SchoolName");
+			// Part-1
+			writer.append("School Name");
 			writer.append(',');
-			writer.append("desc");
+			writer.append("Institute Name");
 			writer.append(',');
-			writer.append("formNumber");
+			writer.append("Form Number");
 			writer.append(',');
-			writer.append("category");
+			writer.append("Category");
 			writer.append(',');
-/*			writer.append("primaryContact");
+			/*
+			 * writer.append("primaryContact"); writer.append(',');
+			 */writer.append("Address Line1");
 			writer.append(',');
-*/			writer.append("line1");
+			writer.append("Line2");
 			writer.append(',');
-			writer.append("line2");
+			writer.append("City");
 			writer.append(',');
-			writer.append("city");
+			writer.append("Taluka");
 			writer.append(',');
-			writer.append("taluka");
+			writer.append("District");
 			writer.append(',');
-			writer.append("district");
-			writer.append(',');
-			writer.append("state");
+			writer.append("State");
 			writer.append(',');
 			writer.append("country");
 			writer.append(',');
 			writer.append("pin");
 			writer.append(',');
-/*			writer.append("totalStudent");
+			writer.append("HeadMaster");
 			writer.append(',');
-			writer.append("male");
-			writer.append(',');
-			writer.append("female");
-			writer.append(',');
-			writer.append("total");
-			writer.append(',');
-			writer.append("examMedium1");
-			writer.append(',');
-			writer.append("examMedium2");
-			writer.append(',');
-			writer.append("examMedium3");
-			writer.append(',');
-			writer.append("yearOfExam");
-			writer.append(',');
-			writer.append("bookRequired");
-			writer.append(',');
-			writer.append("modeOfExam");
-			writer.append(',');
-*/			writer.append("headMasterName");
-			writer.append(',');
-			writer.append("headMasterMobile");
+			writer.append("HeadMasterMobile");
 			writer.append(',');
 			writer.append("headMasterEmailId");
 			writer.append(',');
-			writer.append("coordinatorName");
+			writer.append("Coordinator Name");
 			writer.append(',');
-			writer.append("coordinatorPhoneNum");
+			writer.append("Coordinator Mobile");
 			writer.append(',');
-			writer.append("coordinatorEmailId");
+			writer.append("Email");
 			writer.append(',');
 			
-			writer.append(System.lineSeparator());			
-			
-			for (int i = 0; i < patse.size(); i++) {
-				int l=i+1;
-				int k=15;	
-				
-				
-				writer.append(patse.get(i).getSchoolName());
-				writer.append(',');
-				writer.append(patse.get(i).getInstName());
-				writer.append(',');
-				writer.append(patse.get(i).getFormNumber());
-				writer.append(',');
-				writer.append(patse.get(i).getCategory());
-				writer.append(',');
-/*				writer.append(patse.get(i).getPrimaryContact());
- 				writer.append(',');
-*/		
-				writer.append(patse.get(i).getAddress().getLine1());
-				writer.append(',');
-				writer.append(patse.get(i).getAddress().getLine2());
-				writer.append(',');
-				writer.append(patse.get(i).getAddress().getCity());
-				writer.append(',');
-				writer.append(patse.get(i).getAddress().getTal());
-				writer.append(',');
-				writer.append(patse.get(i).getAddress().getDist());
-				writer.append(',');
-				writer.append(patse.get(i).getAddress().getState());
-				writer.append(',');
-				writer.append(patse.get(i).getAddress().getCountry());
-				writer.append(',');
-				writer.append(patse.get(i).getAddress().getPin());
-				writer.append(',');
-				
-				writer.append(patse.get(i).getContactDetail().getHeadMasterName());
-				writer.append(',');
-				writer.append(patse.get(i).getContactDetail().getHeadMasterMobile());
-				writer.append(',');
-				writer.append(patse.get(i).getContactDetail().getHeadMasterEmailId());
-				writer.append(',');
-				
-				if(patse.get(i).getContactDetail().getCoordinatorDetail() != null){
-				writer.append(patse.get(i).getContactDetail().getCoordinatorDetail().get(0).getCoordinatorName());
-				writer.append(',');
-				writer.append(patse.get(i).getContactDetail().getCoordinatorDetail().get(0).getCoordinatorMobileNum());
-				writer.append(',');
-				writer.append(patse.get(i).getContactDetail().getCoordinatorDetail().get(0).getCoordinatorEmailId());
-				writer.append(',');
+			// Part-2
+			writer.append("ExamYear");
+			writer.append(',');
+			writer.append("Mode of Exam");
+			writer.append(',');
+			writer.append("Male");
+			writer.append(',');
+			writer.append("Female");
+			writer.append(',');
+			/*
+			 * writer.append("totalStudent"); writer.append(',');
+			 * writer.append("male"); writer.append(',');
+			 * writer.append("female"); writer.append(',');
+			 * writer.append("total"); writer.append(',');
+			 * writer.append("examMedium1"); writer.append(',');
+			 * writer.append("examMedium2"); writer.append(',');
+			 * writer.append("examMedium3"); writer.append(',');
+			 * writer.append("yearOfExam"); writer.append(',');
+			 * writer.append("bookRequired"); writer.append(',');
+			 * writer.append("modeOfExam"); writer.append(',');
+			 */
+
+			writer.append(System.lineSeparator());
+
+			for (int i = 0; i < schoolList.size(); i++) {
+
+				try {
+
+					PartnerSchoolEntity schoolEntity = schoolList.get(i);
+
+					// Part-1
+					writer.append(schoolEntity.getSchoolName()
+							.replace(',', '-'));
+					writer.append(',');
+					writer.append(schoolEntity.getInstName() != null ? schoolEntity
+							.getInstName().replace(',', '-') : "");
+					writer.append(',');
+					writer.append(schoolEntity.getFormNumber());
+					writer.append(',');
+					writer.append(schoolEntity.getCategory());
+					writer.append(',');
+					/*
+					 * writer.append(patse.get(i).getPrimaryContact());
+					 * writer.append(',');
+					 */
+					writer.append(schoolEntity.getAddress().getLine1()
+							.replace(',', '-'));
+					writer.append(',');
+					writer.append(schoolEntity.getAddress().getLine2()
+							.replace(',', '-'));
+					writer.append(',');
+					writer.append(schoolEntity.getAddress().getCity());
+					writer.append(',');
+					writer.append(schoolEntity.getAddress().getTal());
+					writer.append(',');
+					writer.append(schoolEntity.getAddress().getDist());
+					writer.append(',');
+					writer.append(schoolEntity.getAddress().getState());
+					writer.append(',');
+					writer.append(schoolEntity.getAddress().getCountry());
+					writer.append(',');
+					writer.append(schoolEntity.getAddress().getPin());
+					writer.append(',');
+
+					writer.append(schoolEntity.getContactDetail()
+							.getHeadMasterName());
+					writer.append(',');
+					writer.append(schoolEntity.getContactDetail()
+							.getHeadMasterMobile());
+					writer.append(',');
+					writer.append(schoolEntity.getContactDetail()
+							.getHeadMasterEmailId());
+					writer.append(',');
+
+					if (schoolEntity.getContactDetail().getCoordinatorDetail() != null) {
+						writer.append(schoolEntity.getContactDetail()
+								.getCoordinatorDetail().get(0)
+								.getCoordinatorName());
+						writer.append(',');
+						writer.append(schoolEntity.getContactDetail()
+								.getCoordinatorDetail().get(0)
+								.getCoordinatorMobileNum());
+						writer.append(',');
+						writer.append(schoolEntity.getContactDetail()
+								.getCoordinatorDetail().get(0)
+								.getCoordinatorEmailId());
+						writer.append(',');
+					}
+
+					// Part-2
+					ExamDetail examDeatil = PartnerSchoolService.getExamDeatilByCurretnYear(schoolEntity);
+					if (examDeatil != null) {
+						writer.append(examDeatil.getYearOfExam());
+						writer.append(',');
+						writer.append(examDeatil.getModeOfExam());
+						writer.append(',');
+						writer.append(examDeatil.getMale());
+						writer.append(',');
+						writer.append(examDeatil.getFemale());
+						writer.append(',');						
+					}
+					writer.append(System.lineSeparator());
+
+				} catch (Exception ex) {
+					writer.append(System.lineSeparator());
 				}
-				writer.append(System.lineSeparator());
-								
+
 			}
-	
+
 			writer.close();
 
 		} catch (Exception e) {
