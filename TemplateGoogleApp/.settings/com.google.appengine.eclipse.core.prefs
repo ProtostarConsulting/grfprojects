@@ -1,8 +1,0 @@
-eclipse.preferences.version=1
-gaeDatanucleusVersion=v2
-gaeDoJarClasses=false
-gaeEnableJarSplitting=true
-gaeHrdEnabled=true
-gaeRetainStagingDirectory=false
-googleCloudSqlEnabled=false
-localDevMySqlEnabled=true
