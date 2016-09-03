@@ -88,7 +88,7 @@ public class ProtostarAdminService {
 			UserEntity userEntity2 = new UserEntity();
 			userEntity2.setInstituteID(instituteEntity.getId());
 			userEntity2.setEmail_id("sneha@protostar.co.in");
-			userEntity2.setFirstName("Shena");
+			userEntity2.setFirstName("Sneha");
 			userEntity2.setLastName("S");
 			userEntity2.setIsGoogleUser(true);
 			userEntity2.setAuthority(Arrays.asList("admin"));
