@@ -121,7 +121,7 @@ app
 		.config(function($stateProvider, $urlRouterProvider) {
 			// This adds config 2
 			// For any unmatched url, redirect to /state1
-			$urlRouterProvider.otherwise("/home");
+			$urlRouterProvider.otherwise("/welcome");
 
 			// Now set up the states
 			$stateProvider

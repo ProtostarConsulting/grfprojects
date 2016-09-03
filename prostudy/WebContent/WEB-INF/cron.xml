@@ -3,7 +3,7 @@
 	<cron>
 		<url>/grf/cron/updatestudcounts</url>
 		<description>daily stud/school count job</description>
-		<schedule>every day 18:00</schedule>
+		<schedule>every 60 minutes from 5:00 to 10:00</schedule>
 		<!--This is GMT time, meaning 1:30 AM IST -->
 	</cron>
 </cronentries>

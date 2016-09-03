@@ -42,6 +42,8 @@ angular.module("prostudyApp").controller(
 
 							if (resp.schoolCount != undefined) {
 								$scope.schoolStudCount = resp;
+								$scope.schoolStudCount.totalSchoolColleges = parseInt(resp.schoolCount) + parseInt(resp.collegeCount);
+								$scope.schoolStudCount.totalStudents = parseInt(resp.schoolStudentcount) + parseInt(resp.collegeStudentcount);
 							}
 
 						});
