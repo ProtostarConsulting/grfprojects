@@ -163,8 +163,14 @@ public class PartnerSchoolService {
 						.setSchoolCount((Long) schoolAndStudentCountEntity
 								.getProperty("schoolCount"));
 				schoolAndStudentCount
-						.setStudentcount((Long) schoolAndStudentCountEntity
-								.getProperty("studentCount"));
+						.setCollegeCount((Long) schoolAndStudentCountEntity
+								.getProperty("collegeCount"));
+				schoolAndStudentCount
+						.setSchoolStudentcount((Long) schoolAndStudentCountEntity
+								.getProperty("schoolStudentcount"));
+				schoolAndStudentCount
+						.setCollegeStudentcount((Long) schoolAndStudentCountEntity
+								.getProperty("collegeStudentcount"));
 				schoolAndStudentCount.setLastModifiedDate(new Date(
 						(Long) schoolAndStudentCountEntity
 								.getProperty("lastModifiedDate")));
@@ -181,24 +187,36 @@ public class PartnerSchoolService {
 	public void updateCurrentYearSchoolAndStudentCount() {
 
 		long schoolCount = 0;
-		long studentCount = 0;
+		long collegeCount = 0;
+		long schoolStudentcount = 0;
+		long collegeStudentcount = 0;
 
 		List<PartnerSchoolEntity> list = ofy().load()
 				.type(PartnerSchoolEntity.class).list();
-		schoolCount = ofy().load().type(PartnerSchoolEntity.class).count();
+		// schoolCount = ofy().load().type(PartnerSchoolEntity.class).count();
 		logger.info("list: " + list);
 		logger.info("list.size(): " + (list == null ? "null" : list.size()));
 		for (PartnerSchoolEntity schoolEntity : list) {
+			long studNumbers = 0;
 			try {
 				ExamDetail examDeatilByCurretnYear = getExamDeatilByCurretnYear(schoolEntity);
 				if (examDeatilByCurretnYear != null) {
 					try {
-						studentCount += Long.parseLong(examDeatilByCurretnYear
+						studNumbers = Long.parseLong(examDeatilByCurretnYear
 								.getTotal());
 					} catch (Exception ex) {
 						logger.warning("updateCurrentYearSchoolAndStudentCount: "
 								+ ex.getMessage());
 					}
+				}
+
+				if (schoolEntity.getCategory()
+						.equals("School & Junior College")) {
+					schoolCount++;
+					schoolStudentcount += studNumbers;
+				} else {
+					collegeCount++;
+					collegeStudentcount += studNumbers;
 				}
 			} catch (Exception ex) {
 				logger.warning("ex: " + ex.getMessage());
@@ -206,12 +224,14 @@ public class PartnerSchoolService {
 			}
 		}
 		logger.info("schoolCount: " + schoolCount);
-		logger.info("studentCount: " + studentCount);
+		logger.info("schoolStudentcount: " + schoolStudentcount);
 
 		SchoolAndStudentCount schoolAndStudentCount = new SchoolAndStudentCount();
 
 		schoolAndStudentCount.setSchoolCount(schoolCount);
-		schoolAndStudentCount.setStudentcount(studentCount);
+		schoolAndStudentCount.setSchoolStudentcount(schoolStudentcount);
+		schoolAndStudentCount.setCollegeCount(collegeCount);
+		schoolAndStudentCount.setCollegeStudentcount(collegeStudentcount);
 		schoolAndStudentCount.setLastModifiedDate(new Date());
 
 		MemcacheService memcacheService = MemcacheServiceFactory
@@ -219,10 +239,12 @@ public class PartnerSchoolService {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 
-		schoolAndStudentCountEntity.setProperty("schoolCount",
-				schoolAndStudentCount.getSchoolCount());
-		schoolAndStudentCountEntity.setProperty("studentCount",
-				schoolAndStudentCount.getStudentcount());
+		schoolAndStudentCountEntity.setProperty("schoolCount", schoolCount);
+		schoolAndStudentCountEntity.setProperty("collegeCount", collegeCount);
+		schoolAndStudentCountEntity.setProperty("schoolStudentcount",
+				schoolStudentcount);
+		schoolAndStudentCountEntity.setProperty("collegeStudentcount",
+				collegeStudentcount);
 		schoolAndStudentCountEntity.setProperty("lastModifiedDate",
 				schoolAndStudentCount.getLastModifiedDate().getTime());
 
@@ -257,7 +279,10 @@ public class PartnerSchoolService {
 	static class SchoolAndStudentCount implements Serializable {
 		private static final long serialVersionUID = 1L;
 		long schoolCount;
-		long studentcount;
+		long collegeCount;
+		long schoolStudentcount;
+		long collegeStudentcount;
+
 		private Date lastModifiedDate = new Date(System.currentTimeMillis()
 				- (long) 365 * 24 * 60 * 60 * 1000);
 
@@ -265,10 +290,13 @@ public class PartnerSchoolService {
 
 		}
 
-		public SchoolAndStudentCount(long schoolCount, long studentcount,
+		public SchoolAndStudentCount(long schoolCount, long collegeCount,
+				long schoolStudentcount, long collegeStudentcount,
 				long lastModifiedDate) {
 			this.schoolCount = schoolCount;
-			this.studentcount = studentcount;
+			this.collegeCount = collegeCount;
+			this.schoolStudentcount = schoolStudentcount;
+			this.collegeStudentcount = collegeStudentcount;
 			this.lastModifiedDate = new Date(lastModifiedDate);
 		}
 
@@ -280,12 +308,28 @@ public class PartnerSchoolService {
 			this.schoolCount = schoolCount;
 		}
 
-		public long getStudentcount() {
-			return studentcount;
+		public long getCollegeCount() {
+			return collegeCount;
 		}
 
-		public void setStudentcount(long studentcount) {
-			this.studentcount = studentcount;
+		public void setCollegeCount(long collegeCount) {
+			this.collegeCount = collegeCount;
+		}
+
+		public long getSchoolStudentcount() {
+			return schoolStudentcount;
+		}
+
+		public void setSchoolStudentcount(long schoolStudentcount) {
+			this.schoolStudentcount = schoolStudentcount;
+		}
+
+		public long getCollegeStudentcount() {
+			return collegeStudentcount;
+		}
+
+		public void setCollegeStudentcount(long collegeStudentcount) {
+			this.collegeStudentcount = collegeStudentcount;
 		}
 
 		public Date getLastModifiedDate() {
