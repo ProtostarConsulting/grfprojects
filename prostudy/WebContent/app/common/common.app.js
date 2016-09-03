@@ -4,19 +4,6 @@ var app = angular.module("prostudyApp",
 				'ngResource', 'ngRoute', 'ngStorage', "ngAria",
 				'directive.g+signin', 'ngFileUpload' ]);
 
-app.constant('boardList', [ "State Board", "CBSE", "ICSE" ]);
-app.constant('standardList', [ "5th", "6th", "7th", "8th", "9th", "10th",
-		"11th", "12th", "FY", "SY", "TY", "Fr. Y", "PG/D. & B. Ed-1", "PG/D. & B. Ed-2", "Teacher" ]);
-app.constant('answerOfMediumList', [ "Marathi", "Hindi", "English" ]);
-app.constant('logisticsList', [ "By Post", "By Hand", "ST Postal",
-		"Tej Courier", "Other" ]);
-app.constant('courierTypelist', [ "Book", "Certificate", "Error Certificate",
-		"Error books", "Prize Certificate", "Other" ]);
-app.constant('installmentList', [ 1, 2, 3 ]);
-app.constant('partnerSchoolLevels', [ "School & Junior College",
-		"Jr.& Sr. College", "D.Ed College", "Prison", "B.Ed College", "MBBS",
-		"Nurses Course", "Engineearing", "All" ]);
-
 // Set up the cache ‘ajsCache’
 app.factory('ajsCache', function($cacheFactory) {
 	return $cacheFactory('browserCache');
@@ -1356,6 +1343,20 @@ app
 								yearOfExam : null
 								}
 					})
+					
+					.state('gfreport',{
+						url : "/gfreport",
+						templateUrl : '/app/gfreport/gfreport_module.html',
+						controller : 'gfReportModuleCtr',
+					})
+					.state('gfreport.gfschool_lists',{
+						url : "/gfschool_lists",
+						templateUrl : '/app/gfreport/gfschool_lists.html',
+						controller : 'schoollistsCtr',
+					})
+					
+					
+					
 
 					.state('bookModule',{
 								url : "/bookModule",

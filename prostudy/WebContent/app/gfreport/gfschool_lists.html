@@ -1,0 +1,71 @@
+<md-content layout-padding>
+
+<div class="md-headline">
+	<h3>School Lists</h3>
+</div>
+<form name="gfSchoolListsForm ">
+
+	<md-content>
+
+	<div layout="row" layout-xs="column" flex>
+
+		<md-input-container flex> <label>Select
+			School Category<span style="color: red"
+			ng-show="gfSchoolListsForm.category.$error.required"
+			class="mandatory">*</span>
+		</label> <md-select name="category" id="category"
+			ng-model="gfSchoolLists.category" ng-required="true"> <md-option
+			ng-value="category" ng-repeat="category in partnerSchoolLevels">{{category}}</md-option>
+		</md-select>
+		<div ng-messages="gfSchoolListsForm.category.$error"
+			ng-if="gfSchoolListsForm.category.$submitted || gfSchoolListsForm.category.$touched">
+			<div ng-message="required">Please Select School Category.</div>
+		</div>
+		</md-input-container>
+
+		<md-input-container flex> <label>State<span
+			style="color: red" ng-show="gfSchoolListsForm.state.$error.required"
+			class="mandatory">*</span></label> <md-select name="state"
+			ng-model="gfSchoolLists.state"
+			ng-change="getDistricts($index, gfSchoolLists.state)"
+			ng-required="true"> <md-option ng-value="states.name"
+			ng-repeat="states in Country.states |  orderBy : states.name">{{states.name}}</md-option>
+		</md-select>
+		<div ng-messages="gfSchoolListsForm.state.$error"
+			ng-if="gfSchoolListsForm.state.$submitted || gfSchoolListsForm.state.$touched">
+			<div ng-message="required">Please Select State.</div>
+		</div>
+		</md-input-container>
+
+	</div>
+
+	<div layout="row" layout-xs="column" flex>
+		<md-input-container flex> <label>District
+					<span style="color: red;"
+					ng-show="partnerSchoolForm.otherDist.$error.required">*</span>
+				</label> <input name="otherDist" id="otherDist"
+					ng-model="gfSchoolLists.address.otherDist" ng-required="true">
+				<div ng-messages="gfSchoolListsForm.otherDist.$error"
+					ng-if="gfSchoolListsForm.otherDist.$submitted || gfSchoolListsForm.otherDist.$touched">
+					<div ng-message="required">Please Enter District Name.</div>
+				</div>
+				</md-input-container>
+
+		<md-input-container flex> <label> Select Taluka <span
+			style="color: red;"
+			ng-show="gfSchoolListsForm.otherTaluka.$error.required">*</span>
+		</label> <input name="otherTaluka" id="otherTaluka"
+			ng-model="gfSchoolLists.address.otherTaluka" ng-required="true">
+		<div ng-messages="gfSchoolListsForm.otherTaluka.$error"
+			ng-if="gfSchoolListsForm.otherTaluka.$submitted || gfSchoolListsForm.otherTaluka.$touched">
+			<div ng-message="required">Please Enter Taluka Name.</div>
+		</div>
+		</md-input-container>
+
+	</div>
+	</md-content> 
+
+</form>
+
+
+</md-content>

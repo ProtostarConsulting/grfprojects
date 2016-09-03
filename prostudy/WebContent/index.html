@@ -157,12 +157,14 @@
 				<div style="margin-left: 15px;"
 					ng-class="{dataContent:true, activeContent:data.expanded3}">
 					<md-content flex layout="column" layout-xs="column"
-						layout-align="center start"><md-button flex
-						ui-sref="courierModule.dailyDispatchReport" ng-click="close()" class="md-primary">Daily Dispatch Report</md-button> <md-button flex
-						ui-sref="courierModule.add" ng-click="close()" class="md-primary">Add
-					Courier</md-button> <md-button flex ui-sref="courierModule.list"
-						ng-click="close()" class="md-primary">Courier List </md-button> <md-button
-						flex ui-sref="courierModule.search" ng-click="close()"
+						layout-align="center start">
+					<md-button flex ui-sref="courierModule.dailyDispatchReport"
+						ng-click="close()" class="md-primary">Daily Dispatch
+					Report</md-button> <md-button flex ui-sref="courierModule.add"
+						ng-click="close()" class="md-primary">Add Courier</md-button> <md-button
+						flex ui-sref="courierModule.list" ng-click="close()"
+						class="md-primary">Courier List </md-button> <md-button flex
+						ui-sref="courierModule.search" ng-click="close()"
 						class="md-primary">Courier Search </md-button> </md-content>
 				</div>
 			</div>
@@ -172,7 +174,7 @@
 					ng-click="data.expanded4 = !data.expanded4">
 				<div class="md-toolbar-tools">
 					<h2>
-						<span>Other Actions</span>
+						<span>Report</span>
 					</h2>
 					<span flex=""></span> <span
 						ng-class="{expandCollapse:true, active:data.expanded4}"></span>
@@ -181,15 +183,37 @@
 				<div style="margin-left: 15px;"
 					ng-class="{dataContent:true, activeContent:data.expanded4}">
 					<md-content flex layout="column" layout-xs="column"
+						layout-align="center start">
+					<md-button flex ui-sref="gfreport.gfschool_lists"
+						ng-click="close()" class="md-primary">School Lists</md-button>
+				</div>
+			</div>
+
+
+
+			<div class="md-accordion">
+				<md-toolbar ng-init="data.expanded5 = false"
+					ng-click="data.expanded5 = !data.expanded5">
+				<div class="md-toolbar-tools">
+					<h2>
+						<span>Other Actions</span>
+					</h2>
+					<span flex=""></span> <span
+						ng-class="{expandCollapse:true, active:data.expanded5}"></span>
+				</div>
+				</md-toolbar>
+				<div style="margin-left: 15px;"
+					ng-class="{dataContent:true, activeContent:data.expanded5}">
+					<md-content flex layout="column" layout-xs="column"
 						layout-align="center start"> <md-button
 						ng-repeat="auth in curUser.userAuthMasterEntity.authorizations"
 						ui-sref="{{auth.uiStateName}}" ng-click="close()"
 						class="menu-heading md-primary" aria-label="auth.authDisplayName"
-						ng-hide="auth.authName == 'grfbooks'"
-						show-gt-md> <menu-link section="child"
-						ng-if="auth.authDisplayName === 'Home'"></menu-link> <menu-toggle
-						section="child" ng-if="auth.authDisplayName === 'Setup'"></menu-toggle>
-					<span ng-bind="auth.authDisplayName"> </span></md-button> </md-content>
+						ng-hide="auth.authName == 'grfbooks'" show-gt-md> <menu-link
+						section="child" ng-if="auth.authDisplayName === 'Home'"></menu-link>
+					<menu-toggle section="child"
+						ng-if="auth.authDisplayName === 'Setup'"></menu-toggle> <span
+						ng-bind="auth.authDisplayName"> </span></md-button> </md-content>
 				</div>
 			</div>
 
@@ -343,6 +367,8 @@
 
 	<!-- App JS Dependencies -->
 	<script src="/app/common/common.app.js"></script>
+	<script src="/app/common/constants.app.js"></script>
+	
 
 	<!-- Load other view/service/controllers files-->
 	<script src="/app/common/app.object.service.js"></script>
@@ -493,7 +519,14 @@
 	<script src="/app/partnerSchool/js/partnerSchool_add.ctr.js"></script>
 	<script src="/app/partnerSchool/js/partnerSchool_list.ctr.js"></script>
 	<!-- 	Partner School -->
-
+	
+	
+	<!-- GFReport -->
+	
+	<script src="/app/gfreport/js/gfreport_module.js"></script>
+	<script src="/app/gfreport/js/gfschool_lists.js"></script>
+	<!-- GFReport -->
+	
 	<!-- Start Init Setup -->
 	<script src="/app/initsetup/js/initsetup.ctr.js"></script>
 
@@ -532,7 +565,7 @@
 	<script src="/app/gfcourier/js/gfCourier_add.ctr.js"></script>
 	<script src="/app/gfcourier/js/gfCourier_list.ctr.js"></script>
 	<script src="/app/gfcourier/js/gfCourier_view.ctr.js"></script>
-	<script src="/app/gfcourier/js/gfCourier_search.ctr.js"></script>	
+	<script src="/app/gfcourier/js/gfCourier_search.ctr.js"></script>
 	<script src="/app/gfcourier/js/dailyDispatchReport.js"></script>
 
 	<script src="/app/gfcourier/js/gfCourier_directAddFromPS.ctr.js"></script>
