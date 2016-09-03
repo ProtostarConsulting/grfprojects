@@ -1,72 +1,129 @@
-angular.module("prostudyApp").controller(
-		"schoollistsCtr",
-		function($scope, $window, $mdToast, $timeout, $mdSidenav, $mdUtil,
-				$log, $q, tableTestDataFactory, $state, appEndpointSF, $sce,partnerSchoolLevels,
-				boardList) {
-			
-			
-			$scope.gfSchoolLists={
-					category:"",
-					address:$scope.Address
-			}
-			$scope.Address={
-					dist : "",	
-					state : "",
-					otherTal : "",
-					tal : "",
-					otherState : "",
-					otherDist : "",
+angular
+		.module("prostudyApp")
+		.controller(
+				"schoollistsCtr",
+				function($scope, $window, $mdToast, $timeout, $mdSidenav,
+						$mdUtil, $log, $q, tableTestDataFactory, $state,
+						appEndpointSF, $sce, partnerSchoolLevels,
+						indiaAddressLookupData, boardList) {
+
+					$scope.selectFilterData = {
+						category : "All",
+						state : "All",
+						dist : "All",
+						tal : "All"
+					}
+
+					$scope.temp = {
+						tempDistricts : [],
+						tempTalukas : [],
+						tempVillages : []
+					}
+					$scope.partnerSchoolLevels = partnerSchoolLevels;					
+					$scope.Country = angular.copy(indiaAddressLookupData);
+					$scope.Country.states.unshift({
+						name : "All"
+					});
 					
-			}
-			
-			$scope.partnerSchoolLevels=partnerSchoolLevels;
-			
-			
-			
-			$scope.getaddress = function(postcode) {
+					
+					$scope.gfSchoolList = [];
+					$scope.schoolListsDate == null;
 
-				$
-						.getJSON(
-								'https://maps.googleapis.com/maps/api/geocode/json?address='
-										+ postcode + '&sensor=false',
-								function(data) {
+					$scope.getDistricts = function(index, state) {
 
-									$scope.data = data.results[0].address_components;
-									//var city = $scope.data[1].long_name;
-									var tal = $scope.data[1].long_name;
-									var dist = $scope.data[2].long_name;
-									var state = $scope.data[3].long_name;
-									var country = $scope.data[4].long_name;
+						$scope.temp.tempDistricts = [];
+						for (var i = 0; i < $scope.Country.states.length; i++) {
 
-									$scope.partnerSchool.address.city = city;
-									$scope.partnerSchool.address.tal = tal;
-									$scope.partnerSchool.address.dist = dist;
-									$scope.partnerSchool.address.state = state;
-									$scope.partnerSchool.address.country = country;
-									$scope.partnerSchool.address.pin = postcode;
+							if ($scope.Country.states[i].name == state) {
 
-									$scope.getTalukas(0, dist);
-									/*
-									 * var lat =
-									 * data.results[0].geometry.location.lat;
-									 * var lng =
-									 * data.results[0].geometry.location.lng;
-									 */});
-			}
-			
-			$scope.stateQuerySearch = function(query) {
-				var results = query ? $scope.Country.states
-						.filter(createFilterFor(query))
-						: $scope.Country.states;
-				$scope.gfSchoolLists.address.dist = results[0].districts;
-				var deferred = $q.defer();
-				$timeout(function() {
-					deferred.resolve(results);
+								$scope.temp.tempDistricts = $scope.Country.states[i].districts;
+								$scope.temp.tempDistricts.unshift({
+									name : "All"
+								});
+							}
+						}
+					};
 
-				}, Math.random() * 1000, false);
+					$scope.getTalukas = function(index, district) {
 
-				return deferred.promise;
-			}
-			
-						
-		});
+						$scope.temp.tempTalukas = [];
+						for (var j = 0; j < $scope.temp.tempDistricts.length; j++) {
+							if ($scope.temp.tempDistricts[j].name == district) {
+								$scope.temp.tempTalukas = $scope.temp.tempDistricts[j].talukas;
+								$scope.temp.tempTalukas.unshift({
+									name : "All"
+								});
+							}
+						}
+					};
+
+					$scope.getVillages = function(index, taluka) {
+
+						$scope.temp.tempVillages = [];
+						for (var k = 0; k < $scope.temp.tempTalukas.length; k++) {
+							if ($scope.temp.tempTalukas[k].name == taluka) {
+								$scope.temp.tempVillages = $scope.temp.tempTalukas[k].villages;
+							}
+						}
+					};
+
+					$scope.filterSchoolList = function() {
+						$scope.filteredSchoolList = [];
+
+						// To filter school list by address
+						for (var i = 0; i < $scope.pSchoolList.length; i++) {
+							if ($scope.selectFilterData.category != "All") {								
+								if($scope.pSchoolList[i].category != $scope.selectFilterData.category){
+									continue;
+								}								
+							}
+							if ($scope.selectFilterData.state != "All") {
+								if ($scope.selectFilterData.state == $scope.pSchoolList[i].address.state) {
+									if ($scope.selectFilterData.dist == "All") {
+										$scope.filteredSchoolList
+												.push($scope.pSchoolList[i]);
+									} else if ($scope.selectFilterData.dist == $scope.pSchoolList[i].address.dist) {
+										if ($scope.selectFilterData.tal == "All") {
+											$scope.filteredSchoolList
+													.push($scope.pSchoolList[i]);
+										} else if ($scope.selectFilterData.tal == $scope.pSchoolList[i].address.tal) {
+											$scope.filteredSchoolList
+													.push($scope.pSchoolList[i]);
+										}
+									}
+								}
+							}
+						}
+
+					}
+
+					$scope.getPartnerSchoolByInstitute = function() {
+						var PartnerService = appEndpointSF
+								.getPartnerSchoolService();
+
+						PartnerService.getPartnerByInstitute(
+								$scope.curUser.instituteID).then(
+								function(pSchoolList) {
+									$scope.pSchoolList = pSchoolList;
+									$scope.filteredSchoolList = [];
+									$log.debug("$scope.pSchoolList:"
+											+ $scope.pSchoolList);
+
+								});
+
+					}
+
+					$scope.waitForServiceLoad = function() {
+						if (appEndpointSF.is_service_ready) {
+							$scope.getPartnerSchoolByInstitute();						
+
+						} else {
+							$log.debug("Services Not Loaded, watiting...");
+							$timeout($scope.waitForServiceLoad, 1000);
+						}
+					}
+
+					$scope.waitForServiceLoad();
+					
+
+				});
