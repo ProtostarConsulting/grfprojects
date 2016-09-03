@@ -87,9 +87,9 @@ public class ProtostarAdminService {
 
 			UserEntity userEntity2 = new UserEntity();
 			userEntity2.setInstituteID(instituteEntity.getId());
-			userEntity2.setEmail_id("pushpak.pimpale@protostarcs.com");
-			userEntity2.setFirstName("Pushpak");
-			userEntity2.setLastName("Pimpale");
+			userEntity2.setEmail_id("sneha@protostar.co.in");
+			userEntity2.setFirstName("Shena");
+			userEntity2.setLastName("S");
 			userEntity2.setIsGoogleUser(true);
 			userEntity2.setAuthority(Arrays.asList("admin"));
 			userEntity2.setRole("Admin");
@@ -112,9 +112,9 @@ public class ProtostarAdminService {
 
 			UserEntity userEntity4 = new UserEntity();
 			userEntity4.setInstituteID(instituteEntity.getId());
-			userEntity4.setEmail_id("aniket.bhalsing@protostar.co.in");
-			userEntity4.setFirstName("Aniket");
-			userEntity4.setLastName("Bhalsing");
+			userEntity4.setEmail_id("deepali@protostar.co.in");
+			userEntity4.setFirstName("Deepali");
+			userEntity4.setLastName("M");
 			userEntity4.setIsGoogleUser(true);
 			userEntity4.setAuthority(Arrays.asList("admin"));
 			userEntity4.setRole("Admin");
