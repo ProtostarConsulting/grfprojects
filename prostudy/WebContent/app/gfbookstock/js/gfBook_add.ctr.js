@@ -29,6 +29,10 @@ angular.module("prostudyApp").controller(
 					$scope.update = "update";
 					$scope.tempBook.flag = $scope.update;
 				}
+				
+				$scope.tempBook.modifiedDate = new Date();	
+				$scope.tempBook.modifiedBy = $scope.curUser.email_id;
+				
 				var gfBookStockService = appEndpointSF.getGFBookStockService();
 
 				gfBookStockService.addGFBook($scope.tempBook).then(

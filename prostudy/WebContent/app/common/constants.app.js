@@ -787,29 +787,32 @@ app.constant("indiaAddressLookupData", {
 				}, {
 					name : "Bhiwandi"
 				}, {
+					name : "Kalyan"
+				}, {
+					name : "Murbad"
+				}, {
+					name : "Shahapur"
+				},  {
+					name : "Thane Taluka"
+				}, {
+					name : "Ulhasnagar"
+				} ]
+			},{
+				name : "Palghar",
+				talukas : [ {
 					name : "Dahanu"
 				}, {
 					name : "Jawhar"
 				}, {
-					name : "Kalyan"
-				}, {
 					name : "Mokhada"
-				}, {
-					name : "Murbad"
 				}, {
 					name : "Palghar"
 				}, {
-					name : "Shahapur"
-				}, {
 					name : "Talasari"
-				}, {
-					name : "Thane"
-				}, {
-					name : "Ulhasnagar"
 				}, {
 					name : "Vada"
 				}, {
-					name : "Vasai"
+					name : "Vasai-Virar"
 				}, {
 					name : "Vikramgad"
 				} ]

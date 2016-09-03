@@ -49,6 +49,10 @@ angular
 							$scope.tempCourierObj.instituteID = $scope.curUser.instituteID;
 							$scope.tempCourierObj.schoolName = $scope.institute;
 						}
+						
+						$scope.tempCourierObj.modifiedDate = new Date();	
+						$scope.tempCourierObj.modifiedBy = $scope.curUser.email_id;
+						
 						var gfCourierService = appEndpointSF
 								.getGFCourierService();
 
