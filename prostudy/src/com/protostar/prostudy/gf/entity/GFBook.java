@@ -2,13 +2,13 @@ package com.protostar.prostudy.gf.entity;
 
 import java.util.Date;
 
-import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
+import com.protostar.prostudy.entity.BaseEntity;
 
-public class GFBook {
+public class GFBook extends BaseEntity{
 
-	@Id
-	private Long id;
+/*	@Id
+	private Long id;*/
 	@Index
 	private String bookName;
 	private String bookAuther;
@@ -118,13 +118,13 @@ public class GFBook {
 		this.instituteID = instituteID;
 	}
 
-	public Long getId() {
+	/*public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
-	}
+	}*/
 
 	public String getBookName() {
 		return bookName;

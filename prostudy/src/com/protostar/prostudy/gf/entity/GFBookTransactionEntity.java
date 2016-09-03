@@ -1,7 +1,6 @@
 package com.protostar.prostudy.gf.entity;
 
 import java.util.Date;
-import java.util.List;
 
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;

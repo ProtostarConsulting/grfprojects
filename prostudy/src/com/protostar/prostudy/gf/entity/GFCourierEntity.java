@@ -5,14 +5,14 @@ import java.util.List;
 
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
-import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
+import com.protostar.prostudy.entity.BaseEntity;
 
 @Entity
-public class GFCourierEntity {
-	@Index
+public class GFCourierEntity extends BaseEntity{
+/*	@Index
 	@Id
-	private Long id;
+	private Long id;*/
 	private String courierType;
 	private String logistics;
 	private String registrationID;
@@ -114,12 +114,12 @@ public class GFCourierEntity {
 	public void setSchoolName(PartnerSchoolEntity schoolName) {
 		this.schoolName = Ref.create(schoolName);
 	}
-	public Long getId() {
+	/*public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
-	}
+	}*/
 	public String getCourierType() {
 		return courierType;
 	}

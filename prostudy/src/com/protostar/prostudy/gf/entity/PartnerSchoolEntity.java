@@ -4,16 +4,16 @@ import java.util.Date;
 import java.util.List;
 
 import com.googlecode.objectify.annotation.Entity;
-import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 import com.protostar.prostudy.entity.Address;
+import com.protostar.prostudy.entity.BaseEntity;
 
 @Entity
-public class PartnerSchoolEntity {
+public class PartnerSchoolEntity extends BaseEntity{
 
-	@Id 
+	/*@Id 
 	@Index     
-	private Long id;  
+	private Long id; */ 
 /*	@Index  
 	private ExamDetail examDetail;*/
 	@Index  
@@ -41,13 +41,13 @@ public class PartnerSchoolEntity {
 	  
 	private List<ExamDetail> examDetailList;
 	
-	
+	/*
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
-	}
+	}*/
 	
 	public Long getInstituteID() {
 		return instituteID;

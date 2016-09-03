@@ -2,14 +2,14 @@ package com.protostar.prostudy.gf.entity;
 
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
-import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
+import com.protostar.prostudy.entity.BaseEntity;
 
 @Entity
-public class GFStudentEntity {
+public class GFStudentEntity extends BaseEntity{
 
-	@Id
-	private Long id;
+	/*@Id
+	private Long id;*/
 	private String fName;
 	private String mName;
 	private String lName;
@@ -43,12 +43,12 @@ public class GFStudentEntity {
 	public void setPrn(String prn) {
 		this.prn = prn;
 	}
-	public Long getId() {
+	/*public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
-	}	
+	}	*/
 	public String getfName() {
 		return fName;
 	}
