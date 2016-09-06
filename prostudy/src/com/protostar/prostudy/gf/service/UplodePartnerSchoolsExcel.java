@@ -2,7 +2,8 @@ package com.protostar.prostudy.gf.service;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -16,7 +17,6 @@ import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.protostar.prostudy.entity.Address;
-import com.protostar.prostudy.gf.entity.BookSummary;
 import com.protostar.prostudy.gf.entity.ContactDetail;
 import com.protostar.prostudy.gf.entity.CoordinatorDetail;
 import com.protostar.prostudy.gf.entity.ExamDetail;
@@ -102,7 +102,7 @@ public class UplodePartnerSchoolsExcel extends HttpServlet {
 				for (int row = 1; row < split2.length; row++) {
 					try {
 						String[] split = split2[row].split(",");
-						if (split == null || split.length < 17) {
+						if (split == null || split.length < 18) {
 							continue;
 						}
 						log.fine(" Row: " + row);
@@ -159,6 +159,10 @@ public class UplodePartnerSchoolsExcel extends HttpServlet {
 						corddetail.setCoordinatorPhoneNum(split[16]);
 						corddetail.setCoordinatorEmailId(split[17]);
 
+						List<CoordinatorDetail> corddetailList = new ArrayList<CoordinatorDetail>();
+						corddetailList.add(corddetail);
+						conDetail.setCoordinatorDetail(corddetailList);
+						
 /*						corddetail.setSrno(1);
 						corddetail.setCoordinatorEmailId(split[26]);
 						corddetail.setCoordinatorName(split[24]);
@@ -181,7 +185,10 @@ public class UplodePartnerSchoolsExcel extends HttpServlet {
 						eDtail.setTotal("");
 						eDtail.setTotalStudent("");
 						eDtail.setYearOfExam("");
-						 patschool.setExamDetailList(null); 
+					
+						List<ExamDetail> examList = new ArrayList<ExamDetail>();
+						examList.add(eDtail);
+						patschool.setExamDetailList(examList); 
 						
 						// book summary
 	//					BookSummary bookSummary = new BookSummary();

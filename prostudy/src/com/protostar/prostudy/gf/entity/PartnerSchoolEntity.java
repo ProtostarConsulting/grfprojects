@@ -1,5 +1,6 @@
 package com.protostar.prostudy.gf.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class PartnerSchoolEntity extends BaseEntity{
 	@Index
 	private Date lastModifiedDate;   
 	  
-	private List<ExamDetail> examDetailList;
+	private List<ExamDetail> examDetailList = new ArrayList<ExamDetail>();
 	
 	/*
 	public Long getId() {
@@ -136,8 +137,6 @@ public class PartnerSchoolEntity extends BaseEntity{
 	}
 
 	public void setExamDetailList(List<ExamDetail> examDetailList) {
-		if(examDetailList == null)
-			this.examDetailList = examDetailList=null;
 		this.examDetailList = examDetailList;
 	}
 	public Date getLastModifiedDate() {

@@ -200,7 +200,8 @@ public class PartnerSchoolService {
 			long studNumbers = 0;
 			try {
 				ExamDetail examDeatilByCurretnYear = getExamDeatilByCurretnYear(schoolEntity);
-				if (examDeatilByCurretnYear != null) {
+				if (examDeatilByCurretnYear != null
+						&& !examDeatilByCurretnYear.getTotal().isEmpty()) {
 					try {
 						studNumbers = Long.parseLong(examDeatilByCurretnYear
 								.getTotal());
