@@ -1056,12 +1056,12 @@ app
 					})
 					.state('partnerSchool',{
 								url : "/partnerSchool",
-								templateUrl : '/app/partnerSchool/partnerSchool_module.html',
+								templateUrl : '/app/gfschool/partnerSchool_module.html',
 								controller : 'partnerSchoolModuleCtr'
 							})
 					.state('partnerSchool.addPartnerSchool',{
 								url : "/addPartnerSchool/:selectedPSchoolId",
-								templateUrl : '/app/partnerSchool/partnerSchool_add.html',
+								templateUrl : '/app/gfschool/partnerSchool_add.html',
 								controller : 'partnerSchoolAddCtr',
 								params: {
 									selectedPSchool: null
@@ -1069,7 +1069,7 @@ app
 							})
 					.state('partnerSchool.print',{
 								url : "/print/:yearOfExam",
-								templateUrl : '/app/partnerSchool/printBookDetail.html',
+								templateUrl : '/app/gfschool/printBookDetail.html',
 								controller : 'printBookDtailCtr',
 								params: {
 									selectedSchoolObj: null,
@@ -1078,7 +1078,7 @@ app
 							})
 					.state('partnerSchool.printAddress', {
 						url : "/printAddress/:yearOfExam",
-						templateUrl : '/app/partnerSchool/printAddress.html',
+						templateUrl : '/app/gfschool/printAddress.html',
 						controller : 'printBookDtailCtr',
 						params: {
 							selectedSchoolObj: null
@@ -1086,12 +1086,12 @@ app
 					})
 					.state('partnerSchool.listPartnerSchool',{
 								url : "/listPartnerSchool",
-								templateUrl : '/app/partnerSchool/partnerSchool_list.html',
+								templateUrl : '/app/gfschool/partnerSchool_list.html',
 								controller : 'partnerSchoolListCtr'
 							})
 					.state('partnerSchool.listPartnerSchoolStudent',{
 								url : "/listPartnerSchoolStudent",
-								templateUrl : '/app/partnerSchool/partnerSchool_studentList.html',
+								templateUrl : '/app/gfschool/partnerSchool_studentList.html',
 								controller : 'studentListPageCtr'
 							})
 					.state('scheduledExam',{
