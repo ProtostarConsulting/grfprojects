@@ -1,4 +1,9 @@
-<div layout="column" ng-cloak>
+<div ng-if="loading">
+	<div layout="row" layout-sm="column" layout-align="space-around">
+		<md-progress-circular md-diameter="100" md-mode="indeterminate"></md-progress-circular>
+	</div>
+</div>
+<div ng-if="!loading" layout="column" ng-cloak>
 	<h3 class="md-display-1">Gandhi Vichar Sanskar Pariksha</h3>
 	<!-- <h3 class="md-display-1">Welcome to the {{institute.name}}</h3> -->
 	<p class="md-body-3">The Gandhi Research Foundation, Jalgaon has

@@ -29,9 +29,10 @@ angular.module("prostudyApp").controller(
 			};
 
 			function getSchoolStudentCount() {
+				$scope.loading = true;
 				var PartnerSchoolService = appEndpointSF
 						.getPartnerSchoolService();
-
+				
 				PartnerSchoolService.getCurrentYearSchoolAndStudentCount()
 						.then(function(resp) {
 							$scope.schoolStudCount = {
@@ -45,7 +46,8 @@ angular.module("prostudyApp").controller(
 								$scope.schoolStudCount.totalSchoolColleges = parseInt(resp.schoolCount) + parseInt(resp.collegeCount);
 								$scope.schoolStudCount.totalStudents = parseInt(resp.schoolStudentcount) + parseInt(resp.collegeStudentcount);
 							}
-
+							
+							$scope.loading = false;
 						});
 			}
 
