@@ -34,16 +34,16 @@ angular
 					}
 
 					$scope.getGFCourierByInstitute = function(refresh) {
-
+						$scope.loading = true;
 						var gfCourierService = appEndpointSF
 								.getGFCourierService();
 						gfCourierService.getGFCourierByInstitute(
 								$scope.curUser.instituteID).then(
 								function(gfCouriertList) {
 									$scope.gfCouriertList = gfCouriertList;
-
+									$scope.loading = false;
 								});
-					}
+					}					
 
 					$scope.getCuriertFilteredList = function() {
 

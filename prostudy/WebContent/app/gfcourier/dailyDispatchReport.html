@@ -1,9 +1,10 @@
-<!-- <style>
-tr:nth-child(even) {
-	background-color: #dddddd;
-}
-</style> -->
-<div>
+<div ng-if="loading">
+	<div layout="row" layout-sm="column" layout-align="space-around">
+		<md-progress-circular md-diameter="100" md-mode="indeterminate"></md-progress-circular>
+	</div>
+</div>
+
+<div ng-if="!loading">
 	<h3 class="md-headline">Display Dispatch Report</h3>
 
 	<div layout="row" layout-xs="column">
