@@ -89,15 +89,24 @@ angular
 					}
 
 					$scope.getPartnerByInstitute = function() {
-
+						var schoolListCacheKey = "getPartnerByInstitute";
+						// Note this key has to be unique across application
+						// else it will return unexpected result.
+						if (!angular.isUndefined(ajsCache.get(schoolListCacheKey))) {
+							$log.debug("Found List in Cache, return it.")
+							$scope.pSchoolList = ajsCache.get(schoolListCacheKey);
+							return;
+						}
 						var PartnerSchoolService = appEndpointSF
 								.getPartnerSchoolService();
+						$scope.loading = true;
 						PartnerSchoolService.getPartnerByInstitute(
-								$scope.curUser.instituteID).then(
-								function(pSchoolList) {
-									$scope.pSchoolList = pSchoolList;
-
-								});
+								$scope.curUser.instituteID).then(function(pSchoolList) {
+							$scope.pSchoolList = pSchoolList;
+							ajsCache.put(schoolListCacheKey,
+									pSchoolList);
+							$scope.loading = false;
+						});
 					}
 
 					$scope.getGFBookByInstituteId = function() {
