@@ -7,11 +7,11 @@
 <div ng-if="!loading">
 	<h3 class="md-headline">Courier List</h3>
 
-	<div layout="row" layout-align="end end" layout-xs="column">
+	<!-- <div layout="row" layout-align="end end" layout-xs="column">
 
 		<md-button class="md-raised md-primary" ng-click="refresh()">Refresh
 		</md-button>
-	</div>
+	</div> -->
 
 	<div layout="row" layout-xs="column">
 		<md-input-container flex> <label>Search
@@ -56,6 +56,15 @@
 	<div class="md-toolbar-tools">
 		<span>{{selected.length}} {{selected.length > 1 ? 'Couriers' :
 			'Courier'}} selected</span>
+		<div flex></div>
+		<md-button
+			ui-sref="courierModule.view({selectedGFCourierID : selected[0].id})"
+			class="md-raised md-primary" ng-click=""> View Courier <md-tooltip>View</md-tooltip></md-button>
+
+		<md-button
+			ui-sref="courierModule.add({selectedGFCourierID : selected[0].id})"
+			class="md-raised md-primary" ng-click=""> Edit Courier <md-tooltip>Edit
+		</md-tooltip></md-button>
 	</div>
 	</md-toolbar>
 	<div>
@@ -89,7 +98,8 @@
 			</tbody>
 		</table>
 		</md-data-table-container>
-		<md-data-table-pagination md-limit="query.limit" md-limit-options="query.limitOptions" md-page="query.page"
+		<md-data-table-pagination md-limit="query.limit"
+			md-limit-options="query.limitOptions" md-page="query.page"
 			md-total={{gfCouriertList.length}} md-trigger="onpagechange"></md-data-table-pagination>
 	</div>
 	<div layout="row" layout-align="center center">

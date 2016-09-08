@@ -4,6 +4,8 @@ angular.module("prostudyApp").controller(
 				$log, $q, $location, objectFactory, appEndpointSF,
 				tableTestDataFactory, $timeout, $interval, Upload) {
 			$scope.loginCheck();
+			
+			$scope.loading = true;
 			$scope.showSimpleToast = function() {
 				$mdToast.show($mdToast.simple().content('Customer Saved!')
 						.position("top").hideDelay(3000));
