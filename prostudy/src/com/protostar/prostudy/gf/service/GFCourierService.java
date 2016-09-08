@@ -25,14 +25,11 @@ import com.protostar.prostudy.gf.entity.PartnerSchoolEntity;
 public class GFCourierService {
 
 	@ApiMethod(name = "addGFCourier")
-	public void addGFCourier(GFCourierEntity gfCourierEntity)
-			throws MessagingException, IOException {	
+	public GFCourierEntity addGFCourier(GFCourierEntity gfCourierEntity)
+			throws MessagingException, IOException {
 
-		if (gfCourierEntity.getBookLineItemList().size() < 1) {
-			GFBookTransactionEntity gfBookTransactionEntity = new GFBookTransactionEntity();
-			gfBookTransactionEntity.setTransactionType("Dr");
-			ofy().save().entity(gfBookTransactionEntity).now();
-		} else {
+		if (gfCourierEntity.getBookLineItemList() != null
+				&& gfCourierEntity.getBookLineItemList().size() > 0) {
 			for (int i = 0; i < gfCourierEntity.getBookLineItemList().size(); i++) {
 				GFBookTransactionEntity gfBookTransactionEntity = new GFBookTransactionEntity();
 				GFBookEntity book = gfCourierEntity.getBookLineItemList()
@@ -49,42 +46,63 @@ public class GFCourierService {
 				gfBookTransactionEntity.setTransactionType("Dr");
 
 				ofy().save().entity(gfBookTransactionEntity).now();
+
+				long bID = gfCourierEntity.getBookLineItemList().get(i).getId();
+
+				GFBookEntity getBook = ofy().load().type(GFBookEntity.class)
+						.id(bID).now();
+
+				int bkQty = getBook.getBookQty()
+						- gfCourierEntity.getBookLineItemList().get(i)
+								.getBookQty();
+				getBook.setBookQty(bkQty);
+				ofy().save().entity(getBook).now();
+
+				GFBookStockEntity filteredbook = ofy()
+						.load()
+						.type(GFBookStockEntity.class)
+						.filter("book",
+								Ref.create(Key.create(GFBookEntity.class, bID)))
+						.first().now();
+
+				int bkQty1 = filteredbook.getBookQty()
+						- gfCourierEntity.getBookLineItemList().get(i)
+								.getBookQty();
+				filteredbook.setBookQty(bkQty1);
+				ofy().save().entity(filteredbook).now();
 			}
 		}
 
 		// For Deduct the book Stock
 
-		for (int i = 0; i < gfCourierEntity.getBookLineItemList().size(); i++) {
-
-			long bID = gfCourierEntity.getBookLineItemList().get(i).getId();
-			String bookmedium = gfCourierEntity.getBookLineItemList().get(i)
-					.getBookMedium();
-
-			GFBookEntity getBook = ofy().load().type(GFBookEntity.class)
-					.id(bID).now();
-
-			int bkQty = getBook.getBookQty()
-					- gfCourierEntity.getBookLineItemList().get(i).getBookQty();
-			getBook.setBookQty(bkQty);
-			ofy().save().entity(getBook).now();
-
-			GFBookStockEntity filteredbook = ofy()
-					.load()
-					.type(GFBookStockEntity.class)
-					.filter("book",
-							Ref.create(Key.create(GFBookEntity.class, bID)))
-					.first().now();
-
-			int bkQty1 = filteredbook.getBookQty()
-					- gfCourierEntity.getBookLineItemList().get(i).getBookQty();
-			filteredbook.setBookQty(bkQty1);
-			ofy().save().entity(filteredbook).now();
-
-		}
+		/*
+		 * for (int i = 0; i < gfCourierEntity.getBookLineItemList().size();
+		 * i++) {
+		 * 
+		 * long bID = gfCourierEntity.getBookLineItemList().get(i).getId();
+		 * 
+		 * GFBookEntity getBook = ofy().load().type(GFBookEntity.class)
+		 * .id(bID).now();
+		 * 
+		 * int bkQty = getBook.getBookQty() -
+		 * gfCourierEntity.getBookLineItemList().get(i).getBookQty();
+		 * getBook.setBookQty(bkQty); ofy().save().entity(getBook).now();
+		 * 
+		 * GFBookStockEntity filteredbook = ofy() .load()
+		 * .type(GFBookStockEntity.class) .filter("book",
+		 * Ref.create(Key.create(GFBookEntity.class, bID))) .first().now();
+		 * 
+		 * int bkQty1 = filteredbook.getBookQty() -
+		 * gfCourierEntity.getBookLineItemList().get(i).getBookQty();
+		 * filteredbook.setBookQty(bkQty1);
+		 * ofy().save().entity(filteredbook).now();
+		 * 
+		 * }
+		 */
 		PartnerSchoolService partnerSchoolService = new PartnerSchoolService();
-		
-		PartnerSchoolEntity partnerSchoolEntity = partnerSchoolService.getPSchoolByPSID(gfCourierEntity
-				.getSchoolName().getId());
+
+		PartnerSchoolEntity partnerSchoolEntity = partnerSchoolService
+				.getPSchoolByPSID(gfCourierEntity.getSchoolName().getId());
 
 		ExamDetail examDeatil = PartnerSchoolService
 				.getExamDeatilByCurretnYear(partnerSchoolEntity);
@@ -118,12 +136,14 @@ public class GFCourierService {
 					.getCoordinatorMobileNum()
 					: null;
 			TextLocalSMSHandler.sendSms(smsMsg, cordinatorMobileNumber);
-			//examDeatil.getNotificationData().setRegistrationEmailSent(1);
+			// examDeatil.getNotificationData().setRegistrationEmailSent(1);
 			examDeatil.getNotificationData().setCurrierSmsSent(1);
 			ofy().save().entity(partnerSchoolEntity).now();
 		}
-		
+
 		ofy().save().entity(gfCourierEntity).now();
+		
+		return gfCourierEntity;
 	}
 
 	@ApiMethod(name = "getGFCourierByInstitute", path = "getGFCourierByInstitute")

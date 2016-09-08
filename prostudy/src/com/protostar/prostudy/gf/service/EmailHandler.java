@@ -12,9 +12,11 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import com.google.appengine.labs.repackaged.org.json.JSONException;
 import com.protostar.prostudy.entity.UserEntity;
 import com.protostar.prostudy.gf.entity.PartnerSchoolEntity;
 import com.protostar.prostudy.until.EmailValidator;
+import com.protostar.prostudy.until.Sendgrid;
 
 public class EmailHandler {
 
@@ -25,6 +27,8 @@ public class EmailHandler {
 
 	private static final String EMAIL_FROM_NAME = "GRF-Gandhi Vichar Sanskar Pariksha";
 	private static final String EMAIL_FROM = "ganesh.lawande@protostar.co.in";
+	private static final String SENDGRID_USERNAME = "ganesh.lawande@protostar.co.in";
+	private static final String SENDGRID_PWD = "sangram12";
 	private static final String EMAIL_NEW_SCHOOL_SUBJECT = "Gandhi Vichar Sanskar Pariksha School/College Registration!";
 	private static final String EMAIL_NEW_USER_SUBJECT = "Welcome to Gandhi Research Foundation!";
 
@@ -65,7 +69,18 @@ public class EmailHandler {
 					EMAIL_REPLY_TO) });
 			message.setSubject(EMAIL_NEW_SCHOOL_SUBJECT);
 			message.setContent(messageBody, "text/html");
-			Transport.send(message);
+
+			// Transport.send(message); //Commented this line to not use Google
+			// Mail API. Now using SendGrid API below;
+
+			// Send grid email
+			Sendgrid sendGridMail = new Sendgrid(SENDGRID_USERNAME,
+					SENDGRID_PWD);
+			sendGridMail.setTo(coordinatorEmailId).setFrom(EMAIL_REPLY_TO)
+					.setSubject(EMAIL_NEW_SCHOOL_SUBJECT).setText(messageBody)
+					.setHtml(messageBody);
+			sendGridMail.send();
+
 		} catch (AddressException e) {
 			// An email address was invalid.
 			// ...
@@ -73,6 +88,9 @@ public class EmailHandler {
 		} catch (MessagingException e) {
 			// There was an error contacting the Mail service.
 			// ...
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -94,7 +112,17 @@ public class EmailHandler {
 					user.getEmail_id()));
 			message.setSubject(EMAIL_NEW_USER_SUBJECT);
 			message.setContent(messageBody, "text/html");
-			Transport.send(message);
+			// Transport.send(message); //Commented this line to not use Google
+			// Mail API. Now using SendGrid API below;
+
+			// Send grid email
+			Sendgrid sendGridMail = new Sendgrid(SENDGRID_USERNAME,
+					SENDGRID_PWD);
+			sendGridMail.setTo(user.getEmail_id()).setFrom(EMAIL_REPLY_TO)
+					.setSubject(EMAIL_NEW_USER_SUBJECT).setText(messageBody)
+					.setHtml(messageBody);
+			sendGridMail.send();
+
 		} catch (AddressException e) {
 			// An email address was invalid.
 			// ...
@@ -102,6 +130,9 @@ public class EmailHandler {
 			logger.warning(e.getMessage() + e.getStackTrace());
 		} catch (MessagingException e) {
 			logger.warning(e.getMessage() + e.getStackTrace());
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
