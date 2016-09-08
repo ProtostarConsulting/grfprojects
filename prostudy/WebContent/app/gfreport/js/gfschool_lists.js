@@ -112,6 +112,11 @@ angular
 								});
 
 					}
+					
+					$scope.downloadData = function() {
+						document.location.href = "DownloadPartnerSchools?InstituteId="
+								+ $scope.curUser.instituteID;
+					}
 
 					$scope.waitForServiceLoad = function() {
 						if (appEndpointSF.is_service_ready) {
