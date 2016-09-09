@@ -15,13 +15,16 @@ public abstract class BaseEntity {
 	@Index
 	Ref<InstituteEntity> institute;
 	private Date createdDate;
-	private Date modifiedDate;	
+	private Date modifiedDate;
 	private String modifiedBy;
-			
+	private String note;
+	@Index
+	private String tags;
+
 	public BaseEntity() {
 		super();
 	}
-	
+
 	public Date getCreatedDate() {
 		return createdDate;
 	}
@@ -46,9 +49,8 @@ public abstract class BaseEntity {
 		this.modifiedBy = modifiedBy;
 	}
 
-
 	public InstituteEntity getInstitute() {
-		return institute== null ? null : institute.get();
+		return institute == null ? null : institute.get();
 	}
 
 	public void setInstitute(InstituteEntity institute) {
@@ -61,5 +63,21 @@ public abstract class BaseEntity {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+
+	public String getTags() {
+		return tags;
+	}
+
+	public void setTags(String tags) {
+		this.tags = tags;
 	}
 }
