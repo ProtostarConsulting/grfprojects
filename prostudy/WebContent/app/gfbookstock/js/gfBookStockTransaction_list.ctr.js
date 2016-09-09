@@ -13,8 +13,8 @@ angular
 								.position("top").hideDelay(3000));
 					};
 					$scope.query = {
-						order : 'description',
-						limit : 10,
+						order : '-transactionDate',
+						limit : 50,
 						page : 1
 					};
 

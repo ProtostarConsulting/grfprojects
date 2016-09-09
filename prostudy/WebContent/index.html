@@ -157,15 +157,15 @@
 				<div style="margin-left: 15px;"
 					ng-class="{dataContent:true, activeContent:data.expanded3}">
 					<md-content flex layout="column" layout-xs="column"
-						layout-align="center start">
-					<md-button flex ui-sref="courierModule.dailyDispatchReport"
-						ng-click="close()" class="md-primary">Daily Dispatch
-					Report</md-button> <md-button flex ui-sref="courierModule.add"
-						ng-click="close()" class="md-primary">Add Courier</md-button> <md-button
-						flex ui-sref="courierModule.list" ng-click="close()"
-						class="md-primary">Courier List </md-button> <md-button flex
-						ui-sref="courierModule.search" ng-click="close()"
-						class="md-primary">Courier Search </md-button> </md-content>
+						layout-align="center start"> <!--<md-button flex
+						ui-sref="courierModule.dailyDispatchReport" ng-click="close()"
+						class="md-primary">Daily Dispatch Report</md-button>  <md-button
+						flex ui-sref="courierModule.add" ng-click="close()"
+						class="md-primary">Add Courier</md-button> --> <md-button flex
+						ui-sref="courierModule.list" ng-click="close()" class="md-primary">Courier
+					List </md-button> <md-button flex ui-sref="courierModule.search"
+						ng-click="close()" class="md-primary">Courier Search </md-button>
+					</md-content>
 				</div>
 			</div>
 
@@ -174,7 +174,7 @@
 					ng-click="data.expanded4 = !data.expanded4">
 				<div class="md-toolbar-tools">
 					<h2>
-						<span>Report</span>
+						<span>Reports</span>
 					</h2>
 					<span flex=""></span> <span
 						ng-class="{expandCollapse:true, active:data.expanded4}"></span>
@@ -183,9 +183,11 @@
 				<div style="margin-left: 15px;"
 					ng-class="{dataContent:true, activeContent:data.expanded4}">
 					<md-content flex layout="column" layout-xs="column"
-						layout-align="center start">
-					<md-button flex ui-sref="gfreport.gfschool_lists"
-						ng-click="close()" class="md-primary">School Lists</md-button>
+						layout-align="center start"> <md-button flex
+						ui-sref="gfreport.gfschool_lists" ng-click="close()"
+						class="md-primary">School List Report</md-button> <md-button flex
+						ui-sref="courierModule.dailyDispatchReport" ng-click="close()"
+						class="md-primary">Courier Daily Dispatch Report</md-button>
 				</div>
 			</div>
 
@@ -368,7 +370,7 @@
 	<!-- App JS Dependencies -->
 	<script src="/app/common/common.app.js"></script>
 	<script src="/app/common/constants.app.js"></script>
-	
+
 
 	<!-- Load other view/service/controllers files-->
 	<script src="/app/common/app.object.service.js"></script>
@@ -520,20 +522,20 @@
 	<script src="/app/gfschool/js/partnerSchool_list.ctr.js"></script>
 	<script src="/app/gfschool/js/printBookDetail.ctr.js"></script>
 	<!-- 	Partner School -->
-	
-	
+
+
 	<!-- GFReport -->
-	
+
 	<script src="/app/gfreport/js/gfreport_module.js"></script>
 	<script src="/app/gfreport/js/gfschool_lists.js"></script>
 	<!-- GFReport -->
-	
+
 	<!-- Start Init Setup -->
 	<script src="/app/initsetup/js/initsetup.ctr.js"></script>
 
 	<!-- End Init Setup -->
 
-	
+
 
 	<!-- Start ProAdmin -->
 	<script src="/app/proadmin/js/proadmin_module.ctr.js"></script>

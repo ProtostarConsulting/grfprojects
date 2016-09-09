@@ -1408,6 +1408,19 @@ app.filter('unique', function() {
 		return uniqueList;
 	};
 });
+app.directive('focusOn',function($timeout) {
+    return {
+        restrict : 'A',
+        link : function($scope,$element,$attr) {
+            $scope.$watch($attr.focusOn,function(_focusVal) {
+                $timeout(function() {
+                    _focusVal ? $element.focus() :
+                        $element.blur();
+                });
+            });
+        }
+    }
+});
 app.filter('formatDate', function($filter) {
 	return function(inputDate) {
 		return $filter('date')(inputDate, 'dd-MM-yyyy');
