@@ -388,6 +388,10 @@ angular
 								if ($scope.examlist[q].paymentDetail != undefined) {
 									$scope.PaymentDet = $scope.examlist[q].paymentDetail;
 								}
+								$scope.examDetail.totalStudent = parseInt($scope.examDetail.totalStudent);
+								$scope.examDetail.male = parseInt($scope.examDetail.male);
+								$scope.examDetail.female = parseInt($scope.examDetail.female);
+								$scope.examDetail.total = parseInt($scope.examDetail.total);
 								k = 1;
 							}
 
