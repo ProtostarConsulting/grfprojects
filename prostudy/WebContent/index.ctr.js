@@ -22,11 +22,11 @@ angular
 								'New Record Saved Successfully.').position(
 								"top").hideDelay(3000));
 					};
-					
+
 					$scope.show400Toast = function() {
 						$mdToast.show($mdToast.simple().content(
-								'Something goes wrong. Record not saved.').position(
-								"top").hideDelay(4000));
+								'Something goes wrong. Record not saved.')
+								.position("top").hideDelay(4000));
 					};
 
 					$scope.showErrorToast = function(errorMsg) {
@@ -37,11 +37,9 @@ angular
 						window.history.back();
 					};
 
-					
 					$scope.data = {
 						expanded : true
 					};
-
 
 					$scope.loading = true;
 					$scope.curUser = null;
@@ -82,21 +80,21 @@ angular
 						}
 						return true;
 					}
-					
+
 					$scope.isAuthorized = function(authName) {
-						var found= false;
-						if(!$scope.curUser.userAuthMasterEntity || !$scope.curUser.userAuthMasterEntity.authorizations){
+						var found = false;
+						if (!$scope.curUser.userAuthMasterEntity
+								|| !$scope.curUser.userAuthMasterEntity.authorizations) {
 							return found;
 						}
-						for(var index=0; index<$scope.curUser.userAuthMasterEntity.authorizations.length; index++){							
-							if($scope.curUser.userAuthMasterEntity.authorizations[index].authName == authName){
-								found= true;
+						for (var index = 0; index < $scope.curUser.userAuthMasterEntity.authorizations.length; index++) {
+							if ($scope.curUser.userAuthMasterEntity.authorizations[index].authName == authName) {
+								found = true;
 								break;
 							}
 						}
 						return found;
 					}
-					
 
 					$scope.showUpdateToast = function() {
 						$mdToast.show($mdToast.simple().content(
@@ -219,7 +217,8 @@ angular
 												loggedInUser.institute = [];
 											}
 
-											if (loggedInUser.id == undefined && loggedInUser.instituteID == undefined) {
+											if (loggedInUser.id == undefined
+													&& loggedInUser.instituteID == undefined) {
 
 												loggedInUser.email_id = profile
 														.getEmail();
@@ -460,6 +459,7 @@ angular
 					$scope.initGAPI();
 					$scope.waitForServiceLoad();
 
+					// Common Utility Functions
 					$scope.safeApply = function(fn) {
 						var phase = this.$root.$$phase;
 						if (phase == '$apply' || phase == '$digest') {
@@ -479,8 +479,32 @@ angular
 					});
 					$rootScope.$on('$stateChangeStart', function(e, toState,
 							toParams, fromState, fromParams) {
-						//check access permission here.
+						// check access permission here.
 					});
+
+					$scope.containsObject = function(obj, list) {
+						var i;
+						for (i = 0; i < list.length; i++) {
+							if (angular.equals(list[i], obj)) {
+								return true;
+							}
+						}
+						return false;
+					};
+					$scope.parseInt = function(str) {
+						if (!str) {
+							return 0;
+						}
+						return parseInt(str);
+					};
+					$scope.parseFloat = function(str) {
+						if (!str) {
+							return 0;
+						}
+						return parseFloat(str);
+					};
+
+					// Common Utility Functions-END
 
 				}).controller('AppCtrl',
 				function($scope, $timeout, $mdSidenav, $mdUtil, $log) {

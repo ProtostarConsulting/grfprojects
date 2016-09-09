@@ -9,8 +9,8 @@ angular
 
 					$scope.loading = true;
 					$scope.courierDispatchDate = null;
-					$scope.couriertFilteredList = [];
-					$scope.parseInt = parseInt;
+					$scope.dateChanged = true;
+					$scope.couriertFilteredList = [];					
 
 					var printDivCSS = new String(
 							'<link href="/lib/base/css/angular-material.min.css"" rel="stylesheet" type="text/css">'
@@ -64,6 +64,7 @@ angular
 						}
 
 						$scope.loading = false;
+						$scope.dateChanged = false;
 					}
 
 					$scope.waitForServiceLoad = function() {

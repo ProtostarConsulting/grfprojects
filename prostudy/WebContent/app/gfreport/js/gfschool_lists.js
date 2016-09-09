@@ -19,13 +19,12 @@ angular
 						tempTalukas : [],
 						tempVillages : []
 					}
-					$scope.partnerSchoolLevels = partnerSchoolLevels;					
+					$scope.partnerSchoolLevels = partnerSchoolLevels;
 					$scope.Country = angular.copy(indiaAddressLookupData);
 					$scope.Country.states.unshift({
 						name : "All"
 					});
-					
-					
+
 					$scope.gfSchoolList = [];
 					$scope.schoolListsDate == null;
 
@@ -37,9 +36,13 @@ angular
 							if ($scope.Country.states[i].name == state) {
 
 								$scope.temp.tempDistricts = $scope.Country.states[i].districts;
-								$scope.temp.tempDistricts.unshift({
+								if (!$scope.containsObject({
 									name : "All"
-								});
+								}, $scope.temp.tempDistricts)) {
+									$scope.temp.tempDistricts.unshift({
+										name : "All"
+									});
+								}
 							}
 						}
 					};
@@ -50,9 +53,13 @@ angular
 						for (var j = 0; j < $scope.temp.tempDistricts.length; j++) {
 							if ($scope.temp.tempDistricts[j].name == district) {
 								$scope.temp.tempTalukas = $scope.temp.tempDistricts[j].talukas;
-								$scope.temp.tempTalukas.unshift({
+								if (!$scope.containsObject({
 									name : "All"
-								});
+								}, $scope.temp.tempTalukas)) {
+									$scope.temp.tempTalukas.unshift({
+										name : "All"
+									});
+								}
 							}
 						}
 					};
@@ -72,10 +79,10 @@ angular
 
 						// To filter school list by address
 						for (var i = 0; i < $scope.pSchoolList.length; i++) {
-							if ($scope.selectFilterData.category != "All") {								
-								if($scope.pSchoolList[i].category != $scope.selectFilterData.category){
+							if ($scope.selectFilterData.category != "All") {
+								if ($scope.pSchoolList[i].category != $scope.selectFilterData.category) {
 									continue;
-								}								
+								}
 							}
 							if ($scope.selectFilterData.state != "All") {
 								if ($scope.selectFilterData.state == $scope.pSchoolList[i].address.state) {
@@ -92,6 +99,9 @@ angular
 										}
 									}
 								}
+							}else{
+								$scope.filteredSchoolList
+								.push($scope.pSchoolList[i]);
 							}
 						}
 
@@ -112,7 +122,7 @@ angular
 								});
 
 					}
-					
+
 					$scope.downloadData = function() {
 						document.location.href = "DownloadPartnerSchools?InstituteId="
 								+ $scope.curUser.instituteID;
@@ -120,7 +130,7 @@ angular
 
 					$scope.waitForServiceLoad = function() {
 						if (appEndpointSF.is_service_ready) {
-							$scope.getPartnerSchoolByInstitute();						
+							$scope.getPartnerSchoolByInstitute();
 
 						} else {
 							$log.debug("Services Not Loaded, watiting...");
@@ -129,6 +139,5 @@ angular
 					}
 
 					$scope.waitForServiceLoad();
-					
 
 				});
