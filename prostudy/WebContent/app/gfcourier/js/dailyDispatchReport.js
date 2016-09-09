@@ -8,10 +8,10 @@ angular
 					console.log("Inside courierDailyDispatchReportCtr");
 
 					$scope.loading = true;
-					$scope.courierDispatchDate == null;
+					$scope.courierDispatchDate = null;
 					$scope.couriertFilteredList = [];
 					$scope.parseInt = parseInt;
-					
+
 					var printDivCSS = new String(
 							'<link href="/lib/base/css/angular-material.min.css"" rel="stylesheet" type="text/css">'
 									+ '<link href="/lib/base/css/bootstrap.min.css"" rel="stylesheet" type="text/css">')
@@ -43,14 +43,15 @@ angular
 									$scope.gfCouriertList = gfCouriertList;
 									$scope.loading = false;
 								});
-					}					
+					}
 
 					$scope.getCuriertFilteredList = function() {
 
 						$scope.loading = true;
 						$scope.couriertFilteredList = [];
 						for (var i = 0; i < $scope.gfCouriertList.length; i++) {
-							var courierDate = new Date($scope.gfCouriertList[i].courierDispatchDate);
+							var courierDate = new Date(
+									$scope.gfCouriertList[i].courierDispatchDate);
 							if ($scope.courierDispatchDate.getFullYear() == courierDate
 									.getFullYear()
 									&& $scope.courierDispatchDate.getMonth() == courierDate
