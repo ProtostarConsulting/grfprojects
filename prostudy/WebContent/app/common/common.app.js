@@ -1353,6 +1353,10 @@ app
 						url : "/gfschool_lists",
 						templateUrl : '/app/gfreport/gfschool_lists.html',
 						controller : 'schoollistsCtr',
+					}).state('gfreport.finsummary',{
+						url : "/gfschool_lists",
+						templateUrl : '/app/gfreport/fin_summary.html',
+						controller : 'finSummaryCtr',
 					})
 					
 					

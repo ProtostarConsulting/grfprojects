@@ -1,0 +1,42 @@
+<div ng-if="loading">
+	<div layout="row" layout-sm="column" layout-align="space-around">
+		<md-progress-circular md-diameter="100" md-mode="indeterminate"></md-progress-circular>
+	</div>
+</div>
+<div ng-if="!loading">
+	<md-content layout-padding>
+	<div class="md-headline">
+		<h3>Financial Summary</h3>
+	</div>
+	<form name="finSummaryForm">
+		<table
+			style="font-family: arial, sans-serif; border-collapse: collapse; width: 100%;">
+			<caption style="text-align: center; padding: 2px;">
+				<span flex>Payment Summary</span>
+			</caption>
+			<tr>
+				<th style="border: 1px solid black; text-align: left; padding: 2px;">Sr.
+					No.</th>
+				<th style="border: 1px solid black; text-align: left; padding: 2px;">Type
+					of Mode</th>
+				<th style="border: 1px solid black; text-align: left; padding: 2px;">No.
+					of Payments</th>
+				<th style="border: 1px solid black; text-align: left; padding: 2px;">Amount</th>
+				<th style="border: 1px solid black; text-align: left; padding: 2px;">Action</th>
+			</tr>
+			<tr ng-repeat="payMode in paymentModes"
+				ng-style="$even && {	background-color: #dddddd;}">
+				<td style="border: 1px solid black; text-align: left; padding: 2px;">{{$index
+					+ 1}}</td>
+				<td style="border: 1px solid black; text-align: left; padding: 2px;">{{payMode.mode}}</td>
+				<td style="border: 1px solid black; text-align: left; padding: 2px;">{{payMode.noOfPayments}}</td>
+				<td style="border: 1px solid black; text-align: left; padding: 2px;">{{payMode.amount}}</td>
+				<td style="border: 1px solid black; text-align: left; padding: 2px;">Details</td>
+			</tr>
+		</table>
+
+	</form>
+
+
+	</md-content>
+</div>
