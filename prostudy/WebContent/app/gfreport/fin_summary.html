@@ -9,29 +9,98 @@
 		<h3>Financial Summary</h3>
 	</div>
 	<form name="finSummaryForm">
+		<!-- Payment Summary By Mode -->
 		<table
-			style="font-family: arial, sans-serif; border-collapse: collapse; width: 100%;">
-			<caption style="text-align: center; padding: 2px;">
-				<span flex>Payment Summary</span>
+			style="font-family: arial, sans-serif; border-collapse: collapse; width: 60%;">
+			<caption
+				style="border: 1px solid #dddddd; text-align: center; font-size: 18px; padding: 2px; background-color: #44acb6;">
+				<span flex>Payment Summary By Mode</span>
 			</caption>
 			<tr>
-				<th style="border: 1px solid black; text-align: left; padding: 2px;">Sr.
+				<th
+					style="border: 1px solid black; text-align: left; padding: 5px; background-color: #44acb6;">Sr.
 					No.</th>
-				<th style="border: 1px solid black; text-align: left; padding: 2px;">Type
+				<th
+					style="border: 1px solid black; text-align: left; padding: 5px; background-color: #44acb6;">Type
 					of Mode</th>
-				<th style="border: 1px solid black; text-align: left; padding: 2px;">No.
+				<th
+					style="border: 1px solid black; text-align: left; padding: 5px; background-color: #44acb6;">No.
 					of Payments</th>
-				<th style="border: 1px solid black; text-align: left; padding: 2px;">Amount</th>
-				<th style="border: 1px solid black; text-align: left; padding: 2px;">Action</th>
+				<th
+					style="border: 1px solid black; text-align: left; padding: 5px; background-color: #44acb6;">Amount(Rs.)</th>
+				<th
+					style="border: 1px solid black; text-align: left; padding: 5px; padding-left: 15px; background-color: #44acb6;">Action</th>
 			</tr>
-			<tr ng-repeat="payMode in paymentModes"
-				ng-style="$even && {	background-color: #dddddd;}">
-				<td style="border: 1px solid black; text-align: left; padding: 2px;">{{$index
-					+ 1}}</td>
-				<td style="border: 1px solid black; text-align: left; padding: 2px;">{{payMode.mode}}</td>
-				<td style="border: 1px solid black; text-align: left; padding: 2px;">{{payMode.noOfPayments}}</td>
-				<td style="border: 1px solid black; text-align: left; padding: 2px;">{{payMode.amount}}</td>
-				<td style="border: 1px solid black; text-align: left; padding: 2px;">Details</td>
+			<tr ng-repeat="payMode in paymentModes" ng-style="getRowStyle($even)">
+				<td style="border: 1px solid black; padding: 5px;">{{$index +
+					1}}</td>
+				<td style="border: 1px solid black; padding: 5px;">{{payMode.mode}}</td>
+				<td
+					style="border: 1px solid black; padding: 5px; text-align: right;">{{payMode.noOfPayments}}</td>
+				<td
+					style="border: 1px solid black; padding: 5px; text-align: right;">{{payMode.amount
+					| currency:""}}</td>
+				<td style="border: 1px solid black; padding-left: 15px;">Details</td>
+			</tr>
+			<tr ng-style="background-color: #44acb6;">
+				<td
+					style="border: 1px solid black; text-align: center; font-size: 16px;"
+					colspan='2'><b>Total</b></td>
+				<td
+					style="border: 1px solid black; text-align: right; font-size: 16px;"><b>{{noOfPaymentsTotal}}</b></td>
+				<td
+					style="border: 1px solid black; text-align: right; font-size: 16px;"><b>{{amountPaymentsTotal
+						| currency:""}}</b></td>
+				<td
+					style="border: 1px solid black; text-align: center; font-size: 14px;"></td>
+			</tr>
+		</table>
+
+		<!-- Courier Summary By Logistics -->
+		<br>
+		<hr>
+		<br>
+		<table
+			style="font-family: arial, sans-serif; border-collapse: collapse; width: 60%;">
+			<caption
+				style="border: 1px solid #dddddd; text-align: center; font-size: 18px; padding: 2px; background-color: #44acb6;">
+				<span flex>Courier Summary By Logistics</span>
+			</caption>
+			<tr>
+				<th
+					style="border: 1px solid black; text-align: left; padding: 5px; background-color: #44acb6;">Sr.
+					No.</th>
+				<th
+					style="border: 1px solid black; text-align: left; padding: 5px; background-color: #44acb6;">Logistic</th>
+				<th
+					style="border: 1px solid black; text-align: left; padding: 5px; background-color: #44acb6;">No. of Parcels</th>
+				<th
+					style="border: 1px solid black; text-align: left; padding: 5px; background-color: #44acb6;">Charges(Rs.)</th>
+				<th
+					style="border: 1px solid black; text-align: left; padding: 5px; padding-left: 15px; background-color: #44acb6;">Action</th>
+			</tr>
+			<tr ng-repeat="logisticsData in logisticsListData" ng-style="getRowStyle($even)">
+				<td style="border: 1px solid black; padding: 5px;">{{$index +
+					1}}</td>
+				<td style="border: 1px solid black; padding: 5px;">{{logisticsData.logistic}}</td>
+				<td
+					style="border: 1px solid black; padding: 5px; text-align: right;">{{logisticsData.noOfParcels}}</td>
+				<td
+					style="border: 1px solid black; padding: 5px; text-align: right;">{{logisticsData.charges
+					| currency:""}}</td>
+				<td style="border: 1px solid black; padding-left: 15px;">Details</td>
+			</tr>
+			<tr ng-style="background-color: #44acb6;">
+				<td
+					style="border: 1px solid black; text-align: center; font-size: 16px;"
+					colspan='2'><b>Total</b></td>
+				<td
+					style="border: 1px solid black; text-align: right; font-size: 16px;"><b>{{noOfCourierParcelsTotal}}</b></td>
+				<td
+					style="border: 1px solid black; text-align: right; font-size: 16px;"><b>{{chargesCourierTotal
+						| currency:""}}</b></td>
+				<td
+					style="border: 1px solid black; text-align: center; font-size: 14px;"></td>
 			</tr>
 		</table>
 

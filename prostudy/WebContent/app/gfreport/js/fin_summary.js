@@ -5,8 +5,13 @@ angular
 				function($scope, $window, $mdToast, $timeout, $mdSidenav,
 						$mdUtil, $log, $q, tableTestDataFactory, $state,
 						appEndpointSF, $sce, partnerSchoolLevels,
-						indiaAddressLookupData, boardList) {
+						indiaAddressLookupData, boardList, logisticsList) {
+					$scope.loading = true;
 
+					$scope.noOfPaymentsTotal = 0;
+					$scope.amountPaymentsTotal = 0;
+					$scope.noOfCourierParcelsTotal = 0;
+					$scope.chargesCourierTotal = 0;
 					$scope.paymentModes = [ {
 						mode : 'Cash',
 						noOfPayments : 0,
@@ -24,6 +29,15 @@ angular
 						noOfPayments : 0,
 						amount : 0
 					} ];
+
+					$scope.logisticsListData = [];
+					angular.forEach(logisticsList, function(o) {
+						$scope.logisticsListData.push({
+							logistic : o,
+							noOfParcels : 0,
+							charges : 0
+						});
+					});
 
 					function getPaymentDetailListByCurrentYear(school) {
 						var date1 = new Date();
@@ -47,11 +61,15 @@ angular
 						var paymentDetailList = getPaymentDetailListByCurrentYear(school);
 						if (paymentDetailList.length > 0) {
 							var paymentModeIndex = modesArray
-									.indexOf(paymentDetailList[0].payReceivedBy)
+									.indexOf(paymentDetailList[0].payReceivedBy
+											.trim())
 							if (paymentModeIndex >= 0) {
 								paymentModeObj = $scope.paymentModes[paymentModeIndex];
 								paymentModeObj.noOfPayments += 1;
 								paymentModeObj.amount += paymentDetailList[0].payAmount;
+								$scope.noOfPaymentsTotal++;
+								$scope.amountPaymentsTotal += paymentModeObj.amount;
+
 							}
 						}
 					}
@@ -75,12 +93,44 @@ angular
 								function(pSchoolList) {
 									$scope.pSchoolList = pSchoolList;
 									$scope.calculateBySchoolList();
+									$scope.loading = false;
+								});
+					}
+
+					function updateLogisticListObj(courierObj) {
+						var logisticsIndex = logisticsList
+								.indexOf(courierObj.logistics.trim())
+						if (logisticsIndex >= 0) {
+							logisticsObj = $scope.logisticsListData[logisticsIndex];
+							logisticsObj.noOfParcels += 1;
+							logisticsObj.charges += courierObj.courierCost;
+							$scope.noOfCourierParcelsTotal++;
+							$scope.chargesCourierTotal += courierObj.courierCost;
+
+						}
+					}
+					
+					$scope.calculateByCourierList = function() {
+						angular.forEach($scope.gfCouriertList,
+								function(courierObj) {
+									updateLogisticListObj(courierObj);
+								});
+					}
+					$scope.getGFCourierByInstitute = function(refresh) {
+						var gfCourierService = appEndpointSF
+								.getGFCourierService();
+						gfCourierService.getGFCourierByInstitute(
+								$scope.curUser.instituteID).then(
+								function(gfCouriertList) {
+									$scope.gfCouriertList = gfCouriertList;
+									$scope.calculateByCourierList();
 								});
 					}
 
 					$scope.waitForServiceLoad = function() {
 						if (appEndpointSF.is_service_ready) {
 							$scope.getPartnerSchoolByInstitute();
+							$scope.getGFCourierByInstitute();
 
 						} else {
 							$log.debug("Services Not Loaded, watiting...");
@@ -89,5 +139,22 @@ angular
 					}
 
 					$scope.waitForServiceLoad();
+
+					$scope.getRowStyle = function(even) {
+						if (even) {
+							return {
+								'border' : '1px solid black',
+								'text-align' : 'left',
+								'padding' : '2px',
+								'background-color' : '#8cced4'
+							};
+						} else {
+							return {
+								'border' : '1px solid black',
+								'text-align' : 'left',
+								'padding' : '2px'
+							};
+						}
+					}
 
 				});
