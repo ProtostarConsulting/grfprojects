@@ -116,9 +116,6 @@ angular
 								function(pSchoolList) {
 									$scope.pSchoolList = pSchoolList;
 									$scope.filteredSchoolList = [];
-									$log.debug("$scope.pSchoolList:"
-											+ $scope.pSchoolList);
-
 								});
 
 					}

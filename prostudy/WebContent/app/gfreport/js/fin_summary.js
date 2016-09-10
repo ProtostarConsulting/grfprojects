@@ -68,7 +68,7 @@ angular
 								paymentModeObj.noOfPayments += 1;
 								paymentModeObj.amount += paymentDetailList[0].payAmount;
 								$scope.noOfPaymentsTotal++;
-								$scope.amountPaymentsTotal += paymentModeObj.amount;
+								$scope.amountPaymentsTotal += paymentDetailList[0].payAmount;
 
 							}
 						}
