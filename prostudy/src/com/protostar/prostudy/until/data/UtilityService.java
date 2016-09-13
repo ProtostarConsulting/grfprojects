@@ -78,4 +78,13 @@ public class UtilityService {
 		}
 		return sb.toString();
 	}
+
+	public static String trimForCSV(String val) {
+		if(val == null)
+			return "";
+		
+		val = val.replace("\n", "").replace("\r", "").trim();
+		val = val.replace(',', '-');		
+		return val.trim();					
+	}	
 }
