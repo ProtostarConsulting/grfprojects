@@ -77,6 +77,10 @@ angular.module("prostudyApp").controller(
 					$timeout($scope.waitForServiceLoad, 1000);
 				}
 			}
+			$scope.downloadData = function() {
+				document.location.href = "DownloadGfCourierList?InstituteId="
+						+ $scope.curUser.instituteID;
+			}
 
 			$scope.waitForServiceLoad();
 
