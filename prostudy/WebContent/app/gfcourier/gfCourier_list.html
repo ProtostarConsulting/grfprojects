@@ -45,6 +45,7 @@
 	<div class="md-toolbar-tools">
 		<span>Courier List</span>
 		<div flex></div>
+		<md-button class="md-raised md-primary"  ng-click="downloadData()"> Download Courier List  </md-button>
 		<md-button class="md-icon-button"
 			ng-click="getGFCourierByInstitute(true)"> <md-icon
 			src="img/icon/ic_refresh_24px.svg">refresh</md-icon> </md-button>
@@ -52,7 +53,7 @@
 	</md-toolbar>
 
 	<md-toolbar class="md-table-toolbar alternate"
-		ng-show="selected.length">
+		ng-show="selected.length">s
 	<div class="md-toolbar-tools">
 		<span>{{selected.length}} {{selected.length > 1 ? 'Couriers' :
 			'Courier'}} selected</span>
