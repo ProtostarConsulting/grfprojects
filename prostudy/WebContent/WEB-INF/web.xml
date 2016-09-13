@@ -50,6 +50,16 @@
   </servlet-mapping>
   <servlet>
     <description/>
+    <display-name>DownloadGfCourierList</display-name>
+    <servlet-name>DownloadGfCourierList</servlet-name>
+    <servlet-class>com.protostar.prostudy.gf.service.DownloadGfCourierList</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DownloadGfCourierList</servlet-name>
+    <url-pattern>/DownloadGfCourierList</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description/>
     <display-name>UploadLogoServlet</display-name>
     <servlet-name>UploadLogoServlet</servlet-name>
     <servlet-class>com.protostar.prostudy.proadmin.services.UploadLogoServlet</servlet-class>

@@ -28,7 +28,7 @@
 		<br> <br>
 	<div class="md-toolbar-tools">
 		<table
-			style="font-family: arial, sans-serif;  border-collapse: collapse; border: 1px solid black; width: 80%; margin-left: 20px;">
+			style="font-family: arial, sans-serif; border-collapse: collapse; border: 1px solid black; width: 80%; margin-left: 20px;">
 			<!-- <tr
 				style="border: 1px solid #8cced4; text-align: left; padding: 8px; background-color: #44acb6;">
 				<th>Education Year</th>
@@ -38,28 +38,29 @@
 			<tr
 				style="border: 1px solid #dddddd; text-align: left; padding: 8px; background-color: #8cced4;">
 				<td>Schools</td>
-				<td ng-bind="schoolStudCount.schoolCount"></td>
+				<td ng-bind="schoolStudCount.schoolCount|number:0"></td>
 				<td>Students</td>
-				<td ng-bind="schoolStudCount.schoolStudentcount"></td>
+				<td ng-bind="schoolStudCount.schoolStudentcount|number:0"></td>
 			</tr>
 			<tr
 				style="border: 1px solid #dddddd; text-align: left; padding: 8px;">
 				<td>Colleges</td>
-				<td ng-bind="schoolStudCount.collegeCount"></td>
+				<td ng-bind="schoolStudCount.collegeCount|number:0"></td>
 				<td>Students</td>
-				<td ng-bind="schoolStudCount.collegeStudentcount"></td>
+				<td ng-bind="schoolStudCount.collegeStudentcount|number:0"></td>
 			</tr>
 			<tr
 				style="border: 1px solid #dddddd; text-align: left; padding: 8px; background-color: #8cced4;">
 				<td>Total</td>
-				<td ng-bind="schoolStudCount.totalSchoolColleges"></td>
+				<td ng-bind="schoolStudCount.totalSchoolColleges|number:0"></td>
 				<td></td>
-				<td ng-bind="schoolStudCount.totalStudents"></td>
-			</tr>			
+				<td ng-bind="schoolStudCount.totalStudents|number:0"></td>
+			</tr>
 		</table>
 	</div>
 	</p>
 	<br> <br>
-	<p>This year till {{schoolStudCount.lastModifiedDate | date: "medium" : "IST"}}</p>
+	<p>This year till {{schoolStudCount.lastModifiedDate | date:
+		"medium" : "IST"}}</p>
 
 </div>

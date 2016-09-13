@@ -4,14 +4,21 @@ angular
 				"finSummaryCtr",
 				function($scope, $window, $mdToast, $timeout, $mdSidenav,
 						$mdUtil, $log, $q, tableTestDataFactory, $state,
-						appEndpointSF, $sce, partnerSchoolLevels,
-						indiaAddressLookupData, boardList, logisticsList) {
+						appEndpointSF, $sce, $location, $anchorScroll,
+						partnerSchoolLevels, indiaAddressLookupData, boardList,
+						logisticsList) {
+
 					$scope.loading = true;
+					$scope.filterType = '';
+
+					$scope.pSchoolList = [];
+					$scope.gfCouriertList = [];
 
 					$scope.noOfPaymentsTotal = 0;
 					$scope.amountPaymentsTotal = 0;
 					$scope.noOfCourierParcelsTotal = 0;
 					$scope.chargesCourierTotal = 0;
+
 					$scope.paymentModes = [ {
 						mode : 'Cash',
 						noOfPayments : 0,
@@ -39,7 +46,7 @@ angular
 						});
 					});
 
-					function getPaymentDetailListByCurrentYear(school) {
+					$scope.getPaymentDetailListByCurrentYear = function(school) {
 						var date1 = new Date();
 						var year1 = date1.getFullYear();
 						year1 = year1.toString().substr(2, 2);
@@ -58,7 +65,8 @@ angular
 					}
 
 					function updatePaymentModeObj(school, modesArray) {
-						var paymentDetailList = getPaymentDetailListByCurrentYear(school);
+						var paymentDetailList = $scope
+								.getPaymentDetailListByCurrentYear(school);
 						if (paymentDetailList.length > 0) {
 							var paymentModeIndex = modesArray
 									.indexOf(paymentDetailList[0].payReceivedBy
@@ -109,12 +117,12 @@ angular
 
 						}
 					}
-					
+
 					$scope.calculateByCourierList = function() {
-						angular.forEach($scope.gfCouriertList,
-								function(courierObj) {
-									updateLogisticListObj(courierObj);
-								});
+						angular.forEach($scope.gfCouriertList, function(
+								courierObj) {
+							updateLogisticListObj(courierObj);
+						});
 					}
 					$scope.getGFCourierByInstitute = function(refresh) {
 						var gfCourierService = appEndpointSF
@@ -140,8 +148,69 @@ angular
 
 					$scope.waitForServiceLoad();
 
+					$scope.t_addTotalAmountByPaymentType = function(amt) {
+						return $scope.t_totalAmountByPaymentType;
+					}
+					$scope.t_addTotalCostByLogisticType = function(cost) {
+						return $scope.t_totalCostByLogisticType
+					}
+					$scope.clearfilterValues = function(courierType) {
+						$scope.filterType = '';
+						$scope.filterPaymentType = '';
+						$scope.filterLogisticsType = '';
+						$scope.t_totalAmountByPaymentType = 0;
+						$scope.t_totalCostByLogisticType = 0;
+					}
+
+					$scope.filterSchoolListBy = function(paymentType) {
+						$scope.fitlteredSchoolList = [];
+						$scope.t_totalAmountByPaymentType = 0;
+						
+						angular.forEach($scope.pSchoolList, function(school) {
+							var paymentDetailList = $scope
+									.getPaymentDetailListByCurrentYear(school);
+							if (paymentDetailList.length > 0
+									&& paymentDetailList[0].payReceivedBy
+											.trim() == paymentType) {
+								$scope.fitlteredSchoolList.push(school);
+								$scope.t_totalAmountByPaymentType += paymentDetailList[0].payAmount;
+							}
+						});
+					}
+
+					$scope.filterCourierListBy = function(courierType) {
+						$scope.fitlteredCourierList = [];
+						$scope.t_totalCostByLogisticType = 0;
+						
+						angular
+								.forEach(
+										$scope.gfCouriertList,
+										function(courier) {
+											if (courier.logistics.trim() == courierType) {
+												$scope.fitlteredCourierList
+														.push(courier);
+												$scope.t_totalCostByLogisticType += courier.courierCost;
+											}
+										});
+					}
+
+					$scope.filterBy = function(fType, fSubType) {
+						$location.hash('topRight');
+						$anchorScroll();
+
+						$scope.filterType = fType;
+						if ($scope.filterType == 'school') {
+							$scope.filterPaymentType = fSubType;
+							$scope.filterSchoolListBy(fSubType);
+						} else if ($scope.filterType == 'courier') {
+							$scope.filterLogisticsType = fSubType;
+							$scope.filterCourierListBy(fSubType);
+						}
+
+					}
+
 					$scope.getRowStyle = function(even) {
-						if (even) {
+						if (!even) {
 							return {
 								'border' : '1px solid black',
 								'text-align' : 'left',
@@ -155,6 +224,15 @@ angular
 								'padding' : '2px'
 							};
 						}
+					}
+					$scope.getTHStyle = function() {
+						return {
+							'border' : '1px solid black',
+							'text-align' : 'center',
+							'padding' : '5px',
+							'background-color' : '#44acb6'
+						};
+
 					}
 
 				});
