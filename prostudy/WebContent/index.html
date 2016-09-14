@@ -114,7 +114,12 @@
 						layout-align="center start"> <md-button
 						ui-sref="studentModule.add" ng-click="close()" class="md-primary">Add
 					Student</md-button> <md-button ui-sref="studentModule.list" ng-click="close()"
-						class="md-primary">Student List </md-button> </md-content>
+						class="md-primary">Student List </md-button>
+						<md-button ui-sref="studentModule.addExamResult" ng-click="close()"
+						class="md-primary">Add Exam Result</md-button>
+						<md-button ui-sref="studentModule.listExamResult" ng-click="close()"
+						class="md-primary">Exam Result List</md-button> </md-content>
+						
 				</div>
 			</div>
 
@@ -548,11 +553,14 @@
 	<!-- End ProAdmin -->
 
 	<!-- Start Gandhi Found. Student -->
-	<script src="/app/gandhiFoundation/js/gandhiFoundation_module.ctr.js"></script>
-	<script src="/app/gandhiFoundation/js/gfStudent_module.ctr.js"></script>
-	<script src="/app/gandhiFoundation/js/gfStudent_add.ctr.js"></script>
-	<script src="/app/gandhiFoundation/js/gfStudent_list.ctr.js"></script>
-	<script src="/app/gandhiFoundation/js/gfStudent_view.ctr.js"></script>
+	<script src="/app/gfstudent/js/gandhiFoundation_module.ctr.js"></script>
+	<script src="/app/gfstudent/js/gfStudent_module.ctr.js"></script>
+	<script src="/app/gfstudent/js/gfStudent_add.ctr.js"></script>
+	<script src="/app/gfstudent/js/gfStudent_list.ctr.js"></script>
+	<script src="/app/gfstudent/js/gfStudent_view.ctr.js"></script>
+	<script src="/app/gfstudent/js/examresult_add.ctr.js"></script>
+	<script src="/app/gfstudent/js/examresult_list.js"></script>
+	
 	<!-- End Gandhi Found. Student  -->
 
 	<!-- Start Gandhi Found. Courier -->
