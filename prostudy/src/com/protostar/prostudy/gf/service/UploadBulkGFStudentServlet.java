@@ -140,7 +140,7 @@ public class UploadBulkGFStudentServlet extends HttpServlet {
 					gfStudentEntity.setStandard(split[5]);;
 					gfStudentEntity.setPrn(nextPRN);
 					gfStudentEntity.setRole("Student");
-					gfStudentEntity.setSchoolName(partnerSchoolEntity2);
+					gfStudentEntity.setSchool(partnerSchoolEntity2);
 					gfStudentEntity.setInstituteID(instituteID);
 					
 					ofy().save().entity(gfStudentEntity).now();
