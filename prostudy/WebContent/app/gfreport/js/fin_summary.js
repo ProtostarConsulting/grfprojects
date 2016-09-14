@@ -225,6 +225,7 @@ angular
 							};
 						}
 					}
+					
 					$scope.getTHStyle = function() {
 						return {
 							'border' : '1px solid black',

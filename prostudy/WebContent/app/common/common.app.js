@@ -1,8 +1,7 @@
-var app = angular.module("prostudyApp",
-		[ 'ngMaterial', 'ngMdIcons', 'ngMessages', "ui.bootstrap",
-				"ui.router", 'ngMaterialDatePicker', 'md.data.table',
-				'ngResource', 'ngRoute', 'ngStorage', "ngAria",
-				'directive.g+signin', 'ngFileUpload' ]);
+var app = angular.module("prostudyApp", [ 'ngMaterial', 'ngMdIcons',
+		'ngMessages', "ui.bootstrap", "ui.router", 'ngMaterialDatePicker',
+		'md.data.table', 'ngResource', 'ngRoute', 'ngStorage', "ngAria",
+		'directive.g+signin', 'ngFileUpload' ]);
 
 // Set up the cache ‘ajsCache’
 app.factory('ajsCache', function($cacheFactory) {
@@ -80,20 +79,20 @@ app.config(function($mdThemingProvider) {
 
 	// Custom Themes
 	$mdThemingProvider.definePalette('grfPaletteName', {
-		'50': '#9fd6db',
-        '100': '#8cced4',
-        '200': '#79c6cd',
-        '300': '#67bec6',
-        '400': '#54b6bf',
-        '500': '#44acb6',
-        '600': '#3d9aa3',
-        '700': '#368991',
-        '800': '#2f777e',
-        '900': '#28666c',
-        'A100': '#b1dee2',
-        'A200': '#c4e6e9',
-        'A400': '#d6eef0',
-        'A700': '#215459',
+		'50' : '#9fd6db',
+		'100' : '#8cced4',
+		'200' : '#79c6cd',
+		'300' : '#67bec6',
+		'400' : '#54b6bf',
+		'500' : '#44acb6',
+		'600' : '#3d9aa3',
+		'700' : '#368991',
+		'800' : '#2f777e',
+		'900' : '#28666c',
+		'A100' : '#b1dee2',
+		'A200' : '#c4e6e9',
+		'A400' : '#d6eef0',
+		'A700' : '#215459',
 		'contrastDefaultColor' : 'light', // whether, by default, text
 		// (contrast)
 		// on this palette should be
@@ -1054,68 +1053,79 @@ app
 						templateUrl : '/app/gfe/directory_user_list.html',
 						controller : 'directoryUserListCtr'
 					})
-					.state('partnerSchool',{
+					.state(
+							'partnerSchool',
+							{
 								url : "/partnerSchool",
 								templateUrl : '/app/gfschool/partnerSchool_module.html',
 								controller : 'partnerSchoolModuleCtr'
 							})
-					.state('partnerSchool.addPartnerSchool',{
-								url : "/addPartnerSchool/:selectedPSchoolId",
-								templateUrl : '/app/gfschool/partnerSchool_add.html',
-								controller : 'partnerSchoolAddCtr',
-								params: {
-									selectedPSchool: null
-								}
-							})
-					.state('partnerSchool.print',{
-								url : "/print/:yearOfExam",
-								templateUrl : '/app/gfschool/printBookDetail.html',
-								controller : 'printBookDtailCtr',
-								params: {
-									selectedSchoolObj: null,
-									bookStocks: null
-								}
-							})
+					.state('partnerSchool.addPartnerSchool', {
+						url : "/addPartnerSchool/:selectedPSchoolId",
+						templateUrl : '/app/gfschool/partnerSchool_add.html',
+						controller : 'partnerSchoolAddCtr',
+						params : {
+							selectedPSchool : null
+						}
+					})
+					.state('partnerSchool.print', {
+						url : "/print/:yearOfExam",
+						templateUrl : '/app/gfschool/printBookDetail.html',
+						controller : 'printBookDtailCtr',
+						params : {
+							selectedSchoolObj : null,
+							bookStocks : null
+						}
+					})
 					.state('partnerSchool.printAddress', {
 						url : "/printAddress/:yearOfExam",
 						templateUrl : '/app/gfschool/printAddress.html',
 						controller : 'printBookDtailCtr',
-						params: {
-							selectedSchoolObj: null
+						params : {
+							selectedSchoolObj : null
 						}
 					})
-					.state('partnerSchool.listPartnerSchool',{
-								url : "/listPartnerSchool",
-								templateUrl : '/app/gfschool/partnerSchool_list.html',
-								controller : 'partnerSchoolListCtr'
-							})
-					.state('partnerSchool.listPartnerSchoolStudent',{
+					.state('partnerSchool.listPartnerSchool', {
+						url : "/listPartnerSchool",
+						templateUrl : '/app/gfschool/partnerSchool_list.html',
+						controller : 'partnerSchoolListCtr'
+					})
+					.state(
+							'partnerSchool.listPartnerSchoolStudent',
+							{
 								url : "/listPartnerSchoolStudent",
 								templateUrl : '/app/gfschool/partnerSchool_studentList.html',
 								controller : 'studentListPageCtr'
 							})
-					.state('scheduledExam',{
+					.state(
+							'scheduledExam',
+							{
 								url : "/scheduledExam",
 								templateUrl : '/app/scheduledExam/scheduledExam_module.html',
 								controller : 'scheduledExamModuleCtr'
 							})
-					.state('scheduledExam.addQuestion',{
-						url : "/addQuestion",
-						templateUrl : '/app/scheduledQuestion/scheduledQuestion_new.html',
-						controller : 'scheduledQuestionNewCtr',
-						params : {
+					.state(
+							'scheduledExam.addQuestion',
+							{
+								url : "/addQuestion",
+								templateUrl : '/app/scheduledQuestion/scheduledQuestion_new.html',
+								controller : 'scheduledQuestionNewCtr',
+								params : {
 									sourceSate : null,
 									selectedExamId : null,
 									selectedInstituteId : null,
 									flag : null
 								}
 							})
-					.state('scheduledExam.questionList',{
-							url : "/questionList",
-							templateUrl : '/app/scheduledQuestion/scheduledQuestion_list.html',
-							controller : 'scheduledQuestionListCtr'
-					})
-					.state('scheduledExam.questionEdit',
+					.state(
+							'scheduledExam.questionList',
+							{
+								url : "/questionList",
+								templateUrl : '/app/scheduledQuestion/scheduledQuestion_list.html',
+								controller : 'scheduledQuestionListCtr'
+							})
+					.state(
+							'scheduledExam.questionEdit',
 							{
 								url : "/questionEdit",
 								templateUrl : '/app/scheduledQuestion/scheduledQuestion_edit.html',
@@ -1269,37 +1279,51 @@ app
 						templateUrl : '/app/proadmin/manage_auth_master.html',
 						controller : 'proAdminManageAuth'
 					})
-					.state('proadmin.manageinstituteauth',{
-						url : "/manageinstituteauth/:selectedInstituteID",
-						templateUrl : '/app/proadmin/manage_institute_auth.html',
-						controller : 'proAdminManageInstituteAuth'
-					})
+					.state(
+							'proadmin.manageinstituteauth',
+							{
+								url : "/manageinstituteauth/:selectedInstituteID",
+								templateUrl : '/app/proadmin/manage_institute_auth.html',
+								controller : 'proAdminManageInstituteAuth'
+							})
 
-					.state('gandhifoundation',{
-						url : "/gandhifoundation",
-						templateUrl : '/app/gandhiFoundation/gandhiFoundation_module.html',
-						controller : 'gfModuleCtr'
-					})
+					.state(
+							'gandhifoundation',
+							{
+								url : "/gandhifoundation",
+								templateUrl : '/app/gfstudent/gandhiFoundation_module.html',
+								controller : 'gfModuleCtr'
+							})
 
-					.state('studentModule',{
+					.state('studentModule', {
 						url : "/studentModule",
-						templateUrl : '/app/gandhiFoundation/gfStudent_module.html',
+						templateUrl : '/app/gfstudent/gfStudent_module.html',
 						controller : 'gfStudentModuleCtr'
 					})
-					.state('studentModule.add',{
+					.state('studentModule.add', {
 						url : "/studentModule.add/:selectedGFStudID",
-						templateUrl : '/app/gandhiFoundation/gfStudent_add.html',
+						templateUrl : '/app/gfstudent/gfStudent_add.html',
 						controller : 'gfStudentAddCtr'
 					})
-					.state('studentModule.list',{
+					.state('studentModule.list', {
 						url : "/studentModule.list",
-						templateUrl : '/app/gandhiFoundation/gfStudent_list.html',
+						templateUrl : '/app/gfstudent/gfStudent_list.html',
 						controller : 'gfStudentListCtr'
 					})
-					.state('studentModule.view',{
+					.state('studentModule.view', {
 						url : "/studentModule.view/:selectedGFStudID",
-						templateUrl : '/app/gandhiFoundation/gfStudent_view.html',
+						templateUrl : '/app/gfstudent/gfStudent_view.html',
 						controller : 'gfStudentviewCtr'
+					})
+					.state('studentModule.addExamResult', {
+						url : "/addExamResult",
+						templateUrl : '/app/gfstudent/examresult_add.html',
+						controller : 'gfExamResultAddCtr'
+					})
+					.state('studentModule.listExamResult', {
+						url : "/listExamResult",
+						templateUrl : '/app/gfstudent/examresult_list.html',
+						controller : 'gfExamResultListCtr'
 					})
 
 					.state('courierModule', {
@@ -1328,45 +1352,50 @@ app
 						url : "/courierModule.search/",
 						templateUrl : '/app/gfcourier/gfCourier_search.html',
 						controller : 'gfCourierSearchCtr'
-					}).state('courierModule.dailyDispatchReport', {
-						url : "/courierModule.dailyDispatchReport/",
-						templateUrl : '/app/gfcourier/dailyDispatchReport.html',
-						controller : 'courierDailyDispatchReportCtr'
 					})
+					.state(
+							'courierModule.dailyDispatchReport',
+							{
+								url : "/courierModule.dailyDispatchReport/",
+								templateUrl : '/app/gfcourier/dailyDispatchReport.html',
+								controller : 'courierDailyDispatchReportCtr'
+							})
 
-					.state('courierModule.addFromPS',{
-						url : "/addFromPS",
-						templateUrl : '/app/gfcourier/gfCourier_directAddFromPS.html',
-						controller : 'gfCourierDirectAddCtr',
-						params : {
-								partnerSchool : null,
-								yearOfExam : null
+					.state(
+							'courierModule.addFromPS',
+							{
+								url : "/addFromPS",
+								templateUrl : '/app/gfcourier/gfCourier_directAddFromPS.html',
+								controller : 'gfCourierDirectAddCtr',
+								params : {
+									partnerSchool : null,
+									yearOfExam : null
 								}
-					})
-					
-					.state('gfreport',{
+							})
+
+					.state('gfreport', {
 						url : "/gfreport",
 						templateUrl : '/app/gfreport/gfreport_module.html',
 						controller : 'gfReportModuleCtr',
 					})
-					.state('gfreport.gfschool_lists',{
+					.state('gfreport.gfschool_lists', {
 						url : "/gfschool_lists",
 						templateUrl : '/app/gfreport/gfschool_lists.html',
 						controller : 'schoollistsCtr',
-					}).state('gfreport.finsummary',{
+					})
+					.state('gfreport.finsummary', {
 						url : "/gfreportfinsummary",
 						templateUrl : '/app/gfreport/fin_summary.html',
 						controller : 'finSummaryCtr',
 					})
-					
-					
-					
 
-					.state('bookModule',{
+					.state(
+							'bookModule',
+							{
 								url : "/bookModule",
 								templateUrl : '/app/gfbookstock/gfBookStock_module.html',
 								controller : 'gfBookStockModuleCtr'
-					})
+							})
 					.state('bookModule.add', {
 						url : "/bookModule.add/:selectedGFBookID",
 						templateUrl : '/app/gfbookstock/gfBook_add.html',
@@ -1392,11 +1421,13 @@ app
 						templateUrl : '/app/gfbookstock/gfBookStock_list.html',
 						controller : 'gfBookStockListCtr'
 					})
-					.state('bookModule.stockTransaction',{
-						url : "/bookModule.stockTransaction",
-						templateUrl : '/app/gfbookstock/gfBookStockTransaction_list.html',
-						controller : 'gfBookstockTransactionListCtr'
-					})
+					.state(
+							'bookModule.stockTransaction',
+							{
+								url : "/bookModule.stockTransaction",
+								templateUrl : '/app/gfbookstock/gfBookStockTransaction_list.html',
+								controller : 'gfBookstockTransactionListCtr'
+							})
 		});
 
 app.filter('unique', function() {
@@ -1412,18 +1443,17 @@ app.filter('unique', function() {
 		return uniqueList;
 	};
 });
-app.directive('focusOn',function($timeout) {
-    return {
-        restrict : 'A',
-        link : function($scope,$element,$attr) {
-            $scope.$watch($attr.focusOn,function(_focusVal) {
-                $timeout(function() {
-                    _focusVal ? $element.focus() :
-                        $element.blur();
-                });
-            });
-        }
-    }
+app.directive('focusOn', function($timeout) {
+	return {
+		restrict : 'A',
+		link : function($scope, $element, $attr) {
+			$scope.$watch($attr.focusOn, function(_focusVal) {
+				$timeout(function() {
+					_focusVal ? $element.focus() : $element.blur();
+				});
+			});
+		}
+	}
 });
 app.filter('formatDate', function($filter) {
 	return function(inputDate) {
@@ -1435,3 +1465,43 @@ app.filter('formatFullDate', function($filter) {
 		return $filter('date')(inputDate, 'dd-MM-yyyy HH:MM a');
 	};
 });
+app.filter('orderObjectBy', function() {
+	return function(input, attribute) {
+		if (!angular.isObject(input))
+			return input;
+		var reverseOrder = attribute.startsWith("-");
+		if (reverseOrder)
+			attribute = attribute.split("-")[1];
+		var array = [];
+		for ( var objectKey in input) {
+			array.push(input[objectKey]);
+		}
+
+		array.sort(function(a, b) {
+			a = parseFloat(a[attribute]);
+			b = parseFloat(b[attribute]);
+			return (a - b) * (reverseOrder ? -1 : 1);
+		});
+		return array;
+	}
+});
+/*app.filter('orderByGRFRegNo', function() {
+	return function(input, attribute) {
+		if (!angular.isObject(input))
+			return input;
+		var reverseOrder = attribute.startsWith("-");
+		if (reverseOrder)
+			attribute = attribute.split("-")[1];
+		var array = [];
+		for ( var objectKey in input) {
+			array.push(input[objectKey]);
+		}
+
+		array.sort(function(a, b) {
+			a = parseInt(a[attribute].split("-")[2]);
+			b = parseInt(b[attribute].split("-")[2]);
+			return (a - b) * (reverseOrder ? -1 : 1);
+		});
+		return array;
+	}
+});*/

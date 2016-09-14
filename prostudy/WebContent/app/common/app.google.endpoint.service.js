@@ -46,6 +46,26 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 		return deferred.promise;
 	}
 
+	GFStudentService.addExamResults = function(rsList) {
+		var deferred = $q.defer();
+		gapi.client.gfStudentService.addExamResults({
+			list : rsList
+		}).execute(function(resp) {
+			deferred.resolve(resp);
+		});
+		return deferred.promise;
+	}
+
+	GFStudentService.getExamResultEntities = function(instituteID) {
+		var deferred = $q.defer();
+		gapi.client.gfStudentService.getExamResultEntities({
+			'instituteID' : instituteID
+		}).execute(function(resp) {
+			deferred.resolve(resp);
+		});
+		return deferred.promise;
+	}
+
 	// Gandhi Foundation FStudentService End
 
 	// Gandhi Foundation gfCourierService Start
@@ -1240,8 +1260,7 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 				});
 		return deferred.promise;
 	}
-	
-	
+
 	ScheduledExamResultService.getScheduledExamResult = function() {
 		var deferred = $q.defer();
 		gapi.client.scheduledExamResultService.getScheduledExamResult()
