@@ -14,6 +14,17 @@ angular
 						page : 1						
 					};
 
+					$scope.searchTextDone = false;
+					
+					$scope.searchTextChange = function() {
+						$scope.searchTextDone = true;
+						$scope.query.page = 1;
+						
+						$timeout(function(){
+							$scope.searchTextDone = false;
+						}, 1000);
+					}
+					
 					$scope.getNextYears = function() {
 						var date = new Date();
 

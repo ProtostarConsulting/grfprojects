@@ -32,7 +32,7 @@
 	<form name="partnerSchoolForm">
 		<md-content> <md-tabs md-dynamic-height=""
 			md-border-bottom="" md-selected="selectedIndex"> <md-tab
-			label="School Detail"> <md-content class="md-padding">
+			label="School Detail" ng-click="setCurrentTab(0)"> <md-content class="md-padding">
 		<div layout="column" layout-xs="column">
 
 			<div layout="row" layout-xs="column" flex>
@@ -46,8 +46,8 @@
 					Govt.Reg.No<!-- <span style="color: red"
 				ng-show="partnerSchoolForm.govRegisterno.$error.required"
 				class="mandatory">*</span> -->
-				</label> <input name="govRegisterno" ng-model="partnerSchool.govRegisterno" focus-on="!selectedPSchoolId && selectedIndex==0">
-				<!-- 			<div ng-messages="partnerSchoolForm.govRegisterno.$error"
+				</label> <input name="govRegisterno" ng-model="partnerSchool.govRegisterno"
+					focus-on="!selectedPSchoolId && selectedIndex==0"> <!-- 			<div ng-messages="partnerSchoolForm.govRegisterno.$error"
 				ng-if="partnerSchoolForm.govRegisterno.$submitted || partnerSchoolForm.govRegisterno.$touched">
 				<div ng-message="required">Please Enter Gov.Register Number.</div>
 			</div>
@@ -341,23 +341,39 @@
 		</div>
 
 		<section layout="row" layout-sm="column" layout-align="end end">
-			<md-button
+			<md-button class="md-raised md-primary" ng-click="addPartnerSchool()"
 				ng-disabled="partnerSchoolForm.govRegisterno.$invalid || partnerSchoolForm.city.$invalid ||partnerSchoolForm.dist.$invalid || partnerSchoolForm.name.$invalid
 		|| partnerSchoolForm.instName.$invalid || partnerSchoolForm.tal.$invalid || partnerSchoolForm.formNumber.$invalid || partnerSchoolForm.line1.$invalid
 		|| partnerSchoolForm.state.$invalid || partnerSchoolForm.category.$invalid
 		|| partnerSchoolForm.district.$invalid || partnerSchoolForm.taluka.$invalid || partnerSchoolForm.pin.$invalid
-		"
-				class="md-raised md-primary" ng-click="addPartnerSchool()">Save
+		">Save
 			& Next</md-button>
+			<md-button class="md-raised md-primary" ng-click="moveToNextTab()"
+				ng-disabled="partnerSchoolForm.govRegisterno.$invalid || partnerSchoolForm.city.$invalid ||partnerSchoolForm.dist.$invalid || partnerSchoolForm.name.$invalid
+		|| partnerSchoolForm.instName.$invalid || partnerSchoolForm.tal.$invalid || partnerSchoolForm.formNumber.$invalid || partnerSchoolForm.line1.$invalid
+		|| partnerSchoolForm.state.$invalid || partnerSchoolForm.category.$invalid
+		|| partnerSchoolForm.district.$invalid || partnerSchoolForm.taluka.$invalid || partnerSchoolForm.pin.$invalid
+		">Next</md-button>
+
 		</section>
 
-		</md-content> </md-tab> <md-tab label="Exam Detail" ng-disabled="enableTillTabNo<1"> <md-content class="md-padding">
+		</md-content> </md-tab> <md-tab label="Exam Detail" ng-click="setCurrentTab(1)" ng-disabled="enableTillTabNo<1">
+		<md-content class="md-padding">
 		<div layout="row" layout-xs="column">
+			<div layout="row" layout-xs="column" flex>
+				<h3 class="md-subhead" flex="30">Select Year</h3>
+				<!-- 	<span flex="10"></span> -->
+				<md-input-container flex="70"> <md-select
+					aria-label="YearOfExam" ng-change="getExamByYear(yearOfExam)"
+					ng-model="yearOfExam" id="selectedYear"> <md-option
+					ng-value="Year" ng-repeat="Year in Years | orderBy:Year">{{Year}}</md-option>
+				</md-select> </md-input-container>
+			</div>
 			<md-input-container flex> <label>Total
 				Number Of Student In School<span style="color: red;">*</span>
 			</label> <input type="number" name="totalStudent" aria-label="totalStudent"
 				id="totalStudent" ng-model="examDetail.totalStudent"
-				ng-required="true"  focus-on="!selectedPSchoolId && selectedIndex==1">
+				ng-required="true" focus-on="!selectedPSchoolId && selectedIndex==1">
 			<div ng-messages="partnerSchoolForm.totalStudent.$error"
 				ng-if="partnerSchoolForm.totalStudent.$submitted || partnerSchoolForm.totalStudent.$touched">
 				<div ng-message="required">Please Enter Total Number Of
@@ -375,7 +391,7 @@
 
 			<md-input-container flex> <label>Male <span
 				style="color: red;">*</span>
-			</label> <input  type="number" name="male" id="male" aria-label="male"
+			</label> <input type="number" name="male" id="male" aria-label="male"
 				ng-model="examDetail.male" ng-change="calculateTotal()"
 				ng-required="true">
 			<div ng-messages="partnerSchoolForm.male.$error"
@@ -387,7 +403,7 @@
 			<!-- 	<span flex="20"></span> -->
 			<md-input-container flex> <label>Female<span
 				style="color: red;">*</span>
-			</label> <input  type="number" name="female" aria-label="female" id="female"
+			</label> <input type="number" name="female" aria-label="female" id="female"
 				ng-model="examDetail.female" ng-change="calculateTotal()"
 				ng-required="true">
 			<div ng-messages="partnerSchoolForm.female.$error"
@@ -430,15 +446,6 @@
 
 
 		</div>
-		<div layout="row" layout-xs="column" flex>
-			<h3 class="md-subhead" flex="15">Select Year</h3>
-			<!-- 	<span flex="10"></span> -->
-			<md-input-container flex="25"> <md-select
-				aria-label="YearOfExam" ng-change="getExamByYear(yearOfExam)"
-				ng-model="yearOfExam" id="selectedYear"> <md-option
-				ng-value="Year" ng-repeat="Year in Years | orderBy:Year">{{Year}}</md-option>
-			</md-select> </md-input-container>
-		</div>
 
 		<section layout="row" layout-sm="column" layout-align="end end">
 			<md-button
@@ -448,17 +455,23 @@
 		|| partnerSchoolForm.female.$invalid "
 				class="md-raised md-primary" ng-click="addPartnerSchool()">Save
 			& Next</md-button>
+			<md-button class="md-raised md-primary" ng-click="moveToNextTab()"
+				ng-disabled="partnerSchoolForm.govRegisterno.$invalid || partnerSchoolForm.city.$invalid || partnerSchoolForm.name.$invalid
+			|| partnerSchoolForm.instName.$invalid || partnerSchoolForm.tal.$invalid || partnerSchoolForm.formNumber.$invalid || partnerSchoolForm.line1.$invalid || partnerSchoolForm.state.$invalid 
+		|| partnerSchoolForm.category.$invalid || partnerSchoolForm.totalStudent.$invalid || partnerSchoolForm.male.$invalid ||partnerSchoolForm.totalStudent.$invalid 
+		|| partnerSchoolForm.female.$invalid ">Next</md-button>
 		</section>
-		</md-content> </md-tab> <md-tab label="Contact Detail" ng-disabled="enableTillTabNo<2"> <md-content
-			class="md-padding">
+		</md-content> </md-tab> <md-tab label="Contact Detail" ng-click="setCurrentTab(2)" ng-disabled="enableTillTabNo<2">
+		<md-content class="md-padding">
 
 		<div layout="row" layout-xs="column" flex>
 			<md-input-container flex> <label>Name of
 				Head Master / Principal <span style="color: red"
 				ng-show="partnerSchoolForm.headMasterName.$error.required"
 				class="mandatory">*</span>
-			</label> <input id="headMasterName" name="headMasterName" ng-model="contactDetail.headMasterName"
-				ng-required="true"  focus-on="!selectedPSchoolId && selectedIndex==2">
+			</label> <input id="headMasterName" name="headMasterName"
+				ng-model="contactDetail.headMasterName" ng-required="true"
+				focus-on="!selectedPSchoolId && selectedIndex==2">
 			<div ng-messages="partnerSchoolForm.headMasterName.$error"
 				ng-if="partnerSchoolForm.headMasterName.$submitted || partnerSchoolForm.headMasterName.$touched">
 				<div ng-message="required">Please Enter headMaster Name.</div>
@@ -638,6 +651,12 @@
 		|| partnerSchoolForm.cordEmail.$invalid "
 				class="md-raised md-primary" ng-click="addPartnerSchool()">Save
 			& Next</md-button>
+			<md-button class="md-raised md-primary" ng-click="moveToNextTab()"
+				ng-disabled="partnerSchoolForm.govRegisterno.$invalid || partnerSchoolForm.city.$invalid || partnerSchoolForm.name.$invalid
+		|| partnerSchoolForm.instName.$invalid || partnerSchoolForm.tal.$invalid || partnerSchoolForm.formNumber.$invalid || partnerSchoolForm.line1.$invalid || partnerSchoolForm.state.$invalid 
+		|| partnerSchoolForm.category.$invalid || partnerSchoolForm.headMasterName.$invalid
+		|| partnerSchoolForm.headMasterMobile.$invalid || partnerSchoolForm.headMasterEmailId.$invalid || partnerSchoolForm.cordName.$invalid ||partnerSchoolForm.cordMobileNo.$invalid 
+		|| partnerSchoolForm.cordEmail.$invalid ">Next</md-button>
 		</section>
 		</md-content> </md-tab> <!-- 		<md-tab	label="Book Standard Details"> <md-content class="md-padding">
 
@@ -654,7 +673,8 @@
 	
 	
 		</md-content>
-		</md-tab> --> <md-tab label="Book Detail" ng-disabled="enableTillTabNo<3"> <md-content
+		</md-tab> --> <md-tab label="Book Detail" ng-click="setCurrentTab(3)"
+			ng-disabled="enableTillTabNo<3"> <md-content
 			class="md-padding">
 
 
@@ -673,7 +693,8 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="bb in  bookSummary.bookDetail">
-						<td><md-input-container flex> <md-select  focus-on="!selectedPSchoolId && selectedIndex==3"
+						<td><md-input-container flex> <md-select
+								focus-on="!selectedPSchoolId && selectedIndex==3"
 								name="standard" aria-label="Select Standard"
 								ng-model="bb.standard"> <md-option
 								ng-value="standard" ng-repeat="standard in standardList"
@@ -801,8 +822,8 @@
 		</section>
 
 
-		</md-content> </md-tab> <md-tab label="Payment Detail" ng-disabled="enableTillTabNo<4"> <md-content
-			class="md-padding">
+		</md-content> </md-tab> <md-tab label="Payment Detail" ng-click="setCurrentTab(4)" ng-disabled="enableTillTabNo<4">
+		<md-content class="md-padding">
 		<div class="md-toolbar-tools">
 			<span flex></span>
 			<!--<md-card>-->
@@ -1000,8 +1021,8 @@
 			</table>
 			</md-data-table-container>
 		</div>
-		</md-content> </md-tab> <md-tab label="Notification" ng-disabled="enableTillTabNo<5"> <md-content
-			class="md-padding">
+		</md-content> </md-tab> <md-tab label="Notification" ng-disabled="enableTillTabNo<5">
+		<md-content class="md-padding">
 
 		<div class="md-toolbar-tools">
 			<table

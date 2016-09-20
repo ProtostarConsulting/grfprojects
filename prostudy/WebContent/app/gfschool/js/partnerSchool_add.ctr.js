@@ -15,15 +15,15 @@ angular
 					$scope.Country = indiaAddressLookupData;
 					$scope.partnerSchoolLevels = partnerSchoolLevels;
 					$scope.standardList = standardList;
-					
+
 					// ----------tab control-------
 					$scope.maxTabNo = 5;
 					$scope.selectedIndex = 0;
 					$scope.tabNext = function() {
-						if ($scope.selectedPSchoolId != "") {
+						/*if ($scope.selectedPSchoolId != "") {
 							// no tab movement if
 							return;
-						}
+						}*/
 
 						var index = ($scope.selectedIndex == $scope.maxTabNo) ? $scope.selectedIndex
 								: $scope.selectedIndex + 1;
@@ -202,9 +202,27 @@ angular
 					$scope.enableTillTabNo = ($scope.selectedPSchoolId == "") ? 0
 							: $scope.maxTabNo;
 					$scope.schoolid;
+					$scope.setCurrentTab = function(tabIndex) {
+						$scope.selectedIndex = tabIndex;
+					}
+					
+					$scope.moveToNextTab = function() {
+						$location.hash('topRight');
+						$anchorScroll();
+						
+						$scope.getExamByYear();
+						
+						$scope.loading = true;
+						$scope.enableTillTabNo++;
+						$scope.tabNext();
+						
+						$timeout(function(){
+							$scope.loading = false;
+						}, 1);
+					}
 
 					$scope.addPartnerSchool = function() {
-
+						
 						$scope.tabNext();
 						$scope.enableTillTabNo++;
 
@@ -392,7 +410,10 @@ angular
 								$scope.examDetail.male = parseInt($scope.examDetail.male);
 								$scope.examDetail.female = parseInt($scope.examDetail.female);
 								$scope.examDetail.total = parseInt($scope.examDetail.total);
-								k = 1;
+
+								if ($scope.bookSummary != undefined) {
+									k = 1;
+								}
 							}
 
 						}
