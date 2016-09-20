@@ -12,6 +12,7 @@ import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.config.Named;
+import com.protostar.prostudy.entity.Address;
 import com.protostar.prostudy.entity.InstituteEntity;
 import com.protostar.prostudy.entity.UserEntity;
 import com.protostar.prostudy.proadmin.entities.PaymentPlanType;
@@ -69,6 +70,11 @@ public class ProtostarAdminService {
 			instituteEntity.setRegisterDate(sdf.format(date));
 			String authorizations = "	{\"authorizations\":[{\"authName\":\"proadmin\",\"authorizations\":[]},{\"authName\":\"setup\",\"authorizations\":[]}]}";
 			instituteEntity.setAuthorizations(authorizations);
+			Address address = new Address();
+			address.setLine1("E101, MG Apts, Kasarwadi, Pune");
+			address.setCity("Pune");
+			address.setState("MH");
+			instituteEntity.setAddress(address);
 
 			ofy().save().entity(instituteEntity).now();
 
