@@ -1778,7 +1778,17 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 		});
 		return deferred.promise;
 	}
+	
+	PartnerSchoolService.getPSchoolByFormNumber = function(formNumber) {
+		var deferred = $q.defer();
+		gapi.client.partnerSchoolService.getPSchoolByFormNumber({
+			'formNumber' : formNumber
+		}).execute(function(resp) {
+			deferred.resolve(resp);
 
+		});
+		return deferred.promise;
+	}
 	// End of PartnerSchoolService
 
 	/*------------------------------------------------------------------------------------------------------*/

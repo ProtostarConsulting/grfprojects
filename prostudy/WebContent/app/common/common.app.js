@@ -1429,7 +1429,62 @@ app
 								controller : 'gfBookstockTransactionListCtr'
 							})
 		});
+app.directive('focusOn', function($timeout) {
+	return {
+		restrict : 'A',
+		link : function($scope, $element, $attr) {
+			$scope.$watch($attr.focusOn, function(_focusVal) {
+				$timeout(function() {
+					_focusVal ? $element.focus() : $element.blur();
+				});
+			});
+		}
+	}
+});
+app.directive("odd", function() {
+	return {
+		restrict : "A",
 
+		require : "ngModel",
+
+		link : function(scope, element, attributes, ngModel) {
+			ngModel.$validators.odd = function(modelValue) {
+				return modelValue % 2 === 1;
+			}
+		}
+	};
+});
+
+app
+		.directive(
+				"uniqueGrfFormNumber",
+				function($q, appEndpointSF) {
+					return {
+						restrict : "A",
+						require : "ngModel",
+						link : function(scope, element, attributes, ngModel) {
+							ngModel.$asyncValidators.uniqueGRFFormNumber = function(
+									formNumber, selectedPSchoolId) {								
+								var selectedPSchoolId= attributes.uniqueGrfFormNumber;
+								var defer = $q.defer();
+								var PartnerSchoolService = appEndpointSF
+										.getPartnerSchoolService();
+								if (formNumber != "") {
+									PartnerSchoolService
+											.getPSchoolByFormNumber(formNumber)
+											.then(function(pSchool) {
+												if (pSchool.id == undefined || pSchool.id == selectedPSchoolId)
+													defer.resolve();
+												else
+													defer.reject();
+											});
+								}							
+								
+								return defer.promise;
+							}
+						}
+					};
+				});
 app.filter('unique', function() {
 	return function(input, key) {
 		var unique = {};
@@ -1443,18 +1498,7 @@ app.filter('unique', function() {
 		return uniqueList;
 	};
 });
-app.directive('focusOn', function($timeout) {
-	return {
-		restrict : 'A',
-		link : function($scope, $element, $attr) {
-			$scope.$watch($attr.focusOn, function(_focusVal) {
-				$timeout(function() {
-					_focusVal ? $element.focus() : $element.blur();
-				});
-			});
-		}
-	}
-});
+
 app.filter('formatDate', function($filter) {
 	return function(inputDate) {
 		return $filter('date')(inputDate, 'dd-MM-yyyy');
@@ -1485,23 +1529,14 @@ app.filter('orderObjectBy', function() {
 		return array;
 	}
 });
-/*app.filter('orderByGRFRegNo', function() {
-	return function(input, attribute) {
-		if (!angular.isObject(input))
-			return input;
-		var reverseOrder = attribute.startsWith("-");
-		if (reverseOrder)
-			attribute = attribute.split("-")[1];
-		var array = [];
-		for ( var objectKey in input) {
-			array.push(input[objectKey]);
-		}
-
-		array.sort(function(a, b) {
-			a = parseInt(a[attribute].split("-")[2]);
-			b = parseInt(b[attribute].split("-")[2]);
-			return (a - b) * (reverseOrder ? -1 : 1);
-		});
-		return array;
-	}
-});*/
+/*
+ * app.filter('orderByGRFRegNo', function() { return function(input, attribute) {
+ * if (!angular.isObject(input)) return input; var reverseOrder =
+ * attribute.startsWith("-"); if (reverseOrder) attribute =
+ * attribute.split("-")[1]; var array = []; for ( var objectKey in input) {
+ * array.push(input[objectKey]); }
+ * 
+ * array.sort(function(a, b) { a = parseInt(a[attribute].split("-")[2]); b =
+ * parseInt(b[attribute].split("-")[2]); return (a - b) * (reverseOrder ? -1 :
+ * 1); }); return array; } });
+ */

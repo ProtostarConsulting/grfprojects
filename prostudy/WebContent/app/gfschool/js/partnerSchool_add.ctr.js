@@ -20,10 +20,10 @@ angular
 					$scope.maxTabNo = 5;
 					$scope.selectedIndex = 0;
 					$scope.tabNext = function() {
-						/*if ($scope.selectedPSchoolId != "") {
-							// no tab movement if
-							return;
-						}*/
+						/*
+						 * if ($scope.selectedPSchoolId != "") { // no tab
+						 * movement if return; }
+						 */
 
 						var index = ($scope.selectedIndex == $scope.maxTabNo) ? $scope.selectedIndex
 								: $scope.selectedIndex + 1;
@@ -205,24 +205,24 @@ angular
 					$scope.setCurrentTab = function(tabIndex) {
 						$scope.selectedIndex = tabIndex;
 					}
-					
+
 					$scope.moveToNextTab = function() {
 						$location.hash('topRight');
 						$anchorScroll();
-						
+
 						$scope.getExamByYear();
-						
+
 						$scope.loading = true;
 						$scope.enableTillTabNo++;
 						$scope.tabNext();
-						
-						$timeout(function(){
+
+						$timeout(function() {
 							$scope.loading = false;
 						}, 1);
 					}
 
 					$scope.addPartnerSchool = function() {
-						
+
 						$scope.tabNext();
 						$scope.enableTillTabNo++;
 
@@ -326,6 +326,20 @@ angular
 					} else {
 						$scope.loading = false;
 					}
+
+					/*$scope.checkFormNumberExists = function(formNumber) {
+						var PartnerSchoolService = appEndpointSF
+								.getPartnerSchoolService();
+						if (formNumber != "" && $scope.selectedPSchoolId != "") {
+							PartnerSchoolService.getPSchoolByFormNumber(
+									formNumber).then(function(pSchool) {
+								// Show dialog to show data in it.
+								// $scope.partnerSchool = pSchool;
+								alert("got here:" + pSchool);
+							});
+						}
+
+					}*/
 
 					$scope.getPSchoolByPSID = function() {
 						var PartnerSchoolService = appEndpointSF

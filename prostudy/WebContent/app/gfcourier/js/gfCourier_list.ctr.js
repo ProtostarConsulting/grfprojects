@@ -17,7 +17,11 @@ angular.module("prostudyApp").controller(
 				limitOptions : [ 1000, 2000, 3000, 4000, 5000 ],
 				page : 1
 			};
-			
+			$scope.filterData = {
+					courierType:'',
+					logisticsType:'',
+					pastEightDays: false,
+			};
 			$scope.logisticsList = [ "By Post", "By Hand", "ST Postal",
 					"Tej Courier" ];
 			$scope.courierTypelist = [ "Book", "Certificate",

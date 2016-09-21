@@ -32,7 +32,8 @@
 	<form name="partnerSchoolForm">
 		<md-content> <md-tabs md-dynamic-height=""
 			md-border-bottom="" md-selected="selectedIndex"> <md-tab
-			label="School Detail" ng-click="setCurrentTab(0)"> <md-content class="md-padding">
+			label="School Detail" ng-click="setCurrentTab(0)"> <md-content
+			class="md-padding">
 		<div layout="column" layout-xs="column">
 
 			<div layout="row" layout-xs="column" flex>
@@ -54,7 +55,6 @@
  --> </md-input-container>
 				<!-- 		<span flex="10"></span> -->
 			</div>
-
 			<div layout="row" layout-xs="column" flex>
 				<md-input-container flex> <label>School/College
 					Name<span style="color: red"
@@ -99,12 +99,16 @@
 				ng-show="partnerSchoolForm.formNumber.$error.required"
 				class="mandatory">*</span> -->
 				</label> <input type="number" name="formNumber"
-					ng-model="partnerSchool.formNumber"> <!-- 			<div ng-messages="partnerSchoolForm.formNumber.$error"
-				ng-if="partnerSchoolForm.formNumber.$submitted || partnerSchoolForm.formNumber.$touched">
-				<div ng-message="required">Please Enter form number.</div>
-			</div>
- --> </md-input-container>
-
+					ng-model="partnerSchool.formNumber" unique-grf-form-number="{{partnerSchool.id}}"  minlength="4">
+				<div ng-messages="partnerSchoolForm.formNumber.$error"
+					ng-if="partnerSchoolForm.formNumber.$submitted || partnerSchoolForm.formNumber.$touched">
+					<div ng-message="uniqueGRFFormNumber">This form number
+						already entered. Please check existing records.</div>
+					<span ng-message="minlength">Minimum length should be 4 digits.</span>					
+					<div ng-if="profileForm.favoriteNumber.$pending">
+						     Calculating....</div>
+				</div>
+				</md-input-container>
 
 			</div>
 
@@ -357,8 +361,9 @@
 
 		</section>
 
-		</md-content> </md-tab> <md-tab label="Exam Detail" ng-click="setCurrentTab(1)" ng-disabled="enableTillTabNo<1">
-		<md-content class="md-padding">
+		</md-content> </md-tab> <md-tab label="Exam Detail" ng-click="setCurrentTab(1)"
+			ng-disabled="enableTillTabNo<1"> <md-content
+			class="md-padding">
 		<div layout="row" layout-xs="column">
 			<div layout="row" layout-xs="column" flex>
 				<h3 class="md-subhead" flex="30">Select Year</h3>
@@ -461,8 +466,9 @@
 		|| partnerSchoolForm.category.$invalid || partnerSchoolForm.totalStudent.$invalid || partnerSchoolForm.male.$invalid ||partnerSchoolForm.totalStudent.$invalid 
 		|| partnerSchoolForm.female.$invalid ">Next</md-button>
 		</section>
-		</md-content> </md-tab> <md-tab label="Contact Detail" ng-click="setCurrentTab(2)" ng-disabled="enableTillTabNo<2">
-		<md-content class="md-padding">
+		</md-content> </md-tab> <md-tab label="Contact Detail" ng-click="setCurrentTab(2)"
+			ng-disabled="enableTillTabNo<2"> <md-content
+			class="md-padding">
 
 		<div layout="row" layout-xs="column" flex>
 			<md-input-container flex> <label>Name of
@@ -822,8 +828,9 @@
 		</section>
 
 
-		</md-content> </md-tab> <md-tab label="Payment Detail" ng-click="setCurrentTab(4)" ng-disabled="enableTillTabNo<4">
-		<md-content class="md-padding">
+		</md-content> </md-tab> <md-tab label="Payment Detail" ng-click="setCurrentTab(4)"
+			ng-disabled="enableTillTabNo<4"> <md-content
+			class="md-padding">
 		<div class="md-toolbar-tools">
 			<span flex></span>
 			<!--<md-card>-->
