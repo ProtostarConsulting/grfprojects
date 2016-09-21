@@ -253,6 +253,15 @@ public class PartnerSchoolService {
 		return pSchool;
 
 	}
+	@ApiMethod(name = "getPSchoolByFormNumber", path = "getPSchoolByFormNumber")
+	public PartnerSchoolEntity getPSchoolByFormNumber(@Named("formNumber") String formNumber) {
+		logger.info("getPSchoolByFormNumber### formNumber: " + formNumber);
+		PartnerSchoolEntity pSchool = ofy().load()
+				.type(PartnerSchoolEntity.class).filter("formNumber", formNumber).first().now();
+		logger.info("pSchool: " + pSchool);
+		return pSchool;
+
+	}
 
 	@ApiMethod(name = "getPartnerByInstitute", path = "getPartnerByInstitute")
 	public List<PartnerSchoolEntity> getPartnerByInstitute(

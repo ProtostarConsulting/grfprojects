@@ -30,6 +30,7 @@ public class PartnerSchoolEntity extends BaseEntity{
 	
 	private String schoolName;
 	private String instName;
+	@Index
 	private String formNumber;
 	private String category;
 	private String primaryContact;
