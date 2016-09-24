@@ -157,5 +157,13 @@ public class GFCourierService {
 		return courier;
 
 	}
+	
+	@ApiMethod(name = "getCourierByCourierType", path = "getCourierByCourierType")
+	public List<GFCourierEntity> getCourierByCourierType(@Named("courierType") String courierType) {
+
+		 List<GFCourierEntity> list = ofy().load().type(GFCourierEntity.class).filter("courierType ",courierType).list();
+		 return list;
+
+	}
 
 }
