@@ -116,6 +116,16 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 		});
 		return deferred.promise;
 	}
+	
+	GFCourierService.getCourierByCourierType = function(courierType) {
+		var deferred = $q.defer();
+		gapi.client.gfCourierService.getCourierByCourierType({
+			'courierType' : courierType
+		}).execute(function(resp) {
+			deferred.resolve(resp.items);
+		});
+		return deferred.promise;
+	}
 
 	// Gandhi Foundation gfCourierService End
 
