@@ -169,6 +169,16 @@
     <url-pattern>/DownloadGFBooks</url-pattern>
   </servlet-mapping>
   <servlet>
+    <description/>
+    <display-name>DownloadCourierReport</display-name>
+    <servlet-name>DownloadCourierReport</servlet-name>
+    <servlet-class>com.protostar.prostudy.gf.service.DownloadCourierReport</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DownloadCourierReport</servlet-name>
+    <url-pattern>/DownloadCourierReport</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>file_upload</servlet-name>
     <servlet-class>com.protostar.prostudy.until.NGFileUpload</servlet-class>
   </servlet>
