@@ -1360,6 +1360,18 @@ app
 								templateUrl : '/app/gfcourier/dailyDispatchReport.html',
 								controller : 'courierDailyDispatchReportCtr'
 							})
+							
+					.state('courierModule.report', 
+							{
+								url : "/courierModule.report/",
+								templateUrl : '/app/gfcourier/gfCourier_report.html',
+								controller : 'gfCourierReportCtr',
+								params:
+								{
+									indiaAddressLookupData:null
+								}
+					})
+		
 
 					.state(
 							'courierModule.addFromPS',
