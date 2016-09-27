@@ -29,6 +29,11 @@ angular
 								
 								});
 					}
+					
+					$scope.downloadBookTranscation = function(){
+						
+						document.location.href="DownloadBookStockTransaction?BookStockTransactionByInstituteId="+$scope.curUser.instituteID;
+					}
 
 					$scope.waitForServiceLoad = function() {
 						if (appEndpointSF.is_service_ready) {
