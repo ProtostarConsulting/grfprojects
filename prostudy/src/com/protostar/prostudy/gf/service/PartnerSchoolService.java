@@ -247,7 +247,6 @@ public class PartnerSchoolService {
 
 	@ApiMethod(name = "getPSchoolByPSID", path = "getPSchoolByPSID")
 	public PartnerSchoolEntity getPSchoolByPSID(@Named("id") Long id) {
-
 		PartnerSchoolEntity pSchool = ofy().load()
 				.type(PartnerSchoolEntity.class).id(id).now();
 		return pSchool;

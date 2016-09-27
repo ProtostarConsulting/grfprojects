@@ -134,8 +134,8 @@ public class ProtostarAdminService {
 
 	}
 
-	@ApiMethod(name = "initsetup")
-	public void initsetup() {
+	@ApiMethod(name = "createAccountPlanTypes")
+	public void createAccountPlanTypes() {
 		try {
 			PaymentPlanType accounttype = new PaymentPlanType();
 			accounttype.setAccountName("Free");

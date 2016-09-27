@@ -8,7 +8,7 @@ import com.googlecode.objectify.annotation.Index;
 import com.protostar.prostudy.entity.BaseEntity;
 
 @Entity
-public class GFBookTransactionEntity extends BaseEntity{
+public class GFBookTransactionEntity extends BaseEntity {
 
 	private String transactionType;
 	private Date transactionDate;
@@ -16,17 +16,15 @@ public class GFBookTransactionEntity extends BaseEntity{
 	private long instituteID;
 	private int bookQty;
 	Ref<GFBookEntity> book;
-	
-	
 
 	public GFBookEntity getBook() {
-		return book.get();
+		return (book == null) ? null : book.get();
 	}
 
 	public void setBook(GFBookEntity book) {
 		this.book = Ref.create(book);
 	}
-	
+
 	private float totalFees;
 
 	public float getTotalFees() {
