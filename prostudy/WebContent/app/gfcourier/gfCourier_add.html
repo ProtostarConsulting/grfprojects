@@ -33,6 +33,7 @@
 					ng-model="tempCourierObj.courierType " ng-required="true">
 				<md-option ng-value="courierType"
 					ng-repeat="courierType in courierTypelist">{{courierType}}</md-option>
+					
 				</md-select>
 				<div ng-messages="gfCourierForm.courierType.$error"
 					ng-if="gfCourierForm.courierType.$submitted || gfCourierForm.courierType.$touched">
