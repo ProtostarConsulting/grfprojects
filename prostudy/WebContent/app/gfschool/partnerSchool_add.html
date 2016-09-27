@@ -48,12 +48,7 @@
 				ng-show="partnerSchoolForm.govRegisterno.$error.required"
 				class="mandatory">*</span> -->
 				</label> <input name="govRegisterno" ng-model="partnerSchool.govRegisterno"
-					focus-on="!selectedPSchoolId && selectedIndex==0"> <!-- 			<div ng-messages="partnerSchoolForm.govRegisterno.$error"
-				ng-if="partnerSchoolForm.govRegisterno.$submitted || partnerSchoolForm.govRegisterno.$touched">
-				<div ng-message="required">Please Enter Gov.Register Number.</div>
-			</div>
- --> </md-input-container>
-				<!-- 		<span flex="10"></span> -->
+					focus-on="!selectedPSchoolId && selectedIndex==0"> </md-input-container>
 			</div>
 			<div layout="row" layout-xs="column" flex>
 				<md-input-container flex> <label>School/College
@@ -68,14 +63,7 @@
 				</md-input-container>
 
 				<md-input-container flex> <label>Institute
-					Name<!-- <span style="color: red"
-				ng-show="partnerSchoolForm.instName.$error.required"
-				class="mandatory">*</span> -->
-				</label> <input name="instName" ng-model="partnerSchool.instName"> <!-- 			<div ng-messages="partnerSchoolForm.instName.$error"
-				ng-if="partnerSchoolForm.instName.$submitted || partnerSchoolForm.instName.$touched">
-				<div ng-message="required">Please Enter Institute Name.</div>
-			</div>
- --> </md-input-container>
+					Name </label> <input name="instName" ng-model="partnerSchool.instName"></md-input-container>
 
 			</div>
 
@@ -99,12 +87,14 @@
 				ng-show="partnerSchoolForm.formNumber.$error.required"
 				class="mandatory">*</span> -->
 				</label> <input type="number" name="formNumber"
-					ng-model="partnerSchool.formNumber" unique-grf-form-number="{{partnerSchool.id}}"  minlength="4">
+					ng-model="partnerSchool.formNumber"
+					unique-grf-form-number="{{partnerSchool.id}}" minlength="4">
 				<div ng-messages="partnerSchoolForm.formNumber.$error"
 					ng-if="partnerSchoolForm.formNumber.$submitted || partnerSchoolForm.formNumber.$touched">
 					<div ng-message="uniqueGRFFormNumber">This form number
 						already entered. Please check existing records.</div>
-					<span ng-message="minlength">Minimum length should be 4 digits.</span>					
+					<span ng-message="minlength">Minimum length should be 4
+						digits.</span>
 					<div ng-if="profileForm.favoriteNumber.$pending">
 						     Calculating....</div>
 				</div>
@@ -248,23 +238,6 @@
 
 
 			<div layout="row" layout-xs="column">
-
-				<!--  				
-		<md-input-container flex> <md-select
-							ng-model="selectedVillage" placeholder="Select Village"
-							>
-						<md-option ng-value="village.name" ng-repeat="village in temp.tempVillages track by $index">{{village.name
-						}}</md-option> </md-select> 
-		</md-input-container>
- 
-			<md-input-container flex> <label>Pin</label> <input
-
-			<md-input-container flex> <label>Get Address by Pin</label> <input
-
-				name="pin" ng-model="postcode" ng-blur="getaddress(postcode)"> </md-input-container>
-
- -->
-
 				<md-input-container flex="50"
 					ng-if="partnerSchool.address.state != 'Other'">
 				<label>Pin <span style="color: red;"
@@ -279,69 +252,7 @@
 
 
 			</div>
-			<!-- 		===================================================================================================
 
-		<div layout="row" flex>
-			<md-autocomplete flex required ng-model="partnerSchool.address.state"
-				md-input-name="autocompleteField" md-input-minlength="2"
-				md-input-maxlength="18" md-no-cache=true
-				md-selected-item="partnerSchool.address.state"
-				md-search-text="searchTextInput"
-				md-items="item in stateQuerySearch(searchTextInput)"
-				md-item-text="item.name" md-floating-label="State Name">
-			<md-item-template> <span
-				md-highlight-text="searchTextInput">{{item.name }}</span> </md-item-template>
-			<div ng-messages="partnerSchoolForm.autocompleteField.$error"
-				ng-if="partnerSchoolForm.autocompleteField.$touched">
-				<div ng-message="required">
-					You <b>must</b> have to enter Customer Name.
-				</div>
-				<div ng-message="minlength">Your entry is not long enough.</div>
-				<div ng-message="maxlength">Your entry is too long.</div>
-			</div>
-			</md-autocomplete>
-		</div>
-
-		<div layout="row" flex>
-			<md-autocomplete flex required ng-model="partnerSchool.address.dist"
-				md-input-name="autocompleteField" md-input-minlength="2"
-				md-input-maxlength="18" md-no-cache=true
-				md-selected-item="partnerSchool.address.dist"
-				md-search-text="searchTextInput"
-				md-items="item in DistQuerySearch(searchTextInput)"
-				md-item-text="item.name" md-floating-label="District Name">
-			<md-item-template> <span
-				md-highlight-text="searchTextInput">{{item.name }}</span> </md-item-template>
-			<div ng-messages="partnerSchoolForm.autocompleteField.$error"
-				ng-if="partnerSchoolForm.autocompleteField.$touched">
-				<div ng-message="required">
-					You <b>must</b> have to enter Customer Name.
-				</div>
-				<div ng-message="minlength">Your entry is not long enough.</div>
-				<div ng-message="maxlength">Your entry is too long.</div>
-			</div>
-			</md-autocomplete>
-		</div>
-
-		===================================================================================================
- -->
-			<!-- 	<div layout="row" layout-xs="column">
-			<span flex="10"></span>
-			<md-input-container flex> <label>
-				Primary Contact <span style="color: red;"
-				ng-show="partnerSchoolForm.primaryContact.$error.required">*</span>
-			</label> <input ng-model="partnerSchool.primaryContact" name="primaryContact"
-				ng-required="true" minlength="3">
-
-			<div ng-messages="partnerSchoolForm.primaryContact.$error"
-				ng-if="partnerSchoolForm.primaryContact.$submitted || partnerSchoolForm.primaryContact.$touched">
-				<div ng-message="required">Please Enter Primary Contact</div>
-				<div ng-message="minlength">Please Enter more thar 3 character</div>
-			</div>
-
-			</md-input-container>
-			<span flex="60"></span>
-		</div> -->
 		</div>
 
 		<section layout="row" layout-sm="column" layout-align="end end">
@@ -530,48 +441,6 @@
 			<h3 class="md-subhead">Coordinator Details</h3>
 		</div>
 		<div layout="row" layout-xs="column" flex>
-			<!-- 
-		<md-input-container flex> <label>Coordinator
-			Name <span style="color: red"
-			ng-show="partnerSchoolForm.coordinatorName.$error.required"
-			class="mandatory">*</span>
-		</label> <input name="coordinatorName"
-			ng-model="contactDetail.coordinatorName" ng-required="true">
-		<div ng-messages="partnerSchoolForm.coordinatorName.$error"
-			ng-if="partnerSchoolForm.coordinatorName.$submitted || partnerSchoolForm.coordinatorName.$touched">
-			<div ng-message="required">Please Enter Coordinator Name.</div>
-		</div>
-		</md-input-container>
-		<span flex="10"></span>
-		<md-input-container flex="20"> <label>Phone/Mobile
-			No <span style="color: red"
-			ng-show="partnerSchoolForm.coordinatorPhoneNum.$error.required"
-			class="mandatory">*</span>
-		</label> <input name="coordinatorPhoneNum"
-			ng-model="contactDetail.coordinatorPhoneNum">
-		<div ng-messages="partnerSchoolForm.coordinatorPhoneNum.$error"
-			ng-if="partnerSchoolForm.coordinatorPhoneNum.$submitted || partnerSchoolForm.coordinatorPhoneNum.$touched">
-			<div ng-message="required">Please Enter Phone Number.</div>
-		</div>
-		</md-input-container>
-		<span flex="10"></span>
-		<md-input-container flex="20"> <label>Email
-			Id <span style="color: red"
-			ng-show="partnerSchoolForm.coordinatorEmailId.$error.required"
-			class="mandatory">*</span>
-		</label> <input name="coordinatorEmailId"
-			ng-model="contactDetail.coordinatorEmailId">
-		<div ng-messages="partnerSchoolForm.coordinatorEmailId.$error"
-			ng-if="partnerSchoolForm.coordinatorEmailId.$submitted || partnerSchoolForm.coordinatorEmailId.$touched">
-			<div ng-message="required">Please Enter Email.</div>
-		</div>
-		</md-input-container>
- -->
-
-
-
-
-
 			<table
 				style='width: 90%; border-collapse: collapse; border: 1px solid black;'>
 				<thead>
@@ -683,7 +552,6 @@
 			ng-disabled="enableTillTabNo<3"> <md-content
 			class="md-padding">
 
-
 		<div>
 			<md-data-table-container>
 			<table md-data-table>
@@ -744,46 +612,6 @@
 		<div>
 			<md-data-table-container>
 			<table md-data-table>
-				<!-- <thead md-order="query.order" md-trigger="onorderchange">
-			<tr>
-
-				<th width=20% name="Standard" order-by="standard"></th>
-				<th width=20% name="Book Name" order-by="bookName"></th>
-				<th width=20% name="Fees"></th>
-				<th width=10% name="Number of Students Hindi"
-					ng-if="selected.indexOf('Hindi') > -1"></th>
-				<th width=10px name="Number of Students Marathi"
-					ng-if="selected.indexOf('Marathi') > -1"></th>
-				<th width=10px name="Number of Students English"
-					ng-if="selected.indexOf('English') > -1"></th>
-				<th width=10px name="Total Student"></th>
-				<th width=20% name="Total Fees"></th>
-			</tr>
-		</thead>
-
-		<tbody>
-			<tr md-auto-select
-				ng-repeat="test in books track by $index  | orderBy: query.order | limitTo: query.limit: (query.page - 1) * query.limit ">
-				<td width=20%>{{test.standard}}</td>
-				<td width=20%>{{test.bookName}}</td>
-				<td width=20%>{{test.bookPrise}}</td>
-				<td width=10% ng-if="selected.indexOf('Hindi') > -1"><input
-					type="number" name="hindi"
-					ng-blur="calculate($index,test.hindinum,'hindi')"
-					ng-model="test.hindinum"></td>
-				<td width=10% ng-if="selected.indexOf('Marathi') > -1"><input
-					type="number" name="marathi"
-					ng-blur="calculate($index,test.marathinum,'marathi')"
-					ng-model="test.marathinum"></td>
-				<td width=10% ng-if="selected.indexOf('English') > -1"><input
-					type="number" name="english"
-					ng-blur="calculate($index,test.englishnum,'english')"
-					ng-model="test.englishnum"></td>
-				<td width=10%>{{test.totalStud}}</td>
-				<td width=20%>{{test.totalFees}}</td>
-
-
-			</tr> -->
 
 				<tr>
 					<td>Total :-</td>

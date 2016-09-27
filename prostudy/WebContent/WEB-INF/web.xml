@@ -170,6 +170,16 @@
   </servlet-mapping>
   <servlet>
     <description/>
+    <display-name>DownloadBookStockTransaction</display-name>
+    <servlet-name>DownloadBookStockTransaction</servlet-name>
+    <servlet-class>com.protostar.prostudy.gf.service.DownloadBookStockTransaction</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DownloadBookStockTransaction</servlet-name>
+    <url-pattern>/DownloadBookStockTransaction</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description/>
     <display-name>DownloadCourierReport</display-name>
     <servlet-name>DownloadCourierReport</servlet-name>
     <servlet-class>com.protostar.prostudy.gf.service.DownloadCourierReport</servlet-class>

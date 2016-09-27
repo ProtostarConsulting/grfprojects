@@ -1283,7 +1283,7 @@ app
 							'proadmin.manageinstituteauth',
 							{
 								url : "/manageinstituteauth/:selectedInstituteID",
-								templateUrl : '/app/proadmin/manage_institute_auth.html',
+								templateUrl : '/app/probusiness/manage_institute_auth.html',
 								controller : 'proAdminManageInstituteAuth'
 							})
 
@@ -1332,9 +1332,13 @@ app
 						controller : 'gfCourierModuleCtr'
 					})
 					.state('courierModule.add', {
-						url : "/courierModule.add/:selectedGFCourierID",
+						url : "/courierModule.add",
 						templateUrl : '/app/gfcourier/gfCourier_add.html',
 						controller : 'gfCourierAddCtr',
+						params : {
+							selectedGFCourierID : null,
+							schoolGRFNo : null
+						}
 
 					})
 					.state('courierModule.list', {
@@ -1360,18 +1364,15 @@ app
 								templateUrl : '/app/gfcourier/dailyDispatchReport.html',
 								controller : 'courierDailyDispatchReportCtr'
 							})
-							
-					.state('courierModule.report', 
-							{
-								url : "/courierModule.report/",
-								templateUrl : '/app/gfcourier/gfCourier_report.html',
-								controller : 'gfCourierReportCtr',
-								params:
-								{
-									indiaAddressLookupData:null
-								}
+
+					.state('courierModule.report', {
+						url : "/courierModule.report/",
+						templateUrl : '/app/gfcourier/gfCourier_report.html',
+						controller : 'gfCourierReportCtr',
+						params : {
+							indiaAddressLookupData : null
+						}
 					})
-		
 
 					.state(
 							'courierModule.addFromPS',
@@ -1476,22 +1477,24 @@ app
 						require : "ngModel",
 						link : function(scope, element, attributes, ngModel) {
 							ngModel.$asyncValidators.uniqueGRFFormNumber = function(
-									formNumber, selectedPSchoolId) {								
-								var selectedPSchoolId= attributes.uniqueGrfFormNumber;
+									formNumber, selectedPSchoolId) {
+								var selectedPSchoolId = attributes.uniqueGrfFormNumber;
 								var defer = $q.defer();
 								var PartnerSchoolService = appEndpointSF
 										.getPartnerSchoolService();
 								if (formNumber != "") {
 									PartnerSchoolService
 											.getPSchoolByFormNumber(formNumber)
-											.then(function(pSchool) {
-												if (pSchool.id == undefined || pSchool.id == selectedPSchoolId)
-													defer.resolve();
-												else
-													defer.reject();
-											});
-								}							
-								
+											.then(
+													function(pSchool) {
+														if (pSchool.id == undefined
+																|| pSchool.id == selectedPSchoolId)
+															defer.resolve();
+														else
+															defer.reject();
+													});
+								}
+
 								return defer.promise;
 							}
 						}
