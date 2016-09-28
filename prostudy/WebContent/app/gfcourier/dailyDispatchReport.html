@@ -54,6 +54,9 @@
 						<th
 							style="border: 1px solid black; text-align: left; padding: 2px;">Logistics</th>
 						<th
+							style="border: 1px solid black; text-align: left; padding: 2px;">Docket
+							No.</th>
+						<th
 							style="border: 1px solid black; text-align: left; padding: 2px;">Weight(Kg)</th>
 						<th
 							style="border: 1px solid black; text-align: left; padding: 2px;">Courier
@@ -77,6 +80,8 @@
 							+ ', ' + courier.schoolName.address.dist}}</td>
 						<td
 							style="border: 1px solid black; text-align: left; padding: 2px;">{{courier.logistics}}</td>
+						<td
+							style="border: 1px solid black; text-align: left; padding: 2px;">{{courier.courierDocketID}}</td>
 						<td
 							style="border: 1px solid black; text-align: left; padding: 2px;">{{parseInt(courier.totalWeight)/1000
 							| number:2}}</td>

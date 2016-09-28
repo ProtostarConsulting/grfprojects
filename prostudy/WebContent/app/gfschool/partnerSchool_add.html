@@ -249,26 +249,19 @@
 					<div ng-message="required">Please Enter PIN Code.</div>
 				</div>
 				</md-input-container>
-
-
 			</div>
-
 		</div>
 
 		<section layout="row" layout-sm="column" layout-align="end end">
 			<md-button class="md-raised md-primary" ng-click="addPartnerSchool()"
-				ng-disabled="partnerSchoolForm.govRegisterno.$invalid || partnerSchoolForm.city.$invalid ||partnerSchoolForm.dist.$invalid || partnerSchoolForm.name.$invalid
-		|| partnerSchoolForm.instName.$invalid || partnerSchoolForm.tal.$invalid || partnerSchoolForm.formNumber.$invalid || partnerSchoolForm.line1.$invalid
-		|| partnerSchoolForm.state.$invalid || partnerSchoolForm.category.$invalid
-		|| partnerSchoolForm.district.$invalid || partnerSchoolForm.taluka.$invalid || partnerSchoolForm.pin.$invalid
-		">Save
+				ng-disabled="partnerSchoolForm.name.$invalid || partnerSchoolForm.category.$invalid || partnerSchoolForm.formNumber.$invalid 
+				|| partnerSchoolForm.line1.$invalid ||partnerSchoolForm.city.$invalid || partnerSchoolForm.state.$invalid  
+				|| partnerSchoolForm.dist.$invalid || partnerSchoolForm.taluka.$invalid || partnerSchoolForm.pin.$invalid">Save
 			& Next</md-button>
 			<md-button class="md-raised md-primary" ng-click="moveToNextTab()"
-				ng-disabled="partnerSchoolForm.govRegisterno.$invalid || partnerSchoolForm.city.$invalid ||partnerSchoolForm.dist.$invalid || partnerSchoolForm.name.$invalid
-		|| partnerSchoolForm.instName.$invalid || partnerSchoolForm.tal.$invalid || partnerSchoolForm.formNumber.$invalid || partnerSchoolForm.line1.$invalid
-		|| partnerSchoolForm.state.$invalid || partnerSchoolForm.category.$invalid
-		|| partnerSchoolForm.district.$invalid || partnerSchoolForm.taluka.$invalid || partnerSchoolForm.pin.$invalid
-		">Next</md-button>
+				ng-disabled="partnerSchoolForm.name.$invalid || partnerSchoolForm.category.$invalid || partnerSchoolForm.formNumber.$invalid 
+				|| partnerSchoolForm.line1.$invalid ||partnerSchoolForm.city.$invalid || partnerSchoolForm.state.$invalid  
+				|| partnerSchoolForm.dist.$invalid || partnerSchoolForm.taluka.$invalid || partnerSchoolForm.pin.$invalid">Next</md-button>
 
 		</section>
 
@@ -296,8 +289,6 @@
 					Student.</div>
 			</div>
 			</md-input-container>
-
-
 		</div>
 		<div layout="row" layout-xs="column">
 			<h3 class="md-subhead">Enter Exam Appeared Student Male and
@@ -365,17 +356,11 @@
 
 		<section layout="row" layout-sm="column" layout-align="end end">
 			<md-button
-				ng-disabled="partnerSchoolForm.govRegisterno.$invalid || partnerSchoolForm.city.$invalid || partnerSchoolForm.name.$invalid
-			|| partnerSchoolForm.instName.$invalid || partnerSchoolForm.tal.$invalid || partnerSchoolForm.formNumber.$invalid || partnerSchoolForm.line1.$invalid || partnerSchoolForm.state.$invalid 
-		|| partnerSchoolForm.category.$invalid || partnerSchoolForm.totalStudent.$invalid || partnerSchoolForm.male.$invalid ||partnerSchoolForm.totalStudent.$invalid 
-		|| partnerSchoolForm.female.$invalid "
+				ng-disabled="partnerSchoolForm.totalStudent.$invalid || partnerSchoolForm.male.$invalid || partnerSchoolForm.female.$invalid"
 				class="md-raised md-primary" ng-click="addPartnerSchool()">Save
 			& Next</md-button>
 			<md-button class="md-raised md-primary" ng-click="moveToNextTab()"
-				ng-disabled="partnerSchoolForm.govRegisterno.$invalid || partnerSchoolForm.city.$invalid || partnerSchoolForm.name.$invalid
-			|| partnerSchoolForm.instName.$invalid || partnerSchoolForm.tal.$invalid || partnerSchoolForm.formNumber.$invalid || partnerSchoolForm.line1.$invalid || partnerSchoolForm.state.$invalid 
-		|| partnerSchoolForm.category.$invalid || partnerSchoolForm.totalStudent.$invalid || partnerSchoolForm.male.$invalid ||partnerSchoolForm.totalStudent.$invalid 
-		|| partnerSchoolForm.female.$invalid ">Next</md-button>
+				ng-disabled="partnerSchoolForm.totalStudent.$invalid || partnerSchoolForm.male.$invalid || partnerSchoolForm.female.$invalid">Next</md-button>
 		</section>
 		</md-content> </md-tab> <md-tab label="Contact Detail" ng-click="setCurrentTab(2)"
 			ng-disabled="enableTillTabNo<2"> <md-content
@@ -413,7 +398,7 @@
 				class="mandatory">*</span>
 			</label> <input type="number" name="headMasterMobile"
 				ng-model="contactDetail.headMasterMobile" ng-minlength="10"
-				ng-maxlength="10" ng-required="true">
+				ng-maxlength="10">
 			<div ng-messages="partnerSchoolForm.headMasterMobile.$error"
 				ng-if="partnerSchoolForm.headMasterMobile.$submitted || partnerSchoolForm.headMasterMobile.$touched">
 				<div ng-message="required">Please Enter Mobile No.</div>
@@ -467,10 +452,7 @@
 								ng-if="partnerSchoolForm.cordName.$submitted || partnerSchoolForm.cordName.$touched">
 								<div ng-message="required">Please Enter Name.</div>
 							</div>
-							</md-input-container> <!-- 						<md-input-container flex> <label>
-							Name</label> <input ng-model="co.coordinatorName"> </md-input-container>
-							
- --></td>
+							</md-input-container></td>
 						<td><md-input-container flex> <label>Phone
 								No.</label> <input ng-model="co.coordinatorPhoneNum"></md-input-container></td>
 
@@ -511,27 +493,21 @@
 		</div>
 		<span flex="10"> <md-button class="md-icon-button"
 				ng-click="addCoordinator()" layout-align="end end"> <md-tooltip>
-			add Coordinator</md-tooltip> <md-icon
-				md-svg-icon="img/icons/ic_add_black_24px.svg" aria-label="Prev Week"></md-icon>
+			Add Co-ordinator</md-tooltip> <md-icon
+				md-svg-icon="img/icons/ic_add_black_24px.svg" aria-label="Add New"></md-icon>
 			</md-button>
 
 		</span>
 
 		<section layout="row" layout-sm="column" layout-align="end end">
 			<md-button
-				ng-disabled="partnerSchoolForm.govRegisterno.$invalid || partnerSchoolForm.city.$invalid || partnerSchoolForm.name.$invalid
-		|| partnerSchoolForm.instName.$invalid || partnerSchoolForm.tal.$invalid || partnerSchoolForm.formNumber.$invalid || partnerSchoolForm.line1.$invalid || partnerSchoolForm.state.$invalid 
-		|| partnerSchoolForm.category.$invalid || partnerSchoolForm.headMasterName.$invalid
-		|| partnerSchoolForm.headMasterMobile.$invalid || partnerSchoolForm.headMasterEmailId.$invalid || partnerSchoolForm.cordName.$invalid ||partnerSchoolForm.cordMobileNo.$invalid 
-		|| partnerSchoolForm.cordEmail.$invalid "
+				ng-disabled="partnerSchoolForm.headMasterName.$invalid || partnerSchoolForm.cordName.$invalid 
+				|| partnerSchoolForm.cordMobileNo.$invalid"
 				class="md-raised md-primary" ng-click="addPartnerSchool()">Save
 			& Next</md-button>
 			<md-button class="md-raised md-primary" ng-click="moveToNextTab()"
-				ng-disabled="partnerSchoolForm.govRegisterno.$invalid || partnerSchoolForm.city.$invalid || partnerSchoolForm.name.$invalid
-		|| partnerSchoolForm.instName.$invalid || partnerSchoolForm.tal.$invalid || partnerSchoolForm.formNumber.$invalid || partnerSchoolForm.line1.$invalid || partnerSchoolForm.state.$invalid 
-		|| partnerSchoolForm.category.$invalid || partnerSchoolForm.headMasterName.$invalid
-		|| partnerSchoolForm.headMasterMobile.$invalid || partnerSchoolForm.headMasterEmailId.$invalid || partnerSchoolForm.cordName.$invalid ||partnerSchoolForm.cordMobileNo.$invalid 
-		|| partnerSchoolForm.cordEmail.$invalid ">Next</md-button>
+				ng-disabled="partnerSchoolForm.headMasterName.$invalid || partnerSchoolForm.cordName.$invalid 
+				|| partnerSchoolForm.cordMobileNo.$invalid">Next</md-button>
 		</section>
 		</md-content> </md-tab> <!-- 		<md-tab	label="Book Standard Details"> <md-content class="md-padding">
 
@@ -647,10 +623,7 @@
 		</div>
 
 		<section layout="row" layout-sm="column" layout-align="end end">
-			<md-button
-				ng-disabled="partnerSchoolForm.govRegisterno.$invalid || partnerSchoolForm.city.$invalid || partnerSchoolForm.name.$invalid
-		|| partnerSchoolForm.instName.$invalid || partnerSchoolForm.tal.$invalid || partnerSchoolForm.formNumber.$invalid || partnerSchoolForm.line1.$invalid || partnerSchoolForm.state.$invalid 
-		|| partnerSchoolForm.category.$invalid"
+			<md-button ng-disabled="partnerSchoolForm.totalStud.$invalid"
 				class="md-raised md-primary" ng-click="addPartnerSchool()">Save
 			</md-button>
 		</section>
@@ -683,16 +656,11 @@
 
 		<section name="Payment Add Section" ng-show="addPaymentFlag">
 			<div layout="row" layout-xs="column" flex>
-				<md-input-container flex> <!-- <span>Payment
-			Received Vai <span style="color: red"
-			ng-show="partnerSchoolForm.payment.$error.required" class="mandatory">*</span>
-			:-
-		</span>  --> <md-select name="payment" id="payment"
-					ng-model="PaymentDetail.payReceivedBy"
+				<md-input-container flex> <md-select
+					name="payment" id="payment" ng-model="PaymentDetail.payReceivedBy"
 					placeholder="-Select Payment Mode-" ng-required="true">
-				<!-- <md-option>Cash
-		Payment </md-option> --> <md-option>Cash</md-option> <md-option>D.D
-				</md-option> <md-option>NEFT/RTGS</md-option> <md-option>--</md-option> </md-select>
+				<md-option>Cash</md-option> <md-option>D.D </md-option> <md-option>NEFT/RTGS</md-option>
+				<md-option>--</md-option> </md-select>
 				<div ng-messages="partnerSchoolForm.payment.$error"
 					ng-if="partnerSchoolForm.payment.$submitted || partnerSchoolForm.payment.$touched">
 					<div ng-message="required">Please Select Payment Mode.</div>
@@ -707,16 +675,25 @@
 			</div>
 			<br>
 			<div layout="row" layout-xs="column" flex>
-
-				<md-input-container flex> <label>Enter
-					Bank Name<span style="color: red"
-					ng-show="partnerSchoolForm.nameOfBank.$error.required"
-					class="mandatory">*</span>
-				</label> <input type="text" name="nameOfBank"
-					ng-model="PaymentDetail.nameOfBank" ng-required="true"><!-- ng-blur="calculatepaidandpending()" -->
+				<md-input-container flex> <md-select
+					name=nameOfBank ng-model="PaymentDetail.nameOfBank"
+					placeholder="--Select Bank Name--" ng-required="true">
+				<md-option ng-value="bankName" ng-repeat="bankName in bankNameList">{{bankName}}</md-option>
+				</md-select>
 				<div ng-messages="partnerSchoolForm.nameOfBank.$error"
 					ng-if="partnerSchoolForm.nameOfBank.$submitted || partnerSchoolForm.nameOfBank.$touched">
-					<div ng-message="required">Please Enter Payment Name Of Bank.</div>
+					<div ng-message="required">Please enter Bank Name.</div>
+				</div>
+				</md-input-container>
+				<md-input-container flex ng-if="PaymentDetail.nameOfBank == 'Other'">
+				<label>Enter Bank Name<span style="color: red"
+					ng-show="partnerSchoolForm.otherNameOfBank.$error.required"
+					class="mandatory">*</span>
+				</label> <input type="text" name="otherNameOfBank"
+					ng-model="tempPaymentData.otherNameOfBank" ng-required="true">
+				<div ng-messages="partnerSchoolForm.otherNameOfBank.$error"
+					ng-if="partnerSchoolForm.otherNameOfBank.$submitted || partnerSchoolForm.otherNameOfBank.$touched">
+					<div ng-message="required">Please enter Bank Name.</div>
 				</div>
 				</md-input-container>
 				<md-input-container flex> <label>Enter
@@ -780,41 +757,19 @@
 				</md-input-container>
 			</div>
 			<div layout="row" layout-xs="column" flex>
-				<md-input-container flex="20"><!--  <label>Total
-			Paid Paymant <span style="color: red"
-			ng-show="partnerSchoolForm.tPaid.$error.required" class="mandatory">*</span>
-		</label> <input type="number" name=" tPaid" ng-model="PaymentDetail.tPaid"
-			ng-required="true">
-		<div ng-messages="partnerSchoolForm.tPaid.$error"
-			ng-if="partnerSchoolForm.tPaid.$submitted || partnerSchoolForm.tPaid.$touched">
-			<div ng-message="required">Please Enter Total Paid amount.</div>
-		</div> --> Total Fees To Be Paid = {{bookSummary.amtForGRF80per }} </md-input-container>
+				<md-input-container flex="20">Total Fees To Be
+				Paid = {{bookSummary.amtForGRF80per }} </md-input-container>
 				<span flex="10"></span>
-				<md-input-container flex="20"><!--  <label>Total
-			Paid Paymant <span style="color: red"
-			ng-show="partnerSchoolForm.tPaid.$error.required" class="mandatory">*</span>
-		</label> <input type="number" name=" tPaid" ng-model="PaymentDetail.tPaid"
-			ng-required="true">
-		<div ng-messages="partnerSchoolForm.tPaid.$error"
-			ng-if="partnerSchoolForm.tPaid.$submitted || partnerSchoolForm.tPaid.$touched">
-			<div ng-message="required">Please Enter Total Paid amount.</div>
-		</div> --> Total Paid Fees = {{PaymentDetail.tPaid }} </md-input-container>
+				<md-input-container flex="20">Total Paid Fees =
+				{{PaymentDetail.tPaid }} </md-input-container>
 				<span flex="10"></span>
-
-				<md-input-container flex="20"> <!-- <label>Panding
-			Amount <span style="color: red"
-			ng-show="partnerSchoolForm.pAmount.$error.required" class="mandatory">*</span>
-		</label> <input type="number" name="pAmount" ng-model="PaymentDetail.pAmount"
-			ng-required="true">
-		<div ng-messages="partnerSchoolForm.payAmount.$error"
-			ng-if="partnerSchoolForm.pAmount.$submitted || partnerSchoolForm.pAmount.$touched">
-			<div ng-message="required">Please Enter Pending Amount.</div>
-		</div> --> Pending Fees = {{PaymentDetail.pAmount}} </md-input-container>
-
+				<md-input-container flex="20">Pending Fees =
+				{{PaymentDetail.pAmount}} </md-input-container>
 			</div>
-
 			<section layout="row" layout-sm="column" layout-align="end end">
-				<md-button ng-disabled="partnerSchoolForm.$invalid "
+				<md-button
+					ng-disabled="partnerSchoolForm.payment.$invalid || partnerSchoolForm.nameOfBank.$invalid 
+				|| partnerSchoolForm.payAmount.$invalid"
 					class="md-raised md-primary" ng-click="addPartnerSchool()">Save
 				</md-button>
 			</section>
@@ -840,7 +795,6 @@
 
 					</tr>
 				</thead>
-
 				<tbody>
 					<tr md-auto-select
 						ng-repeat="pd in PaymentDet track by $index  | orderBy: query.order | limitTo: query.limit: (query.page - 1) * query.limit ">

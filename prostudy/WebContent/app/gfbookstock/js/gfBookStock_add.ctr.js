@@ -1,89 +1,89 @@
-angular.module("prostudyApp").controller(
-		"gfBookStockAddCtr",
-		function($scope, $window, $mdToast, $timeout, $mdSidenav, $mdUtil,
-				$log, $q, appEndpointSF, $state, $stateParams, $mdDialog,
-				objectFactory) {
-			
-			
-			$scope.answerOfMediumList = [ "Marathi", "Hindi", "English", ];
-			$scope.tempBookStock = {
-					book : '',
-					bookQty : '',
-					feedStockDate : new Date(),
-					transactionType : 'Cr'
-			}
+angular
+		.module("prostudyApp")
+		.controller(
+				"gfBookStockAddCtr",
+				function($scope, $window, $mdToast, $timeout, $mdSidenav,
+						$mdUtil, $log, $q, appEndpointSF, $state, $stateParams,
+						$mdDialog, objectFactory) {
 
-			$scope.selectedGFBookStockID = $stateParams.selectedGFBookStockID;
+					$scope.answerOfMediumList = [ "Marathi", "Hindi",
+							"English", ];
 
-			$scope.addGFBookStock = function() {
-				$scope.tempBookStock.instituteID = parseInt($scope.curUser.instituteID);
+					$scope.tempStockAddData = {
+							feedStockDate : new Date()
+					};
+					
+					$scope.getTempBookStock = function() {
+						return {
+							book : '',
+							bookQty : '',
+							feedStockDate : new Date(),
+							transactionType : 'Cr',
+							instituteID : parseInt($scope.curUser.instituteID),
+							modifiedDate : new Date(),
+							modifiedBy : $scope.curUser.email_id
+						};
+					}
 
-				var gfBookStockService = appEndpointSF.getGFBookStockService();
+					$scope.tempBookStocks = [];
+					$scope.newBookStockList = [];
+					$scope.newBookStockList.push($scope.getTempBookStock());
 
-				gfBookStockService.addGFBookStock($scope.tempBookStock).then(
-						function(resp) {
-							
-							$scope.gfBookStockForm.$setPristine();
-							$scope.gfBookStockForm.$setValidity();
-							$scope.gfBookStockForm.$setUntouched();
-							
-
-						});
-				if ($scope.selectedGFStudID == "") {
-					$scope.showAddToast();
-				} else {
-					$scope.showUpdateToast();
-				}
-				$scope.tempBookStock = {};
-				$state.reload();
-			}
-
-			$scope.getGFBookByInstituteId = function() {
-
-				var gfBookStockService = appEndpointSF.getGFBookStockService();
-				gfBookStockService.getGFBookByInstituteId($scope.curUser.instituteID)
-						.then(function(tempBookStocks) {
-							
-							$scope.tempBookStocks = tempBookStocks;
+					$scope.addNewEntry = function() {
+						$scope.newBookStockList.push($scope.getTempBookStock());
+					}
+					 
+					$scope.addGFBookStock = function() {
 						
-						});
-			}
+						var gfBookStockService = appEndpointSF
+								.getGFBookStockService();
 
-			$scope.getPartnerByInstitute = function() {
+						$scope.newBookStockList
+								.forEach(function(bookStockEntry) {
+									bookStockEntry.feedStockDate = $scope.tempStockAddData.feedStockDate;
+									gfBookStockService
+											.addGFBookStock(bookStockEntry)
+											.then(
+													function(resp) {
+														if (bookStockEntry.book.id == $scope.newBookStockList[$scope.newBookStockList.length - 1].book.id) {
+															$scope
+																	.showUpdateToast();															
+														}
+													});
+								});						
+						$state.reload();
+					}
 
-				var PartnerSchoolService = appEndpointSF
-						.getPartnerSchoolService();
-				PartnerSchoolService.getPartnerByInstitute(
-						$scope.curUser.instituteID).then(function(pSchoolList) {
-					$scope.pSchoolList = pSchoolList;
+					$scope.getGFBookByInstituteId = function() {
+
+						var gfBookStockService = appEndpointSF
+								.getGFBookStockService();
+						gfBookStockService.getGFBookByInstituteId(
+								$scope.curUser.instituteID).then(
+								function(tempBookStocks) {
+									$scope.tempBookStocks = tempBookStocks;
+								});
+					}
+
+					$scope.cancel = function() {
+						$state.go('gandhifoundation');
+					}
+
+					$scope.waitForServiceLoad = function() {
+						if (appEndpointSF.is_service_ready) {
+							$scope.getGFBookByInstituteId();
+						} else {
+							$log.debug("Services Not Loaded, watiting...");
+							$timeout($scope.waitForServiceLoad, 1000);
+						}
+					}
+
+					$scope.waitForServiceLoad();
+
+					$scope.query = {
+						order : 'description',
+						limit : 5,
+						page : 1
+					};
 
 				});
-			}
-
-			$scope.cancel = function() {
-				$state.go('gandhifoundation');
-			}
-
-			$scope.waitForServiceLoad = function() {
-				if (appEndpointSF.is_service_ready) {
-
-					if ($scope.selectedGFBookStockID != "") {
-						$scope.getGFBookStockById();
-					}
-					$scope.getPartnerByInstitute();
-					$scope.getGFBookByInstituteId();
-				} else {
-					$log.debug("Services Not Loaded, watiting...");
-					$timeout($scope.waitForServiceLoad, 1000);
-				}
-			}
-
-			$scope.waitForServiceLoad();
-
-			$scope.query = {
-				order : 'description',
-				limit : 5,
-				page : 1
-			};
-
-		});

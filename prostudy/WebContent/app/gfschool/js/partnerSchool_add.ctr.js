@@ -16,6 +16,13 @@ angular
 					$scope.partnerSchoolLevels = partnerSchoolLevels;
 					$scope.standardList = standardList;
 
+					$scope.bankNameList = [ 'Sri. Mahaveer Co-op. Bank Ltd.',
+							'State Bank of India', 'Axis Bank', 'Other' ];
+					$scope.tempPaymentData = {
+						otherNameOfBank: null
+					};
+					
+
 					// ----------tab control-------
 					$scope.maxTabNo = 5;
 					$scope.selectedIndex = 0;
@@ -228,6 +235,11 @@ angular
 
 						$scope.waitForServiceLoad2();
 						if ($scope.PaymentDetail.payReceivedBy != "") {
+
+							if ($scope.PaymentDetail.nameOfBank == 'Other') {
+								$scope.PaymentDetail.nameOfBank = $scope.tempPaymentData.otherNameOfBank;
+							}
+							
 							$scope.PaymentDet.push($scope.PaymentDetail);
 							$scope.examDetail.paymentDetail = $scope.PaymentDet;
 							$scope.PaymentDetail = {
@@ -327,19 +339,17 @@ angular
 						$scope.loading = false;
 					}
 
-					/*$scope.checkFormNumberExists = function(formNumber) {
-						var PartnerSchoolService = appEndpointSF
-								.getPartnerSchoolService();
-						if (formNumber != "" && $scope.selectedPSchoolId != "") {
-							PartnerSchoolService.getPSchoolByFormNumber(
-									formNumber).then(function(pSchool) {
-								// Show dialog to show data in it.
-								// $scope.partnerSchool = pSchool;
-								alert("got here:" + pSchool);
-							});
-						}
-
-					}*/
+					/*
+					 * $scope.checkFormNumberExists = function(formNumber) { var
+					 * PartnerSchoolService = appEndpointSF
+					 * .getPartnerSchoolService(); if (formNumber != "" &&
+					 * $scope.selectedPSchoolId != "") {
+					 * PartnerSchoolService.getPSchoolByFormNumber(
+					 * formNumber).then(function(pSchool) { // Show dialog to
+					 * show data in it. // $scope.partnerSchool = pSchool;
+					 * alert("got here:" + pSchool); }); }
+					 *  }
+					 */
 
 					$scope.getPSchoolByPSID = function() {
 						var PartnerSchoolService = appEndpointSF
