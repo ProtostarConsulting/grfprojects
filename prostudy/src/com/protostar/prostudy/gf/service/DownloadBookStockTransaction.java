@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.protostar.prostudy.gf.entity.GFBookEntity;
 import com.protostar.prostudy.gf.entity.GFBookTransactionEntity;
 
 /**
@@ -63,10 +64,11 @@ public class DownloadBookStockTransaction extends HttpServlet {
 			ServletOutputStream outputStream = response.getOutputStream();
 			OutputStreamWriter writer = new OutputStreamWriter(outputStream);
 
-			writer.append("Book Name");
-			writer.append(',');
+			
 			writer.append("Standard	");
 			writer.append(',');
+			writer.append("Book Name");
+			writer.append(',');			
 			writer.append("Medium");
 			writer.append(',');
 			writer.append("Book Qty");
@@ -80,26 +82,30 @@ public class DownloadBookStockTransaction extends HttpServlet {
 
 			for (int i = 0; i < list1.size(); i++) {
 
-				GFBookTransactionEntity bookTrans = list1.get(i);
-
-				if (!bookTrans.getBook().getBookName().equals(null)) {
-					String bookName = bookTrans.getBook().getBookName();
-					writer.append(bookName);
-					writer.append(',');
-
-					String standard = bookTrans.getBook().getStandard();
+				GFBookTransactionEntity bookTrans = list1.get(i);				
+				GFBookEntity book = bookTrans.getBook();
+				
+				if (book != null) {
+					String standard = book.getStandard();
 					writer.append(standard);
 					writer.append(',');
+					
+					String bookName = book.getBookName();
+					writer.append(bookName);
+					writer.append(',');					
 
-					String medium = bookTrans.getBook().getBookMedium();
+					String medium = book.getBookMedium();
 					writer.append(medium);
 					writer.append(',');
-					int bookQty = bookTrans.getBook().getBookQty();
+					
+					int bookQty = book.getBookQty();
 					writer.append(Integer.toString(bookQty));
 					writer.append(',');
+					
 					String transactionType = bookTrans.getTransactionType();
 					writer.append(transactionType);
 					writer.append(',');
+					
 					String transactionDate = sdf.format(bookTrans
 							.getTransactionDate());
 					writer.append(transactionDate);

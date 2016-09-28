@@ -2,6 +2,7 @@ package com.protostar.prostudy.gf.service;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.api.server.spi.config.Api;
@@ -85,8 +86,16 @@ public class GFBookStockService {
 
 		List<GFBookTransactionEntity> list = ofy().load()
 				.type(GFBookTransactionEntity.class).list();
+		List<GFBookTransactionEntity> fitleredList = new ArrayList<GFBookTransactionEntity>();
+		// Filter only Cr List
+		for (GFBookTransactionEntity bookTxnRecord : list) {
+			if (!"Cr".equalsIgnoreCase(bookTxnRecord.getTransactionType())) {
+				continue;
+			}
+			fitleredList.add(bookTxnRecord);
+		}
 
-		return list;
+		return fitleredList;
 
 	}
 
