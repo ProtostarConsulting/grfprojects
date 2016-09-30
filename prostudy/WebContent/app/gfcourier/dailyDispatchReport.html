@@ -21,6 +21,11 @@
 		<div class="md-toolbar-tools">
 			<span flex>Display Dispatch Report: {{ courierDispatchDate |
 				date:"dd-MM-yyyy" }}</span>
+			<div layout="row"   layout-xs="column">
+				<md-button class="md-raised md-primary" id="downloadExcel" 
+					ng-click="downloadCourierDispatchReport()">Download Courier Dispatch Report <md-tooltip>Download
+				Courier Dispatch Report</md-tooltip> </md-button>
+			</div>		
 			<md-button class="md-icon-button md-accent"
 				ng-click="printDiv('reportContentDiv')" aria-label="Favorite">
 			<md-icon md-svg-icon="img/icons/print.svg"></md-icon> </md-button>
