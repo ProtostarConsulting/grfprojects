@@ -91,6 +91,8 @@ public class DownloadCourierDispatchReport extends HttpServlet {
 			writer.append(',');
 			writer.append("Logistic");
 			writer.append(',');
+			writer.append("Docket No.");
+			writer.append(',');
 			writer.append("Weight(Kg)");
 			writer.append(',');
 			writer.append("Courier Cost(Rs.)");
@@ -129,6 +131,9 @@ public class DownloadCourierDispatchReport extends HttpServlet {
 				writer.append(',');
 				String logistics = gfCourierEntity.getLogistics();
 				writer.append(logistics);
+				writer.append(',');
+				String courierDocketNo = gfCourierEntity.getCourierDocketID();
+				writer.append(courierDocketNo);
 				writer.append(',');
 				int courierWeight1 = gfCourierEntity.getTotalWeight();
 				String courierWeight=Integer.toString(courierWeight1);
