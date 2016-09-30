@@ -66,6 +66,11 @@ angular
 						$scope.loading = false;
 						$scope.dateChanged = false;
 					}
+					
+					$scope.downloadCourierDispatchReport = function(){
+						
+						document.location.href="DownloadCourierDispatchReport?courierDispatchReportByInstituteID="+$scope.curUser.instituteID+"&dispatchDate="+$scope.courierDispatchDate.getTime();
+					}
 
 					$scope.waitForServiceLoad = function() {
 						if (appEndpointSF.is_service_ready) {
