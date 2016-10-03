@@ -98,7 +98,7 @@ public class DownloadBookStockTransaction extends HttpServlet {
 					writer.append(medium);
 					writer.append(',');
 					
-					int bookQty = book.getBookQty();
+					int bookQty = bookTrans.getBookQty();
 					writer.append(Integer.toString(bookQty));
 					writer.append(',');
 					
