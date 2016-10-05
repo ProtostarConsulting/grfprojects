@@ -2,6 +2,7 @@ package com.protostar.prostudy.gf.service;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -12,6 +13,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 
 
@@ -58,13 +60,17 @@ public class DownloadCourierDispatchReport extends HttpServlet {
 		
 		System.out.println("*****courierDispatchDate:"+courierDispatchDate);
 		
-		//String dispachDateToCompare = sdf.format(courierDispatchDate);	
+		String dispachDateToCompare = sdf.format(courierDispatchDate);	
 				
-		
-		//System.out.println("dispachDateToCompare: ----"+dispachDateToCompare);
+		System.out.println("dispachDateToCompare: ----"+dispachDateToCompare);
 		
 		GFCourierService gfCourierService = new GFCourierService();
 		List<GFCourierEntity> courierReportList = gfCourierService.getGFCourierByInstitute(courierReportInstituteID);
+		
+		/*Date dispatchDateofCourier = courierReportList.get(0).getCourierDispatchDate();
+		System.out.println("dispatchDateofCourier: ----"+dispatchDateofCourier);*/
+		
+		//if(dispachDateToCompare.equals(dispatchDateofCourier)){}
 		
 		try {
 			
@@ -102,9 +108,7 @@ public class DownloadCourierDispatchReport extends HttpServlet {
 			
 			for(int i=0;i<courierReportList.size();i++){
 				GFCourierEntity gfCourierEntity = courierReportList.get(i);
-				if(courierDispatchDate.getYear()==gfCourierEntity.getCourierDispatchDate().getYear()
-						&&courierDispatchDate.getMonth()==gfCourierEntity.getCourierDispatchDate().getMonth()
-						&&courierDispatchDate.getDay()==gfCourierEntity.getCourierDispatchDate().getDay()){
+				if(dispachDateToCompare.equals(sdf.format(gfCourierEntity.getCourierDispatchDate()))){
 								
 				String serial_no=Integer.toString(++sr_no);
 				writer.append(serial_no);
@@ -146,7 +150,8 @@ public class DownloadCourierDispatchReport extends HttpServlet {
 				
 				writer.append(System.lineSeparator());
 				
-				}	
+				}
+				
 				
 			}
 			writer.close();
