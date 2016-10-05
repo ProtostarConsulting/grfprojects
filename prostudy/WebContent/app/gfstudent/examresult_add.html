@@ -4,62 +4,99 @@
 	</div>
 </div>
 <div ng-if="!loading">
-	<h3 class="md-headline">Exam Result Add</h3>
+	<h3 class="md-headline">GRF Exam Result Add</h3>
 	<div layout="column" layout-padding layout-xs="column">
 
 		<form name="gfaddresultfrm" layout="column">
-			<div layout="row">
-				<md-input-container> <label>GRF. Reg.
-					No. <span style="color: red"
+			<div layout="row" layout-xs="column">
+				<md-input-container> <label>Enter GRF.
+					Reg. No. <span style="color: red"
 					ng-show="gfaddresultfrm.grfRegNo.$error.required" class="mandatory">*</span>
 				</label> <input name="grfRegNo" ng-model="data.grfRegNo" ng-required="true">
-				<div ng-messages="gfaddresultfrm.fName.$error"
+				<div ng-messages="gfaddresultfrm.grfRegNo.$error"
 					ng-if="gfaddresultfrm.grfRegNo.$submitted || gfaddresultfrm.grfRegNo.$touched">
 					<div ng-message="required">This field is required.</div>
 				</div>
 				</md-input-container>
+				<md-input-container> <label>Enter
+					Co-ordinator Mobile Number<span style="color: red"
+					ng-show="gfaddresultfrm.coordinatorMobileNumberEntered.$error.required"
+					class="mandatory">*</span>
+				</label> <input name="coordinatorMobileNumberEntered"
+					ng-model="data.coordinatorMobileNumberEntered" type="number"
+					ng-required="true" ng-minlength="10" ng-maxlength="10">
+				<div>Enter same 10 digit mobile number written/entered for GRF
+					registration form.</div>
+				<div
+					ng-messages="gfaddresultfrm.coordinatorMobileNumberEntered.$error"
+					ng-if="gfaddresultfrm.coordinatorMobileNumberEntered.$submitted || gfaddresultfrm.coordinatorMobileNumberEntered.$touched">
+					<div ng-message="required">This field is required.</div>
+					<div ng-message="minlength || maxlength">Enter 10 digit
+						mobile number.</div>
+				</div>
+				</md-input-container>
 				<div layout="row" layout-align="center start" layout-xs="column">
 					<md-button class="md-raised md-primary"
-						ng-disabled="gfaddresultfrm.grfRegNo.$invalid"
+						ng-disabled="gfaddresultfrm.grfRegNo.$invalid || gfaddresultfrm.coordinatorMobileNumberEntered.$invalid"
 						ng-click="grfRegNoChange(data.grfRegNo)">Verify</md-button>
 				</div>
-
-				<span flex><b>{{foundSchool.schoolName}}</b></span>
 			</div>
-			<div layout="column" ng-if="!foundSchool">{{grfRegNoNotFound}}</div>
-			<div layout="column" ng-show="currentSchoolStandardList.length"
-				ng-if="foundSchool">
+
+			<div layout="column" ng-if="!data.foundValidRecord">
+				<span style="color: red">{{data.errorMsg}}</span>
+			</div>
+
+			<div layout="column" ng-if="data.foundValidRecord">
+
+				<div layout="column">
+					<div layout="row" layout-xs="column">
+						<span><b>School/College Name: &nbsp;</b></span><span>{{foundSchool.schoolName}}</span>
+					</div>
+					<div layout="row" layout-xs="column">
+						<span><b>Co-ordinator Name:
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></span><span>{{coordinatorDetail.coordinatorName}}</span>
+					</div>
+				</div>
+				<hr>
+				<h3 class="md-title">Please enter standard wise result below.</h3>
+
 				<div layout="row">
 					<span flex><b>Student Rank by Standard</b></span> <span
-						style="padding-right: 100px" flex><b>Student Name</b></span> <span
-						style="padding-right: 50px"><b>Marks</b></span>
+						style="padding-right: 200px" flex><b>Student Name</b></span> <span
+						style="padding-right: 200px"><b>Marks</b></span>
 				</div>
 				<md-divider></md-divider>
 				<div id="standardList" ng-repeat="std in currentSchoolStandardList"
-					layout="column" title="This is my caption">
-					<div>
-						<span><b>{{std}}</b></span>
+					layout="column">
+					<div layout="row" style="margin: 10px;">
+						<span
+							style="border: 1px solid #dddddd; text-align: left; padding: 8px; background-color: #8cced4;"
+							flex><b>Standard:&nbsp;{{std}}</b></span>
 					</div>
 					<div id="standardList"
-						ng-repeat="examResult in getResultListFor(std)" layout="row">
-						<ng-form name="recordForm" flex> <span
-							ng-style="getStandardLabelStyle()"><b>{{$index+1}}</b></span> <md-input-container
-							ng-style="getStudNameStyle()" flex> <input
+						ng-repeat="examResult in getResultListFor(std)" layout="row"
+						flex="100">
+						<ng-form name="recordForm"
+							style="padding-top: 0px; padding-bottom: 0px" layout="row"
+							layout-padding flex="100"> <span
+							ng-style="getStandardLabelStyle()" flex="25"><b>Student
+								No.&nbsp;{{$index+1}}</b></span> <md-input-container flex="50"
+							style="margin: 0; padding: 0;"> <input
 							name="studName" aria-label="Student Name"
 							ng-model="examResult.studName" ng-required="true">
 						<div ng-messages="recordForm.studName.$error"
 							ng-if="recordForm.studName.$submitted || recordForm.studName.$touched">
 							<div ng-message="required">This field is required.</div>
 						</div>
-						</md-input-container> <md-input-container> <input
-							name="marks" aria-label="Student Marks"
-							type="number" ng-model="examResult.marks" ng-required="true">
+						</md-input-container flex> <md-input-container flex="25"
+							style="margin: 0; padding: 0; padding-left: 10px;">
+						<input name="marks" aria-label="Student Marks" type="number"
+							ng-model="examResult.marks" ng-required="true">
 						<div ng-messages="recordForm.marks.$error"
 							ng-if="recordForm.marks.$submitted || recordForm.marks.$touched">
 							<div ng-message="required">This field is required.</div>
 						</div>
 						</md-input-container> </ng-form>
-
 					</div>
 				</div>
 
