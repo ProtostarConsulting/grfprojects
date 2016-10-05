@@ -12,62 +12,68 @@
 				<md-input-container> <label>GRF. Reg.
 					No. <span style="color: red"
 					ng-show="gfaddresultfrm.grfRegNo.$error.required" class="mandatory">*</span>
-				</label> <input name="grfRegNo" ng-model="grfRegNo" ng-required="true"
-					ng-change="grfRegNoChange(grfRegNo)">
+				</label> <input name="grfRegNo" ng-model="data.grfRegNo" ng-required="true">
 				<div ng-messages="gfaddresultfrm.fName.$error"
 					ng-if="gfaddresultfrm.grfRegNo.$submitted || gfaddresultfrm.grfRegNo.$touched">
 					<div ng-message="required">This field is required.</div>
 				</div>
 				</md-input-container>
+				<div layout="row" layout-align="center start" layout-xs="column">
+					<md-button class="md-raised md-primary"
+						ng-disabled="gfaddresultfrm.grfRegNo.$invalid"
+						ng-click="grfRegNoChange(data.grfRegNo)">Verify</md-button>
+				</div>
 
 				<span flex><b>{{foundSchool.schoolName}}</b></span>
 			</div>
-			<div layout="column" ng-show="currentSchoolStandardList.length">
+			<div layout="column" ng-if="!foundSchool">{{grfRegNoNotFound}}</div>
+			<div layout="column" ng-show="currentSchoolStandardList.length"
+				ng-if="foundSchool">
 				<div layout="row">
 					<span flex><b>Student Rank by Standard</b></span> <span
 						style="padding-right: 100px" flex><b>Student Name</b></span> <span
 						style="padding-right: 50px"><b>Marks</b></span>
 				</div>
-				 <md-divider></md-divider>			
-					<div id="standardList" ng-repeat="std in currentSchoolStandardList"
-						layout="column" title="This is my caption">
-						<div>
-							<span><b>{{std}}</b></span>
-						</div>
-						<div id="standardList"
-							ng-repeat="examResult in getResultListFor(std)" layout="row">
-							<span ng-style="getStandardLabelStyle()"><b>{{$index+1}}</b></span>
-							<md-input-container ng-style="getStudNameStyle()" flex>
-							<input name="studName$index" ng-model="examResult.studName"
-								ng-required="true">
-							<div ng-messages="gfaddresultfrm.studName$index.$error"
-								ng-if="gfaddresultfrm.studName$index.$submitted || gfaddresultfrm.studName$index.$touched">
-								<div ng-message="required">This field is required.</div>
-							</div>
-							</md-input-container>
-
-							<md-input-container> <input
-								name="marks$index" type="number" ng-model="examResult.marks"
-								ng-required="true">
-							<div ng-messages="gfaddresultfrm.marks$index.$error"
-								ng-if="gfaddresultfrm.marks$index.$submitted || gfaddresultfrm.marks$index.$touched">
-								<div ng-message="required">This field is required.</div>
-							</div>
-							</md-input-container>
-
-						</div>
+				<md-divider></md-divider>
+				<div id="standardList" ng-repeat="std in currentSchoolStandardList"
+					layout="column" title="This is my caption">
+					<div>
+						<span><b>{{std}}</b></span>
 					</div>
-				
+					<div id="standardList"
+						ng-repeat="examResult in getResultListFor(std)" layout="row">
+						<ng-form name="recordForm" flex> <span
+							ng-style="getStandardLabelStyle()"><b>{{$index+1}}</b></span> <md-input-container
+							ng-style="getStudNameStyle()" flex> <input
+							name="studName" aria-label="Student Name"
+							ng-model="examResult.studName" ng-required="true">
+						<div ng-messages="recordForm.studName.$error"
+							ng-if="recordForm.studName.$submitted || recordForm.studName.$touched">
+							<div ng-message="required">This field is required.</div>
+						</div>
+						</md-input-container> <md-input-container> <input
+							name="marks" aria-label="Student Marks"
+							type="number" ng-model="examResult.marks" ng-required="true">
+						<div ng-messages="recordForm.marks.$error"
+							ng-if="recordForm.marks.$submitted || recordForm.marks.$touched">
+							<div ng-message="required">This field is required.</div>
+						</div>
+						</md-input-container> </ng-form>
+
+					</div>
+				</div>
+
+				<div layout="row" layout-align="center center" layout-xs="column">
+					<md-button class="md-raised md-primary"
+						ng-click="addExamResultList()"
+						ng-disabled="gfaddresultfrm.$invalid">Save Result </md-button>
+					<md-button class="md-raised " ng-click="cancelButton()">Cancel</md-button>
+				</div>
 			</div>
 		</form>
 	</div>
 
-	<div layout="row" layout-align="center center" layout-xs="column">
-		<md-button class="md-raised md-primary" ng-click="addExamResultList()"
-			ng-disabled="gfaddresultfrm.$invalid">Add Result </md-button>
-		<md-button class="md-raised " ng-click="cancelButton()">Cancel</md-button>
 
-	</div>
 </div>
 
 

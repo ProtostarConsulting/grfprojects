@@ -66,6 +66,16 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 		return deferred.promise;
 	}
 
+	GFStudentService.serachExamResultEntitiesBySchool = function(schoolEntity) {
+		var deferred = $q.defer();
+		gapi.client.gfStudentService
+				.serachExamResultEntitiesBySchool(schoolEntity).execute(
+						function(resp) {
+							deferred.resolve(resp);
+						});
+		return deferred.promise;
+	}
+
 	// Gandhi Foundation FStudentService End
 
 	// Gandhi Foundation gfCourierService Start
@@ -116,7 +126,7 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 		});
 		return deferred.promise;
 	}
-	
+
 	GFCourierService.getCourierByCourierType = function(courierType) {
 		var deferred = $q.defer();
 		gapi.client.gfCourierService.getCourierByCourierType({
@@ -1788,7 +1798,7 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 		});
 		return deferred.promise;
 	}
-	
+
 	PartnerSchoolService.getPSchoolByFormNumber = function(formNumber) {
 		var deferred = $q.defer();
 		gapi.client.partnerSchoolService.getPSchoolByFormNumber({
