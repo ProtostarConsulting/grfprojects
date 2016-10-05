@@ -13,6 +13,7 @@ import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.config.Named;
 import com.protostar.prostudy.gf.entity.GFExamResultEntity;
 import com.protostar.prostudy.gf.entity.GFStudentEntity;
+import com.protostar.prostudy.gf.entity.PartnerSchoolEntity;
 import com.protostar.prostudy.until.data.GFExamResultEntityList;
 import com.protostar.prostudy.until.data.UtilityService;
 
@@ -64,6 +65,17 @@ public class GFStudentService {
 			@Named("instituteID") Long id) {
 		List<GFExamResultEntity> resultList = ofy().load()
 				.type(GFExamResultEntity.class).list();
+		System.out.println("resultList:" + resultList.size());
+		return resultList;
+	}
+
+	@ApiMethod(name = "serachExamResultEntitiesBySchool", path = "serachExamResultEntitiesBySchool")
+	public List<GFExamResultEntity> serachExamResultEntitiesBySchool(
+			PartnerSchoolEntity schoolEntity) {
+		System.out.println("schoolEntity.schoolName:" + schoolEntity.getSchoolName());
+		List<GFExamResultEntity> resultList = ofy().load()
+				.type(GFExamResultEntity.class).filter("school", schoolEntity)
+				.list();
 		System.out.println("resultList:" + resultList.size());
 		return resultList;
 	}

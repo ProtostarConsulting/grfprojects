@@ -15,7 +15,9 @@ public class GFExamResultEntity extends BaseEntity {
 	private String mediumOfAnswer;
 	@Index
 	private float marks;
-
+	@Index
+	private boolean grfReviewed = false;
+	@Index
 	private Ref<PartnerSchoolEntity> school;
 
 	public String getStandard() {
@@ -64,5 +66,13 @@ public class GFExamResultEntity extends BaseEntity {
 
 	public void setStudName(String studName) {
 		this.studName = studName;
+	}
+
+	public boolean isGrfReviewed() {
+		return grfReviewed;
+	}
+
+	public void setGrfReviewed(boolean grfReviewed) {
+		this.grfReviewed = grfReviewed;
 	}
 }
