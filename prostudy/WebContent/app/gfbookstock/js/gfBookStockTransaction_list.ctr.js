@@ -14,7 +14,7 @@ angular
 					};
 					$scope.query = {
 						order : '-transactionDate',
-						limit : 50,
+						limit : 60,
 						page : 1
 					};
 

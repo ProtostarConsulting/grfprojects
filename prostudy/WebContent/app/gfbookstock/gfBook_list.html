@@ -3,7 +3,7 @@
 		<md-progress-circular md-diameter="100" md-mode="indeterminate"></md-progress-circular>
 	</div>
 </div>
-<div  ng-if="!loading" id="studentListDiv">
+<div ng-if="!loading" id="studentListDiv">
 	<!-- <div layout="row" layout-align="end end" layout-xs="column">
 
 		<md-button class="md-raised md-primary" id="uplodeExcel"
@@ -18,10 +18,11 @@
 	<div layout="row" layout-xs="column">
 		<md-input-container flex> <label>Search
 			By Name</label> <input ng-model="searchByName"> </md-input-container>
-		 <div flex>
+		<div flex>
 			<md-checkbox ng-model="threshold" ng-true-value="true"
 				ng-false-value="false" id="changer" id="thresholdID"
-				ng-change="showThresholdBooks()" class="md-warn md-align-top-left" flex>Book By Threshold </md-checkbox>			
+				ng-change="showThresholdBooks()" class="md-warn md-align-top-left"
+				flex>Book By Threshold </md-checkbox>
 		</div>
 	</div>
 
@@ -33,16 +34,30 @@
 			<span>Books List</span>
 			<div flex></div>
 			<div layout="row" layout-align="end end" layout-xs="column">
-
-				<md-button class="md-raised md-primary" id="uplodeExcel"
+				<!-- <md-button class="md-raised md-primary" id="uplodeExcel"
 					ng-click="UplodeExcel($event)">Upload Books<md-tooltip>
 				Add Bulk Books</md-tooltip> </md-button>
 
 				<md-button class="md-raised md-primary" id="downloadExcel"
-					ng-click="downloadData()">Download Books<md-tooltip>Download Books Records</md-tooltip> </md-button>
+					ng-click="downloadData()">Download Books<md-tooltip>Download
+				Books Records</md-tooltip> </md-button>
 				<md-button class="md-icon-button"
 					ng-click="getGFBookByInstituteId(true)"> <md-icon>refresh</md-icon>
-				</md-button>
+				</md-button> -->
+
+				<md-button class="md-icon-button" id="uplodeExcel"
+					ng-click="UplodeExcel($event)"> <ng-md-icon
+					icon="file_upload" style="fill: md-default" size="24">
+				<md-tooltip>Upload CSV Data</md-tooltip></ng-md-icon></md-button>
+				<md-button class="md-icon-button" id="downloadExcel"
+					ng-click="downloadData()"> <ng-md-icon
+					icon="file_download" style="fill: md-default" size="24">
+				<md-tooltip>Download CSV Data</md-tooltip></ng-md-icon></md-button>
+				<md-button class="md-icon-button" id="refreshIcon"
+					ng-click="getGFBookByInstituteId(true)"> <ng-md-icon
+					icon="refresh" style="fill: md-default" size="24"> <md-tooltip>Refresh
+				List</md-tooltip></ng-md-icon></md-button>
+
 			</div>
 		</div>
 		</md-toolbar>
@@ -87,24 +102,30 @@
 					<td ng-if="book.bookQty >= book.bookThreshold">{{book.bookAuther}}</b></td>
 
 					<td ng-if="book.bookQty < book.bookThreshold"><b><font
-							color="red">{{book.weight}}</font></b></td>
+							color="red">{{book.weight | number : 2}}</font></b></td>
 					<td ng-if="book.bookQty >= book.bookThreshold">{{book.weight |
 						number : 2}}</b>
 					</td>
 
 					<td ng-if="book.bookQty < book.bookThreshold"><b><font
-							color="red">{{book.bookPrice}}</font></b></td>
-					<td ng-if="book.bookQty >= book.bookThreshold">{{book.bookPrice}}</b></td>
+							color="red">{{book.bookPrice | number : 2}}</font></b></td>
+					<td ng-if="book.bookQty >= book.bookThreshold">{{book.bookPrice
+						| number : 2}}</b>
+					</td>
 
 					<td ng-if="book.bookQty < book.bookThreshold"><b><font
 							color="red">{{book.bookQty}}</font></b></td>
 					<td ng-if="book.bookQty >= book.bookThreshold">{{book.bookQty}}</b></td>
 
-					<td><md-button
+					<!-- <td><md-button
 							ui-sref="bookModule.add({selectedGFBookID : book.id})"
 							class="md-fab md-primary md-hue-2" ng-click=""> <md-icon
 							md-svg-src="img/icons/edit.svg"></md-icon> <md-tooltip>Edit
-						</md-tooltip></md-button></td>
+						</md-tooltip></md-button></td> -->
+					<td><md-button class="md-icon-button" id="editRecord"
+							ui-sref="bookModule.add({selectedGFBookID : book.id})">
+						<ng-md-icon icon="edit" style="fill: md-default" size="24">
+						<md-tooltip> Edit Record</md-tooltip></ng-md-icon></md-button></td>
 
 				</tr>
 			</tbody>

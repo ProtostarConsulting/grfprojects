@@ -74,7 +74,7 @@ angular
 					$scope.loginCheck = function() {
 						var curUser = appEndpointSF.getLocalUserService()
 								.getLoggedinUser();
-						if (curUser == undefined || curUser == null) {
+						if (!curUser) {
 							$state.go("login");
 							return false;
 						}
@@ -395,11 +395,19 @@ angular
 						$scope.curUser = appEndpointSF.getLocalUserService()
 								.getLoggedinUser();
 
-						if ($scope.curUser == null) {
+						// Allow guest login for add result page.
+
+						if ($state.current.name == "studentModule.addExamResult") {
+							return;
+							// this allow access to current page without login
+						}
+
+						if (!$scope.curUser) {
 							$state.go("login");
 							return; // else it goes to login state but continues
 							// the this js flow
 						}
+
 						if ($scope.curUser && $scope.curUser.instituteObj) {
 							$scope.theme = $scope.curUser.instituteObj.theme;
 						}

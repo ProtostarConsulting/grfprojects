@@ -18,7 +18,7 @@
 					<div ng-message="required">This field is required.</div>
 				</div>
 				</md-input-container>
-				<md-input-container> <label>Enter
+				<md-input-container ng-if="!curUser"> <label>Enter
 					Co-ordinator Mobile Number<span style="color: red"
 					ng-show="gfaddresultfrm.coordinatorMobileNumberEntered.$error.required"
 					class="mandatory">*</span>
@@ -35,18 +35,29 @@
 						mobile number.</div>
 				</div>
 				</md-input-container>
-				<div layout="row" layout-align="center start" layout-xs="column">
+				<div layout="row" layout-align="center start" layout-xs="column"
+					ng-if="!curUser">
 					<md-button class="md-raised md-primary"
 						ng-disabled="gfaddresultfrm.grfRegNo.$invalid || gfaddresultfrm.coordinatorMobileNumberEntered.$invalid"
 						ng-click="grfRegNoChange(data.grfRegNo)">Verify</md-button>
+				</div>
+				<div layout="row" layout-align="center start" layout-xs="column"
+					ng-if="curUser">
+					<md-button class="md-raised md-primary"
+						ng-disabled="gfaddresultfrm.grfRegNo.$invalid"
+						ng-click="grfRegNoChange(data.grfRegNo)">Display</md-button>
 				</div>
 			</div>
 
 			<div layout="column" ng-if="!data.foundValidRecord">
 				<span style="color: red">{{data.errorMsg}}</span>
 			</div>
+			<div layout="column" ng-if="data.guestSuccessMsg !=''">
+				<h3 class="md-title">{{data.guestSuccessMsg}}</h3>
+			</div>
 
-			<div layout="column" ng-if="data.foundValidRecord">
+			<div layout="column"
+				ng-if="data.foundValidRecord && data.guestSuccessMsg ==''">
 
 				<div layout="column">
 					<div layout="row" layout-xs="column">
@@ -77,7 +88,7 @@
 						ng-repeat="examResult in getResultListFor(std)" layout="row"
 						flex="100">
 						<ng-form name="recordForm"
-							style="padding-top: 0px; padding-bottom: 0px" layout="row"
+							ng-style="padding-top: 0px; padding-bottom: 0px" layout="row"
 							layout-padding flex="100"> <span
 							ng-style="getStandardLabelStyle()" flex="25"><b>Student
 								No.&nbsp;{{$index+1}}</b></span> <md-input-container flex="50"
