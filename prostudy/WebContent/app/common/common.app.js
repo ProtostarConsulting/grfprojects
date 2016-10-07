@@ -1318,7 +1318,10 @@ app
 					.state('studentModule.addExamResult', {
 						url : "/addExamResult",
 						templateUrl : '/app/gfstudent/examresult_add.html',
-						controller : 'gfExamResultAddCtr'
+						controller : 'gfExamResultAddCtr',
+						params : {
+							reviewByGrfRegNo : null
+						}
 					})
 					.state('studentModule.listExamResult', {
 						url : "/listExamResult",
@@ -1401,7 +1404,13 @@ app
 						templateUrl : '/app/gfreport/fin_summary.html',
 						controller : 'finSummaryCtr',
 					})
-
+					.state(
+							'gfreport.listExamResult',
+							{
+								url : "/listExamResult",
+								templateUrl : '/app/gfreport/examresult_list_report.html',
+								controller : 'gfExamResultListReportCtr'
+							})
 					.state(
 							'bookModule',
 							{

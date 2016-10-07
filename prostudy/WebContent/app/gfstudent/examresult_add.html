@@ -4,11 +4,14 @@
 	</div>
 </div>
 <div ng-if="!loading">
-	<h3 class="md-headline">GRF Exam Result Add</h3>
+	<h3 class="md-headline" ng-if="!reviewByGrfRegNo">GRF Exam Result
+		Add</h3>
+	<h3 class="md-headline" ng-if="reviewByGrfRegNo">Review School
+		Exam Results</h3>
 	<div layout="column" layout-padding layout-xs="column">
 
 		<form name="gfaddresultfrm" layout="column">
-			<div layout="row" layout-xs="column">
+			<div layout="row" layout-xs="column" ng-if="!reviewByGrfRegNo">
 				<md-input-container> <label>Enter GRF.
 					Reg. No. <span style="color: red"
 					ng-show="gfaddresultfrm.grfRegNo.$error.required" class="mandatory">*</span>
@@ -111,12 +114,22 @@
 					</div>
 				</div>
 
-				<div layout="row" layout-align="center center" layout-xs="column">
+				<div layout="row" layout-align="center center" layout-xs="column"
+					ng-if="!reviewByGrfRegNo">
 					<md-button class="md-raised md-primary"
 						ng-click="addExamResultList()"
 						ng-disabled="gfaddresultfrm.$invalid">Save Result </md-button>
-					<md-button class="md-raised " ng-click="cancelButton()">Cancel</md-button>
+					<md-button class="md-raised " ng-click="back()">Cancel</md-button>
 				</div>
+
+				<div layout="row" layout-align="center center" layout-xs="column"
+					ng-if="reviewByGrfRegNo">
+					<md-button class="md-raised md-primary"
+						ng-click="saveReviewedExamResultList()"
+						ng-disabled="gfaddresultfrm.$invalid">Review & Save Result </md-button>
+					<md-button class="md-raised " ng-click="back()">Cancel</md-button>
+				</div>
+
 			</div>
 		</form>
 	</div>

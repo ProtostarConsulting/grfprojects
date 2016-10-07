@@ -4,13 +4,15 @@ angular
 				"gfExamResultAddCtr",
 				function($scope, $window, $mdToast, $timeout, $mdSidenav,
 						$mdUtil, $log, $q, appEndpointSF, $state, $stateParams,
-						$mdDialog, $location, $anchorScroll, objectFactory, answerOfMediumList,
-						standardList) {
+						$mdDialog, $location, $anchorScroll, objectFactory,
+						answerOfMediumList, standardList) {
 
 					$scope.loading = true;
 					var gfStudentService = appEndpointSF.getGFStudentService();
 					var partnerSchoolService = appEndpointSF
 							.getPartnerSchoolService();
+
+					$scope.reviewByGrfRegNo = $stateParams.reviewByGrfRegNo;
 
 					$scope.answerOfMediumList = answerOfMediumList;
 					$scope.standardList = standardList
@@ -38,7 +40,7 @@ angular
 							institute : $scope.curUser.instituteObj,
 							examYear : $scope.examDetail.yearOfExam,
 							grfReviewed : false
-						}
+						};
 					}
 
 					$scope.getBookDetailList = function(school) {
@@ -192,11 +194,17 @@ angular
 					}
 
 					$scope.addExamResultList = function() {
+						$scope.loading = true;
 						gfStudentService
 								.addExamResults($scope.examResultList)
 								.then(
 										function(resp) {
-											$scope.showAddToast();
+											
+											if ($scope.reviewByGrfRegNo) {
+												$scope.showUpdateToast();
+											}else{
+												$scope.showAddToast();
+											}											
 
 											if (!$scope.curUser) {
 												$scope.data.guestSuccessMsg = "Data saved successfully. If any question, please contact GRF office. Thank you.";
@@ -205,7 +213,17 @@ angular
 											} else {
 												$state.reload();
 											}
+											$scope.loading = false;
 										});
+					}
+
+					$scope.saveReviewedExamResultList = function() {						
+						angular.forEach($scope.examResultList, function(
+								resultObj) {
+							resultObj.grfReviewed = true;
+						});
+
+						$scope.addExamResultList();
 					}
 
 					$scope.cancel = function() {
@@ -214,7 +232,11 @@ angular
 
 					$scope.waitForServiceLoad = function() {
 						if (appEndpointSF.is_service_ready) {
-							$scope.loading = false;
+							if ($scope.reviewByGrfRegNo) {
+								$scope.grfRegNoChange($scope.reviewByGrfRegNo);
+							} else {
+								$scope.loading = false;
+							}
 						} else {
 							$log.debug("Services Not Loaded, watiting...");
 							$timeout($scope.waitForServiceLoad, 1000);
