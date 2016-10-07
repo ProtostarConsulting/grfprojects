@@ -180,7 +180,7 @@
     <url-pattern>/DownloadBookStockTransaction</url-pattern>
   </servlet-mapping>
   <servlet>
-    <description/>
+    <description></description>
     <display-name>DownloadCourierDispatchReport</display-name>
     <servlet-name>DownloadCourierDispatchReport</servlet-name>
     <servlet-class>com.protostar.prostudy.gf.service.DownloadCourierDispatchReport</servlet-class>
@@ -247,5 +247,14 @@
     <servlet-name>UpdateSchoolStudentCountHandler</servlet-name>
     <url-pattern>/grf/cron/updatestudcounts</url-pattern>
   </servlet-mapping>
-  
+  <servlet>
+    <description></description>
+    <display-name>DownloadFinicialSummaryReport</display-name>
+    <servlet-name>DownloadFinicialSummaryReport</servlet-name>
+    <servlet-class>com.protostar.prostudy.gf.service.DownloadFinicialSummaryReport</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DownloadFinicialSummaryReport</servlet-name>
+    <url-pattern>/DownloadFinicialSummaryReport</url-pattern>
+  </servlet-mapping>
 </web-app>

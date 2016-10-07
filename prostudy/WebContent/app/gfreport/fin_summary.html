@@ -79,7 +79,7 @@
 					| currency:""}}</td>
 				<td style="border: 1px solid black; padding-left: 15px;"><md-button
 						class="md-primary"
-						ng-click="filterBy('courier', logisticsData.logistic)">Details
+						ng-click="filterBy('courier', logisticsData.logistic) ">Details
 					</md-button></td>
 			</tr>
 			<tr>
@@ -98,7 +98,7 @@
 
 	</form>
 
-	<form name="finSummaryForm" ng-show="filterType == 'school'">
+	<form name="finSummaryForm" ng-show="filterType == 'school'" >
 		<span><md-button class="md-primary"
 				ng-click="clearfilterValues()">Back to Financial Summary
 			</md-button></span>
@@ -142,6 +142,11 @@
 						| currency:""}}</b></td>
 			</tr>
 		</table>
+		<div layout="row" layout-align="center center" layout-xs="column" ng-show="displayButton">
+				<md-button class="md-raised md-primary" id="downloadExcel" 
+					ng-click="downloadSummaryReport()">Download CSV Data <md-tooltip>Download CSV Data</md-tooltip> 
+					</md-button>
+			</div>
 	</form>
 
 	<form name="finSummaryForm" ng-show="filterType == 'courier'">
@@ -187,6 +192,12 @@
 						| currency:""}}</b></td>
 			</tr>
 		</table>
+		<div layout="row" layout-align="center center" layout-xs="column" ng-show="displayButton">
+				<md-button class="md-raised md-primary" id="downloadExcel" 
+					ng-click="downloadSummaryReport()">Download CSV Data <md-tooltip>Download CSV Data</md-tooltip> 
+					</md-button>
+			</div>
 	</form>
+		
 	</md-content>
 </div>

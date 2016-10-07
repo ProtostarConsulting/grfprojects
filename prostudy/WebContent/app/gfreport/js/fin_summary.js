@@ -18,6 +18,9 @@ angular
 					$scope.amountPaymentsTotal = 0;
 					$scope.noOfCourierParcelsTotal = 0;
 					$scope.chargesCourierTotal = 0;
+					
+					
+					
 
 					$scope.paymentModes = [ {
 						mode : 'Cash',
@@ -155,11 +158,13 @@ angular
 						return $scope.t_totalCostByLogisticType
 					}
 					$scope.clearfilterValues = function(courierType) {
+						
 						$scope.filterType = '';
 						$scope.filterPaymentType = '';
 						$scope.filterLogisticsType = '';
 						$scope.t_totalAmountByPaymentType = 0;
 						$scope.t_totalCostByLogisticType = 0;
+						
 					}
 
 					$scope.filterSchoolListBy = function(paymentType) {
@@ -195,19 +200,30 @@ angular
 					}
 
 					$scope.filterBy = function(fType, fSubType) {
+						
+						$scope.otherFilterType=fType;
+						$scope.filterSubType=fSubType;
+						
 						$location.hash('topRight');
 						$anchorScroll();
-
+						$scope.displayButton=true;
 						$scope.filterType = fType;
 						if ($scope.filterType == 'school') {
 							$scope.filterPaymentType = fSubType;
 							$scope.filterSchoolListBy(fSubType);
+							
 						} else if ($scope.filterType == 'courier') {
 							$scope.filterLogisticsType = fSubType;
 							$scope.filterCourierListBy(fSubType);
+							
 						}
 
-					}
+					}			
+							
+						$scope.downloadSummaryReport = function(){
+							document.location.href="DownloadFinicialSummaryReport?summaryReportFilterType1="+$scope.otherFilterType+"&summaryReportFilterType2="+$scope.filterSubType;
+						}
+							
 
 					$scope.getRowStyle = function(even) {
 						if (!even) {
