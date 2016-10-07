@@ -134,7 +134,7 @@ public class DownloadFinicialSummaryReport extends HttpServlet {
 			
 			response.setContentType("text/csv");
 			response.setHeader("Content-Disposition",
-					"attachment; filename=CourierSummaryReportData_"+sdf.format(new Date())+".csv");
+					"attachment; filename=FinancialSummaryCSVData_"+sdf.format(new Date())+".csv");
 			
 			ServletOutputStream outputStream = response.getOutputStream();
 			OutputStreamWriter writer = new OutputStreamWriter(outputStream);
