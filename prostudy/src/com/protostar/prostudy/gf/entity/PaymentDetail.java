@@ -17,7 +17,7 @@ public class PaymentDetail {
 	private String transactionNumber;
 	private Date depositDate;
 	
-	
+		
 	public String getPayReceivedBy() {
 		return payReceivedBy;
 	}
