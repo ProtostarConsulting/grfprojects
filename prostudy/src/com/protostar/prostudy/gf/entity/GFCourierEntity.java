@@ -15,6 +15,7 @@ public class GFCourierEntity extends BaseEntity{
 	private Long id;*/
 	@Index
 	private String courierType;
+	@Index
 	private String logistics;
 	private String registrationID;
 	private String courierFrom;
