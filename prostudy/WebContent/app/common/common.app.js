@@ -1541,6 +1541,20 @@ app.filter('trim', function () {
         return value.replace(/^\s+|\s+$/g, ''); // you could use .trim, but it's not going to work in IE<9
     };
 });
+app.filter('stripHtml', function() {
+	return function(text) {
+		return  text ? String(text).replace(/<[^>]+>/gm, '') : '';
+	};
+});
+app.filter('first100Chars', function () {
+    return function(value) {
+        if(!angular.isString(value)) {
+            return value;
+        }  
+        return value.length>100?value.substring(0, 99) + '...':value;
+    };
+});
+
 app.filter('orderObjectBy', function() {
 	return function(input, attribute) {
 		if (!angular.isObject(input))

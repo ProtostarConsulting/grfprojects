@@ -65,14 +65,12 @@
 				<tr md-auto-select
 					ng-repeat="question in Test.questions | orderBy: query.order | filter: searchText | limitTo: query.limit: (query.page - 1) * query.limit"
 					checked="Test.Questions">
-					<td ng-bind-html="question.description">{{question.description}}</td>
-					<td>{{question.option1}}</td>
-					<td>{{question.option2}}</td>
-					<td>{{question.option3}}</td>
-					<td>{{question.option4}}</td>
+					<td ng-bind-html="question.description | stripHtml | first100Chars"></td>
+					<td>{{question.option1 | first100Chars}}</td>
+					<td>{{question.option2 | first100Chars}}</td>
+					<td>{{question.option3 | first100Chars}}</td>
+					<td>{{question.option4 | first100Chars}}</td>
 					<td>{{question.correctAns}}</td>
-
-
 				</tr>
 			</tbody>
 		</table>
