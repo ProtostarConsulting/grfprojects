@@ -1533,6 +1533,14 @@ app.filter('formatFullDate', function($filter) {
 		return $filter('date')(inputDate, 'dd-MM-yyyy HH:MM a');
 	};
 });
+app.filter('trim', function () {
+    return function(value) {
+        if(!angular.isString(value)) {
+            return value;
+        }  
+        return value.replace(/^\s+|\s+$/g, ''); // you could use .trim, but it's not going to work in IE<9
+    };
+});
 app.filter('orderObjectBy', function() {
 	return function(input, attribute) {
 		if (!angular.isObject(input))

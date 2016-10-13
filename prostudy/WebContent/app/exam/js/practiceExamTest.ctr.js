@@ -18,9 +18,9 @@ angular
 					// Code for timer
 					var date = new Date();
 					
+					$scope.Math = Math;
 					$scope.flag = true;
-
-					$scope.counter = 200;
+					$scope.counter = 120;
 					$scope.startTime = null;
 					$scope.endTime = null;
 					$scope.examResults;
@@ -28,7 +28,7 @@ angular
 
 					$scope.currentPage = 0;
 					$scope.totalPages = 0;
-					$scope.itemsPerPage = 4;
+					$scope.itemsPerPage = 1;
 					$scope.count = 0;
 					$scope.isDisabledPrevious = false;
 					$scope.isDisabledNext = false;
@@ -42,9 +42,8 @@ angular
 						if ($scope.counter === 0) {
 							$scope.$broadcast('timer-stopped', 0);
 							$timeout.cancel(mytimeout);
-
+							$scope.checkAnswer();
 							return;
-
 						}
 						$scope.counter--;
 
@@ -53,15 +52,17 @@ angular
 
 					$scope.startTimer = function() {
 						mytimeout = $timeout($scope.onTimeout, 1000);
-						$scope.tempPracticeExamResult.startTime = $filter('date')(new Date(), 'hh:mm:ss a');
-						
+						$scope.tempPracticeExamResult.startTime = $filter(
+								'date')(new Date(), 'hh:mm:ss a');
+
 					};
 
 					$scope.stopTimer = function() {
 						var date = new Date();
 						$scope.$broadcast('timer-stopped', $scope.counter);
 						$timeout.cancel(mytimeout);
-						$scope.tempPracticeExamResult.endTime = $filter('date')(new Date(), 'hh:mm:ss a');
+						$scope.tempPracticeExamResult.endTime = $filter('date')
+								(new Date(), 'hh:mm:ss a');
 					};
 
 					$scope.$on('timer-stopped', function(event, remaining) {
@@ -71,12 +72,11 @@ angular
 						}
 					});// End of timer
 
+					$scope.toggleSelection = function toggleSelection(index,
+							id, optionId) {
 
-					
-					$scope.toggleSelection = function toggleSelection(index,id,optionId) {
-						
 						var idx = $scope.selection.indexOf(index, id, optionId);
-						
+
 						if (idx > -1) {
 							$scope.selection.splice(index, 1);
 
@@ -84,55 +84,40 @@ angular
 							$scope.selection.push(optionId);
 							$scope.userAnsList.push({
 								qID : id,
-								userOption : 'option'+optionId
+								userOption : 'option' + optionId
 							});
 						}
-						
-						/*for(i=0;i <$scope.selection.length; i++)
-							{
-								if(index+1 == $scope.selection[i])
-								{
-									
-									$scope.selection.splice(index, 1);
-								}
-							}
-						*/
+
+						/*
+						 * for(i=0;i <$scope.selection.length; i++) { if(index+1 ==
+						 * $scope.selection[i]) {
+						 * 
+						 * $scope.selection.splice(index, 1); } }
+						 */
 
 					};
-					
-					
+
 					$scope.userAnsList = []; // {qID, userOption}
 					$scope.correctAns = [];
 					$scope.score = 0;
 
 					$scope.checkAnswer = function() {
-
 						for (var i = 0; i < $scope.userAnsList.length; i++) {
-
-							if ($scope.userAnsList[i].userOption == $scope.Test.questions[i].correctAns) {
+							if ($scope.userAnsList[i].userOption == $scope.practiceTestObj.questions[i].correctAns) {
 								$scope.tempPracticeExamResult.score++;
 							}
-
 						}
 						$scope.stopTimer();
 						$scope.addPracticeExamResult();
-					
-
-						/*
-						 * $log.debug("$scope.selectedID" +$scope.selectedID);
-						 * $state.go('userQuesAnsView', {selectedExamId :
-						 * $scope.Test.id, selectedResultId :
-						 * $scope.selectedID});
-						 */
 
 					}
 
 					$scope.getCorrectAnsByQID = function(qID) {
 
-						for (var i = 0; i < $scope.Test.questions.length; i++) {
+						for (var i = 0; i < $scope.practiceTestObj.questions.length; i++) {
 
-							if ($scope.Test.questions[i].id == qID) {
-								return $scope.Test.questions[i].correctAns;
+							if ($scope.practiceTestObj.questions[i].id == qID) {
+								return $scope.practiceTestObj.questions[i].correctAns;
 
 							}
 						}
@@ -145,7 +130,7 @@ angular
 						$scope.currentPage++;
 						$scope.count = $scope.currentPage;
 
-						$scope.array = $scope.Test.questions.slice(
+						$scope.array = $scope.practiceTestObj.questions.slice(
 								($scope.currentPage * $scope.itemsPerPage)
 										- $scope.itemsPerPage,
 								($scope.currentPage * $scope.itemsPerPage));
@@ -165,7 +150,7 @@ angular
 						$scope.currentPage = index;
 						$scope.count = $scope.currentPage;
 
-						$scope.array = $scope.Test.questions.slice(
+						$scope.array = $scope.practiceTestObj.questions.slice(
 								($scope.currentPage * $scope.itemsPerPage)
 										- $scope.itemsPerPage,
 								($scope.currentPage * $scope.itemsPerPage));
@@ -188,7 +173,7 @@ angular
 					$scope.onPrevious = function() {
 						$scope.currentPage--;
 
-						$scope.array = $scope.Test.questions.slice(
+						$scope.array = $scope.practiceTestObj.questions.slice(
 								($scope.currentPage * $scope.itemsPerPage)
 										- $scope.itemsPerPage,
 								($scope.currentPage * $scope.itemsPerPage));
@@ -222,24 +207,13 @@ angular
 						var PracticeExamService = appEndpointSF
 								.getPracticeExamService();
 
-						PracticeExamService.getPracticeExamById($scope.selectedExamId)
+						PracticeExamService
+								.getPracticeExamById($scope.selectedExamId)
 								.then(
 										function(practiceTest) {
-											$scope.Test = practiceTest;
-
-											$scope.buttonLimit = function(count) {
-												$scope.totalPages = Math
-														.ceil($scope.Test.questions.length / 4);
-
-												return Array.apply(0,
-														Array(+count)).map(
-														function(value, index) {
-															return index;
-														});
-
-											}// end of buttonlimit
-
-											$scope.newQues = $scope.Test.questions;
+											$scope.practiceTestObj = practiceTest;
+											$scope.totalPages = $scope.practiceTestObj.questions.length
+											$scope.newQues = $scope.practiceTestObj.questions;
 
 											$scope.newQues[0].qId = 1;
 											for (var i = 1; i < $scope.newQues.length; i++) {
@@ -248,9 +222,9 @@ angular
 
 											}
 
-											$scope.tempPracticeExamResult.examTitle = $scope.Test.examtitle;
+											$scope.tempPracticeExamResult.examTitle = $scope.practiceTestObj.examtitle;
 
-											$scope.tempPracticeExamResult.test = $scope.Test.questions;
+											$scope.tempPracticeExamResult.test = $scope.practiceTestObj.questions;
 
 											$scope.onNext();
 											$scope.isDisabledPrevious = true;
@@ -260,7 +234,7 @@ angular
 
 					$scope.questions = [];
 					$scope.practiceTest = [];
-					$scope.Test = [];
+					$scope.practiceTestObj = [];
 					$scope.selection = [];
 					$scope.userAns = [];
 
@@ -300,60 +274,61 @@ angular
 					$scope.addPracticeExamResult = function() {
 
 						$scope.tempPracticeExamResult.testID = $scope.selectedExamId;
-						var PracticeExamService = appEndpointSF.getPracticeExamService();
+						var PracticeExamService = appEndpointSF
+								.getPracticeExamService();
 
-				
+						PracticeExamService
+								.addPracticeExamResult(
+										$scope.tempPracticeExamResult)
+								.then(
+										function(msgBean) {
+											$scope.selectedID = msgBean.id;
+											$log.debug("$scope.selectedID :"
+													+ $scope.selectedID);
+											$log
+													.debug("$scope.practiceTestObj.id :"
+															+ $scope.practiceTestObj.id);
+											$state
+													.go(
+															'userQuesAnsView',
+															{
+																selectedExamId : $scope.practiceTestObj.id,
+																selectedResultId : $scope.selectedID
+															});
+											$scope.showSavedToast();
 
-						PracticeExamService.addPracticeExamResult(
-								$scope.tempPracticeExamResult).then(
-								function(msgBean) {
-									$scope.selectedID = msgBean.id;
-									$log.debug("$scope.selectedID :"
-											+ $scope.selectedID);
-									$log.debug("$scope.Test.id :"
-											+ $scope.Test.id);
-									$state.go('userQuesAnsView', {
-										selectedExamId : $scope.Test.id,
-										selectedResultId : $scope.selectedID
-									});
-									$scope.showSavedToast();
-
-								});
-
+										});
 
 					}
-					
-					 $scope.showConfirm = function(ev) {
-						  
-						 	$scope.checkAnswer();
-						    var confirm = $mdDialog.confirm()
-						          .title('Are you sure you want to submit test now?')
-						          .targetEvent(ev)
-						          .ok('YES')
-						          .cancel('NO');
-						    $mdDialog.show(confirm).then(function() {
-						    			$state.go('userQuesAnsView', {selectedExamId : $scope.Test.id, selectedResultId : $scope.selectedID, flag: $scope.flag});
-						    }, function() {
-						      //do nothing to stay on page.
-						    });
-						  };
 
-					
-
-
+					$scope.showConfirm = function(ev) {
+						var confirm = $mdDialog.confirm().title(
+								'Are you sure you want to submit test now?')
+								.targetEvent(ev).ok('YES').cancel('NO');
+						$mdDialog.show(confirm).then(function() {
+							$log.debug("User clicked Okay");
+							$scope.checkAnswer();
+							$state.go('userQuesAnsView', {
+								selectedExamId : $scope.practiceTestObj.id,
+								selectedResultId : $scope.selectedID,
+								flag : $scope.flag
+							});
+						}, function() {
+							// do nothing to stay on page.
+							$log.debug("User clicked No");
+						});
+					};
 
 					$scope.waitForServiceLoad = function() {
 						if (appEndpointSF.is_service_ready) {
-
 							$scope.getPracticeExamByInstitute();
 							$scope.getPracticeExamResultbyEmail();
 							$scope.showselectedExam();
-							
+
 						} else {
 							$timeout($scope.waitForServiceLoad, 1000);
 						}
 					}
-
 
 					$scope.waitForServiceLoad();
 

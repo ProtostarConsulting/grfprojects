@@ -1,98 +1,102 @@
-<section>
-	<md-content layout-padding>
-	<div layout="column" layout-align="end end">
-		<span style="color: red">Time left : {{counter}} </span> <label>
-			<div ng-init="startTimer()"></div>
-		</label>
-	</div>
+<md-content layout-align="center end">
+<div layout="column" layout-align="end end">
+	<span style="color: red">Time Remaining:
+		{{Math.floor(counter/60) }} Minutes, {{counter%60}} Seconds </span> <label>
+		<div ng-init="startTimer()"></div>
+	</label>
+</div>
 
-	<div layout="row">
-		<span flex="50"> <strong>{{currentPage}} Out Of
-				{{totalPages}}</strong></span>
-
-		<div layout="row" layout-wrap class="colorNested">
-			<div ng-repeat="i in buttonLimit(totalPages) track by $index">
-				<md-button class="md-raised md-primary"
-					ng-click="onButtonClick($index+1)">Page{{$index+1}}</md-button>
-
-			</div>
-
-		</div>
-
-	</div>
-
-	<p>&nbsp;</p>
-	<p>&nbsp;</p>
-
-	<div layout="row" layout-xs="column" layout-wrap>
-		<div flex="50" ng-repeat="item in array">
-			<div>
-				<md-content flex layout-padding> <b
-					ng-bind-html="+ (item.qId) +')'+ item.description"></b> </md-content>
-			</div>
-
-			<p>
-				<i>{{item.note}}</i>
-			</p>
-
-			<div layout="column">
-
-				<md-checkbox name="answer"
-					ng-model="selected[$index + item.option1]"
-					ng-click="toggleSelection($index,item.id,1)">
-				{{item.option1 }}</md-checkbox>
-				<md-checkbox name="answer"
-					ng-model="selected[$index + item.option2]"
-					ng-click="toggleSelection($index,item.id,2)">
-				{{item.option2 }}</md-checkbox>
-				<md-checkbox name="answer"
-					ng-model="selected[$index + item.option3]"
-					ng-click="toggleSelection($index,item.id,3)">
-				{{item.option3 }}</md-checkbox>
-				<md-checkbox name="answer"
-					ng-model="selected[$index + item.option4]"
-					ng-click="toggleSelection($index,item.id,4)">
-				{{item.option4 }}</md-checkbox>
-
-
-
-			</div>
-		</div>
-	</div>
-
-
-	<p>&nbsp;</p>
-	<div layout-sm="column">
-		<div layout="row" layout-align="center end">
-			<div layout="row">
-				<div layout-align="start end" ng-init="isDisabled = false">
-					<md-button ng-disabled="isDisabledPrevious"
-						ng-model="isDisabledPrevious" ng-click="onPrevious()">
-					<ng-md-icon icon="skip_previous"></ng-md-icon> </md-button>
-				</div>
-
-				<div layout-align="start end">
-					<md-button ng-disabled="isDisabledNext" ng-model="isDisabledNext"
-						ng-click="onNext()">
-					<ng-md-icon icon="skip_next"></ng-md-icon> </md-button>
-
-				</div>
-			</div>
-		</div>
-
-		<p>&nbsp;</p>
-		<p>&nbsp;</p>
-
-		<div layout="row" layout-align="center end">
-			<md-button class="md-raised md-primary"
-				ng-click="showConfirm($event)">Save and End Test</md-button>
-
-		</div>
-	</div>
-
-
-
-	</md-content>
+<div layout="row">
+	<md-button md-no-ink class="md-primary"
+		ng-repeat="q in practiceTestObj.questions"
+		ng-click="onButtonClick($index+1)"
+		style="min-width: 8px; margin: 1px 1px 0px 0px;">Q{{$index+1}} <md-tooltip>Jump to Question {{$index+1}}</md-tooltip></md-button>
+</div>
+<hr>
+<section layout="row">
+	<span flex="50">{{currentPage}} of {{totalPages}} Questions</span> <span
+		flex="30"></span>
+	<md-button class="md-raised md-primary"
+		style="margin: 1px 1px 0px 0px;" ng-click="showConfirm($event)">Save
+	and End Test</md-button>
 </section>
+<div layout="column">
+	<div layout="row" layout-align="center end">
+		<div layout-align="start end">
+			<md-button ng-disabled="isDisabledPrevious" ng-click="onPrevious()">
+			<ng-md-icon icon="skip_previous"><md-tooltip>Previous Question</md-tooltip></ng-md-icon> </md-button>
+		</div>
 
+		<div layout-align="start end">
+			<md-button ng-disabled="isDisabledNext" ng-click="onNext()">
+			<ng-md-icon icon="skip_next"><md-tooltip>Next Question</md-tooltip> </ng-md-icon> </md-button>
+		</div>
+	</div>
+</div>
+<div ng-repeat="item in array" layout="row" layout-xs="column"
+	layout-align="center end">
+	<table
+		style="font-family: arial, sans-serif; border-collapse: collapse; border: 1px solid black; width: 85%; margin: 20px;">
+		<tr
+			style="border: 1px solid #dddddd; text-align: left; padding: 20px; width: 85%; background-color: #8cced4;">
+			<th
+				style="border: 1px solid #dddddd; text-align: left; padding: 20px; width: 85%;">
+				Question {{item.qId}} <br> <span
+				ng-bind-html="item.description | trim"></span>
+			</th>
+		</tr>
+		<tr ng-if="item.note"
+			style="border: 1px solid #dddddd; text-align: left; padding: 20px; width: 85%;">
+			<td ng-bind-html="item.note | trim"
+				style="border: 1px solid #dddddd; text-align: left; padding: 20px; width: 85%;"></td>
+		</tr>
+		<tr
+			style="border: 1px solid #dddddd; text-align: left; padding: 20px; width: 85%;">
+			<td
+				style="border: 1px solid #dddddd; text-align: left; padding: 20px; width: 85%;"><div
+					layout="column">
+					<md-subheader class="md-primary">Answer:</md-subheader>
+					<md-checkbox name="answer"
+						ng-model="selected[$index + item.option1]"
+						ng-click="toggleSelection($index,item.id,1)">
+					{{item.option1 | trim }}</md-checkbox>
+					<md-checkbox name="answer"
+						ng-model="selected[$index + item.option2]"
+						ng-click="toggleSelection($index,item.id,2)">
+					{{item.option2 | trim}}</md-checkbox>
+					<md-checkbox name="answer"
+						ng-model="selected[$index + item.option3]"
+						ng-click="toggleSelection($index,item.id,3)">
+					{{item.option3 | trim}}</md-checkbox>
+					<md-checkbox name="answer"
+						ng-model="selected[$index + item.option4]"
+						ng-click="toggleSelection($index,item.id,4)">
+					{{item.option4 | trim}}</md-checkbox>
+				</div></td>
+		</tr>
+	</table>
+</div>
+<p>&nbsp;</p>
+<div layout="column">
+	<div layout="row" layout-align="center end">
+		<div layout-align="start end">
+			<md-button ng-disabled="isDisabledPrevious" ng-click="onPrevious()">
+			<ng-md-icon icon="skip_previous"><md-tooltip>Previous Question</md-tooltip></ng-md-icon> </md-button>
+		</div>
+		<div layout-align="start end">
+			<md-button ng-disabled="isDisabledNext" ng-click="onNext()">
+			<ng-md-icon icon="skip_next"><md-tooltip>Next Question</md-tooltip> </ng-md-icon> </md-button>
+		</div>
+	</div>
+	<hr>
+	<section layout="row">
+		<span flex="50">{{currentPage}} of {{totalPages}} Questions</span> <span
+			flex="30"></span>
+		<md-button class="md-raised md-primary"
+			style="margin: 1px 1px 0px 0px;" ng-click="showConfirm($event)">Save
+		and End Test</md-button>
+	</section>
+</div>
+<hr>
+</md-content>
 
