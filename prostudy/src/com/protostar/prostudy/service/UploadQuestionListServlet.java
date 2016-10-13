@@ -26,29 +26,33 @@ import com.protostar.prostudy.until.data.UtilityService;
  */
 public class UploadQuestionListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private final Logger log = Logger.getLogger(UploadQuestionListServlet.class.getName());
-	
+	private final Logger log = Logger.getLogger(UploadQuestionListServlet.class
+			.getName());
+
 	class SizeEntry {
 		public int size;
 		public Date time;
 	}
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-	static Map<String, SizeEntry> sizeMap = new ConcurrentHashMap<>();
-	int counter;
-    public UploadQuestionListServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	static Map<String, SizeEntry> sizeMap = new ConcurrentHashMap<>();
+	int counter;
+
+	public UploadQuestionListServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void service(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-				
+
 		try {
 			if (request.getHeader("Content-Type") != null
 					&& request.getHeader("Content-Type").startsWith(
@@ -56,14 +60,14 @@ public class UploadQuestionListServlet extends HttpServlet {
 				ServletFileUpload upload = new ServletFileUpload();
 
 				FileItemIterator iterator = upload.getItemIterator(request);
-				String[] split2 = null;			
+				String[] split2 = null;
 				Long insId = 0L;
 				while (iterator.hasNext()) {
 					FileItemStream item = iterator.next();
-					System.out.println("item.getFieldName(): "+ item.getFieldName());
+					System.out.println("item.getFieldName(): "
+							+ item.getFieldName());
 
 					if (item.getName() == null) {
-						
 
 						if ("instituteID".equalsIgnoreCase(item.getFieldName())) {
 							insId = Long.parseLong(UtilityService.read(item
@@ -75,54 +79,60 @@ public class UploadQuestionListServlet extends HttpServlet {
 					InputStream openStream = item.openStream();
 					int len = 0;
 					byte[] fileContent = new byte[2000000];
-				
 
 					int read = openStream.read(fileContent);
-					
+
 					while ((len = openStream.read(fileContent, 0,
 							fileContent.length)) != -1) {
-						
+
 					}
-					System.out.println("File content is : "	+ new String(fileContent));
+					System.out.println("File content is : "
+							+ new String(fileContent));
 					System.out.println("File Read is Done!!");
-					
+
 					String fileAsString = new String(fileContent);
 
 					split2 = fileAsString.split("\n");
 
 				}
 
-				for (int row = 1; row < split2.length; row++) {
+				//CSV headers
+				// board standard division subject description category note
+				// option1 option2 option3 option4 correctAns
 
+				for (int row = 1; row < split2.length; row++) {
 					String[] split = split2[row].split(",");
-																	
-				QuestionEntity questionEntity = new QuestionEntity();
+					System.out.println("split.length: " + split.length);
+					if (split.length < 12)
+						continue;
+
+					QuestionEntity questionEntity = new QuestionEntity();
 
 					questionEntity.setInstituteID(insId);
 					questionEntity.setBoard(split[0].trim());
 					questionEntity.setStandard(split[1].trim());
-					questionEntity.setDivision(split[2].trim());				
-					questionEntity.setDescription(split[3].trim());
-					questionEntity.setCategory(split[4].trim());
-					questionEntity.setNote(split[5].trim());
-					questionEntity.setOption1(split[6].trim());
-					questionEntity.setOption2(split[7].trim());
-					questionEntity.setOption3(split[8].trim());
-					questionEntity.setOption4(split[9].trim());					
-					questionEntity.setCorrectAns(split[10].trim());
-		
-			
-					QuestionService qs= new QuestionService();
-					qs.addQuestion(questionEntity);					
+					questionEntity.setDivision(split[2].trim());
+					questionEntity.setSubject(split[3].trim());
+					questionEntity.setDescription(split[4].trim());
+					questionEntity.setCategory(split[5].trim());
+					questionEntity.setNote(split[6].trim());
+					questionEntity.setOption1(split[7].trim());
+					questionEntity.setOption2(split[8].trim());
+					questionEntity.setOption3(split[9].trim());
+					questionEntity.setOption4(split[10].trim());
+					questionEntity.setCorrectAns(split[11].trim());
+
+					QuestionService qs = new QuestionService();
+					qs.addQuestion(questionEntity);
 				}
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 	}
+
 	protected int size(String key, InputStream stream) {
 		int length = sizeMap.get(key) == null ? 0 : sizeMap.get(key).size;
 		try {

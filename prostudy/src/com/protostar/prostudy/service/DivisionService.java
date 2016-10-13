@@ -13,22 +13,22 @@ import com.protostar.prostudy.entity.DivisionEntity;
 import com.protostar.prostudy.entity.SubjectEntity;
 
 
-//@Api(name = "divisionService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.service", ownerName = "com.protostar.prostudy.service", packagePath = ""))
+//@ApiReference(StudentService.class)
+@Api(name = "studentService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.service", ownerName = "com.protostar.prostudy.service", packagePath = ""))
 public class DivisionService {
 
-
-	@ApiMethod(name = "addDivision")
+	@ApiMethod(name = "addDivision", path = "addDivision")
 	public DivisionEntity addDivision(DivisionEntity div) {
 		DivisionEntity now = div;
 		ofy().save().entity(div).now();
 		return now;
 	}
 
-	@ApiMethod(name = "getDivisions")
+	@ApiMethod(name = "getDivisions", path = "getDivisions")
 	public List<DivisionEntity> getStandard() {
 		return ofy().load().type(DivisionEntity.class).list();
 	}
-	@ApiMethod(name = "getDivisionById")
+	@ApiMethod(name = "getDivisionById", path = "getDivisionById")
 	public DivisionEntity getDivisionById(@Named("id") Long id) {
 		DivisionEntity div = ofy().load().type(DivisionEntity.class)
 				.id(id).now();
@@ -44,7 +44,7 @@ public class DivisionService {
 		
 		return subList;
 	}
-	@ApiMethod(name = "getDivisionByStandard")
+	@ApiMethod(name = "getDivisionByStandard", path = "getDivisionByStandard")
 	 public List<DivisionEntity> getDivisionByStandard(@Named("standardID") Long standardID) {
 		System.out.println("inside getDivisionByStandard");
 	  List<DivisionEntity> divisionList = ofy().load().type(DivisionEntity.class).filter("standardID", standardID).list();
@@ -52,7 +52,7 @@ public class DivisionService {
 	  
 	 }
 	
-	@ApiMethod(name = "editDivision")
+	@ApiMethod(name = "editDivision", path = "editDivision")
 	public void editDivision(DivisionEntity division) {
 		Key<DivisionEntity> now = ofy().save().entity(division).now();
 	}

@@ -11,20 +11,20 @@ import com.google.api.server.spi.config.Named;
 import com.googlecode.objectify.Key;
 import com.protostar.prostudy.entity.DivisionEntity;
 import com.protostar.prostudy.entity.StandardEntity;
-import com.protostar.prostudy.entity.StudSubEntity;
 
 
-//@Api(name = "standardService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.service", ownerName = "com.protostar.prostudy.service", packagePath = ""))
-public class StandardService {
+//@ApiReference(StudentService.class) //This did not work
+@Api(name = "studentService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.service", ownerName = "com.protostar.prostudy.service", packagePath = ""))
+public class StandardService{
 
-	@ApiMethod(name = "addStandard")
+	@ApiMethod(name = "addStandard", path = "addStandard")
 	public StandardEntity addStandard(StandardEntity std) {
 		StandardEntity now = std;
 		ofy().save().entity(std).now();
 		return now;
 	}
 
-	@ApiMethod(name = "getStandard")
+	@ApiMethod(name = "getStandard", path = "getStandard")
 	public List<StandardEntity> getStandard() {
 		return ofy().load().type(StandardEntity.class).list();
 	}
@@ -40,14 +40,14 @@ public class StandardService {
 		return divList;
 	}
 	
-	@ApiMethod(name = "getStandardByInstitute")
+	@ApiMethod(name = "getStandardByInstitute", path = "getStandardByInstitute")
 	 public List<StandardEntity> getStandardByInstitute(@Named("instituteID") Long instituteID) {		
 	  List<StandardEntity> standardList = ofy().load().type(StandardEntity.class).filter("instituteID", instituteID).list();
 	  return standardList;
 	  
 	 }
 	
-	@ApiMethod(name = "editStandard")
+	@ApiMethod(name = "editStandard", path = "editStandard")
 	public void editStandard(StandardEntity standard) {
 		Key<StandardEntity> now = ofy().save().entity(standard).now();
 	}
