@@ -422,6 +422,7 @@ angular
 						$scope.institute = $scope.curUser.instituteObj;
 						getUserAuthTree();
 						$scope.initDone = true;
+						$scope.loading = false;
 						$state.go("welcome");
 
 					}
