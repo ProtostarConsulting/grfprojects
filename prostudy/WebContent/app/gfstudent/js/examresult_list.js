@@ -49,30 +49,22 @@ angular
 
 						// To filter result list by address
 						for (var i = 0; i < $scope.examResultList.length; i++) {
+							if ($scope.selectFilterData.state == $scope.examResultList[i].school.address.state) {
+								if ($scope.selectFilterData.dist == $scope.examResultList[i].school.address.dist) {
+									$scope.filteredExamResultList
+											.push($scope.examResultList[i]);
 
-							if ($scope.selectFilterData.state != "All") {
-								if ($scope.selectFilterData.state == $scope.examResultList[i].school.address.state) {
-									if ($scope.selectFilterData.dist == "All") {
-										$scope.filteredExamResultList
-												.push($scope.examResultList[i]);
-									} else if ($scope.selectFilterData.dist == $scope.examResultList[i].school.address.dist) {
-										if ($scope.selectFilterData.tal == "All") {
-											$scope.filteredExamResultList
-													.push($scope.examResultList[i]);
-										}
-									}
 								}
-							} else {
-								$scope.filteredExamResultList
-										.push($scope.examResultList[i]);
 							}
 						}
 
-						// Display only top 100 students per filter
-						var tillIndex = ($scope.filteredExamResultList.length > 100) ? 99
-								: $scope.filteredExamResultList.length;
-						$scope.filteredExamResultList = $scope.filteredExamResultList
-								.slice(0, tillIndex);
+						/*
+						 * // Display only top 100 students per filter var
+						 * tillIndex = ($scope.filteredExamResultList.length >
+						 * 100) ? 99 : $scope.filteredExamResultList.length;
+						 * $scope.filteredExamResultList =
+						 * $scope.filteredExamResultList .slice(0, tillIndex);
+						 */
 
 					}
 
@@ -81,32 +73,7 @@ angular
 						for (var i = 0; i < $scope.Country.states.length; i++) {
 
 							if ($scope.Country.states[i].name == state) {
-
 								$scope.temp.tempDistricts = $scope.Country.states[i].districts;
-								if (!$scope.containsObject({
-									name : "All"
-								}, $scope.temp.tempDistricts)) {
-									$scope.temp.tempDistricts.unshift({
-										name : "All"
-									});
-								}
-							}
-						}
-					};
-
-					$scope.getTalukas = function(index, district) {
-
-						$scope.temp.tempTalukas = [];
-						for (var j = 0; j < $scope.temp.tempDistricts.length; j++) {
-							if ($scope.temp.tempDistricts[j].name == district) {
-								$scope.temp.tempTalukas = $scope.temp.tempDistricts[j].talukas;
-								if (!$scope.containsObject({
-									name : "All"
-								}, $scope.temp.tempTalukas)) {
-									$scope.temp.tempTalukas.unshift({
-										name : "All"
-									});
-								}
 							}
 						}
 					};
@@ -168,8 +135,9 @@ angular
 					$scope.waitForServiceLoad();
 
 					$scope.query = {
-						order : 'description',
+						order : '-createdDate',
 						limit : 120,
+						limitOptions : [ 60, 100, 300, 400, 500 ],
 						page : 1
 					};
 

@@ -1,6 +1,6 @@
 var app = angular.module("prostudyApp", [ 'ngMaterial', 'ngMdIcons',
 		'ngMessages', "ui.bootstrap", "ui.router", 'ngMaterialDatePicker',
-		'md.data.table', 'ngResource', 'ngRoute', 'ngStorage', "ngAria",
+		'md.data.table', 'ngResource', 'ngRoute', 'ngStorage', "ngAria", "ngSanitize", 'textAngular',
 		'directive.g+signin', 'ngFileUpload' ]);
 
 // Set up the cache ‘ajsCache’
@@ -1283,7 +1283,7 @@ app
 							'proadmin.manageinstituteauth',
 							{
 								url : "/manageinstituteauth/:selectedInstituteID",
-								templateUrl : '/app/probusiness/manage_institute_auth.html',
+								templateUrl : '/app/proadmin/manage_institute_auth.html',
 								controller : 'proAdminManageInstituteAuth'
 							})
 

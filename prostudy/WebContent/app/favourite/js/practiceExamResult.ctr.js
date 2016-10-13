@@ -17,10 +17,10 @@ angular.module("prostudyApp").controller(
 			
 			$scope.getPracticeExamResultbyEmail = function() {
 
-				var PracticeExamResultService = appEndpointSF
-						.getPracticeExamResultService();
+				var PracticeExamService = appEndpointSF
+						.getPracticeExamService();
 
-				PracticeExamResultService.getPracticeExamResultbyEmail($scope.selectedStudEmail)
+				PracticeExamService.getPracticeExamResultbyEmail($scope.selectedStudEmail)
 						.then(
 								function(practiceExamResultList) {
 

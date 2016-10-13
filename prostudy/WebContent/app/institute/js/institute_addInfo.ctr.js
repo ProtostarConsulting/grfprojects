@@ -219,9 +219,9 @@ angular.module("prostudyApp").controller(
 			}
 
 			$scope.addInstituteStandards = function() {
-				var StandardService = appEndpointSF.getStandardService();
+				var StudentService = appEndpointSF.getStudentService();
 
-				StandardService.addStandards($scope.standard).then(
+				StudentService.addStandards($scope.standard).then(
 						function(msgBean) {
 
 							$scope.currentStdID = msgBean.id;
@@ -235,11 +235,11 @@ angular.module("prostudyApp").controller(
 			}
 
 			$scope.addInstituteDivisions = function() {
-				var DivisionService = appEndpointSF.getDivisionService();
+				var StudentService = appEndpointSF.getStudentService();
 
 				$scope.currentStdID = $stateParams.currentStdID;
 
-				DivisionService.addDivisions($scope.division).then(
+				StudentService.addDivisions($scope.division).then(
 						function(msgBean) {
 
 							$scope.currentDivID = msgBean.id;
@@ -260,11 +260,11 @@ angular.module("prostudyApp").controller(
 			}
 
 			$scope.addInstituteSubjects = function() {
-				var SubjectService = appEndpointSF.getSubjectService();
+				var StudentService = appEndpointSF.getStudentService();
 				$scope.currentDivID = $stateParams.currentDivID;
 
 				for (i = 0; i < $scope.selectedSubjects.length; i++) {
-					SubjectService.addSubjects($scope.selectedSubjects[i])
+					StudentService.addSubjects($scope.selectedSubjects[i])
 							.then(function(msgBean) {
 
 							});

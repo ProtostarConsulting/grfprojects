@@ -61,10 +61,10 @@ angular
 
 					$scope.getPracticeExamResultbyID = function() {
 
-						var PracticeExamResultService = appEndpointSF
-								.getPracticeExamResultService();
+						var PracticeExamService = appEndpointSF
+								.getPracticeExamService();
 
-						PracticeExamResultService
+						PracticeExamService
 								.getPracticeExamResultbyID(
 										$scope.selectedResultId)
 								.then(

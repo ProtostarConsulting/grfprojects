@@ -19,8 +19,8 @@ angular.module("prostudyApp").controller(
 			$scope.getStudent();
 
 			$scope.getSubjectsByStudentID = function() {
-				var SubjectService = appEndpointSF.getSubjectService();
-				SubjectService.getSubjectsByStudentID($scope.student.id).then(
+				var StudentService = appEndpointSF.getStudentService();
+				StudentService.getSubjectsByStudentID($scope.student.id).then(
 						function(subList) {
 							$scope.subjects = subList;
 							$scope.checked = true;

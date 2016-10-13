@@ -79,6 +79,7 @@ angular
 							$scope.selectedAuth.authorizations = [];
 						}
 						$scope.selectedAuthStack.push($scope.selectedAuth);
+						$scope.query.page = 1;
 					}
 
 					$scope.jumpToAuth = function(index) {
@@ -128,7 +129,7 @@ angular
 					$scope.selected = []
 					$scope.query = {
 						order : 'id',
-						limit : 5,
+						limit : 15,
 						page : 1
 					};
 

@@ -266,10 +266,10 @@ angular
 
 					$scope.getPracticeExamResultbyEmail = function() {
 
-						var PracticeExamResultService = appEndpointSF
-								.getPracticeExamResultService();
+						var PracticeExamService = appEndpointSF
+								.getPracticeExamService();
 
-						PracticeExamResultService
+						PracticeExamService
 								.getPracticeExamResultbyEmail(
 										$scope.curUser.email_id)
 								.then(
@@ -300,11 +300,11 @@ angular
 					$scope.addPracticeExamResult = function() {
 
 						$scope.tempPracticeExamResult.testID = $scope.selectedExamId;
-						var PracticeExamResultService = appEndpointSF.getPracticeExamResultService();
+						var PracticeExamService = appEndpointSF.getPracticeExamService();
 
 				
 
-						PracticeExamResultService.addPracticeExamResult(
+						PracticeExamService.addPracticeExamResult(
 								$scope.tempPracticeExamResult).then(
 								function(msgBean) {
 									$scope.selectedID = msgBean.id;
@@ -327,14 +327,14 @@ angular
 						  
 						 	$scope.checkAnswer();
 						    var confirm = $mdDialog.confirm()
-						          .title('Are you sure you want to submit test now ?')
+						          .title('Are you sure you want to submit test now?')
 						          .targetEvent(ev)
 						          .ok('YES')
 						          .cancel('NO');
 						    $mdDialog.show(confirm).then(function() {
 						    			$state.go('userQuesAnsView', {selectedExamId : $scope.Test.id, selectedResultId : $scope.selectedID, flag: $scope.flag});
 						    }, function() {
-						      
+						      //do nothing to stay on page.
 						    });
 						  };
 

@@ -116,8 +116,8 @@ angular
 					}
 
 					$scope.getSubjectsByStudentID = function() {
-						var SubjectService = appEndpointSF.getSubjectService();
-						SubjectService
+						var StudentService = appEndpointSF.getStudentService();
+						StudentService
 								.getSubjectsByStudentID($scope.user.id)
 								.then(
 										function(subList) {

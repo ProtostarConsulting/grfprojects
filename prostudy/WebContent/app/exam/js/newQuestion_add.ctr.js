@@ -54,8 +54,8 @@ angular
 
 					$scope.getStandardByInstitute = function() {
 
-						var StandardService = appEndpointSF.getStandardService();
-						StandardService.getStandardByInstitute(
+						var StudentService = appEndpointSF.getStudentService();
+						StudentService.getStandardByInstitute(
 										$scope.curUser.instituteID)
 								.then(
 										function(standardList) {
@@ -76,9 +76,9 @@ angular
 								$scope.selectedStdID = $scope.stdList[i].id;
 							}
 						}
-						var DivisionService = appEndpointSF
-								.getDivisionService();
-						DivisionService
+						var StudentService = appEndpointSF
+								.getStudentService();
+						StudentService
 								.getDivisionByStandard($scope.selectedStdID)
 								.then(
 										function(divisionList) {
@@ -98,8 +98,8 @@ angular
 								$scope.selectedDivID = $scope.divList[i].id;
 							}
 						}
-						var SubjectService = appEndpointSF.getSubjectService();
-						SubjectService
+						var StudentService = appEndpointSF.getStudentService();
+						StudentService
 								.getSubjectByDivision($scope.selectedDivID)
 								.then(
 										function(subjectList) {

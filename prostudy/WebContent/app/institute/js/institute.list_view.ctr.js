@@ -113,10 +113,10 @@ angular
 					};
 
 					$scope.addInstituteStandards = function() {
-						var StandardService = appEndpointSF
-								.getStandardService();
+						var StudentService = appEndpointSF
+								.getStudentService();
 
-						StandardService.addStandards($scope.standard).then(
+						StudentService.addStandards($scope.standard).then(
 								function(msgBean) {
 
 									$scope.currentStdID = msgBean.id;
@@ -126,10 +126,10 @@ angular
 
 					}
 					$scope.addInstituteDivisions = function() {
-						var DivisionService = appEndpointSF
-								.getDivisionService();
+						var StudentService = appEndpointSF
+								.getStudentService();
 
-						DivisionService.addDivisions($scope.division).then(
+						StudentService.addDivisions($scope.division).then(
 								function(msgBean) {
 
 									$scope.currentDivID = msgBean.id;
@@ -141,11 +141,11 @@ angular
 					}
 
 					$scope.addInstituteSubjects = function() {
-						var SubjectService = appEndpointSF.getSubjectService();
+						var StudentService = appEndpointSF.getStudentService();
 						$scope.currentDivID = $stateParams.currentDivID;
 
 						for (i = 0; i < $scope.selectedSubjects.length; i++) {
-							SubjectService.addSubjects(
+							StudentService.addSubjects(
 									$scope.selectedSubjects[i]).then(
 									function(msgBean) {
 
@@ -251,9 +251,9 @@ angular
 
 					$scope.viewStandardByInstitute = function() {
 
-						var StandardService = appEndpointSF
-								.getStandardService();
-						StandardService.getStandardByInstitute(
+						var StudentService = appEndpointSF
+								.getStudentService();
+						StudentService.getStandardByInstitute(
 								$scope.selectedInstituteID).then(
 								function(standardList) {
 
@@ -265,9 +265,9 @@ angular
 					$scope.viewDivisionByStandard = function() {
 
 						$scope.std = $scope.selectedStdName;
-						var DivisionService = appEndpointSF
-								.getDivisionService();
-						DivisionService.getDivisionByStandard(
+						var StudentService = appEndpointSF
+								.getStudentService();
+						StudentService.getDivisionByStandard(
 								$scope.selectedStdID).then(
 								function(divisionList) {
 									$scope.viewDivList = divisionList;
@@ -277,8 +277,8 @@ angular
 
 					$scope.viewSubjectByDivision = function() {
 
-						var SubjectService = appEndpointSF.getSubjectService();
-						SubjectService.getSubjectByDivision(
+						var StudentService = appEndpointSF.getStudentService();
+						StudentService.getSubjectByDivision(
 								$scope.selectedDivID).then(
 								function(subjectList) {
 									$scope.viewSubList = subjectList;
@@ -288,9 +288,9 @@ angular
 
 					$scope.getStandardByInstitute = function() {
 
-						var StandardService = appEndpointSF
-								.getStandardService();
-						StandardService
+						var StudentService = appEndpointSF
+								.getStudentService();
+						StudentService
 								.getStandardByInstitute(
 										$scope.selectedInstituteID)
 								.then(
@@ -312,9 +312,9 @@ angular
 								$scope.selectedStdID = $scope.stdList[i].id;
 							}
 						}
-						var DivisionService = appEndpointSF
-								.getDivisionService();
-						DivisionService
+						var StudentService = appEndpointSF
+								.getStudentService();
+						StudentService
 								.getDivisionByStandard($scope.selectedStdID)
 								.then(
 										function(divisionList) {
@@ -333,8 +333,8 @@ angular
 								$scope.selectedDivID = $scope.divList[i].id;
 							}
 						}
-						var SubjectService = appEndpointSF.getSubjectService();
-						SubjectService
+						var StudentService = appEndpointSF.getStudentService();
+						StudentService
 								.getSubjectByDivision($scope.selectedDivID)
 								.then(
 										function(subjectList) {
@@ -370,8 +370,8 @@ angular
 
 					$scope.updateStandard = function() {
 
-						var StandardService = appEndpointSF
-								.getStandardService();
+						var StudentService = appEndpointSF
+								.getStudentService();
 
 						for (var i = 0; i < $scope.viewstdList.length; i++) {
 							if ($scope.selectedStdID == $scope.viewstdList[i].id) {
@@ -379,7 +379,7 @@ angular
 							}
 
 						}
-						StandardService.editStandard($scope.updatedval).then(
+						StudentService.editStandard($scope.updatedval).then(
 								function(msgBean) {
 								});
 
@@ -408,8 +408,8 @@ angular
 
 					$scope.updateDivision = function() {
 
-						var DivisionService = appEndpointSF
-								.getDivisionService();
+						var StudentService = appEndpointSF
+								.getStudentService();
 
 						$scope.selectedDivisionId = $stateParams.selectedDivisionId;
 						for (var i = 0; i < $scope.viewDivList.length; i++) {
@@ -419,7 +419,7 @@ angular
 
 						}
 
-						DivisionService.editDivision($scope.updatedval).then(
+						StudentService.editDivision($scope.updatedval).then(
 								function(msgBean) {
 								});
 
@@ -447,7 +447,7 @@ angular
 
 					$scope.updateSubject = function() {
 
-						var SubjectService = appEndpointSF.getSubjectService();
+						var StudentService = appEndpointSF.getStudentService();
 
 						for (var i = 0; i < $scope.viewSubList.length; i++) {
 							if ($scope.selectedSubjectId == $scope.viewSubList[i].id) {
@@ -455,7 +455,7 @@ angular
 							}
 
 						}
-						SubjectService.editSubject($scope.updatedval).then(
+						StudentService.editSubject($scope.updatedval).then(
 								function(msgBean) {
 
 								});

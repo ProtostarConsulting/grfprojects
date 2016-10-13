@@ -187,9 +187,9 @@ angular.module("prostudyApp").controller(
 		}				
 
 			$scope.addInstituteStandards = function() {
-				var StandardService = appEndpointSF.getStandardService();
+				var StudentService = appEndpointSF.getStudentService();
 
-				StandardService.addStandards($scope.standard).then(
+				StudentService.addStandards($scope.standard).then(
 						function(msgBean) {
 							
 							$scope.currentStdID = msgBean.id;
@@ -200,9 +200,9 @@ angular.module("prostudyApp").controller(
 			}
 
 			$scope.addInstituteDivisions = function() {
-				var DivisionService = appEndpointSF.getDivisionService();
+				var StudentService = appEndpointSF.getStudentService();
 
-				DivisionService.addDivisions($scope.division).then(
+				StudentService.addDivisions($scope.division).then(
 						function(msgBean) {
 							
 							$scope.currentDivID = msgBean.id;
@@ -214,11 +214,11 @@ angular.module("prostudyApp").controller(
 			}
 
 			$scope.addInstituteSubjects = function() {
-				var SubjectService = appEndpointSF.getSubjectService();
+				var StudentService = appEndpointSF.getStudentService();
 				$scope.currentDivID = $stateParams.currentDivID;
 
 				for (i = 0; i < $scope.selectedSubjects.length; i++) {
-					SubjectService.addSubjects($scope.selectedSubjects[i])
+					StudentService.addSubjects($scope.selectedSubjects[i])
 							.then(function(msgBean) {
 
 							});
@@ -263,9 +263,8 @@ angular.module("prostudyApp").controller(
 			
 
 			$scope.viewStandardByInstitute = function() {
-
-				var StandardService = appEndpointSF.getStandardService();
-				StandardService.getStandardByInstitute(
+				var StudentService = appEndpointSF.getStudentService();
+				StudentService.getStandardByInstitute(
 						$scope.curUser.instituteID).then(
 						function(standardList) {
 
@@ -277,8 +276,8 @@ angular.module("prostudyApp").controller(
 			$scope.viewDivisionByStandard = function() {
 
 				$scope.std = $scope.selectedStdName;
-				var DivisionService = appEndpointSF.getDivisionService();
-				DivisionService.getDivisionByStandard($scope.selectedStdID)
+				var StudentService = appEndpointSF.getStudentService();
+				StudentService.getDivisionByStandard($scope.selectedStdID)
 						.then(
 								function(divisionList) {
 									$scope.viewDivList = divisionList;
@@ -287,8 +286,8 @@ angular.module("prostudyApp").controller(
 
 			$scope.viewSubjectByDivision = function() {
 
-				var SubjectService = appEndpointSF.getSubjectService();
-				SubjectService.getSubjectByDivision($scope.selectedDivID).then(
+				var StudentService = appEndpointSF.getStudentService();
+				StudentService.getSubjectByDivision($scope.selectedDivID).then(
 						function(subjectList) {
 							$scope.viewSubList = subjectList;
 
@@ -297,8 +296,8 @@ angular.module("prostudyApp").controller(
 
 			$scope.getStandardByInstitute = function() {
 
-				var StandardService = appEndpointSF.getStandardService();
-				StandardService.getStandardByInstitute($scope.currentInstID)
+				var StudentService = appEndpointSF.getStudentService();
+				StudentService.getStandardByInstitute($scope.currentInstID)
 						.then(function(standardList) {
 							for (var i = 0; i < standardList.length; i++) {
 								$scope.standards.push(standardList[i].name);
@@ -318,8 +317,8 @@ angular.module("prostudyApp").controller(
 						$scope.selectedStdID = $scope.stdList[i].id;
 					}
 				}
-				var DivisionService = appEndpointSF.getDivisionService();
-				DivisionService.getDivisionByStandard($scope.selectedStdID)
+				var StudentService = appEndpointSF.getStudentService();
+				StudentService.getDivisionByStandard($scope.selectedStdID)
 						.then(function(divisionList) {
 							for (var i = 0; i < divisionList.length; i++) {
 								$scope.divisions.push(divisionList[i].name);
@@ -335,8 +334,8 @@ angular.module("prostudyApp").controller(
 						$scope.selectedDivID = $scope.divList[i].id;
 					}
 				}
-				var SubjectService = appEndpointSF.getSubjectService();
-				SubjectService.getSubjectByDivision($scope.selectedDivID).then(
+				var StudentService = appEndpointSF.getStudentService();
+				StudentService.getSubjectByDivision($scope.selectedDivID).then(
 						function(subjectList) {
 							for (var i = 0; i < subjectList.length; i++) {
 								$scope.subjects.push(subjectList[i].name);
@@ -382,14 +381,14 @@ angular.module("prostudyApp").controller(
 
 			$scope.updateStandard = function() {
 
-				var StandardService = appEndpointSF.getStandardService();				
+				var StudentService = appEndpointSF.getStudentService();				
 				for (var i = 0; i < $scope.viewstdList.length; i++) {
 					if ($scope.selectedStdID == $scope.viewstdList[i].id) {
 						$scope.updatedval = $scope.viewstdList[i]
 					}
 
 				}
-				StandardService.editStandard($scope.updatedval).then(
+				StudentService.editStandard($scope.updatedval).then(
 						function(msgBean) {
 							});
 
@@ -418,7 +417,7 @@ angular.module("prostudyApp").controller(
 
 			$scope.updateDivision = function() {
 
-				var DivisionService = appEndpointSF.getDivisionService();
+				var StudentService = appEndpointSF.getStudentService();
 
 				$scope.selectedDivisionId = $stateParams.selectedDivisionId;
 				for (var i = 0; i < $scope.viewDivList.length; i++) {
@@ -428,7 +427,7 @@ angular.module("prostudyApp").controller(
 
 				}
 
-				DivisionService.editDivision($scope.updatedval).then(
+				StudentService.editDivision($scope.updatedval).then(
 						function(msgBean) {							
 						});
 
@@ -457,7 +456,7 @@ angular.module("prostudyApp").controller(
 
 			$scope.updateSubject = function() {
 
-				var SubjectService = appEndpointSF.getSubjectService();
+				var StudentService = appEndpointSF.getStudentService();
 
 				$scope.selectedSubjectId = $stateParams.selectedSubjectId;
 				for (var i = 0; i < $scope.viewSubList.length; i++) {
@@ -466,7 +465,7 @@ angular.module("prostudyApp").controller(
 					}
 
 				}
-				SubjectService.editSubject($scope.updatedval).then(
+				StudentService.editSubject($scope.updatedval).then(
 						function(msgBean) {
 							$log.debug("msgBean :" + angular.toJson(msgBean));
 							$log.debug("Inside Ctr updatesubject");

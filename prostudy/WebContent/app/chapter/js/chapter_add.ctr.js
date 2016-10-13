@@ -78,8 +78,8 @@ angular.module("prostudyApp").controller(
 						$scope.selectedDivID = $scope.divList[i].id;
 					}
 				}
-				var SubjectService = appEndpointSF.getSubjectService();
-				SubjectService.getSubjectByDivision($scope.selectedDivID).then(
+				var StudentService = appEndpointSF.getStudentService();
+				StudentService.getSubjectByDivision($scope.selectedDivID).then(
 						function(subjectList) {
 							for (var i = 0; i < subjectList.length; i++) {
 								$scope.subjects.push(subjectList[i].name);

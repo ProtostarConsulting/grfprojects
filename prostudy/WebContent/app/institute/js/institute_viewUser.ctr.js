@@ -47,8 +47,8 @@ angular.module("prostudyApp").controller(
 			
 			$scope.subjects=[];
 			$scope.getSubjectsByStudentID = function() {
-				var SubjectService = appEndpointSF.getSubjectService();
-				SubjectService.getSubjectsByStudentID($scope.selectedID).then(
+				var StudentService = appEndpointSF.getStudentService();
+				StudentService.getSubjectsByStudentID($scope.selectedID).then(
 						function(subList) {
 							$scope.subjects = subList;							
 						});

@@ -90,22 +90,7 @@ function appEndpointSF($log, localDBServiceFactory, googleEndpointSF) {
 			return googleEndpointSF.getCertificateService();
 	};
 
-	endpointFactory.getStandardService = function() {
-
-		if (isTestMode)
-			return localDBServiceFactory.getStandardService();
-		else
-			return googleEndpointSF.getStandardService();
-	};
-
-	endpointFactory.getDivisionService = function() {
-
-		if (isTestMode)
-			return localDBServiceFactory.getDivisionService();
-		else
-			return googleEndpointSF.getDivisionService();
-	};
-
+	
 	endpointFactory.getSubjectService = function() {
 
 		if (isTestMode)
@@ -201,14 +186,7 @@ function appEndpointSF($log, localDBServiceFactory, googleEndpointSF) {
 			return localDBServiceFactory.getQuestionService();
 		else
 			return googleEndpointSF.getQuestionService();
-	};
-
-	endpointFactory.getPracticeExamResultService = function() {
-		if (isTestMode)
-			return localDBServiceFactory.getPracticeExamResultService();
-		else
-			return googleEndpointSF.getPracticeExamResultService();
-	};
+	};	
 
 	endpointFactory.getAuthorizationService = function() {
 		if (isTestMode)
@@ -246,21 +224,26 @@ function appEndpointSF($log, localDBServiceFactory, googleEndpointSF) {
 	/*	gapi.client.load('chapterService', 'v0.1', function() {
 			$log.debug("chapterService Loaded....");
 
-		}, apiRoot);*/
+		}, apiRoot);
 
 		gapi.client.load('bookService', 'v0.1', function() {
 			$log.debug("bookService Loaded....");
 
 		}, apiRoot);
-
+*/
 		gapi.client.load('studentService', 'v0.1', function() {
 			$log.debug("StudentService Loaded....");
 
 		}, apiRoot);
+		
+		/*	gapi.client.load('standardService', 'v0.1', function() {
+			$log.debug("StandardService Loaded......");
 
-	/*	gapi.client.load('paymentService', 'v0.1', function() {
-			$log.debug("paymentService Loaded....");
 		}, apiRoot);
+
+		gapi.client.load('paymentService', 'v0.1', function() {
+			$log.debug("paymentService Loaded....");
+		}, apiRoot);*/
 
 		gapi.client.load('questionService', 'v0.1', function() {
 			$log.debug("QuestionService Loaded....");
@@ -271,7 +254,8 @@ function appEndpointSF($log, localDBServiceFactory, googleEndpointSF) {
 			$log.debug("PracticeExamService Loaded....");
 
 		}, apiRoot);
-
+		
+		/*
 		gapi.client.load('scheduledQuestionService', 'v0.1', function() {
 			$log.debug("ScheduledQuestionService Loaded....");
 
@@ -291,10 +275,7 @@ function appEndpointSF($log, localDBServiceFactory, googleEndpointSF) {
 
 		}, apiRoot);
 
-		gapi.client.load('practiceExamResultService', 'v0.1', function() {
-			$log.debug("PracticeExamResultService Loaded......");
-
-		}, apiRoot);*/
+		*/
 
 		gapi.client.load('instituteService', 'v0.1', function() {
 			$log.debug("InstituteService Loaded......");
@@ -306,12 +287,8 @@ function appEndpointSF($log, localDBServiceFactory, googleEndpointSF) {
 
 		}, apiRoot);
 
-		gapi.client.load('standardService', 'v0.1', function() {
-			$log.debug("StandardService Loaded......");
-
-		}, apiRoot);
-
-		gapi.client.load('divisionService', 'v0.1', function() {
+		
+		gapi.client.load('isionService', 'v0.1', function() {
 			$log.debug("DivisionService Loaded......");
 
 		}, apiRoot);

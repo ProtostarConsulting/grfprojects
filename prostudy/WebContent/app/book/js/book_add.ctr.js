@@ -44,8 +44,8 @@ angular.module("prostudyApp").controller(
 
 			$scope.getStandardByInstitute = function() {
 
-				var StandardService = appEndpointSF.getStandardService();
-				StandardService.getStandardByInstitute(
+				var StudentService = appEndpointSF.getStudentService();
+				StudentService.getStandardByInstitute(
 						$scope.curUser.instituteID).then(
 						function(standardList) {
 							for (var i = 0; i < standardList.length; i++) {
@@ -66,8 +66,8 @@ angular.module("prostudyApp").controller(
 						$scope.selectedStdID = $scope.stdList[i].id;
 					}
 				}
-				var DivisionService = appEndpointSF.getDivisionService();
-				DivisionService.getDivisionByStandard($scope.selectedStdID)
+				var StudentService = appEndpointSF.getStudentService();
+				StudentService.getDivisionByStandard($scope.selectedStdID)
 						.then(function(divisionList) {
 							for (var i = 0; i < divisionList.length; i++) {
 								$scope.divisions.push(divisionList[i].name);
@@ -84,8 +84,8 @@ angular.module("prostudyApp").controller(
 						$scope.selectedDivID = $scope.divList[i].id;
 					}
 				}
-				var SubjectService = appEndpointSF.getSubjectService();
-				SubjectService.getSubjectByDivision($scope.selectedDivID).then(
+				var StudentService = appEndpointSF.getStudentService();
+				StudentService.getSubjectByDivision($scope.selectedDivID).then(
 						function(subjectList) {
 							for (var i = 0; i < subjectList.length; i++) {
 								$scope.subjects.push(subjectList[i].name);
