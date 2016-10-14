@@ -10,10 +10,10 @@ angular
 					$scope.answerOfMediumList = answerOfMediumList;
 
 					$scope.standardList = angular.copy(standardList);
-					$scope.standardList.unshift("All");
+					//$scope.standardList.unshift("All");
 
 					$scope.selectFilterData = {
-						standard : "All",
+						standard : "",
 						state : "All",
 						dist : "All",
 						tal : "All"
@@ -39,7 +39,7 @@ angular
 
 						// To filter result list by address
 						for (var i = 0; i < $scope.examResultList.length; i++) {
-							if ($scope.selectFilterData.standard != "All") {
+							if ($scope.selectFilterData.standard != "") {
 								if ($scope.examResultList[i].standard != $scope.selectFilterData.standard) {
 									continue;
 								}
@@ -89,7 +89,7 @@ angular
 						}
 					};
 
-					$scope.getTalukas = function(index, district) {
+					/*$scope.getTalukas = function(index, district) {
 
 						$scope.temp.tempTalukas = [];
 						for (var j = 0; j < $scope.temp.tempDistricts.length; j++) {
@@ -104,7 +104,7 @@ angular
 								}
 							}
 						}
-					};
+					};*/
 					
 					$scope.getExamResultEntities = function() {
 						var gfStudentService = appEndpointSF
@@ -118,6 +118,13 @@ angular
 									$scope.filteredExamResultList = [];
 									$scope.loading = false;
 								});
+					}
+					
+					
+					$scope.downloadData = function(){
+															
+						document.location.href="DownloadExamResultReport?examResultByStandard="+$scope.selectFilterData.standard+"&examResultByDistrict="+$scope.selectFilterData.dist;
+						
 					}
 
 					$scope.cancel = function() {
