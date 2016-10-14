@@ -22,12 +22,13 @@ import com.protostar.prostudy.until.data.UtilityService;
 public class GFStudentService {
 
 	@ApiMethod(name = "addGFStudent", path = "addGFStudent")
-	public void addGFStudent(GFStudentEntity gfStudentEntity) {
+	public GFStudentEntity addGFStudent(GFStudentEntity gfStudentEntity) {
 
 		String nextPRN = UtilityService.getNextPRN(gfStudentEntity.getRole());
 		gfStudentEntity.setPrn(nextPRN);
 
 		ofy().save().entity(gfStudentEntity).now();
+		return gfStudentEntity;
 
 	}
 
