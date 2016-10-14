@@ -3,6 +3,7 @@ package com.protostar.prostudy.gf.service;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -69,10 +70,53 @@ public class GFStudentService {
 		return resultList;
 	}
 
+	@ApiMethod(name = "filterExamResults", path = "filterExamResults")
+	public List<GFExamResultEntity> filterExamResults(
+			@Named("standard") String standardFilter, @Named("dist") String distFilter) {
+
+		standardFilter = standardFilter == null ? "" : standardFilter.trim();
+		distFilter = distFilter == null ? "" : distFilter.trim();
+		List<GFExamResultEntity> resultList = ofy().load()
+				.type(GFExamResultEntity.class).order("-marks").list();
+		System.out.println("resultList:" + resultList.size());
+		
+		
+		List<GFExamResultEntity> filterResultList = new ArrayList();
+
+		for (int i = 0; i < resultList.size(); i++) {
+
+			GFExamResultEntity filterExamResultData = resultList.get(i);
+			String currentRecordStandard = filterExamResultData.getStandard();
+			String currentRecordDistrict = filterExamResultData.getSchool()
+					.getAddress().getDist();
+			
+			if (!standardFilter.isEmpty()) {
+				if (!currentRecordStandard.trim().equalsIgnoreCase(standardFilter)) {
+					continue;
+				}
+			}
+			
+			if(distFilter.equalsIgnoreCase("All")){
+				filterResultList.add(filterExamResultData);
+			}
+
+			if (!distFilter.isEmpty()) {
+				if (!currentRecordDistrict.trim().equalsIgnoreCase(distFilter)) {
+					continue;
+				}
+			}
+
+			filterResultList.add(filterExamResultData);
+		}
+
+		return filterResultList;
+	}
+
 	@ApiMethod(name = "serachExamResultEntitiesBySchool", path = "serachExamResultEntitiesBySchool")
 	public List<GFExamResultEntity> serachExamResultEntitiesBySchool(
 			PartnerSchoolEntity schoolEntity) {
-		System.out.println("schoolEntity.schoolName:" + schoolEntity.getSchoolName());
+		System.out.println("schoolEntity.schoolName:"
+				+ schoolEntity.getSchoolName());
 		List<GFExamResultEntity> resultList = ofy().load()
 				.type(GFExamResultEntity.class).filter("school", schoolEntity)
 				.list();
