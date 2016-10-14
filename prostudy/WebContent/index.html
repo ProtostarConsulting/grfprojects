@@ -196,8 +196,8 @@
 						ui-sref="courierModule.dailyDispatchReport" ng-click="close()"
 						class="md-primary">Courier Daily Dispatch Report</md-button> <md-button
 						flex ui-sref="gfreport.finsummary" ng-click="close()"
-						class="md-primary">Financial Summary</md-button><md-button
-						flex ui-sref="gfreport.listExamResult" ng-click="close()"
+						class="md-primary">Financial Summary</md-button> <md-button flex
+						ui-sref="gfreport.listExamResult" ng-click="close()"
 						class="md-primary">Exam Result Report</md-button>
 				</div>
 			</div>
@@ -230,6 +230,19 @@
 				</div>
 			</div>
 
+			</md-content> <md-content ng-if="curUser == null" ng-clock>
+
+			<div style="margin-left: 15px;">
+				<md-content flex layout="column" layout-xs="column"
+					layout-align="center start"> <md-button
+					ui-sref="studentModule.gvspStartExam" ng-click="close()"
+					class="menu-heading md-primary" aria-label="Take GVSP Exam"
+					show-gt-md> <menu-link section="child">Take
+				GVSP Exam</menu-link> </md-button> <md-button ui-sref="studentModule.addExamResult"
+					ng-click="close()" class="menu-heading md-primary"
+					aria-label="Add GVSP Exam Results" show-gt-md> <menu-link
+					section="child">Add GVSP Exam Results</menu-link> </md-button> </md-content>
+			</div>
 			</md-content> </md-content> </md-sidenav>
 
 			<!-- ng-show="curUser.role == 'Admin' || curUser.role == 'Teacher' || curUser.role == 'Student'" -->
@@ -489,7 +502,7 @@
 	<script src="/app/institute/js/institute.list_view.ctr.js"></script>
 
 	<script src="/app/report/js/report_module.ctr.js"></script>
-	<script src="/app/report/js/display_report.ctr.js"></script>	
+	<script src="/app/report/js/display_report.ctr.js"></script>
 
 	<script src="/app/myprofile/js/myprofile_update.ctr.js"></script>
 	<script src="/app/myPracticeExams/js/myPracticeExams_module.ctr.js"></script>
@@ -564,6 +577,7 @@
 	<script src="/app/gfstudent/js/gfStudent_list.ctr.js"></script>
 	<script src="/app/gfstudent/js/gfStudent_view.ctr.js"></script>
 	<script src="/app/gfstudent/js/examresult_add.ctr.js"></script>
+	<script src="/app/gfstudent/js/gvsp_start_form.ctr.js"></script>
 	<script src="/app/gfstudent/js/examresult_list.js"></script>
 
 	<!-- End Gandhi Found. Student  -->

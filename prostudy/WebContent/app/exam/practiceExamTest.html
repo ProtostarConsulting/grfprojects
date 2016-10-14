@@ -1,4 +1,9 @@
-<md-content layout-align="center end">
+<div ng-show="loading">
+	<div layout="row" layout-sm="column" layout-align="space-around">
+		<md-progress-circular md-diameter="100" md-mode="indeterminate"></md-progress-circular>
+	</div>
+</div>
+<md-content ng-show="!loading" layout-align="center end">
 <div layout="column" layout-align="end end">
 	<span style="color: red">Time Remaining:
 		{{Math.floor(counter/60) }} Minutes, {{counter%60}} Seconds </span> <label>
@@ -10,7 +15,8 @@
 	<md-button md-no-ink class="md-primary"
 		ng-repeat="q in practiceTestObj.questions"
 		ng-click="onButtonClick($index+1)"
-		style="min-width: 8px; margin: 1px 1px 0px 0px;">Q{{$index+1}} <md-tooltip>Jump to Question {{$index+1}}</md-tooltip></md-button>
+		style="min-width: 8px; margin: 1px 1px 0px 0px;">Q{{$index+1}}
+	<md-tooltip>Jump to Question {{$index+1}}</md-tooltip></md-button>
 </div>
 <hr>
 <section layout="row">
@@ -24,12 +30,14 @@
 	<div layout="row" layout-align="center end">
 		<div layout-align="start end">
 			<md-button ng-disabled="isDisabledPrevious" ng-click="onPrevious()">
-			<ng-md-icon icon="skip_previous"><md-tooltip>Previous Question</md-tooltip></ng-md-icon> </md-button>
+			<ng-md-icon icon="skip_previous">
+			<md-tooltip>Previous Question</md-tooltip></ng-md-icon> </md-button>
 		</div>
 
 		<div layout-align="start end">
 			<md-button ng-disabled="isDisabledNext" ng-click="onNext()">
-			<ng-md-icon icon="skip_next"><md-tooltip>Next Question</md-tooltip> </ng-md-icon> </md-button>
+			<ng-md-icon icon="skip_next">
+			<md-tooltip>Next Question</md-tooltip> </ng-md-icon> </md-button>
 		</div>
 	</div>
 </div>
@@ -56,19 +64,19 @@
 				style="border: 1px solid #dddddd; text-align: left; padding: 20px; width: 85%;"><div
 					layout="column">
 					<md-subheader class="md-primary">Answer:</md-subheader>
-					<md-checkbox name="answer"
+					<md-checkbox name="answer1" aria-label="answer1"
 						ng-model="selected[$index + item.option1]"
 						ng-click="toggleSelection($index,item.id,1)">
 					{{item.option1 | trim }}</md-checkbox>
-					<md-checkbox name="answer"
+					<md-checkbox name="answer2" aria-label="answer2"
 						ng-model="selected[$index + item.option2]"
 						ng-click="toggleSelection($index,item.id,2)">
 					{{item.option2 | trim}}</md-checkbox>
-					<md-checkbox name="answer"
+					<md-checkbox name="answer2" aria-label="answer3"
 						ng-model="selected[$index + item.option3]"
 						ng-click="toggleSelection($index,item.id,3)">
 					{{item.option3 | trim}}</md-checkbox>
-					<md-checkbox name="answer"
+					<md-checkbox name="answer4" aria-label="answer4"
 						ng-model="selected[$index + item.option4]"
 						ng-click="toggleSelection($index,item.id,4)">
 					{{item.option4 | trim}}</md-checkbox>
@@ -81,11 +89,13 @@
 	<div layout="row" layout-align="center end">
 		<div layout-align="start end">
 			<md-button ng-disabled="isDisabledPrevious" ng-click="onPrevious()">
-			<ng-md-icon icon="skip_previous"><md-tooltip>Previous Question</md-tooltip></ng-md-icon> </md-button>
+			<ng-md-icon icon="skip_previous">
+			<md-tooltip>Previous Question</md-tooltip></ng-md-icon> </md-button>
 		</div>
 		<div layout-align="start end">
 			<md-button ng-disabled="isDisabledNext" ng-click="onNext()">
-			<ng-md-icon icon="skip_next"><md-tooltip>Next Question</md-tooltip> </ng-md-icon> </md-button>
+			<ng-md-icon icon="skip_next">
+			<md-tooltip>Next Question</md-tooltip> </ng-md-icon> </md-button>
 		</div>
 	</div>
 	<hr>

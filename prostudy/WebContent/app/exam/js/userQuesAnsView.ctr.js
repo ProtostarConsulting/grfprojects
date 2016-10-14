@@ -14,7 +14,6 @@ angular
 
 					$scope.selectedResultId = $stateParams.selectedResultId;
 					$scope.selectedExamId = $stateParams.selectedExamId;
-					$scope.flag = $stateParams.flag;
 
 					$scope.curuser = appEndpointSF.getLocalUserService()
 							.getLoggedinUser();
@@ -78,14 +77,6 @@ angular
 
 					$scope.getPracticeExamResultbyID();
 					$scope.showselectedExam();
-
-					$scope.cancelButton = function() {
-						if ($scope.flag == "true") {
-							$state.go("exam");
-						} else {
-							$state.go("favourite");
-						}
-
-					}
+					appEndpointSF.getLocalUserService().saveLoggedInUser(null);
 
 				});

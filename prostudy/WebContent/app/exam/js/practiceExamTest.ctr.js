@@ -6,6 +6,8 @@ angular
 						$mdUtil, $log, $q, $sce, tableTestDataFactory,
 						appEndpointSF, $state, $filter, $stateParams, $mdDialog) {
 
+					$log.debug("###Inside practiceExamTestCtr###");
+					$scope.loading = true;
 					$scope.showSavedToast = function() {
 						$mdToast.show($mdToast.simple()
 								.content('Result Saved!').position("top")
@@ -190,7 +192,7 @@ angular
 					$scope.score = 0;
 
 					$scope.getPracticeExamByInstitute = function() {
-
+						$log.debug("###Inside practiceExamTestCtr###getPracticeExamByInstitute");
 						var PracticeExamService = appEndpointSF
 								.getPracticeExamService();
 						PracticeExamService.getPracticeExamByInstitute(
@@ -204,6 +206,7 @@ angular
 					$scope.selectedExamId = $stateParams.selectedExamId;
 
 					$scope.showselectedExam = function() {
+						$log.debug("###Inside practiceExamTestCtr###showselectedExam");
 						var PracticeExamService = appEndpointSF
 								.getPracticeExamService();
 
@@ -228,18 +231,19 @@ angular
 
 											$scope.onNext();
 											$scope.isDisabledPrevious = true;
+											$scope.loading = false;
 										});
 
 					}// End of showselectedExam
 
 					$scope.questions = [];
-					$scope.practiceTest = [];
+					
 					$scope.practiceTestObj = [];
 					$scope.selection = [];
 					$scope.userAns = [];
 
 					$scope.getPracticeExamResultbyEmail = function() {
-
+						$log.debug("###Inside practiceExamTestCtr###getPracticeExamResultbyEmail");
 						var PracticeExamService = appEndpointSF
 								.getPracticeExamService();
 
@@ -307,12 +311,7 @@ angular
 								.targetEvent(ev).ok('YES').cancel('NO');
 						$mdDialog.show(confirm).then(function() {
 							$log.debug("User clicked Okay");
-							$scope.checkAnswer();
-							$state.go('userQuesAnsView', {
-								selectedExamId : $scope.practiceTestObj.id,
-								selectedResultId : $scope.selectedID,
-								flag : $scope.flag
-							});
+							$scope.checkAnswer();							
 						}, function() {
 							// do nothing to stay on page.
 							$log.debug("User clicked No");
@@ -321,8 +320,8 @@ angular
 
 					$scope.waitForServiceLoad = function() {
 						if (appEndpointSF.is_service_ready) {
-							$scope.getPracticeExamByInstitute();
-							$scope.getPracticeExamResultbyEmail();
+							//$scope.getPracticeExamByInstitute();
+							//$scope.getPracticeExamResultbyEmail();
 							$scope.showselectedExam();
 
 						} else {

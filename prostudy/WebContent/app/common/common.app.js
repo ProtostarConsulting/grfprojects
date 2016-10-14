@@ -1323,6 +1323,14 @@ app
 							reviewByGrfRegNo : null
 						}
 					})
+					.state('studentModule.gvspStartExam', {
+						url : "/gvspExamStart",
+						templateUrl : '/app/gfstudent/gvsp_start_form.html',
+						controller : 'gfStartExamCtr',
+						params : {
+							reviewByGrfRegNo : null
+						}
+					})
 					.state('studentModule.listExamResult', {
 						url : "/listExamResult",
 						templateUrl : '/app/gfstudent/examresult_list.html',
