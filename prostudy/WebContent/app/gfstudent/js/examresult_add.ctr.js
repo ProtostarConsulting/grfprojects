@@ -27,17 +27,18 @@ angular
 					$scope.examResultList = [];
 					$scope.currentSchoolStandardList = [];
 
-					$scope.getEmptyExamResult = function(school, book) {
+					$scope.getEmptyExamResult = function(school, standard) {
 						return {
 							examYear : '',
-							standard : book.standard,
+							standard : standard,
 							studName : '',
 							mediumOfAnswer : '',
 							marks : '',
 							createdDate : new Date(),
-							modifiedBy : $scope.curUser?$scope.curUser.email_id:'guest',
+							modifiedBy : $scope.curUser ? $scope.curUser.email_id
+									: 'guest',
 							school : school,
-							institute : instituteID.instituteObj,
+							institute : $scope.curUser.instituteObj,
 							examYear : $scope.examDetail.yearOfExam,
 							grfReviewed : false
 						};
@@ -168,7 +169,7 @@ angular
 																										.push($scope
 																												.getEmptyExamResult(
 																														$scope.foundSchool,
-																														book));
+																														book.standard));
 
 																							}
 																						}
@@ -199,12 +200,12 @@ angular
 								.addExamResults($scope.examResultList)
 								.then(
 										function(resp) {
-											
+
 											if ($scope.reviewByGrfRegNo) {
 												$scope.showUpdateToast();
-											}else{
+											} else {
 												$scope.showAddToast();
-											}											
+											}
 
 											if (!$scope.curUser) {
 												$scope.data.guestSuccessMsg = "Data saved successfully. If any question, please contact GRF office. Thank you.";
@@ -217,7 +218,17 @@ angular
 										});
 					}
 
-					$scope.saveReviewedExamResultList = function() {						
+					$scope.addMoreStudent = function(std) {
+
+						for (var i = 1; i <= 5; i++) {
+							$scope.examResultList
+									.push($scope.getEmptyExamResult(
+											$scope.foundSchool, std));
+
+						}
+					}
+
+					$scope.saveReviewedExamResultList = function() {
 						angular.forEach($scope.examResultList, function(
 								resultObj) {
 							resultObj.grfReviewed = true;

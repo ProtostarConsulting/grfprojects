@@ -75,9 +75,8 @@
 				<h3 class="md-title">Please enter standard wise result below.</h3>
 
 				<div layout="row">
-					<span flex><b>Student Rank by Standard</b></span> <span
-						style="padding-right: 200px" flex><b>Student Name</b></span> <span
-						style="padding-right: 200px"><b>Marks</b></span>
+					<span flex="25"><b>Student by Rank</b></span> <span flex="50"><b>Student
+							Name</b></span> <span flex="25"><b>Marks</b></span>
 				</div>
 				<md-divider></md-divider>
 				<div id="standardList" ng-repeat="std in currentSchoolStandardList"
@@ -88,9 +87,10 @@
 							flex><b>Standard:&nbsp;{{std}}</b></span>
 					</div>
 					<div id="standardList"
-						ng-repeat="examResult in getResultListFor(std)" layout="row"
+						ng-repeat="examResult in getResultListFor(std) | orderObjectBy:'-marks'" layout="column"
 						flex="100">
-						<ng-form name="recordForm" ng-if="$index<=2"
+
+						<ng-form ng-if="$index<=2" name="recordForm"
 							ng-style="padding-top: 0px; padding-bottom: 0px" layout="row"
 							layout-padding flex="100"> <span
 							ng-style="getStandardLabelStyle()" flex="25"><b>Student
@@ -110,11 +110,13 @@
 							ng-if="recordForm.marks.$submitted || recordForm.marks.$touched">
 							<div ng-message="required">This field is required.</div>
 						</div>
-						</md-input-container> </ng-form>
+						</md-input-container></ng-form>
 
-						<div ng-if="$index>=3">
+
+						<div ng-if="$index>=3" layout="column">
 							<h3 class="md-title" ng-if="$index==3">Enter Other Students
 								Details of Standard: {{std}}</h3>
+
 							<ng-form name="recordForm"
 								ng-style="padding-top: 0px; padding-bottom: 0px" layout="row"
 								layout-padding flex="100"> <span
@@ -126,7 +128,15 @@
 								flex="25" style="margin: 0; padding: 0; padding-left: 10px;">
 							<input name="marks" aria-label="Student Marks" type="number"
 								ng-model="examResult.marks"> </md-input-container> </ng-form>
+
 						</div>
+
+					</div>
+					<div layout="row">
+						<md-button class="md-icon-button" id="addStudent"
+							ng-click="addMoreStudent(std)"> <ng-md-icon
+							icon="add_circle" style="fill: md-default" size="24">
+						<md-tooltip>Add More Students</md-tooltip></ng-md-icon></md-button>
 					</div>
 				</div>
 
