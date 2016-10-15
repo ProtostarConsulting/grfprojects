@@ -90,7 +90,7 @@
 					<div id="standardList"
 						ng-repeat="examResult in getResultListFor(std)" layout="row"
 						flex="100">
-						<ng-form name="recordForm"
+						<ng-form name="recordForm" ng-if="$index<=2"
 							ng-style="padding-top: 0px; padding-bottom: 0px" layout="row"
 							layout-padding flex="100"> <span
 							ng-style="getStandardLabelStyle()" flex="25"><b>Student
@@ -111,6 +111,22 @@
 							<div ng-message="required">This field is required.</div>
 						</div>
 						</md-input-container> </ng-form>
+
+						<div ng-if="$index>=3">
+							<h3 class="md-title" ng-if="$index==3">Enter Other Students
+								Details of Standard: {{std}}</h3>
+							<ng-form name="recordForm"
+								ng-style="padding-top: 0px; padding-bottom: 0px" layout="row"
+								layout-padding flex="100"> <span
+								ng-style="getStandardLabelStyle()" flex="25"><b>Student
+									No.&nbsp;{{$index+1}}</b></span> <md-input-container flex="50"
+								style="margin: 0; padding: 0;"> <input
+								name="studName" aria-label="Student Name"
+								ng-model="examResult.studName"> </md-input-container flex> <md-input-container
+								flex="25" style="margin: 0; padding: 0; padding-left: 10px;">
+							<input name="marks" aria-label="Student Marks" type="number"
+								ng-model="examResult.marks"> </md-input-container> </ng-form>
+						</div>
 					</div>
 				</div>
 
@@ -126,7 +142,8 @@
 					ng-if="reviewByGrfRegNo">
 					<md-button class="md-raised md-primary"
 						ng-click="saveReviewedExamResultList()"
-						ng-disabled="gfaddresultfrm.$invalid">Review & Save Result </md-button>
+						ng-disabled="gfaddresultfrm.$invalid">Review & Save
+					Result </md-button>
 					<md-button class="md-raised " ng-click="back()">Cancel</md-button>
 				</div>
 

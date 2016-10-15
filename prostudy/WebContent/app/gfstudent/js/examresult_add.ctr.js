@@ -35,9 +35,9 @@ angular
 							mediumOfAnswer : '',
 							marks : '',
 							createdDate : new Date(),
-							modifiedBy : $scope.curUser.email_id,
+							modifiedBy : $scope.curUser?$scope.curUser.email_id:'guest',
 							school : school,
-							institute : $scope.curUser.instituteObj,
+							institute : instituteID.instituteObj,
 							examYear : $scope.examDetail.yearOfExam,
 							grfReviewed : false
 						};
