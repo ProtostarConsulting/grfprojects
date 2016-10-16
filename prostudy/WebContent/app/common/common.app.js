@@ -260,9 +260,13 @@ app
 
 					})
 					.state('exam.practiceexamtest', {
-						url : "/practiceexam/:selectedExamId",
+						url : "/practiceexam",
 						templateUrl : '/app/exam/practiceExamTest.html',
-						controller : 'practiceExamTestCtr'
+						controller : 'practiceExamTestCtr',
+						params: {
+							selectedExamId: '',
+							foundSchool: null
+						}
 					})
 					.state('exam.view', {
 						url : "/exam/view",

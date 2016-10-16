@@ -8,6 +8,8 @@ angular
 
 					$log.debug("###Inside practiceExamTestCtr###");
 					$scope.loading = true;
+					var gfStudentService = appEndpointSF.getGFStudentService();
+
 					$scope.showSavedToast = function() {
 						$mdToast.show($mdToast.simple()
 								.content('Result Saved!').position("top")
@@ -16,10 +18,12 @@ angular
 
 					$scope.curUser = appEndpointSF.getLocalUserService()
 							.getLoggedinUser();
-
+					$scope.selectedExamId = $stateParams.selectedExamId;
+					$scope.foundSchool = $stateParams.foundSchool;
+					
 					// Code for timer
 					var date = new Date();
-					
+
 					$scope.Math = Math;
 					$scope.flag = true;
 					$scope.counter = 120;
@@ -34,7 +38,7 @@ angular
 					$scope.count = 0;
 					$scope.isDisabledPrevious = false;
 					$scope.isDisabledNext = false;
-					$scope.score = 0;
+					
 					$scope.newQues = [ {
 						qId : ""
 					} ];
@@ -101,7 +105,7 @@ angular
 
 					$scope.userAnsList = []; // {qID, userOption}
 					$scope.correctAns = [];
-					$scope.score = 0;
+				
 
 					$scope.checkAnswer = function() {
 						for (var i = 0; i < $scope.userAnsList.length; i++) {
@@ -189,10 +193,11 @@ angular
 
 					}// end of onPrevious
 
-					$scope.score = 0;
+					
 
 					$scope.getPracticeExamByInstitute = function() {
-						$log.debug("###Inside practiceExamTestCtr###getPracticeExamByInstitute");
+						$log
+								.debug("###Inside practiceExamTestCtr###getPracticeExamByInstitute");
 						var PracticeExamService = appEndpointSF
 								.getPracticeExamService();
 						PracticeExamService.getPracticeExamByInstitute(
@@ -203,10 +208,9 @@ angular
 								});
 					}
 
-					$scope.selectedExamId = $stateParams.selectedExamId;
-
 					$scope.showselectedExam = function() {
-						$log.debug("###Inside practiceExamTestCtr###showselectedExam");
+						$log
+								.debug("###Inside practiceExamTestCtr###showselectedExam");
 						var PracticeExamService = appEndpointSF
 								.getPracticeExamService();
 
@@ -237,13 +241,14 @@ angular
 					}// End of showselectedExam
 
 					$scope.questions = [];
-					
+
 					$scope.practiceTestObj = [];
 					$scope.selection = [];
 					$scope.userAns = [];
 
 					$scope.getPracticeExamResultbyEmail = function() {
-						$log.debug("###Inside practiceExamTestCtr###getPracticeExamResultbyEmail");
+						$log
+								.debug("###Inside practiceExamTestCtr###getPracticeExamResultbyEmail");
 						var PracticeExamService = appEndpointSF
 								.getPracticeExamService();
 
@@ -268,7 +273,7 @@ angular
 						lastName : $scope.curUser.lastName,
 						startTime : "",
 						endTime : "",
-						score : $scope.score,
+						score : 0,
 						userAns : $scope.userAnsList,
 						testID : "",
 						test : ""
@@ -292,6 +297,14 @@ angular
 											$log
 													.debug("$scope.practiceTestObj.id :"
 															+ $scope.practiceTestObj.id);
+
+											$scope.examResultList.push($scope
+													.getEmptyExamResult(
+															$scope.foundSchool,
+															$scope.practiceTestObj.standard));
+											$scope.addExamResultList($scope.examResultList);
+											
+											$scope.showSavedToast();
 											$state
 													.go(
 															'userQuesAnsView',
@@ -299,10 +312,39 @@ angular
 																selectedExamId : $scope.practiceTestObj.id,
 																selectedResultId : $scope.selectedID
 															});
-											$scope.showSavedToast();
 
 										});
 
+					}
+
+					$scope.getEmptyExamResult = function(school, standard) {
+						var date1 = new Date();
+						var year1 = date1.getFullYear();
+						year1 = year1.toString().substr(2, 2);
+						year1 = date1.getFullYear() + "-"
+								+ (Number(year1) + 1);
+						return {
+							standard : standard,
+							studName : $scope.curUser.firstName,
+							mediumOfAnswer : '',
+							marks : $scope.tempPracticeExamResult.score,
+							createdDate : new Date(),
+							modifiedBy : $scope.curUser ? $scope.curUser.email_id
+									: 'guest',
+							school : school,
+							institute : school.institute,
+							examYear : year1,
+							grfReviewed : false
+						};
+					}
+					$scope.examResultList = [];
+
+					$scope.addExamResultList = function() {
+						$scope.loading = true;
+						gfStudentService.addExamResults($scope.examResultList)
+								.then(function(resp) {
+									$scope.loading = false;
+								});
 					}
 
 					$scope.showConfirm = function(ev) {
@@ -311,7 +353,7 @@ angular
 								.targetEvent(ev).ok('YES').cancel('NO');
 						$mdDialog.show(confirm).then(function() {
 							$log.debug("User clicked Okay");
-							$scope.checkAnswer();							
+							$scope.checkAnswer();
 						}, function() {
 							// do nothing to stay on page.
 							$log.debug("User clicked No");
@@ -320,8 +362,8 @@ angular
 
 					$scope.waitForServiceLoad = function() {
 						if (appEndpointSF.is_service_ready) {
-							//$scope.getPracticeExamByInstitute();
-							//$scope.getPracticeExamResultbyEmail();
+							// $scope.getPracticeExamByInstitute();
+							// $scope.getPracticeExamResultbyEmail();
 							$scope.showselectedExam();
 
 						} else {

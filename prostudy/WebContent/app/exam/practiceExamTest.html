@@ -4,9 +4,10 @@
 	</div>
 </div>
 <md-content ng-show="!loading" layout-align="center end">
-<div layout="column" layout-align="end end">
-	<span style="color: red">Time Remaining:
-		{{Math.floor(counter/60) }} Minutes, {{counter%60}} Seconds </span> <label>
+<div layout="column" layout-align="start end">
+	<span>{{curUser.firstName}}</span><span flex> </span> <span
+		style="color: red">Time Remaining: {{Math.floor(counter/60) }}
+		Minutes, {{counter%60}} Seconds </span> <label>
 		<div ng-init="startTimer()"></div>
 	</label>
 </div>
@@ -30,14 +31,14 @@
 	<div layout="row" layout-align="center end">
 		<div layout-align="start end">
 			<md-button ng-disabled="isDisabledPrevious" ng-click="onPrevious()">
-			<ng-md-icon icon="skip_previous">
-			<md-tooltip>Previous Question</md-tooltip></ng-md-icon> </md-button>
+			<ng-md-icon icon="skip_previous"> <md-tooltip>Previous
+			Question</md-tooltip></ng-md-icon> </md-button>
 		</div>
 
 		<div layout-align="start end">
 			<md-button ng-disabled="isDisabledNext" ng-click="onNext()">
-			<ng-md-icon icon="skip_next">
-			<md-tooltip>Next Question</md-tooltip> </ng-md-icon> </md-button>
+			<ng-md-icon icon="skip_next"> <md-tooltip>Next
+			Question</md-tooltip> </ng-md-icon> </md-button>
 		</div>
 	</div>
 </div>
@@ -89,13 +90,13 @@
 	<div layout="row" layout-align="center end">
 		<div layout-align="start end">
 			<md-button ng-disabled="isDisabledPrevious" ng-click="onPrevious()">
-			<ng-md-icon icon="skip_previous">
-			<md-tooltip>Previous Question</md-tooltip></ng-md-icon> </md-button>
+			<ng-md-icon icon="skip_previous"> <md-tooltip>Previous
+			Question</md-tooltip></ng-md-icon> </md-button>
 		</div>
 		<div layout-align="start end">
 			<md-button ng-disabled="isDisabledNext" ng-click="onNext()">
-			<ng-md-icon icon="skip_next">
-			<md-tooltip>Next Question</md-tooltip> </ng-md-icon> </md-button>
+			<ng-md-icon icon="skip_next"> <md-tooltip>Next
+			Question</md-tooltip> </ng-md-icon> </md-button>
 		</div>
 	</div>
 	<hr>

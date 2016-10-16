@@ -136,7 +136,9 @@ angular
 														.go(
 																'exam.practiceexamtest',
 																{
-																	selectedExamId : foundExam.id
+																	selectedExamId : foundExam.id,
+																	foundSchool: $scope.foundSchool,
+																	foundSchool: $scope.foundSchool
 																});
 											}
 										});

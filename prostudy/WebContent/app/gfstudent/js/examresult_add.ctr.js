@@ -29,16 +29,14 @@ angular
 
 					$scope.getEmptyExamResult = function(school, standard) {
 						return {
-							examYear : '',
 							standard : standard,
 							studName : '',
 							mediumOfAnswer : '',
 							marks : '',
 							createdDate : new Date(),
-							modifiedBy : $scope.curUser ? $scope.curUser.email_id
-									: 'guest',
+							modifiedBy : $scope.curUser?$scope.curUser.email_id:'guest',
 							school : school,
-							institute : $scope.curUser.instituteObj,
+							institute : school.institute,
 							examYear : $scope.examDetail.yearOfExam,
 							grfReviewed : false
 						};
