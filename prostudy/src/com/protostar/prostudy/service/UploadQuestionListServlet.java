@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
@@ -18,6 +20,7 @@ import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import com.protostar.prostudy.entity.PracticeExamEntity;
 import com.protostar.prostudy.entity.QuestionEntity;
 import com.protostar.prostudy.until.data.UtilityService;
 
@@ -62,6 +65,8 @@ public class UploadQuestionListServlet extends HttpServlet {
 				FileItemIterator iterator = upload.getItemIterator(request);
 				String[] split2 = null;
 				Long insId = 0L;
+				Long practiceTestId = 0L;
+				
 				while (iterator.hasNext()) {
 					FileItemStream item = iterator.next();
 					System.out.println("item.getFieldName(): "
@@ -71,8 +76,12 @@ public class UploadQuestionListServlet extends HttpServlet {
 
 						if ("instituteID".equalsIgnoreCase(item.getFieldName())) {
 							insId = Long.parseLong(UtilityService.read(item
+									.openStream()));							
+						}
+						if ("practiceTestId".equalsIgnoreCase(item.getFieldName())) {
+							practiceTestId = Long.parseLong(UtilityService.read(item
 									.openStream()));
-
+							
 						}
 						continue;
 					}
@@ -99,7 +108,7 @@ public class UploadQuestionListServlet extends HttpServlet {
 				//CSV headers
 				// board standard division subject description category note
 				// option1 option2 option3 option4 correctAns
-
+				List<QuestionEntity> addedQuestionsList = new ArrayList<QuestionEntity>();
 				for (int row = 1; row < split2.length; row++) {
 					String[] split = split2[row].split(",");
 					System.out.println("split.length: " + split.length);
@@ -123,7 +132,20 @@ public class UploadQuestionListServlet extends HttpServlet {
 					questionEntity.setCorrectAns(split[11].trim());
 
 					QuestionService qs = new QuestionService();
-					qs.addQuestion(questionEntity);
+					addedQuestionsList.add(qs.addQuestion(questionEntity));
+				}
+				System.out.println("practiceTestId: " + practiceTestId);
+				if(practiceTestId != 0L){
+					PracticeExamService practiceExamService = new PracticeExamService();
+					PracticeExamEntity practiceExam = practiceExamService.getPracticeExamById(practiceTestId);
+					System.out.println("practiceExam: " + practiceExam);
+					if(practiceExam != null){
+						List<QuestionEntity> newList = new ArrayList<QuestionEntity>();
+						newList.addAll(practiceExam.getQuestions());
+						newList.addAll(addedQuestionsList);
+						practiceExam.setQuestions(newList);
+						practiceExamService.updatePracticeExam(practiceExam);
+					}
 				}
 			}
 		} catch (Exception e) {
