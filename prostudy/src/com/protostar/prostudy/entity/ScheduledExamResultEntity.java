@@ -27,7 +27,7 @@ public class ScheduledExamResultEntity {
 	@Index
 	private Long testID;
 	
-	private List<userAnsEntity> userAns;   
+	private List<UserAnsEntity> userAns;   
 	private List<ScheduledQuestionEntity> test;
 	public Long getId() {
 		return id;
@@ -89,10 +89,10 @@ public class ScheduledExamResultEntity {
 	public void setTestID(Long testID) {
 		this.testID = testID;
 	}
-	public List<userAnsEntity> getUserAns() {
+	public List<UserAnsEntity> getUserAns() {
 		return userAns;
 	}
-	public void setUserAns(List<userAnsEntity> userAns) {
+	public void setUserAns(List<UserAnsEntity> userAns) {
 		this.userAns = userAns;
 	}
 	public List<ScheduledQuestionEntity> getTest() {

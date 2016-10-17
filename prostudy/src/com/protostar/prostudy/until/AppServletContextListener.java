@@ -32,7 +32,7 @@ import com.protostar.prostudy.entity.SubjectEntity;
 import com.protostar.prostudy.entity.SyllabusEntity;
 import com.protostar.prostudy.entity.TeacherEntity;
 import com.protostar.prostudy.entity.UserEntity;
-import com.protostar.prostudy.entity.userAnsEntity;
+import com.protostar.prostudy.entity.UserAnsEntity;
 import com.protostar.prostudy.gf.entity.GFBookEntity;
 import com.protostar.prostudy.gf.entity.GFBookStockEntity;
 import com.protostar.prostudy.gf.entity.GFBookTransactionEntity;
@@ -72,7 +72,7 @@ public class AppServletContextListener implements ServletContextListener {
 		  ObjectifyService.register(ChapterEntity.class);
 		  
 		  ObjectifyService.register(UserEntity.class);
-		  ObjectifyService.register(userAnsEntity.class);
+		  ObjectifyService.register(UserAnsEntity.class);
 		  ObjectifyService.register(InstituteEntity.class);
 		  ObjectifyService.register(PracticeExamResultEntity.class);
 		  ObjectifyService.register(AdminEntity.class);

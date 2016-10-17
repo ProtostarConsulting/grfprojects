@@ -27,7 +27,7 @@ public class PracticeExamResultEntity {
 	@Index
 	private Long testID;
 
-	private List<userAnsEntity> userAns;
+	private List<UserAnsEntity> userAns;
 	private List<QuestionEntity> test;
 
 	public Long getTestID() {
@@ -70,11 +70,11 @@ public class PracticeExamResultEntity {
 		this.test = test;
 	}
 
-	public List<userAnsEntity> getUserAns() {
+	public List<UserAnsEntity> getUserAns() {
 		return userAns;
 	}
 
-	public void setUserAns(List<userAnsEntity> userAns) {
+	public void setUserAns(List<UserAnsEntity> userAns) {
 		this.userAns = userAns;
 	}
 
