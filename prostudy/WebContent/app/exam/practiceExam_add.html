@@ -23,16 +23,16 @@
 			</md-input-container>
 
 
-			<md-input-container flex> <label>Category</label>
+			<md-input-container flex> <label>Language</label>
 			<input name="category" id="category" ng-required="true"
 				ng-model="tempPracticeExam.category">
 			<div ng-messages="practiceExamForm.category.$error"
 				ng-if="practiceExamForm.category.$submitted || practiceExamForm.category.$touched">
-				<div ng-message="required">Please enter Category.</div>
+				<div ng-message="required">Please enter Language.</div>
 			</div>
 			</md-input-container>
 
-			<md-input-container flex> <label>Board<span
+			<!-- <md-input-container flex> <label>Board<span
 				style="color: red" ng-show="practiceExamForm.board.$error.required"
 				class="mandatory">*</span></label> <md-select name="board"
 				ng-model="tempPracticeExam.board" ng-required="true"> <md-option
@@ -41,6 +41,19 @@
 				ng-if="practiceExamForm.board.$submitted || practiceExamForm.board.$touched">
 				<div ng-message="required">Please Select Board.</div>
 			</div>
+			</md-input-container> -->
+			<md-input-container flex> <label>Standard<span
+				style="color: red"
+				ng-show="practiceExamForm.standard.$error.required"
+				class="mandatory">*</span></label> <md-select name="standard"
+				ng-model="tempPracticeExam.standard"				 
+				ng-required="true">
+			<md-option ng-value="standard" ng-repeat="standard in standards">{{standard}}</md-option>
+			</md-select>
+			<div ng-messages="practiceExamForm.standard.$error"
+				ng-if="practiceExamForm.standard.$submitted || practiceExamForm.standard.$touched">
+				<div ng-message="required">Please Select Standard.</div>
+			</div>
 			</md-input-container>
 
 
@@ -48,7 +61,7 @@
 		</div>
 
 
-		<div layout="row" layout-align="" layout-xs="column">
+		<!-- <div layout="row" layout-align="" layout-xs="column">
 
 			<md-input-container flex> <label>Standard<span
 				style="color: red"
@@ -91,7 +104,7 @@
 				<div ng-message="required">Please Select Subject.</div>
 			</div>
 			</md-input-container>
-		</div>
+		</div> -->
 	</div>
 
 	<div layout="column">

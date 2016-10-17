@@ -3,7 +3,7 @@ angular
 		.controller(
 				"addPracticeExamCtr",
 				function($scope, $window, $mdToast, $timeout, $mdSidenav,
-						$mdUtil, $log, $q, appEndpointSF, $state, $stateParams,$sce, $filter,boardList) {
+						$mdUtil, $log, $q, appEndpointSF, $state, $stateParams,$sce, $filter,boardList, standardList) {
 					
 					$scope.curUser = appEndpointSF.getLocalUserService()
 							.getLoggedinUser();
@@ -17,7 +17,7 @@ angular
 					$scope.boards = [ {} ];
 					$scope.boards = boardList;
 			
-					$scope.standards = [];
+					$scope.standards = standardList;
 					$scope.divisions = []; 
 					$scope.subjects = []; 
 					$scope.selected = [];		
@@ -174,7 +174,7 @@ angular
 
 					$scope.waitForServiceLoad = function() {
 						  if (appEndpointSF.is_service_ready) {					  
-								$scope.getStandardByInstitute();	  
+								//$scope.getStandardByInstitute();	  
 						  } 
 						  else {
 						   $log.debug("Services Not Loaded, watiting...");

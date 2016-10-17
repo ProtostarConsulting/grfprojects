@@ -110,6 +110,7 @@ angular
 													.forEach(
 															$scope.practiceExamList,
 															function(exam) {
+																$log.debug("exam: " + exam.examtitle);
 																if (exam.standard == $scope.tempStudent.standard && exam.category == $scope.tempStudent.language) {
 																	foundExam = exam;
 																}

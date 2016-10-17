@@ -206,7 +206,7 @@ angular
 
 					$scope.query = {
 						order : 'description',
-						limit : 5,
+						limit : 15,
 						page : 1
 					};
 
@@ -233,7 +233,7 @@ angular
 						  if (appEndpointSF.is_service_ready) {	
 							  $scope.getQuestion();
 							  $scope.showselectedExam();
-							  $scope.getStandardByInstitute(); 		  
+							  //$scope.getStandardByInstitute(); 		  
 						  } 
 						  else {
 						   $log.debug("Services Not Loaded, watiting...");
