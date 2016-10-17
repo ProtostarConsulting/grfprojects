@@ -4,25 +4,24 @@
 	</div>
 </div>
 <md-content ng-show="!loading" layout-align="center end">
-<div layout="column" layout-align="start end">
+<div layout="row" layout-align="center end">
 	<span>{{curUser.firstName}}</span><span flex> </span> <span
 		style="color: red">Time Remaining: {{Math.floor(counter/60) }}
-		Minutes, {{counter%60}} Seconds </span> <label>
-		<div ng-init="startTimer()"></div>
-	</label>
+		Minutes, {{counter%60}} Seconds </span>
 </div>
 
+<div ng-init="startTimer()"></div>
 <div layout="row">
 	<md-button md-no-ink class="md-primary"
 		ng-repeat="q in practiceTestObj.questions"
-		ng-click="onButtonClick($index+1)"
+		ng-click="onButtonClick($index)"
 		style="min-width: 8px; margin: 1px 1px 0px 0px;">Q{{$index+1}}
 	<md-tooltip>Jump to Question {{$index+1}}</md-tooltip></md-button>
 </div>
 <hr>
 <section layout="row">
-	<span flex="50">{{currentPage}} of {{totalPages}} Questions</span> <span
-		flex="30"></span>
+	<span flex="50">{{currentQuestionIndex + 1}} of
+		{{totalQuestions}} Questions</span> <span flex="30"></span>
 	<md-button class="md-raised md-primary"
 		style="margin: 1px 1px 0px 0px;" ng-click="showConfirm($event)">Save
 	and End Test</md-button>
@@ -42,21 +41,22 @@
 		</div>
 	</div>
 </div>
-<div ng-repeat="item in array" layout="row" layout-xs="column"
-	layout-align="center end">
+<div layout="row" layout-xs="column" layout-align="center end">
 	<table
 		style="font-family: arial, sans-serif; border-collapse: collapse; border: 1px solid black; width: 85%; margin: 20px;">
 		<tr
 			style="border: 1px solid #dddddd; text-align: left; padding: 20px; width: 85%; background-color: #8cced4;">
 			<th
 				style="border: 1px solid #dddddd; text-align: left; padding: 20px; width: 85%;">
-				Question {{item.qId}} <br> <span
-				ng-bind-html="item.description | trim"></span>
+				Question {{practiceTestObj.questions[currentQuestionIndex].qId}} <br>
+				<span
+				ng-bind-html="practiceTestObj.questions[currentQuestionIndex].description | trim"></span>
 			</th>
 		</tr>
-		<tr ng-if="item.note"
+		<tr ng-if="practiceTestObj.questions[currentQuestionIndex].note"
 			style="border: 1px solid #dddddd; text-align: left; padding: 20px; width: 85%;">
-			<td ng-bind-html="item.note | trim"
+			<td
+				ng-bind-html="practiceTestObj.questions[currentQuestionIndex].note | trim"
 				style="border: 1px solid #dddddd; text-align: left; padding: 20px; width: 85%;"></td>
 		</tr>
 		<tr
@@ -66,21 +66,21 @@
 					layout="column">
 					<md-subheader class="md-primary">Answer:</md-subheader>
 					<md-checkbox name="answer1" aria-label="answer1"
-						ng-model="selected[$index + item.option1]"
-						ng-click="toggleSelection($index,item.id,1)">
-					{{item.option1 | trim }}</md-checkbox>
+						ng-checked="userAnsList[currentQuestionIndex].userOption == 'option1'"
+						ng-click="toggleSelection('option1')">
+					{{practiceTestObj.questions[currentQuestionIndex].option1 | trim }}</md-checkbox>
 					<md-checkbox name="answer2" aria-label="answer2"
-						ng-model="selected[$index + item.option2]"
-						ng-click="toggleSelection($index,item.id,2)">
-					{{item.option2 | trim}}</md-checkbox>
+						ng-checked="userAnsList[currentQuestionIndex].userOption == 'option2'"
+						ng-click="toggleSelection('option2')">
+					{{practiceTestObj.questions[currentQuestionIndex].option2 | trim}}</md-checkbox>
 					<md-checkbox name="answer2" aria-label="answer3"
-						ng-model="selected[$index + item.option3]"
-						ng-click="toggleSelection($index,item.id,3)">
-					{{item.option3 | trim}}</md-checkbox>
+						ng-checked="userAnsList[currentQuestionIndex].userOption == 'option3'"
+						ng-click="toggleSelection('option3')">
+					{{practiceTestObj.questions[currentQuestionIndex].option3 | trim}}</md-checkbox>
 					<md-checkbox name="answer4" aria-label="answer4"
-						ng-model="selected[$index + item.option4]"
-						ng-click="toggleSelection($index,item.id,4)">
-					{{item.option4 | trim}}</md-checkbox>
+						ng-checked="userAnsList[currentQuestionIndex].userOption == 'option4'"
+						ng-click="toggleSelection('option4')">
+					{{practiceTestObj.questions[currentQuestionIndex].option4 | trim}}</md-checkbox>
 				</div></td>
 		</tr>
 	</table>
@@ -101,13 +101,17 @@
 	</div>
 	<hr>
 	<section layout="row">
-		<span flex="50">{{currentPage}} of {{totalPages}} Questions</span> <span
-			flex="30"></span>
+		<span flex="50">{{currentQuestionIndex + 1}} of
+			{{totalQuestions}} Questions</span> <span flex="30"></span>
 		<md-button class="md-raised md-primary"
 			style="margin: 1px 1px 0px 0px;" ng-click="showConfirm($event)">Save
 		and End Test</md-button>
 	</section>
 </div>
 <hr>
+<!-- <div>userAnsList:{{angular.toJson(userAnsList)}}</div>
+<div>userOption:{{userAnsList[currentQuestionIndex].userOption}}</div>
+<div>isEqual to option1?:{{userAnsList[currentQuestionIndex].userOption == 'option1'}}</div> -->
+
 </md-content>
 

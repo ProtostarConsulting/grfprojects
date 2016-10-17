@@ -34,7 +34,8 @@ angular
 							mediumOfAnswer : '',
 							marks : '',
 							createdDate : new Date(),
-							modifiedBy : $scope.curUser?$scope.curUser.email_id:'guest',
+							modifiedBy : $scope.curUser ? $scope.curUser.email_id
+									: 'guest',
 							school : school,
 							institute : school.institute,
 							examYear : $scope.examDetail.yearOfExam,
@@ -170,6 +171,11 @@ angular
 																														book.standard));
 
 																							}
+
+																							// $scope.examResultList
+																							// =
+																							// $filter('orderObjectBy:')($scope.examResultList,
+																							// '-marks')
 																						}
 																					});
 
@@ -281,7 +287,9 @@ angular
 					$scope.getFormRowStyle = function() {
 						return {
 							'padding-top' : '1px',
-							'padding-bottom' : '2px'
+							'padding-bottom' : '2px',
+							'padding-top' : '0px',
+							'padding-bottom' : '0px'
 						};
 
 					}

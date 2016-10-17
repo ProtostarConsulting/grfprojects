@@ -7,7 +7,8 @@ angular
 						$location, $anchorScroll, appEndpointSF) {
 
 					$log.debug("Inside indexCtr");
-
+					$scope.angular = angular;
+					
 					var defaulLogingUserIconURL = '/img/icons/ic_person_24px.svg';
 					var defaulInstituteLogoURL = '/img/images/grf_logo_new.gif';
 

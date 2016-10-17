@@ -83,6 +83,17 @@
 						<div ng-message="required">Please select Standards.</div>
 					</div>
 					</md-input-container>
+					<md-input-container flex> <label>Exam Language<span
+						style="color: red"
+						ng-show="gfStudentForm.language.$error.required" class="mandatory">*</span></label>
+					<md-select name="language" ng-model="tempStudent.language"
+						ng-required="true"> <md-option ng-value="language"
+						ng-repeat="language in answerOfMediumList">{{language}}</md-option> </md-select>
+					<div ng-messages="gfStudentForm.language.$error"
+						ng-if="gfStudentForm.language.$submitted || gfStudentForm.language.$touched">
+						<div ng-message="required">Please select Standards.</div>
+					</div>
+					</md-input-container>
 					<md-input-container flex> <label>Enter
 						Your Full Name <span style="color: red"
 						ng-show="gfStudentForm.fName.$error.required" class="mandatory">*</span>

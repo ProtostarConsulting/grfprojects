@@ -22,7 +22,7 @@ angular
 					$scope.correctAns = [];
 					$scope.score = 0;
 					$scope.totalLength;
-					$scope.answeredLength;
+					$scope.answeredLength = 0;
 					$scope.remainingLength;
 
 					$scope.selected = [];
@@ -68,9 +68,11 @@ angular
 										$scope.selectedResultId)
 								.then(
 										function(practiceExamResultList) {
-
 											$scope.examResults = practiceExamResultList;
-											$scope.answeredLength = $scope.examResults.userAns.length;
+											for(var i = 0; i< $scope.examResults.userAns.length; i++){
+												if($scope.examResults.userAns[i].userOption)
+													$scope.answeredLength++;
+											}											
 
 										});
 					}

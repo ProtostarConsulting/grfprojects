@@ -20,28 +20,42 @@ angular
 							.getLoggedinUser();
 					$scope.selectedExamId = $stateParams.selectedExamId;
 					$scope.foundSchool = $stateParams.foundSchool;
-					
+
 					// Code for timer
 					var date = new Date();
 
 					$scope.Math = Math;
-					$scope.flag = true;
-					$scope.counter = 120;
+
+					$scope.counter = 60*60; // 60 minutes in seconds
 					$scope.startTime = null;
 					$scope.endTime = null;
 					$scope.examResults;
 					$scope.selectedID;
 
-					$scope.currentPage = 0;
-					$scope.totalPages = 0;
-					$scope.itemsPerPage = 1;
-					$scope.count = 0;
+					$scope.currentQuestionIndex = 0;
+					$scope.totalQuestions = 0;
+
 					$scope.isDisabledPrevious = false;
 					$scope.isDisabledNext = false;
-					
-					$scope.newQues = [ {
-						qId : ""
-					} ];
+
+					$scope.practiceTestObj = null;
+					$scope.tempPracticeExamResult = {
+
+						ID : "",
+						examTitle : "",
+						userId : $scope.curUser.id,
+						email_id : $scope.curUser.email_id,
+						firstName : $scope.curUser.firstName,
+						lastName : $scope.curUser.lastName,
+						startTime : "",
+						endTime : "",
+						score : 0,
+						userAns : null,
+						testID : "",
+						test : null
+
+					}
+
 					var mytimeout = null;
 
 					$scope.onTimeout = function() {
@@ -78,34 +92,14 @@ angular
 						}
 					});// End of timer
 
-					$scope.toggleSelection = function toggleSelection(index,
-							id, optionId) {
-
-						var idx = $scope.selection.indexOf(index, id, optionId);
-
-						if (idx > -1) {
-							$scope.selection.splice(index, 1);
-
-						} else {
-							$scope.selection.push(optionId);
-							$scope.userAnsList.push({
-								qID : id,
-								userOption : 'option' + optionId
-							});
-						}
-
-						/*
-						 * for(i=0;i <$scope.selection.length; i++) { if(index+1 ==
-						 * $scope.selection[i]) {
-						 * 
-						 * $scope.selection.splice(index, 1); } }
-						 */
-
-					};
-
 					$scope.userAnsList = []; // {qID, userOption}
-					$scope.correctAns = [];
-				
+
+					$scope.toggleSelection = function toggleSelection(
+							selectedOption) {
+						$scope.userAnsList[$scope.currentQuestionIndex].userOption = selectedOption;
+						$scope
+								.safeApply($scope.userAnsList[$scope.currentQuestionIndex]);
+					};
 
 					$scope.checkAnswer = function() {
 						for (var i = 0; i < $scope.userAnsList.length; i++) {
@@ -133,67 +127,46 @@ angular
 					$scope.selected = [];
 
 					$scope.onNext = function() {
-						$scope.currentPage++;
-						$scope.count = $scope.currentPage;
+						$scope.currentQuestionIndex++;
 
-						$scope.array = $scope.practiceTestObj.questions.slice(
-								($scope.currentPage * $scope.itemsPerPage)
-										- $scope.itemsPerPage,
-								($scope.currentPage * $scope.itemsPerPage));
-						console.log("slice =" + $scope.array);
-
-						if ($scope.currentPage == $scope.totalPages) {
+						if ($scope.currentQuestionIndex == $scope.totalQuestions - 1) {
 							$scope.isDisabledNext = true;
-
 						} else {
-							$scope.isDisabledPrevious = false;
+							$scope.isDisabledNext = false;
 						}
+						$scope.isDisabledPrevious = false;
 
 					}// end of onNext
 
 					$scope.onButtonClick = function(index) {
 
-						$scope.currentPage = index;
-						$scope.count = $scope.currentPage;
+						$scope.currentQuestionIndex = index;
 
-						$scope.array = $scope.practiceTestObj.questions.slice(
-								($scope.currentPage * $scope.itemsPerPage)
-										- $scope.itemsPerPage,
-								($scope.currentPage * $scope.itemsPerPage));
-
-						if ($scope.currentPage == $scope.totalPages) {
-							$scope.isDisabledNext = true;
-
-						} else {
-							$scope.isDisabledNext = false;
-						}
-						if ($scope.currentPage == 1) {
+						if ($scope.currentQuestionIndex == 0) {
 							$scope.isDisabledPrevious = true;
-
 						} else {
 							$scope.isDisabledPrevious = false;
+						}
+
+						if ($scope.currentQuestionIndex == $scope.totalQuestions - 1) {
+							$scope.isDisabledNext = true;
+						} else {
+							$scope.isDisabledNext = false;
 						}
 
 					};// end of onPage
 
 					$scope.onPrevious = function() {
-						$scope.currentPage--;
+						$scope.currentQuestionIndex--;
 
-						$scope.array = $scope.practiceTestObj.questions.slice(
-								($scope.currentPage * $scope.itemsPerPage)
-										- $scope.itemsPerPage,
-								($scope.currentPage * $scope.itemsPerPage));
-
-						if ($scope.currentPage <= 1) {
+						if ($scope.currentQuestionIndex == 0) {
 							$scope.isDisabledPrevious = true;
-
 						} else {
-							$scope.isDisabledNext = false;
+							$scope.isDisabledPrevious = false;
 						}
+						$scope.isDisabledNext = false;
 
 					}// end of onPrevious
-
-					
 
 					$scope.getPracticeExamByInstitute = function() {
 						$log
@@ -219,32 +192,27 @@ angular
 								.then(
 										function(practiceTest) {
 											$scope.practiceTestObj = practiceTest;
-											$scope.totalPages = $scope.practiceTestObj.questions.length
-											$scope.newQues = $scope.practiceTestObj.questions;
+											$scope.totalQuestions = $scope.practiceTestObj.questions.length
 
-											$scope.newQues[0].qId = 1;
-											for (var i = 1; i < $scope.newQues.length; i++) {
-
-												$scope.newQues[i].qId = $scope.newQues[i - 1].qId + 1;
-
+											for (var i = 0; i < $scope.practiceTestObj.questions.length; i++) {
+												$scope.userAnsList
+														.push({
+															qID : $scope.practiceTestObj.questions[i].id,
+															userOption : ''
+														});
 											}
 
 											$scope.tempPracticeExamResult.examTitle = $scope.practiceTestObj.examtitle;
+											// $scope.tempPracticeExamResult.test
+											// =
+											// $scope.practiceTestObj.questions;
 
-											$scope.tempPracticeExamResult.test = $scope.practiceTestObj.questions;
-
-											$scope.onNext();
+											// $scope.onNext();
 											$scope.isDisabledPrevious = true;
 											$scope.loading = false;
 										});
 
 					}// End of showselectedExam
-
-					$scope.questions = [];
-
-					$scope.practiceTestObj = [];
-					$scope.selection = [];
-					$scope.userAns = [];
 
 					$scope.getPracticeExamResultbyEmail = function() {
 						$log
@@ -263,28 +231,15 @@ angular
 										});
 					}
 
-					$scope.tempPracticeExamResult = {
-
-						ID : "",
-						examTitle : "",
-						userId : $scope.curUser.id,
-						email_id : $scope.curUser.email_id,
-						firstName : $scope.curUser.firstName,
-						lastName : $scope.curUser.lastName,
-						startTime : "",
-						endTime : "",
-						score : 0,
-						userAns : $scope.userAnsList,
-						testID : "",
-						test : ""
-
-					}
-
 					$scope.addPracticeExamResult = function() {
 
 						$scope.tempPracticeExamResult.testID = $scope.selectedExamId;
+
 						var PracticeExamService = appEndpointSF
 								.getPracticeExamService();
+
+						$scope.tempPracticeExamResult.test = $scope.practiceTestObj.questions;
+						$scope.tempPracticeExamResult.userAns = $scope.userAnsList;
 
 						PracticeExamService
 								.addPracticeExamResult(
@@ -298,12 +253,14 @@ angular
 													.debug("$scope.practiceTestObj.id :"
 															+ $scope.practiceTestObj.id);
 
-											$scope.examResultList.push($scope
-													.getEmptyExamResult(
-															$scope.foundSchool,
-															$scope.practiceTestObj.standard));
-											$scope.addExamResultList($scope.examResultList);
-											
+											$scope.examResultList
+													.push($scope
+															.getEmptyExamResult(
+																	$scope.foundSchool,
+																	$scope.practiceTestObj.standard));
+											$scope
+													.addExamResultList($scope.examResultList);
+
 											$scope.showSavedToast();
 											$state
 													.go(
@@ -321,8 +278,7 @@ angular
 						var date1 = new Date();
 						var year1 = date1.getFullYear();
 						year1 = year1.toString().substr(2, 2);
-						year1 = date1.getFullYear() + "-"
-								+ (Number(year1) + 1);
+						year1 = date1.getFullYear() + "-" + (Number(year1) + 1);
 						return {
 							standard : standard,
 							studName : $scope.curUser.firstName,

@@ -35,7 +35,8 @@ angular
 						mediumOfAnswer : '',
 						gender : '',
 						school : '',
-						role : 'Student'
+						role : 'Student',
+						language:''	
 					}
 
 					$scope.selectedGFStudID = $stateParams.selectedGFStudID;
@@ -109,7 +110,7 @@ angular
 													.forEach(
 															$scope.practiceExamList,
 															function(exam) {
-																if (exam.standard == $scope.tempStudent.standard) {
+																if (exam.standard == $scope.tempStudent.standard && exam.category == $scope.tempStudent.language) {
 																	foundExam = exam;
 																}
 															});

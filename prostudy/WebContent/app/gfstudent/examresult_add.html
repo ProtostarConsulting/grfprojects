@@ -91,7 +91,7 @@
 						flex="100">
 
 						<ng-form ng-if="$index<=2" name="recordForm"
-							ng-style="padding-top: 0px; padding-bottom: 0px" layout="row"
+							ng-style="getFormRowStyle()" layout="row"
 							layout-padding flex="100"> <span
 							ng-style="getStandardLabelStyle()" flex="25"><b>Student
 								No.&nbsp;{{$index+1}}</b></span> <md-input-container flex="50"
@@ -118,7 +118,7 @@
 								Details of Standard: {{std}}</h3>
 
 							<ng-form name="recordForm"
-								ng-style="padding-top: 0px; padding-bottom: 0px" layout="row"
+								ng-style="getFormRowStyle()" layout="row"
 								layout-padding flex="100"> <span
 								ng-style="getStandardLabelStyle()" flex="25"><b>Student
 									No.&nbsp;{{$index+1}}</b></span> <md-input-container flex="50"
