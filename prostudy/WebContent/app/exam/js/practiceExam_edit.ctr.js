@@ -206,7 +206,7 @@ angular
 
 					$scope.query = {
 						order : 'description',
-						limit : 15,
+						limit : 80,
 						page : 1
 					};
 

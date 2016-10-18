@@ -28,7 +28,7 @@ angular
 													: gotAccountList.items.length;
 											if ($scope.accountlist == 0) {
 												protostarAdminService
-														.initsetup()
+														.createAccountPlanTypes()
 														.then(
 																function(
 																		msgBean) {
@@ -64,7 +64,7 @@ angular
 
 																if ($scope.emps == 0) {
 																	protostarAdminService
-																			.initsetupnext()
+																			.createUsers()
 																			.then(
 																					function(
 																							msgBean) {

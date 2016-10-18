@@ -1834,9 +1834,9 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 		return deferred.promise;
 	}
 
-	protostarAdminService.initsetup = function() {
+	protostarAdminService.createAccountPlanTypes = function() {
 		var deferred = $q.defer();
-		gapi.client.protostarAdminService.initsetup().execute(function(resp) {
+		gapi.client.protostarAdminService.createAccountPlanTypes().execute(function(resp) {
 			deferred.resolve({
 				"msg" : resp
 			});
@@ -1844,9 +1844,9 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 		return deferred.promise;
 	}
 
-	protostarAdminService.initsetupnext = function() {
+	protostarAdminService.createUsers = function() {
 		var deferred = $q.defer();
-		gapi.client.protostarAdminService.initsetupnext().execute(
+		gapi.client.protostarAdminService.createUsers().execute(
 				function(resp) {
 					deferred.resolve({
 						"msg" : resp
