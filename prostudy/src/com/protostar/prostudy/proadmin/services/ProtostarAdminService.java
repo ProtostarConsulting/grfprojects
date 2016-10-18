@@ -47,8 +47,8 @@ public class ProtostarAdminService {
 		return type;
 	}
 
-	@ApiMethod(name = "initsetupnext")
-	public void initsetupnext() {
+	@ApiMethod(name = "createUsers")
+	public void createUsers() {
 		try {
 			Date date = new Date();
 			String DATE_FORMAT = "dd/MM/yyyy";
@@ -93,9 +93,9 @@ public class ProtostarAdminService {
 
 			UserEntity userEntity2 = new UserEntity();
 			userEntity2.setInstituteID(instituteEntity.getId());
-			userEntity2.setEmail_id("sneha@protostar.co.in");
-			userEntity2.setFirstName("Sneha");
-			userEntity2.setLastName("S");
+			userEntity2.setEmail_id("shantanu@protostar.co.in");
+			userEntity2.setFirstName("Shantanu");
+			userEntity2.setLastName("Lawande");
 			userEntity2.setIsGoogleUser(true);
 			userEntity2.setAuthority(Arrays.asList("admin"));
 			userEntity2.setRole("Admin");
@@ -106,9 +106,9 @@ public class ProtostarAdminService {
 
 			UserEntity userEntity3 = new UserEntity();
 			userEntity3.setInstituteID(instituteEntity.getId());
-			userEntity3.setEmail_id("ashvinigokale@gmail.com");
-			userEntity3.setFirstName("Ashvini");
-			userEntity3.setLastName("Gokale");
+			userEntity3.setEmail_id("sagar@protostar.co.in");
+			userEntity3.setFirstName("Sagar");
+			userEntity3.setLastName("Sadawarte");
 			userEntity3.setIsGoogleUser(true);
 			userEntity3.setAuthority(Arrays.asList("admin"));
 			userEntity3.setRole("Admin");
