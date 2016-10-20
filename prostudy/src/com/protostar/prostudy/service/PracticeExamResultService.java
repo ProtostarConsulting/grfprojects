@@ -3,6 +3,7 @@ package com.protostar.prostudy.service;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
@@ -14,6 +15,9 @@ import com.protostar.prostudy.entity.PracticeExamResultEntity;
 @Api(name = "practiceExamService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.service", ownerName = "com.protostar.prostudy.service", packagePath = ""))
 public class PracticeExamResultService {
 
+	private final Logger logger = Logger.getLogger(PracticeExamResultService.class
+			.getName());
+	
 	@ApiMethod(name = "addPracticeExamResult")
 	public PracticeExamResultEntity addPracticeExamResult(PracticeExamResultEntity res) {
 		PracticeExamResultEntity now = res;

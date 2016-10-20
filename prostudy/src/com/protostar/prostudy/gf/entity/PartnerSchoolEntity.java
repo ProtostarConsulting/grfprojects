@@ -25,9 +25,9 @@ public class PartnerSchoolEntity extends BaseEntity{
 	
 	@Index  
 	private Address address;
-	@Index  
-	private Long instituteID ;
 	
+	@Index  
+	private Long instituteID ;	
 	private String schoolName;
 	private String instName;
 	@Index

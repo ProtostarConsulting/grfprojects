@@ -10,7 +10,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import com.googlecode.objectify.Key;
-import com.googlecode.objectify.LoadResult;
 import com.googlecode.objectify.Work;
 
 public class UtilityService {
