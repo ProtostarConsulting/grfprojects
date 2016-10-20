@@ -1521,6 +1521,25 @@ app
 						}
 					};
 				});
+app.directive('capitalize', function() {
+	  return {
+	    require: 'ngModel',
+	    link: function(scope, element, attrs, modelCtrl) {
+	      var capitalize = function(inputValue) {
+	        if (inputValue == undefined) inputValue = '';
+	        var capitalized = inputValue.toUpperCase();
+	        if (capitalized !== inputValue) {
+	          modelCtrl.$setViewValue(capitalized);
+	          modelCtrl.$render();
+	        }
+	        return capitalized;
+	      }
+	      modelCtrl.$parsers.push(capitalize);
+	      capitalize(scope[attrs.ngModel]); // capitalize initial value
+	    }
+	  };
+	});
+
 app.filter('unique', function() {
 	return function(input, key) {
 		var unique = {};
@@ -1587,6 +1606,8 @@ app.filter('orderObjectBy', function() {
 		return array;
 	}
 });
+
+
 /*
  * app.filter('orderByGRFRegNo', function() { return function(input, attribute) {
  * if (!angular.isObject(input)) return input; var reverseOrder =

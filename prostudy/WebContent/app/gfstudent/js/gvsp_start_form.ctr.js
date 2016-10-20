@@ -4,7 +4,7 @@ angular
 				"gfStartExamCtr",
 				function($scope, $window, $mdToast, $timeout, $mdSidenav,
 						$mdUtil, $log, $q, appEndpointSF, $state, $stateParams,
-						$mdDialog, $location, $anchorScroll, objectFactory,
+						$mdDialog, $location, $anchorScroll, $filter, objectFactory,
 						answerOfMediumList, standardList) {
 
 					$scope.loading = true;
@@ -98,7 +98,7 @@ angular
 					$scope.addGFStudentAndStartExam = function() {
 						$scope.tempStudent.instituteID = $scope.foundSchool.instituteID;
 						$scope.tempStudent.school = $scope.foundSchool;
-
+						
 						gfStudentService
 								.addGFStudent($scope.tempStudent)
 								.then(
@@ -121,7 +121,7 @@ angular
 
 												$scope.curUser = {
 													id : resp.id,
-													firstName : resp.fName,
+													firstName : $filter('uppercase')(resp.fName),
 													lastName : '',
 													email_id : resp.fName
 															.replace(/\s/g, '-')

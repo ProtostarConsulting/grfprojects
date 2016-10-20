@@ -98,7 +98,7 @@
 						Your Full Name <span style="color: red"
 						ng-show="gfStudentForm.fName.$error.required" class="mandatory">*</span>
 					</label> <input name="fName" ng-model="tempStudent.fName"
-						ng-required="true">
+						ng-required="true" capitalize>
 					<div ng-messages="gfStudentForm.fName.$error"
 						ng-if="gfStudentForm.fName.$submitted || gfStudentForm.fName.$touched">
 						<div ng-message="required">This is required value.</div>

@@ -97,7 +97,7 @@
 								No.&nbsp;{{$index+1}}</b></span> <md-input-container flex="50"
 							style="margin: 0; padding: 0;"> <input
 							name="studName" aria-label="Student Name"
-							ng-model="examResult.studName" ng-required="true">
+							ng-model="examResult.studName" ng-required="true" capitalize>
 						<div ng-messages="recordForm.studName.$error"
 							ng-if="recordForm.studName.$submitted || recordForm.studName.$touched">
 							<div ng-message="required">This field is required.</div>
@@ -124,7 +124,7 @@
 									No.&nbsp;{{$index+1}}</b></span> <md-input-container flex="50"
 								style="margin: 0; padding: 0;"> <input
 								name="studName" aria-label="Student Name"
-								ng-model="examResult.studName"> </md-input-container flex> <md-input-container
+								ng-model="examResult.studName" capitalize> </md-input-container flex> <md-input-container
 								flex="25" style="margin: 0; padding: 0; padding-left: 10px;">
 							<input name="marks" aria-label="Student Marks" type="number"
 								ng-model="examResult.marks"> </md-input-container> </ng-form>

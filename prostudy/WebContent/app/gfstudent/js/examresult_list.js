@@ -9,7 +9,7 @@ angular
 					$scope.selectFilterData = {
 						state : "",
 						dist : "",
-						grfReviewed : false,
+						grfReviewed : true,
 						grfRegNo : ''
 					}
 
@@ -89,7 +89,8 @@ angular
 										function(resp) {
 											$scope.examResultList = resp.items;
 											$scope.examResultListBackup = $scope.examResultList;
-											$scope.filteredExamResultList = [];
+											
+											$scope.pendingGrfReview();
 											$scope.loading = false;
 										});
 					}

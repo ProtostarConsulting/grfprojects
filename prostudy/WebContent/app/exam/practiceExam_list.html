@@ -17,6 +17,7 @@
 				<th order-by="examtitle" name="Exam Title"></th>
 				<th order-by="date" name="Created on Date"></th>
 				<th order-by="category" name="Category"></th>
+				<th order-by="standard" name="Standard"></th>
 
 			</tr>
 		</thead>
@@ -26,9 +27,9 @@
 				ng-repeat="test in practiceExams | orderBy: query.order | filter: {category: searchCategory} | limitTo: query.limit: (query.page - 1) * query.limit">
 
 				<td>{{test.examtitle}}</td>
-				<td>{{test.date}}</td>
+				<td>{{test.date | formatDate}}</td>
 				<td>{{test.category}}</td>
-
+				<td>{{test.standard}}</td>
 				<!-- <td><md-button ng-click="addTestToMyList(test.id)"
 						ng-disabled="isContainsTest(curUser.myExams,test)"> <md-icon
 						md-svg-src="img/icons/add_fav.svg"></md-icon> <md-tooltip>Add

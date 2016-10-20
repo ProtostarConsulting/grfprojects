@@ -4,7 +4,7 @@ angular
 				"gfExamResultAddCtr",
 				function($scope, $window, $mdToast, $timeout, $mdSidenav,
 						$mdUtil, $log, $q, appEndpointSF, $state, $stateParams,
-						$mdDialog, $location, $anchorScroll, objectFactory,
+						$mdDialog, $location, $anchorScroll, $filter, objectFactory,
 						answerOfMediumList, standardList) {
 
 					$scope.loading = true;
@@ -29,6 +29,7 @@ angular
 
 					$scope.getEmptyExamResult = function(school, standard) {
 						return {
+							createdDate : new Date(),
 							standard : standard,
 							studName : '',
 							mediumOfAnswer : '',
@@ -233,10 +234,15 @@ angular
 					}
 
 					$scope.saveReviewedExamResultList = function() {
-						angular.forEach($scope.examResultList, function(
-								resultObj) {
-							resultObj.grfReviewed = true;
-						});
+						angular
+								.forEach(
+										$scope.examResultList,
+										function(resultObj) {
+											resultObj.grfReviewed = true;
+											resultObj.modifiedDate = new Date();
+											resultObj.modifiedBy = $scope.curUser ? $scope.curUser.email_id
+													: 'guest';
+										});
 
 						$scope.addExamResultList();
 					}
