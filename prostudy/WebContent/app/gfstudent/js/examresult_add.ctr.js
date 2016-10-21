@@ -173,10 +173,12 @@ angular
 
 																							}
 
-																							// $scope.examResultList
-																							// =
-																							// $filter('orderObjectBy:')($scope.examResultList,
-																							// '-marks')
+																							$scope.examResultList = $filter(
+																									'orderObjectBy')
+																									(
+																											$scope.examResultList,
+																											'-marks')
+
 																						}
 																					});
 
@@ -201,10 +203,10 @@ angular
 
 					$scope.addExamResultList = function() {
 						$scope.loading = true;
-						
+
 						var resultWrapper = {
-								list: $scope.examResultList,
-								school: $scope.foundSchool
+							list : $scope.examResultList,
+							school : $scope.foundSchool
 						};
 						gfStudentService
 								.addExamResults(resultWrapper)

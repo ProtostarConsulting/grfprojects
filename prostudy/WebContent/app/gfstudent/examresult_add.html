@@ -114,7 +114,7 @@
 							flex><b>Standard:&nbsp;{{std}}</b></span>
 					</div>
 					<div id="standardList"
-						ng-repeat="examResult in getResultListFor(std) | orderObjectBy:'-marks'"
+						ng-repeat="examResult in getResultListFor(std)"
 						layout="column" flex="100">
 
 						<ng-form ng-if="$index<=2" name="recordForm"
