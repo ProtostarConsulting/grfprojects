@@ -7,6 +7,7 @@ public class BookDetail {
 	private Integer bookPrise;
 	private String standard;
 	private Integer totalStud;
+	private Integer appearedTotalStud = 0;
 	private Integer totalFees;
 	
 	public String getBookName() {
@@ -40,7 +41,12 @@ public class BookDetail {
 	public void setStandard(String standard) {
 		this.standard = standard;
 	}
-
+	public Integer getAppearedTotalStud() {
+		return appearedTotalStud;
+	}
+	public void setAppearedTotalStud(Integer appearedTotalStud) {
+		this.appearedTotalStud = appearedTotalStud;
+	}
 	
 
 }

@@ -4,7 +4,6 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -22,7 +21,7 @@ import com.protostar.prostudy.until.data.UtilityService;
 
 @Api(name = "gfStudentService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.gf.service", ownerName = "com.protostar.prostudy.gf.service", packagePath = ""))
 public class GFStudentService {
-	
+
 	private final Logger logger = Logger.getLogger(GFStudentService.class
 			.getName());
 
@@ -61,14 +60,17 @@ public class GFStudentService {
 	public GFExamResultEntityList addExamResults(
 			GFExamResultEntityList resultList) throws MessagingException,
 			IOException {
-		
+
 		ofy().save().entities(resultList.getList()).now();
 		logger.info("Saved list using entities method");
-		/*for (GFExamResultEntity er : resultList.getList()) {
-			er.setCreatedDate(new Date());
-			ofy().save().entity(er).now();
-		}*/
-		
+		/*
+		 * for (GFExamResultEntity er : resultList.getList()) {
+		 * er.setCreatedDate(new Date()); ofy().save().entity(er).now(); }
+		 */
+
+		PartnerSchoolService partnerSchoolService = new PartnerSchoolService();
+		partnerSchoolService.addPartnerSchool(resultList.getSchool());
+
 		return resultList;
 	}
 
@@ -76,22 +78,23 @@ public class GFStudentService {
 	public List<GFExamResultEntity> getExamResultEntities(
 			@Named("instituteID") Long id) {
 		List<GFExamResultEntity> resultList = ofy().load()
-				.type(GFExamResultEntity.class).project("school").distinct(true).list();
+				.type(GFExamResultEntity.class).project("school")
+				.distinct(true).list();
 		logger.info("getExamResultEntities:resultList:" + resultList.size());
 		return resultList;
 	}
-	
+
 	@ApiMethod(name = "filterExamResults", path = "filterExamResults")
 	public List<GFExamResultEntity> filterExamResults(
-			@Named("standard") String standardFilter, @Named("dist") String distFilter) {
+			@Named("standard") String standardFilter,
+			@Named("dist") String distFilter) {
 
 		standardFilter = standardFilter == null ? "" : standardFilter.trim();
 		distFilter = distFilter == null ? "" : distFilter.trim();
 		List<GFExamResultEntity> resultList = ofy().load()
 				.type(GFExamResultEntity.class).order("-marks").list();
 		logger.info("filterExamResults:resultList:" + resultList.size());
-		
-		
+
 		List<GFExamResultEntity> filterResultList = new ArrayList();
 
 		for (int i = 0; i < resultList.size(); i++) {
@@ -100,14 +103,15 @@ public class GFStudentService {
 			String currentRecordStandard = filterExamResultData.getStandard();
 			String currentRecordDistrict = filterExamResultData.getSchool()
 					.getAddress().getDist();
-			
+
 			if (!standardFilter.isEmpty()) {
-				if (!currentRecordStandard.trim().equalsIgnoreCase(standardFilter)) {
+				if (!currentRecordStandard.trim().equalsIgnoreCase(
+						standardFilter)) {
 					continue;
 				}
 			}
-			
-			if(distFilter.equalsIgnoreCase("All")){
+
+			if (distFilter.equalsIgnoreCase("All")) {
 				filterResultList.add(filterExamResultData);
 			}
 
@@ -126,12 +130,12 @@ public class GFStudentService {
 	@ApiMethod(name = "serachExamResultEntitiesBySchool", path = "serachExamResultEntitiesBySchool")
 	public List<GFExamResultEntity> serachExamResultEntitiesBySchool(
 			PartnerSchoolEntity schoolEntity) {
-		logger.info("schoolEntity.schoolName:"
-				+ schoolEntity.getSchoolName());
+		logger.info("schoolEntity.schoolName:" + schoolEntity.getSchoolName());
 		List<GFExamResultEntity> resultList = ofy().load()
 				.type(GFExamResultEntity.class).filter("school", schoolEntity)
 				.list();
-		logger.info("serachExamResultEntitiesBySchool:resultList:" + resultList.size());
+		logger.info("serachExamResultEntitiesBySchool:resultList:"
+				+ resultList.size());
 		return resultList;
 	}
 

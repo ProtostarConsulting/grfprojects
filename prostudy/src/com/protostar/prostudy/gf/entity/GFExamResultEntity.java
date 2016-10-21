@@ -4,6 +4,7 @@ import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Index;
 import com.protostar.prostudy.entity.BaseEntity;
+import com.protostar.prostudy.entity.PracticeExamResultEntity;
 
 @Entity
 public class GFExamResultEntity extends BaseEntity {
@@ -17,8 +18,11 @@ public class GFExamResultEntity extends BaseEntity {
 	private float marks;
 	@Index
 	private boolean grfReviewed = false;
+
 	@Index
 	private Ref<PartnerSchoolEntity> school;
+	@Index
+	private Ref<PracticeExamResultEntity> examResult;
 
 	public String getStandard() {
 		return standard;
@@ -74,5 +78,13 @@ public class GFExamResultEntity extends BaseEntity {
 
 	public void setGrfReviewed(boolean grfReviewed) {
 		this.grfReviewed = grfReviewed;
+	}
+
+	public PracticeExamResultEntity getExamResult() {
+		return examResult == null ? null : examResult.get();
+	}
+
+	public void setExamResult(PracticeExamResultEntity examResult) {
+		this.examResult = Ref.create(examResult);
 	}
 }

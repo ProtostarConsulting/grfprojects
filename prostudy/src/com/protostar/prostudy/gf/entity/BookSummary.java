@@ -6,6 +6,7 @@ public class BookSummary {
 
 	private List<BookDetail> bookDetail;
 	private Integer total;
+	private Integer appearedSchoolTotalStud = 0;
 	private Integer amtForInst20per;
 	private Integer amtForGRF80per;
 	
@@ -33,6 +34,12 @@ public class BookSummary {
 	}
 	public void setAmtForGRF80per(Integer amtForGRF80per) {
 		this.amtForGRF80per = amtForGRF80per;
+	}
+	public Integer getAppearedSchoolTotalStud() {
+		return appearedSchoolTotalStud;
+	}
+	public void setAppearedSchoolTotalStud(Integer appearedSchoolTotalStud) {
+		this.appearedSchoolTotalStud = appearedSchoolTotalStud;
 	}
 	
 	
