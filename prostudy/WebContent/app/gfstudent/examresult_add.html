@@ -72,6 +72,33 @@
 					</div>
 				</div>
 				<hr>
+
+				<ng-form name="examSumaryForm" ng-style="getFormRowStyle()">
+				<table>
+					<tr>
+						<td ng-style="getTableStyle()" flex="10">Standard</td>
+						<td ng-repeat="book in bookDetailList" ng-style="getTableStyle()">{{book.standard}}</td>
+					</tr>
+					<tr>
+						<td  ng-style="getTableStyle()" flex="10">Total Students Registered</td>
+						<td ng-repeat="book in bookDetailList" ng-style="getTableStyle()">{{book.totalStud}}</td>
+					</tr>
+					<tr>
+						<td ng-style="getTableStyle()" flex="10">Total Students Appeared</td>
+						<td ng-repeat="book in bookDetailList" ng-style="getTableStyle()"><md-input-container
+								style="margin: 0; padding: 0; padding-left: 5px;">
+							<input name=appearedTotal aria-label="Total Students Appeared"
+								type="number" ng-model="book.appearedTotalStud"
+								ng-required="true">
+							<div ng-messages="recordForm.marks.$error"
+								ng-if="examSumaryForm.appearedTotal.$submitted || examSumaryForm.appearedTotal.$touched">
+								<div ng-message="required">This field is required.</div>
+							</div>
+							</md-input-container></td>
+					</tr>
+				</table>
+				</ng-form>
+				<hr>
 				<h3 class="md-title">Please enter standard wise result below.</h3>
 
 				<div layout="row">
@@ -87,15 +114,14 @@
 							flex><b>Standard:&nbsp;{{std}}</b></span>
 					</div>
 					<div id="standardList"
-						ng-repeat="examResult in getResultListFor(std) | orderObjectBy:'-marks'" layout="column"
-						flex="100">
+						ng-repeat="examResult in getResultListFor(std) | orderObjectBy:'-marks'"
+						layout="column" flex="100">
 
 						<ng-form ng-if="$index<=2" name="recordForm"
-							ng-style="getFormRowStyle()" layout="row"
-							layout-padding flex="100"> <span
-							ng-style="getStandardLabelStyle()" flex="25"><b>Student
-								No.&nbsp;{{$index+1}}</b></span> <md-input-container flex="50"
-							style="margin: 0; padding: 0;"> <input
+							ng-style="getFormRowStyle()" layout="row" layout-padding
+							flex="100"> <span ng-style="getStandardLabelStyle()"
+							flex="25"><b>Student No.&nbsp;{{$index+1}}</b></span> <md-input-container
+							flex="50" style="margin: 0; padding: 0;"> <input
 							name="studName" aria-label="Student Name"
 							ng-model="examResult.studName" ng-required="true" capitalize>
 						<div ng-messages="recordForm.studName.$error"
@@ -117,9 +143,8 @@
 							<h3 class="md-title" ng-if="$index==3">Enter Other Students
 								Details of Standard: {{std}}</h3>
 
-							<ng-form name="recordForm"
-								ng-style="getFormRowStyle()" layout="row"
-								layout-padding flex="100"> <span
+							<ng-form name="recordForm" ng-style="getFormRowStyle()"
+								layout="row" layout-padding flex="100"> <span
 								ng-style="getStandardLabelStyle()" flex="25"><b>Student
 									No.&nbsp;{{$index+1}}</b></span> <md-input-container flex="50"
 								style="margin: 0; padding: 0;"> <input

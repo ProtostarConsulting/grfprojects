@@ -48,9 +48,7 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 
 	GFStudentService.addExamResults = function(rsList) {
 		var deferred = $q.defer();
-		gapi.client.gfStudentService.addExamResults({
-			list : rsList
-		}).execute(function(resp) {
+		gapi.client.gfStudentService.addExamResults(rsList).execute(function(resp) {
 			deferred.resolve(resp);
 		});
 		return deferred.promise;

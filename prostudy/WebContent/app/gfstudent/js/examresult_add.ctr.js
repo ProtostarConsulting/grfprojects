@@ -4,8 +4,8 @@ angular
 				"gfExamResultAddCtr",
 				function($scope, $window, $mdToast, $timeout, $mdSidenav,
 						$mdUtil, $log, $q, appEndpointSF, $state, $stateParams,
-						$mdDialog, $location, $anchorScroll, $filter, objectFactory,
-						answerOfMediumList, standardList) {
+						$mdDialog, $location, $anchorScroll, $filter,
+						objectFactory, answerOfMediumList, standardList) {
 
 					$scope.loading = true;
 					var gfStudentService = appEndpointSF.getGFStudentService();
@@ -201,8 +201,13 @@ angular
 
 					$scope.addExamResultList = function() {
 						$scope.loading = true;
+						
+						var resultWrapper = {
+								list: $scope.examResultList,
+								school: $scope.foundSchool
+						};
 						gfStudentService
-								.addExamResults($scope.examResultList)
+								.addExamResults(resultWrapper)
 								.then(
 										function(resp) {
 
@@ -293,9 +298,19 @@ angular
 					$scope.getFormRowStyle = function() {
 						return {
 							'padding-top' : '1px',
-							'padding-bottom' : '2px',
-							'padding-top' : '0px',
-							'padding-bottom' : '0px'
+							'padding-bottom' : '2px'
+						};
+
+					}
+
+					$scope.getTableStyle = function() {
+						return {
+							'width' : '10%',
+							'border-collapse' : 'collapse',
+							'border' : '1px solid black',
+							'padding-left' : '5px',
+							'padding-right' : '5px',
+							'padding-top' : '5px'
 						};
 
 					}

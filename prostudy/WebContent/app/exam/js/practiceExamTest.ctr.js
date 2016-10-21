@@ -245,8 +245,8 @@ angular
 								.addPracticeExamResult(
 										$scope.tempPracticeExamResult)
 								.then(
-										function(msgBean) {
-											$scope.selectedID = msgBean.id;
+										function(examResultObj) {
+											$scope.selectedID = examResultObj.id;
 											$log.debug("$scope.selectedID :"
 													+ $scope.selectedID);
 											$log
@@ -257,7 +257,7 @@ angular
 													.push($scope
 															.getEmptyExamResult(
 																	$scope.foundSchool,
-																	$scope.practiceTestObj.standard));
+																	$scope.practiceTestObj.standard, examResultObj));
 											$scope
 													.addExamResultList($scope.examResultList);
 
@@ -274,7 +274,7 @@ angular
 
 					}
 
-					$scope.getEmptyExamResult = function(school, standard) {
+					$scope.getEmptyExamResult = function(school, standard, examResult) {
 						var date1 = new Date();
 						var year1 = date1.getFullYear();
 						year1 = year1.toString().substr(2, 2);
@@ -290,7 +290,8 @@ angular
 							school : school,
 							institute : school.institute,
 							examYear : year1,
-							grfReviewed : false
+							grfReviewed : false,
+							examResult: examResult
 						};
 					}
 					$scope.examResultList = [];
