@@ -58,6 +58,7 @@ angular
 							$scope.pSchoolList = $scope.queriedSchoolDataCache.entityList;
 							$scope.schools = $scope.pSchoolList;
 							$scope.query.totalSize = $scope.queriedSchoolDataCache.totalSize;
+							$scope.query.totalSizeBackup =  $scope.queriedSchoolDataCache.totalSizeBackup;
 
 						}
 
