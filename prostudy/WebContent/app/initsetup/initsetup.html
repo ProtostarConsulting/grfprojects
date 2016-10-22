@@ -6,10 +6,10 @@
 </head>
 <body>
 
-	
+
 	<b>Use the action buttons below, to do initial setup.</b>
 	<br>
-	<b ng-cloak>{{userMsg}}</b>	
+	<b ng-cloak>{{userMsg}}</b>
 	<br>
 
 	<section layout="row" layout-sm="column" layout-align="left left">
@@ -21,9 +21,9 @@
 			ng-disabled="!createUsers_Bool">Create Users</md-button>
 		<md-button class="md-raised md-primary" ng-click="createAuthMaster()"
 			ng-disabled="!createAuthMaster_Bool">Create Auth Master</md-button>
-		<md-button class="md-raised md-primary" ng-click="touchAllSchools()" ng-show="true"
-			ng-disabled="!createAuthMaster_Bool">Touch All Schools()</md-button>	
-			
+		<!-- <md-button class="md-raised md-primary" ng-click="touchAllSchools()"
+			ng-show="true">Touch All Schools</md-button> -->
+
 	</section>
 
 </body>

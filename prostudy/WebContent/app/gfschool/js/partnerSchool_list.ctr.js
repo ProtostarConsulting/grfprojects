@@ -29,6 +29,7 @@ angular
 						ajsCache.remove(schoolListCacheKey);
 						$scope.query.page = 1;
 						$scope.schools = [];
+						$scope.pSchoolList = [];
 						$scope.onpagechange();
 					}
 
@@ -37,17 +38,22 @@ angular
 						$location.hash('topRight');
 						$anchorScroll();
 
+						if ($scope.query.searchSchoolTxt) {
+							$scope.loading = false;
+							return;
+						}
+
 						var schoolListCacheKey = "fetchSchoolsListByPaging";
 						// Note this key has to be unique across application
 						// else it will return unexpected result.
 						if (!angular.isUndefined(ajsCache
 								.get(schoolListCacheKey))) {
 							$log.debug("Found List in Cache, return it.")
-							$scope.quriedSchoolDataCache = ajsCache
+							$scope.queriedSchoolDataCache = ajsCache
 									.get(schoolListCacheKey);
-							$scope.pSchoolList = $scope.quriedSchoolDataCache.entityList;
+							$scope.pSchoolList = $scope.queriedSchoolDataCache.entityList;
 							$scope.schools = $scope.pSchoolList;
-							$scope.query.totalSize = $scope.quriedSchoolDataCache.totalSize;
+							$scope.query.totalSize = $scope.queriedSchoolDataCache.totalSize;
 
 						}
 
@@ -96,7 +102,7 @@ angular
 					$scope.searchTextDone = false;
 					$scope.searchSchoolTxtChange = function() {
 						if ($scope.query.searchSchoolTxt
-								&& $scope.query.searchSchoolTxt.length >= 12) {
+								&& $scope.query.searchSchoolTxt.length >= 3) {
 							$scope.query.page = 1;
 							$scope
 									.schoolSerachTxtChange($scope.query.searchSchoolTxt
@@ -105,21 +111,27 @@ angular
 							// let user type whole 12 chars of GRF No
 							// restore $scope.schools if was filtered
 							if ($scope.schools.length !== $scope.pSchoolList.length) {
+								$scope.query.page = 1;
 								$scope.schools = $scope.pSchoolList;
 								$scope.query.totalSize = $scope.query.totalSizeBackup;
 							}
 						}
 					}
 					$scope.searchByGrfRegNoChange = function() {
-						if ($scope.query.searchByGrfRegNo
-								&& $scope.query.searchByGrfRegNo.length >= 12) {
+						var enteredGrfRegNo = $scope.query.searchByGrfRegNo
+								.trim();
+						if (enteredGrfRegNo && enteredGrfRegNo.length >= 5) {
 							$scope.query.page = 1;
-							$scope.grfRegNoChange($scope.query.searchByGrfRegNo
-									.trim());
+							var grfRegNo = (enteredGrfRegNo
+									.startsWith('P-2016-') && enteredGrfRegNo.length >= 12) ? enteredGrfRegNo
+									: 'P-2016-' + enteredGrfRegNo;
+
+							$scope.grfRegNoChange(grfRegNo);
 						} else {
 							// let user type whole 12 chars of GRF No
 							// restore $scope.schools if was filtered
 							if ($scope.schools.length !== $scope.pSchoolList.length) {
+								$scope.query.page = 1;
 								$scope.schools = $scope.pSchoolList;
 								$scope.query.totalSize = $scope.query.totalSizeBackup;
 							}
