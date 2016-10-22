@@ -6,8 +6,11 @@
 <div ng-if="!loading">
 	<div>
 		<div layout="row" layout-xs="column" flex>
+		<md-input-container flex> <label>Search By School Name</label>
+			<input ng-model="query.searchSchoolTxt" ng-change="searchSchoolTxtChange()">
+			</md-input-container>
 			<md-input-container flex> <label>Search By Grf. Reg. No.</label>
-			<input ng-model="query.searchByGrfRegNo" ng-change="searchTextChange()">
+			<input ng-model="query.searchByGrfRegNo" ng-change="searchByGrfRegNoChange()">
 			</md-input-container>
 			<md-input-container flex> <md-select
 				ng-model="query.selectedYearOfExam" id="selectedYear"

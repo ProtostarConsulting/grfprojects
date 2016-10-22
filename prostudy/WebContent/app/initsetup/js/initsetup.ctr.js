@@ -150,6 +150,16 @@ angular
 										});
 					}
 
+					$scope.touchAllSchools = function() {
+						var PartnerSchoolService = appEndpointSF
+								.getPartnerSchoolService();
+
+						PartnerSchoolService.touchAllSchools().then(
+								function(msg) {
+									$scope.userMsg = msg;
+								});
+					}
+
 					$scope.waitForServiceLoad = function() {
 						if (appEndpointSF.is_service_ready) {
 							// $scope.initsetup();

@@ -48,9 +48,10 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 
 	GFStudentService.addExamResults = function(rsList) {
 		var deferred = $q.defer();
-		gapi.client.gfStudentService.addExamResults(rsList).execute(function(resp) {
-			deferred.resolve(resp);
-		});
+		gapi.client.gfStudentService.addExamResults(rsList).execute(
+				function(resp) {
+					deferred.resolve(resp);
+				});
 		return deferred.promise;
 	}
 
@@ -1722,6 +1723,22 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 				.execute(function(resp) {
 					deferred.resolve(resp);
 				});
+		return deferred.promise;
+	}
+	PartnerSchoolService.touchAllSchools = function() {
+		var deferred = $q.defer();
+		gapi.client.partnerSchoolService.touchAllSchools().execute(function() {
+			deferred.resolve("Success!");
+		});
+		return deferred.promise;
+	}
+	PartnerSchoolService.searchSchoolByName = function(searchSchoolTxt) {
+		var deferred = $q.defer();
+		gapi.client.partnerSchoolService.searchSchoolByName({
+			'nameSearchString' : searchSchoolTxt
+		}).execute(function(resp) {
+			deferred.resolve(resp.items);
+		});
 		return deferred.promise;
 	}
 	PartnerSchoolService.getCurrentYearSchoolAndStudentCount = function() {

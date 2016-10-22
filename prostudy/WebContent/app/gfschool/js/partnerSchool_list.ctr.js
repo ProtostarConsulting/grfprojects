@@ -14,7 +14,9 @@ angular
 						limitOptions : [ 1000, 2000, 3000, 4000, 5000 ],
 						page : 1,
 						totalSize : 0,
+						totalSizeBackup : 0,
 						searchByGrfRegNo : '',
+						searchSchoolTxt : '',
 						selectedYearOfExam : '',
 						entityList : null
 					};
@@ -41,12 +43,12 @@ angular
 						if (!angular.isUndefined(ajsCache
 								.get(schoolListCacheKey))) {
 							$log.debug("Found List in Cache, return it.")
-							$scope.quriedSchoolDataCache = ajsCache							
+							$scope.quriedSchoolDataCache = ajsCache
 									.get(schoolListCacheKey);
 							$scope.pSchoolList = $scope.quriedSchoolDataCache.entityList;
 							$scope.schools = $scope.pSchoolList;
-							$scope.query.totalSize = $scope.quriedSchoolDataCache.totalSize;  
-							
+							$scope.query.totalSize = $scope.quriedSchoolDataCache.totalSize;
+
 						}
 
 						if ($scope.schools.length < ($scope.query.limit * $scope.query.page)) {
@@ -74,7 +76,8 @@ angular
 														.concat(pagingInfoReturned.entityList);
 												$scope.schools = $scope.pSchoolList;
 												$scope.query.totalSize = pagingInfoReturned.totalEntities;
-													
+												$scope.query.totalSizeBackup = pagingInfoReturned.totalEntities;
+
 												var schoolListCacheKey = "fetchSchoolsListByPaging";
 												$scope.query.entityList = $scope.pSchoolList;
 												ajsCache.put(
@@ -91,7 +94,23 @@ angular
 					}
 
 					$scope.searchTextDone = false;
-					$scope.searchTextChange = function() {
+					$scope.searchSchoolTxtChange = function() {
+						if ($scope.query.searchSchoolTxt
+								&& $scope.query.searchSchoolTxt.length >= 12) {
+							$scope.query.page = 1;
+							$scope
+									.schoolSerachTxtChange($scope.query.searchSchoolTxt
+											.trim());
+						} else {
+							// let user type whole 12 chars of GRF No
+							// restore $scope.schools if was filtered
+							if ($scope.schools.length !== $scope.pSchoolList.length) {
+								$scope.schools = $scope.pSchoolList;
+								$scope.query.totalSize = $scope.query.totalSizeBackup;
+							}
+						}
+					}
+					$scope.searchByGrfRegNoChange = function() {
 						if ($scope.query.searchByGrfRegNo
 								&& $scope.query.searchByGrfRegNo.length >= 12) {
 							$scope.query.page = 1;
@@ -102,8 +121,32 @@ angular
 							// restore $scope.schools if was filtered
 							if ($scope.schools.length !== $scope.pSchoolList.length) {
 								$scope.schools = $scope.pSchoolList;
+								$scope.query.totalSize = $scope.query.totalSizeBackup;
 							}
 						}
+					}
+
+					$scope.schoolSerachTxtChange = function(searchSchoolTxt) {
+
+						$scope.searchTextDone = true;
+						$scope.schools = [];
+						$scope.foundSchool = null;
+						$log.debug("Fetcing searchSchoolTxt: "
+								+ searchSchoolTxt);
+						var partnerSchoolService = appEndpointSF
+								.getPartnerSchoolService();
+						partnerSchoolService
+								.searchSchoolByName(searchSchoolTxt)
+								.then(
+										function(resp) {
+											if (resp.length) {
+												$scope.schools = $scope.schools
+														.concat(resp);
+												$scope.query.totalSize = resp.length;
+											}
+
+											$scope.searchTextDone = false;
+										});
 					}
 
 					$scope.grfRegNoChange = function(grfRegNo) {
@@ -118,6 +161,9 @@ angular
 								grfRegNo).then(function(resp) {
 							if (resp.result.id) {
 								$scope.schools.push(resp);
+								$scope.query.totalSize = 1;
+							} else {
+								$scope.query.totalSize = 0;
 							}
 
 							$scope.searchTextDone = false;
