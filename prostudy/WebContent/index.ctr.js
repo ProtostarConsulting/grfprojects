@@ -4,7 +4,7 @@ angular
 				"indexCtr",
 				function($scope, $rootScope, $window, $log, $q, $timeout,
 						$mdToast, $mdBottomSheet, $state, $localStorage,
-						$location, $anchorScroll, appEndpointSF) {
+						$location, $anchorScroll, ajsCache, appEndpointSF) {
 
 					$log.debug("Inside indexCtr");
 					$scope.angular = angular;
@@ -392,7 +392,7 @@ angular
 
 					$scope.initCommonSetting = function() {
 						$log.debug('Inside initCommonSetting');
-
+						ajsCache.removeAll();
 						$scope.curUser = appEndpointSF.getLocalUserService()
 								.getLoggedinUser();
 

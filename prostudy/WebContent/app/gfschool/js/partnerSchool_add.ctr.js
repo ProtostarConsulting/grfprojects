@@ -204,7 +204,8 @@ angular
 
 					$scope.selectedPSchoolId = $stateParams.selectedPSchoolId;
 					$log.debug("$scope.selectedPSchoolId :"
-							+ $scope.selectedPSchoolId);
+							+ $scope.selectedPSchoolId);				
+					$scope.selectedPSchool = $stateParams.selectedPSchool;
 
 					$scope.enableTillTabNo = ($scope.selectedPSchoolId == "") ? 0
 							: $scope.maxTabNo;
@@ -339,18 +340,7 @@ angular
 						$scope.loading = false;
 					}
 
-					/*
-					 * $scope.checkFormNumberExists = function(formNumber) { var
-					 * PartnerSchoolService = appEndpointSF
-					 * .getPartnerSchoolService(); if (formNumber != "" &&
-					 * $scope.selectedPSchoolId != "") {
-					 * PartnerSchoolService.getPSchoolByFormNumber(
-					 * formNumber).then(function(pSchool) { // Show dialog to
-					 * show data in it. // $scope.partnerSchool = pSchool;
-					 * alert("got here:" + pSchool); }); }
-					 *  }
-					 */
-
+					
 					$scope.getPSchoolByPSID = function() {
 						var PartnerSchoolService = appEndpointSF
 								.getPartnerSchoolService();
@@ -360,59 +350,51 @@ angular
 									.getPSchoolByPSID($scope.selectedPSchoolId)
 									.then(
 											function(pSchool) {
-												$scope.partnerSchool = pSchool;
-												$scope.partnerSchool.formNumber = parseInt($scope.partnerSchool.formNumber);
-
-												$scope.contactDetail = $scope.partnerSchool.contactDetail;
-												$scope.partnerSchool.address.pin = parseInt($scope.partnerSchool.address.pin);
-												$scope.Address = $scope.partnerSchool.address;
-												$scope.partnerSchool.address.pin = parseInt($scope.partnerSchool.address.pin);
-
-												$scope.partnerSchool.contactDetail.headMasterMobile = parseInt($scope.partnerSchool.contactDetail.headMasterMobile);
-
-												for (var i = 0; i < $scope.partnerSchool.contactDetail.coordinatorDetail.length; i++) {
-													$scope.partnerSchool.contactDetail.coordinatorDetail[i].coordinatorMobileNum = parseInt($scope.partnerSchool.contactDetail.coordinatorDetail[i].coordinatorMobileNum);
-												}
-												$scope.a;
-												$scope.getDistricts($scope.a,
-														$scope.Address.state);
-												$scope.getTalukas($scope.a,
-														$scope.Address.dist);
-												if ($scope.partnerSchool.examDetailList) {
-													$scope.examlist = $scope.partnerSchool.examDetailList;
-												}
-												if ($scope.partnerSchool.address.otherAddressFlag == true) {
-													var temp = $scope.partnerSchool.address.state;
-													$scope.partnerSchool.address.state = "Other";
-													$scope.partnerSchool.address.otherState = temp;
-													$scope.partnerSchool.address.otherDist = $scope.partnerSchool.address.dist;
-													$scope.partnerSchool.address.otherTaluka = $scope.partnerSchool.address.tal;
-													$scope.partnerSchool.address.otherAddressFlag = true;
-												}
-												$scope.getExamByYear();
-												$scope.waitForServiceLoad2();
-
-												$scope.loading = false;
+												initSchoolLoad(pSchool);
 											});
 						}
 
 					}
+					
+					function initSchoolLoad(pSchool){
+						$scope.partnerSchool = pSchool;
+						$scope.partnerSchool.formNumber = parseInt($scope.partnerSchool.formNumber);
+
+						$scope.contactDetail = $scope.partnerSchool.contactDetail;
+						$scope.partnerSchool.address.pin = parseInt($scope.partnerSchool.address.pin);
+						$scope.Address = $scope.partnerSchool.address;
+						$scope.partnerSchool.address.pin = parseInt($scope.partnerSchool.address.pin);
+
+						$scope.partnerSchool.contactDetail.headMasterMobile = parseInt($scope.partnerSchool.contactDetail.headMasterMobile);
+
+						for (var i = 0; i < $scope.partnerSchool.contactDetail.coordinatorDetail.length; i++) {
+							$scope.partnerSchool.contactDetail.coordinatorDetail[i].coordinatorMobileNum = parseInt($scope.partnerSchool.contactDetail.coordinatorDetail[i].coordinatorMobileNum);
+						}
+						$scope.a;
+						$scope.getDistricts($scope.a,
+								$scope.Address.state);
+						$scope.getTalukas($scope.a,
+								$scope.Address.dist);
+						if ($scope.partnerSchool.examDetailList) {
+							$scope.examlist = $scope.partnerSchool.examDetailList;
+						}
+						if ($scope.partnerSchool.address.otherAddressFlag == true) {
+							var temp = $scope.partnerSchool.address.state;
+							$scope.partnerSchool.address.state = "Other";
+							$scope.partnerSchool.address.otherState = temp;
+							$scope.partnerSchool.address.otherDist = $scope.partnerSchool.address.dist;
+							$scope.partnerSchool.address.otherTaluka = $scope.partnerSchool.address.tal;
+							$scope.partnerSchool.address.otherAddressFlag = true;
+						}
+						$scope.getExamByYear();
+						$scope.waitForServiceLoad2();
+
+						$scope.loading = false;
+					}
 
 					$scope.examlist = [];
 
-					$scope.waitForServiceLoad = function() {
-						if (appEndpointSF.is_service_ready) {
-							if ($scope.selectedPSchoolId != undefined) {
-								$scope.getPSchoolByPSID();
-							}
-
-						} else {
-							$log.debug("Services Not Loaded, watiting...");
-							$timeout($scope.waitForServiceLoad, 1000);
-						}
-					}
-
-					$scope.waitForServiceLoad();
+					
 					// -----------get Exam by Year------------
 					$scope.getExamByYear = function(year1) {
 						if (year1 == undefined) {
@@ -738,6 +720,22 @@ angular
 									.indexOf(lowercaseQuery) >= 0);
 						};
 					}
+					
+					$scope.waitForServiceLoad = function() {
+						if (appEndpointSF.is_service_ready) {							
+							if ($scope.selectedPSchool != undefined) {
+								initSchoolLoad($scope.selectedPSchool);
+							}else if ($scope.selectedPSchoolId != undefined) {
+								$scope.getPSchoolByPSID();
+							}
+
+						} else {
+							$log.debug("Services Not Loaded, watiting...");
+							$timeout($scope.waitForServiceLoad, 1000);
+						}
+					}
+
+					$scope.waitForServiceLoad();
 					/*
 					 * $scope.DistQuerySearch = function(query) { var results =
 					 * query ? $scope.partnerSchool.address.dist
