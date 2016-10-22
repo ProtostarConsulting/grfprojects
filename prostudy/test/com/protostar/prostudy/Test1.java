@@ -51,7 +51,7 @@ public class Test1 {
 				- (long) 365 * 24 * 60 * 60 * 1000);
 		System.out.println("lastModifiedDate:" + lastModifiedDate);
 		*/
-		SimpleDateFormat sd = new SimpleDateFormat("MMM dd");
+		SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
 		String dateStr = sd
 				.format(new Date());
 		System.out.println("sd:" + dateStr);
