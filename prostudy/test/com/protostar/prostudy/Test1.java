@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.base.CaseFormat;
+
 public class Test1 {
 
 	public static void main(String[] args) {
@@ -55,6 +57,9 @@ public class Test1 {
 		String dateStr = sd
 				.format(new Date());
 		System.out.println("sd:" + dateStr);
+		
+		String string = CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, "this is a string token");
+		System.out.println("string:" + string);
 		
 	}
 
