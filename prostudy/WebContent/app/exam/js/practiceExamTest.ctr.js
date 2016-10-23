@@ -4,7 +4,7 @@ angular
 				"practiceExamTestCtr",
 				function($scope, $window, $mdToast, $timeout, $mdSidenav,
 						$mdUtil, $log, $q, $sce, tableTestDataFactory,
-						appEndpointSF, $state, $filter, $stateParams, $mdDialog) {
+						appEndpointSF, $state, $filter, $stateParams, $mdDialog, $mdMedia) {
 
 					$log.debug("###Inside practiceExamTestCtr###");
 					$scope.loading = true;
@@ -26,7 +26,7 @@ angular
 
 					$scope.Math = Math;
 
-					$scope.counter = 60*60; // 60 minutes in seconds
+					$scope.counter = 60 * 60; // 60 minutes in seconds
 					$scope.startTime = null;
 					$scope.endTime = null;
 					$scope.examResults;
@@ -138,6 +138,46 @@ angular
 
 					}// end of onNext
 
+					$scope.currentSetOfQuestionsStart = 0;
+					$scope.currentSetOfQuestionsEnd = 0;
+					$scope.currentSetOfQuestionsSize = $mdMedia('xs')?5:25;
+					$scope.currentSetOfQuestions = [];
+
+					$scope.nextSetOfQuestions = function() {
+						if ($scope.currentSetOfQuestionsEnd == $scope.practiceTestObj.questions.length)
+							return;
+						$scope.currentSetOfQuestionsStart = $scope.currentSetOfQuestionsEnd;
+						$scope.currentSetOfQuestionsEnd = $scope.currentSetOfQuestionsStart
+								+ $scope.currentSetOfQuestionsSize;
+						if ($scope.currentSetOfQuestionsEnd >= $scope.practiceTestObj.questions.length) {
+							$scope.currentSetOfQuestions = $scope.practiceTestObj.questions
+									.slice($scope.currentSetOfQuestionsStart);
+							$scope.currentSetOfQuestionsEnd = $scope.practiceTestObj.questions.length;
+						} else {
+							$scope.currentSetOfQuestions = $scope.practiceTestObj.questions
+									.slice($scope.currentSetOfQuestionsStart,
+											$scope.currentSetOfQuestionsEnd);
+						}
+					}
+
+					$scope.previousSetOfQuestions = function() {
+						if ($scope.currentSetOfQuestionsStart == 0)
+							return;
+						$scope.currentSetOfQuestionsStart = $scope.currentSetOfQuestionsStart
+								- $scope.currentSetOfQuestionsSize;
+						$scope.currentSetOfQuestionsEnd = $scope.currentSetOfQuestionsStart
+								+ $scope.currentSetOfQuestionsSize;
+						if ($scope.currentSetOfQuestionsStart <= 0) {
+							$scope.currentSetOfQuestions = $scope.practiceTestObj.questions
+									.slice(0, $scope.currentSetOfQuestionsEnd);
+							$scope.currentSetOfQuestionsStart = 0;
+						} else {
+							$scope.currentSetOfQuestions = $scope.practiceTestObj.questions
+									.slice($scope.currentSetOfQuestionsStart,
+											$scope.currentSetOfQuestionsEnd);
+						}
+					}
+
 					$scope.onButtonClick = function(index) {
 
 						$scope.currentQuestionIndex = index;
@@ -207,7 +247,7 @@ angular
 											// =
 											// $scope.practiceTestObj.questions;
 
-											// $scope.onNext();
+											$scope.nextSetOfQuestions();
 											$scope.isDisabledPrevious = true;
 											$scope.loading = false;
 										});
@@ -257,7 +297,8 @@ angular
 													.push($scope
 															.getEmptyExamResult(
 																	$scope.foundSchool,
-																	$scope.practiceTestObj.standard, examResultObj));
+																	$scope.practiceTestObj.standard,
+																	examResultObj));
 											$scope
 													.addExamResultList($scope.examResultList);
 
@@ -274,7 +315,8 @@ angular
 
 					}
 
-					$scope.getEmptyExamResult = function(school, standard, examResult) {
+					$scope.getEmptyExamResult = function(school, standard,
+							examResult) {
 						var date1 = new Date();
 						var year1 = date1.getFullYear();
 						year1 = year1.toString().substr(2, 2);
@@ -291,7 +333,7 @@ angular
 							institute : school.institute,
 							examYear : year1,
 							grfReviewed : false,
-							examResult: examResult
+							examResult : examResult
 						};
 					}
 					$scope.examResultList = [];

@@ -12,11 +12,21 @@
 
 <div ng-init="startTimer()"></div>
 <div layout="row">
+	<md-button class="md-primary"
+		ng-click="previousSetOfQuestions()"
+		style="min-width: 8px; margin: 1px 1px 0px 0px;"> <ng-md-icon
+		icon="navigate_before"> <md-tooltip>Previous
+	Question</md-tooltip></ng-md-icon></md-button>
 	<md-button md-no-ink class="md-primary"
-		ng-repeat="q in practiceTestObj.questions"
-		ng-click="onButtonClick($index)"
-		style="min-width: 8px; margin: 1px 1px 0px 0px;">Q{{$index+1}}
-	<md-tooltip>Jump to Question {{$index+1}}</md-tooltip></md-button>
+		ng-repeat="q in currentSetOfQuestions"
+		ng-click="onButtonClick(currentSetOfQuestionsStart + $index)"
+		style="min-width: 8px; margin: 1px 1px 0px 0px;">Q{{currentSetOfQuestionsStart + $index + 1}}
+	<md-tooltip>Jump to Question {{currentSetOfQuestionsStart
+	+ $index+1}}</md-tooltip></md-button>
+	<md-button class="md-primary" ng-click="nextSetOfQuestions()"
+		style="min-width: 8px; margin: 1px 1px 0px 0px;"> <ng-md-icon
+		icon="navigate_next"> <md-tooltip>Previous
+	Question</md-tooltip></ng-md-icon></md-button>
 </div>
 <hr>
 <section layout="row">
@@ -48,7 +58,7 @@
 			style="border: 1px solid #dddddd; text-align: left; padding: 20px; width: 85%; background-color: #8cced4;">
 			<th
 				style="border: 1px solid #dddddd; text-align: left; padding: 20px; width: 85%;">
-				Question {{practiceTestObj.questions[currentQuestionIndex].qId}} <br>
+				Question {{currentQuestionIndex + 1}} <br>
 				<span
 				ng-bind-html="practiceTestObj.questions[currentQuestionIndex].description | trim"></span>
 			</th>
