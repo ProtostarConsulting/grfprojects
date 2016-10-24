@@ -158,7 +158,10 @@ app
 					.state('setup.addInstituteUser', {
 						url : "/addInstituteUser",
 						templateUrl : '/app/setup/addInstituteUser.html',
-						controller : 'addInstituteUserCtr'
+						controller : 'addInstituteUserCtr',
+						params : {
+							selectedPSchool : null
+						}
 					})
 					.state('setup.editInstitute', {
 						url : "/editInstitute",
