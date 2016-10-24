@@ -19,12 +19,13 @@ angular
 					// appEndpointSF.getLocalUserService().getLoggedinUser();
 					$scope.instRoles = [ "Admin", "Teacher", "Student" ];
 					$scope.tempUser = {
-						isGoogleUser : false
+						isGoogleUser : false,
 					};
-
+					
+					$scope.tempUser.school= $stateParams.selectedPSchool?$stateParams.selectedPSchool:null;
+						
 					$scope.addInstituteUsers = function() {
 						var UserService = appEndpointSF.getUserService();
-
 						$scope.tempUser.instituteID = $scope.curUser.instituteID;
 
 						UserService.addUser($scope.tempUser).then(
