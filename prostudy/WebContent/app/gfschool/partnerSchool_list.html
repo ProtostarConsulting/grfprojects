@@ -81,7 +81,11 @@
 						<td><md-button class="md-icon-button" id="editRecord"
 								ui-sref="partnerSchool.addPartnerSchool({selectedPSchoolId: pSchool.id, selectedPSchool: pSchool})">
 							<ng-md-icon icon="edit" style="fill: md-default" size="24">
-							<md-tooltip> Edit Record</md-tooltip></ng-md-icon></md-button></td>
+							<md-tooltip> Edit Record</md-tooltip></ng-md-icon></md-button>
+							<md-button class="md-icon-button" id="addSchoolUser"
+								ui-sref="setup.addInstituteUser({selectedPSchool: pSchool})">
+							<ng-md-icon icon="add" style="fill: md-default" size="24">
+							<md-tooltip> Add User</md-tooltip></ng-md-icon></md-button></td>
 					</tr>
 				</tbody>
 			</table>
