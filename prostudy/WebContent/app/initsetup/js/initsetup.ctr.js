@@ -156,9 +156,21 @@ angular
 
 						PartnerSchoolService.touchAllSchools().then(
 								function(msg) {
-									$scope.userMsg = msg;
+									$scope.userMsg = "Success!";
 								});
 					}
+					
+					$scope.touchAllCouriers = function() {
+						var CourierService = appEndpointSF
+								.getGFCourierService();
+
+						CourierService.touchAllEntities().then(
+								function() {
+									$scope.userMsg = "Success!";
+								});
+					}
+					
+					
 
 					$scope.waitForServiceLoad = function() {
 						if (appEndpointSF.is_service_ready) {
