@@ -14,8 +14,10 @@ public abstract class BaseEntity {
 	private Long id;
 	@Index
 	Ref<InstituteEntity> institute;
+	@Index
 	private Date createdDate;
-	private Date modifiedDate;
+	@Index
+	private Date modifiedDate;	
 	private String modifiedBy;
 	private String note;
 	@Index
