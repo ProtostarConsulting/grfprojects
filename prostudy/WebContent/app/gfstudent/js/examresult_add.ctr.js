@@ -78,9 +78,13 @@ angular
 						return tempExamResultList;
 					}
 
-					$scope.grfRegNoChange = function(grfRegNo) {
+					$scope.grfRegNoChange = function(enteredGrfRegNo) {
 
 						$scope.loading = true;
+						
+						var grfRegNo = (enteredGrfRegNo
+								.startsWith('P-2016-') && enteredGrfRegNo.length >= 12) ? enteredGrfRegNo
+								: 'P-2016-' + enteredGrfRegNo;
 
 						$scope.examResultList = [];
 						$scope.currentSchoolStandardList = [];
@@ -93,8 +97,8 @@ angular
 								.then(
 										function(resp) {
 
-											if (resp.result.id) {
-												$scope.foundSchool = resp;
+											if (resp.items && resp.items.length) {
+												$scope.foundSchool = resp.items[0];
 											}
 											if ($scope.foundSchool == null) {
 												$scope.data.errorMsg = "This GRF. Reg. No. is not found. Please correct it and try. Please contact GRF office.";
