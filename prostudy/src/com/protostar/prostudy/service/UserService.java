@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import javax.mail.MessagingException;
 
@@ -28,6 +29,8 @@ import com.protostar.prostudy.until.data.UtilityService;
 @Api(name = "userService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.service", ownerName = "com.protostar.prostudy.service", packagePath = ""))
 public class UserService {
 
+	private final Logger logger = Logger.getLogger(UserService.class
+			.getName());
 	@ApiMethod(name = "addUser")
 	public UserEntity addUser(UserEntity user) throws MessagingException,
 			IOException {
@@ -36,7 +39,7 @@ public class UserService {
 
 		UserEntity now = user;
 		ofy().save().entity(user).now();
-		System.out.println("now_user :" + now);
+		logger.info("now_user :" + now);
 		new EmailHandler().sendNewUserRegistrationEmail(user);
 		return now;
 	}
@@ -99,22 +102,23 @@ public class UserService {
 	@ApiMethod(name = "login")
 	public UserEntity login(@Named("email_id") String email,
 			@Named("password") String pass) {
+		logger.info("Login Attempt by User :" + email);
+		email = email.trim();
 		List<UserEntity> list = ofy().load().type(UserEntity.class)
 				.filter("email_id", email).list();
-
+		
 		UserEntity foundUser = (list == null || list.size() == 0) ? null : list
 				.get(0);
 		if (foundUser != null) {
-			System.out.println("foundUser:" + foundUser);
-			if (foundUser.getPassword().equals(pass)) {
-				System.out.println("Pass matched:");
+			logger.info("User found: foundUser:" + foundUser);
+			if (foundUser.getPassword() != null && foundUser.getPassword().equals(pass)) {
 				return foundUser;
 			} else {
-				System.out.println("Pass NOT matched:");
+				logger.info("Password did not match!");
 				return null;
 			}
 		} else {
-			System.out.println("foundUser:" + foundUser);
+			logger.info("User is not found!");
 			return null;
 		}
 	}
@@ -140,7 +144,7 @@ public class UserService {
 	@ApiMethod(name = "addOrUpdateRoleSec", path = "addOrUpdateRoleSec")
 	public void addOrUpdateRoleSec(RoleSecEntity roleSec) {
 		Key<RoleSecEntity> now = ofy().save().entity(roleSec).now();
-		System.out.println("roleSec :" + now);
+		logger.info("roleSec :" + now);
 	}
 
 	@ApiMethod(name = "getRoleSecListByInstitute", path = "getRoleSecListByInstitute")
@@ -172,13 +176,13 @@ public class UserService {
 
 	@ApiMethod(name = "getStudentsBySubjectID", path = "getStudentsBySubjectID")
 	public List<UserEntity> getStudentsBySubjectID(@Named("subID") Long subID) {
-		System.out.println("subID :" + subID);
+		logger.info("subID :" + subID);
 		StudSubService studSubService = new StudSubService();
 
 		List<StudSubEntity> studSubEntityList = studSubService
 				.getstudBySubId(subID);
 
-		System.out.println("studSubEntityList :" + studSubEntityList);
+		logger.info("studSubEntityList :" + studSubEntityList);
 		List<Long> studIds = new ArrayList<Long>();
 		for (StudSubEntity ss : studSubEntityList) {
 			studIds.add(ss.getStudID().getId());

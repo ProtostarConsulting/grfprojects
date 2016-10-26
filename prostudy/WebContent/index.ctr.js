@@ -424,6 +424,7 @@ angular
 						getUserAuthTree();
 						$scope.initDone = true;
 						$scope.loading = false;
+						$scope.data.expanded5 = true; 
 						$state.go("welcome");
 
 					}

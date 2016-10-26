@@ -167,8 +167,8 @@ angular
 					}
 
 					$scope.query = {
-						order : 'description',
-						limit : 5,
+						order : 'firstName',
+						limit : 15,
 						page : 1
 					};
 
