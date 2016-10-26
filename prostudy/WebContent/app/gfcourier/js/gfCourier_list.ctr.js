@@ -6,18 +6,12 @@ angular
 						$mdUtil, $log, $q, $mdDialog, $mdMedia, $state,
 						tableTestDataFactory, appEndpointSF, $location,
 						$anchorScroll, ajsCache) {
-					console.log("Inside studentListPageCtr");
+					console.log("Inside gfCourierListCtr");
 
 					var courierListCacheKey = "gf-courierListCache";
 					$scope.pagingInfoReturned = null;
 					$scope.gfCouriertList = [];
 
-					$scope.showSavedToast = function() {
-						$mdToast.show($mdToast.simple().content(
-								'Scheduled Exam Assigned to Student!')
-								.position("top").hideDelay(3000));
-					};
-					$scope.selected = [];
 					/*
 					 * $scope.query = { order : '-courierDispatchDate', limit :
 					 * 60, limitOptions : [ 1000, 2000, 3000, 4000, 5000 ], page :
@@ -268,12 +262,6 @@ angular
 											$scope.searchTextDone = false;
 										});
 					}
-
-					$scope.filterData = {
-						courierType : '',
-						logisticsType : '',
-						pastEightDays : false,
-					};
 
 					$scope.courierTypeChange = function() {
 						$scope.query.searchSchoolTxt = "";

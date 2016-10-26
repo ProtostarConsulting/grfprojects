@@ -6,17 +6,18 @@
 <div ng-if="!loading">
 	<div>
 		<div layout="row" layout-xs="column" flex>
-		<md-input-container flex> <label>Search By School Name Or City</label>
-			<input ng-model="query.searchSchoolTxt" ng-change="searchSchoolTxtChange()" ng-model-options="{ debounce: 1000 }">
-			</md-input-container>
-			<md-input-container flex> <label>Search By Grf. Reg. Or Form No.</label>
-			<input ng-model="query.searchByGrfRegNo" ng-change="searchByGrfRegNoChange()" ng-model-options="{ debounce: 1000 }">
-			</md-input-container>
+			<md-input-container flex> <label>Search
+				By School Name Or City</label> <input ng-model="query.searchSchoolTxt"
+				ng-change="searchSchoolTxtChange()"
+				ng-model-options="{ debounce: 1000 }"> </md-input-container>
+			<md-input-container flex> <label>Search
+				By Grf. Reg. Or Form No.</label> <input ng-model="query.searchByGrfRegNo"
+				ng-change="searchByGrfRegNoChange()"
+				ng-model-options="{ debounce: 1000 }"> </md-input-container>
 			<md-input-container flex> <md-select
 				ng-model="query.selectedYearOfExam" id="selectedYear"
-				ng-change="yearOfExamChanged()"
-				placeholder="--Select Exam Year--"> <md-option
-				ng-value="Other" ng-model="other">All</md-option> <md-option
+				ng-change="yearOfExamChanged()" placeholder="--Select Exam Year--">
+			<md-option ng-value="Other" ng-model="other">All</md-option> <md-option
 				ng-value="Year" ng-repeat="Year in Years  | orderBy:Year">{{Year}}</md-option>
 			</md-select> </md-input-container>
 		</div>
@@ -78,14 +79,16 @@
 					ui-sref="partnerSchool.addPartnerSchool({selectedPSchoolId: pSchool.id})"><md-button>
 						<md-icon md-svg-src="img/icons/edit.svg"></md-icon> <md-tooltip>Edit
 						</md-tooltip></md-button></a></td> -->
-						<td><md-button class="md-icon-button" id="editRecord"
-								ui-sref="partnerSchool.addPartnerSchool({selectedPSchoolId: pSchool.id, selectedPSchool: pSchool})">
-							<ng-md-icon icon="edit" style="fill: md-default" size="24">
-							<md-tooltip> Edit Record</md-tooltip></ng-md-icon></md-button>
-							<md-button class="md-icon-button" id="addSchoolUser"
-								ui-sref="setup.addInstituteUser({selectedPSchool: pSchool})">
-							<ng-md-icon icon="add" style="fill: md-default" size="24">
-							<md-tooltip> Add User</md-tooltip></ng-md-icon></md-button></td>
+						<td><div layout="row" flex>
+								<md-button class="md-icon-button" id="editRecord"
+									ui-sref="partnerSchool.addPartnerSchool({selectedPSchoolId: pSchool.id, selectedPSchool: pSchool})">
+								<ng-md-icon icon="edit" style="fill: md-default" size="24">
+								<md-tooltip>Edit Record</md-tooltip></ng-md-icon></md-button>
+								<md-button class="md-icon-button" id="addSchoolUser"
+									ui-sref="setup.addInstituteUser({selectedPSchool: pSchool})">
+								<ng-md-icon icon="add" style="fill: md-default" size="24">
+								<md-tooltip>Add User</md-tooltip></ng-md-icon></md-button>
+							</div></td>
 					</tr>
 				</tbody>
 			</table>

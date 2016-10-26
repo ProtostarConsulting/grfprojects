@@ -4,25 +4,26 @@ angular
 				"gfExamResultListCtr",
 				function($scope, $window, $mdToast, $timeout, $mdSidenav,
 						$mdUtil, $log, $q, appEndpointSF, $state, $stateParams,
-						$mdDialog, objectFactory, indiaAddressLookupData) {
+						$mdDialog, $location, $anchorScroll, ajsCache) {
 
-					$scope.selectFilterData = {
-						state : "",
-						dist : "",
-						grfReviewed : true,
-						grfRegNo : ''
-					}
-
+					var examResultListCacheKey = "gf-examResultListCache";
+					$scope.pagingInfoReturned = null;
 					$scope.examResultList = [];
-					$scope.Country = angular.copy(indiaAddressLookupData);
 
-					$scope.gfSchoolList = [];
-					$scope.schoolListsDate == null;
-					$scope.temp = {
-						tempDistricts : [],
-						tempTalukas : [],
-						tempVillages : []
-					}
+					$scope.query = {
+						order : '-createdDate',
+						limit : 60,
+						limitOptions : [ 1000, 2000, 3000, 4000, 5000 ],
+						page : 1,
+						totalSize : 0,
+						totalSizeBackup : 0,
+						searchByGrfRegNo : '',
+						searchSchoolTxt : '',
+						grfReviewed : false,
+						entityList : null,
+
+					};
+
 					$scope.pendingGrfReview = function(cheked) {
 						$scope.filteredExamResultList = [];
 						if (cheked) {
@@ -38,46 +39,6 @@ angular
 						}
 					}
 
-					$scope.filterResultList = function(index, state) {
-
-						if ($scope.selectFilterData.grfRegNo) {
-							$scope.getExamResultEntitiesByGrfNo();
-							return;
-						}
-
-						$scope.filteredExamResultList = [];
-
-						// To filter result list by address
-						for (var i = 0; i < $scope.examResultList.length; i++) {
-							if ($scope.selectFilterData.state == $scope.examResultList[i].school.address.state) {
-								if ($scope.selectFilterData.dist == $scope.examResultList[i].school.address.dist) {
-									$scope.filteredExamResultList
-											.push($scope.examResultList[i]);
-
-								}
-							}
-						}
-
-						/*
-						 * // Display only top 100 students per filter var
-						 * tillIndex = ($scope.filteredExamResultList.length >
-						 * 100) ? 99 : $scope.filteredExamResultList.length;
-						 * $scope.filteredExamResultList =
-						 * $scope.filteredExamResultList .slice(0, tillIndex);
-						 */
-
-					}
-
-					$scope.getDistricts = function(index, state) {
-						$scope.temp.tempDistricts = [];
-						for (var i = 0; i < $scope.Country.states.length; i++) {
-
-							if ($scope.Country.states[i].name == state) {
-								$scope.temp.tempDistricts = $scope.Country.states[i].districts;
-							}
-						}
-					};
-
 					$scope.getExamResultEntities = function() {
 						var gfStudentService = appEndpointSF
 								.getGFStudentService();
@@ -89,7 +50,7 @@ angular
 										function(resp) {
 											$scope.examResultList = resp.items;
 											$scope.examResultListBackup = $scope.examResultList;
-											
+
 											$scope.pendingGrfReview();
 											$scope.loading = false;
 										});
@@ -120,13 +81,176 @@ angular
 
 					}
 
+					$scope.refreshListPage = function() {
+						// Remove cache and reset everything.
+						ajsCache.remove(examResultListCacheKey);
+						$scope.query.page = 1;
+						$scope.pagingInfoReturned = null;
+						$scope.query.searchByGrfRegNo = "";
+						$scope.query.searchSchoolTxt = "";
+						$scope.query.grfReviewed = false;
+						$scope.examResultList = [];
+						$scope.onpagechange();
+					}
+
+					$scope.onpagechange = function() {
+						$scope.loading = true;
+						$location.hash('topRight');
+						$anchorScroll();
+
+						if ($scope.query.searchSchoolTxt) {
+							$scope.loading = false;
+							return;
+						}
+
+						// Note this key has to be unique across application
+						// else it will return unexpected result.
+						if (!angular.isUndefined(ajsCache
+								.get(examResultListCacheKey))) {
+							$log.debug("Found List in Cache, return it.")
+							$scope.queriedExamResultDataCache = ajsCache
+									.get(examResultListCacheKey);
+							$scope.examResultList = $scope.queriedExamResultDataCache.entityList;
+							$scope.query.totalSize = $scope.queriedExamResultDataCache.totalSize;
+							$scope.query.totalSizeBackup = $scope.queriedExamResultDataCache.totalSizeBackup;
+
+						}
+
+						if ($scope.examResultList.length < ($scope.query.limit * $scope.query.page)) {
+							$log
+									.debug("Need to fetch this page data from server. Doing so....");
+							var pagingInfoTemp = {
+								entityList : null,
+								startPage : $scope.query.page,
+								limit : $scope.query.limit,
+								totalEntities : 0,
+								webSafeCursorString : $scope.pagingInfoReturned ? $scope.pagingInfoReturned.webSafeCursorString
+										: null
+							};
+
+							var gfStudentService = appEndpointSF
+									.getGFStudentService();
+							gfStudentService
+									.fetchExamResultByPaging(
+											$scope.curUser.instituteID,
+											pagingInfoTemp)
+									.then(
+											function(pagingInfoReturned) {
+												$scope.pagingInfoReturned = pagingInfoReturned;
+												if ($scope.examResultList.length < pagingInfoReturned.totalEntities) {
+													$scope.examResultList = $scope.examResultList
+															.concat(pagingInfoReturned.entityList);
+												} else {
+													$scope.examResultList = pagingInfoReturned.entityList;
+												}
+												$scope.examResultListBackup = $scope.examResultList;
+												$scope.query.totalSize = pagingInfoReturned.totalEntities;
+												$scope.query.totalSizeBackup = pagingInfoReturned.totalEntities;
+												$scope.query.entityList = $scope.examResultList;
+
+												ajsCache.put(
+														examResultListCacheKey,
+														$scope.query);
+
+												$scope.loading = false;
+											});
+						} else {
+							$log
+									.debug("NOT Need to fetch from server. Just returned...");
+							$scope.loading = false;
+						}
+					}
+
+					$scope.searchTextDone = false;
+					$scope.searchSchoolTxtChange = function() {
+						if ($scope.query.searchSchoolTxt
+								&& $scope.query.searchSchoolTxt.length >= 3) {
+							$scope.query.searchByGrfRegNo = "";
+							$scope.query.grfReviewed = false;
+							$scope.query.page = 1;
+							$scope
+									.schoolSerachTxtChange($scope.query.searchSchoolTxt
+											.trim());
+						} else {
+							// let user type whole 12 chars of GRF No
+							// restore $scope.examResultList if was filtered
+							if ($scope.examResultList.length !== $scope.examResultListBackup.length) {
+								$scope.query.page = 1;
+								$scope.examResultList = $scope.examResultListBackup;
+								$scope.query.totalSize = $scope.query.totalSizeBackup;
+							}
+						}
+					}
+					$scope.searchByGrfRegNoChange = function() {
+						var enteredGrfRegNo = $scope.query.searchByGrfRegNo
+								.trim();
+						if (enteredGrfRegNo && enteredGrfRegNo.length >= 5) {
+							$scope.query.searchSchoolTxt = "";
+							$scope.query.grfReviewed = false;
+							$scope.query.page = 1;
+							var grfRegNo = (enteredGrfRegNo
+									.startsWith('P-2016-') && enteredGrfRegNo.length >= 12) ? enteredGrfRegNo
+									: 'P-2016-' + enteredGrfRegNo;
+
+							$scope.grfRegNoChange(grfRegNo);
+						} else {
+							// let user type whole 5 chars of GRF No
+							// restore $scope.examResultList if was filtered
+							if ($scope.examResultList.length !== $scope.examResultListBackup.length) {
+								$scope.query.page = 1;
+								$scope.examResultList = $scope.examResultListBackup;
+								$scope.query.totalSize = $scope.query.totalSizeBackup;
+							}
+						}
+					}
+
+					$scope.schoolSerachTxtChange = function(searchSchoolTxt) {
+
+						$scope.searchTextDone = true;
+						$scope.examResultList = [];
+						$log.debug("Fetcing searchSchoolTxt: "
+								+ searchSchoolTxt);
+						var gfStudentService = appEndpointSF
+								.getGFStudentService();
+						gfStudentService.searchExamResultBySchoolName(
+								searchSchoolTxt).then(function(resultList) {
+							if (resultList) {
+								$scope.examResultList = resultList;
+								$scope.query.totalSize = resultList.length;
+							}
+
+							$scope.searchTextDone = false;
+						});
+					}
+
+					$scope.grfRegNoChange = function(grfRegNo) {
+
+						$scope.searchTextDone = true;
+						$scope.examResultList = [];
+						$log.debug("Fetcing GRF No: " + grfRegNo);
+						var gfStudentService = appEndpointSF
+								.getGFStudentService();
+						gfStudentService
+								.getExamResultByGRFNo(grfRegNo)
+								.then(
+										function(resultList) {
+											if (resultList) {
+												$scope.examResultList = resultList;
+												$scope.query.totalSize = resultList.length;
+											}
+
+											$scope.searchTextDone = false;
+										});
+					}
+
 					$scope.cancel = function() {
 						$state.go('gandhifoundation');
 					}
 
 					$scope.waitForServiceLoad = function() {
 						if (appEndpointSF.is_service_ready) {
-							$scope.getExamResultEntities();
+							// $scope.getExamResultEntities();
+							$scope.onpagechange();
 						} else {
 							$log.debug("Services Not Loaded, watiting...");
 							$timeout($scope.waitForServiceLoad, 1000);
@@ -135,13 +259,7 @@ angular
 
 					$scope.waitForServiceLoad();
 
-					$scope.query = {
-						order : '-createdDate',
-						limit : 120,
-						limitOptions : [ 60, 100, 300, 400, 500 ],
-						page : 1
-					};
-
+					
 					$scope.cancelButton = function() {
 						$state.go("studentModule", {});
 					}
