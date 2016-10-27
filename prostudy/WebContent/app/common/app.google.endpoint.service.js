@@ -83,6 +83,16 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 		});
 		return deferred.promise;
 	}
+	GFStudentService.getExamResultsPendingGRFReview = function(id) {
+		var deferred = $q.defer();
+		gapi.client.gfStudentService.getExamResultsPendingGRFReview({
+			'instituteID' : id
+		}).execute(function(resp) {
+			deferred.resolve(resp.items);
+		});
+		return deferred.promise;
+	}
+	
 	GFStudentService.touchAllEntities = function() {
 		var deferred = $q.defer();
 		gapi.client.gfStudentService.touchAllEntities().execute(function() {

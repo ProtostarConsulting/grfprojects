@@ -40,7 +40,7 @@ angular
 							school : school,
 							institute : school.institute,
 							examYear : $scope.examDetail.yearOfExam,
-							grfReviewed : false
+							grfReviewed : $scope.curUser ? true : false
 						};
 					}
 
@@ -81,9 +81,8 @@ angular
 					$scope.grfRegNoChange = function(enteredGrfRegNo) {
 
 						$scope.loading = true;
-						
-						var grfRegNo = (enteredGrfRegNo
-								.startsWith('P-2016-') && enteredGrfRegNo.length >= 12) ? enteredGrfRegNo
+
+						var grfRegNo = (enteredGrfRegNo.startsWith('P-2016-') && enteredGrfRegNo.length >= 12) ? enteredGrfRegNo
 								: 'P-2016-' + enteredGrfRegNo;
 
 						$scope.examResultList = [];

@@ -24,21 +24,6 @@ angular
 
 					};
 
-					$scope.pendingGrfReview = function(cheked) {
-						$scope.filteredExamResultList = [];
-						if (cheked) {
-							$scope.examResultListBackup.forEach(function(
-									resultObj) {
-								if (!resultObj.grfReviewed) {
-									$scope.filteredExamResultList
-											.push(resultObj);
-								}
-							});
-						} else {
-							$scope.filteredExamResultList = $scope.examResultListBackup;
-						}
-					}
-
 					$scope.getExamResultEntities = function() {
 						var gfStudentService = appEndpointSF
 								.getGFStudentService();
@@ -243,6 +228,42 @@ angular
 										});
 					}
 
+					$scope.pendingGrfReview = function() {
+						if (!$scope.query.grfReviewed) {
+							$scope.query.searchSchoolTxt = "";
+							$scope.query.searchByGrfRegNo = "";							
+							$scope.query.page = 1;
+							$scope
+									.getExamResultsPendingGRFReview();
+						} else {
+							// let user type whole 12 chars of GRF No
+							// restore $scope.examResultList if was filtered
+							if ($scope.examResultList.length !== $scope.examResultListBackup.length) {
+								$scope.query.page = 1;
+								$scope.examResultList = $scope.examResultListBackup;
+								$scope.query.totalSize = $scope.query.totalSizeBackup;
+							}
+						}
+					}
+					
+					$scope.getExamResultsPendingGRFReview = function() {
+						$scope.searchTextDone = true;
+						$scope.examResultList = [];
+						$log.debug("Fetcing Pending GRF Review");
+						var gfStudentService = appEndpointSF
+								.getGFStudentService();
+						gfStudentService
+								.getExamResultsPendingGRFReview($scope.curUser.instituteID)
+								.then(
+										function(resultList) {
+											if (resultList) {
+												$scope.examResultList = resultList;
+												$scope.query.totalSize = resultList.length;
+											}
+											$scope.searchTextDone = false;
+										});
+					}
+					
 					$scope.cancel = function() {
 						$state.go('gandhifoundation');
 					}

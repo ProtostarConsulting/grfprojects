@@ -1,12 +1,14 @@
 package com.protostar.prostudy.gf.entity;
 
 import com.googlecode.objectify.Ref;
+import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Index;
 import com.protostar.prostudy.entity.BaseEntity;
 import com.protostar.prostudy.entity.PracticeExamResultEntity;
 
 @Entity
+@Cache
 public class GFExamResultEntity extends BaseEntity {
 	private String studName;
 	@Index

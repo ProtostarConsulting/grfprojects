@@ -2,13 +2,18 @@ package com.protostar.prostudy.gf.entity;
 
 import java.util.Date;
 
+import com.googlecode.objectify.annotation.Cache;
+import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Index;
 import com.protostar.prostudy.entity.BaseEntity;
 
-public class GFBook extends BaseEntity{
+@Entity
+@Cache
+public class GFBook extends BaseEntity {
 
-/*	@Id
-	private Long id;*/
+	/*
+	 * @Id private Long id;
+	 */
 	@Index
 	private String bookName;
 	private String bookAuther;
@@ -26,59 +31,48 @@ public class GFBook extends BaseEntity{
 	private int bookThreshold;
 	private String standard;
 	private String flag;
+
 	// Ref<PartnerSchoolEntity> schoolName;
 
-	
-	
 	public long getInstituteID() {
 		return instituteID;
 	}
-	
 
 	public String getFlag() {
 		return flag;
 	}
 
-
 	public Date getStockModifiedDate() {
 		return stockModifiedDate;
 	}
-
 
 	public void setStockModifiedDate(Date stockModifiedDate) {
 		this.stockModifiedDate = stockModifiedDate;
 	}
 
-
 	public int getBookThreshold() {
 		return bookThreshold;
 	}
-
 
 	public void setBookThreshold(int bookThreshold) {
 		this.bookThreshold = bookThreshold;
 	}
 
-
 	public void setFlag(String flag) {
 		this.flag = flag;
 	}
-
 
 	public String getStandard() {
 		return standard;
 	}
 
-
 	public void setStandard(String standard) {
 		this.standard = standard;
 	}
 
-
 	public Date getBookFeedDate() {
 		return bookFeedDate;
 	}
-
 
 	public void setBookFeedDate(Date bookFeedDate) {
 		this.bookFeedDate = bookFeedDate;
@@ -88,43 +82,35 @@ public class GFBook extends BaseEntity{
 		return bookMedium;
 	}
 
-
 	public void setBookMedium(String bookMedium) {
 		this.bookMedium = bookMedium;
 	}
-
 
 	public Date getStockFeedDate() {
 		return stockFeedDate;
 	}
 
-
 	public void setStockFeedDate(Date stockFeedDate) {
 		this.stockFeedDate = stockFeedDate;
 	}
-
 
 	public int getBookQty() {
 		return bookQty;
 	}
 
-
 	public void setBookQty(int bookQty) {
 		this.bookQty = bookQty;
 	}
-
 
 	public void setInstituteID(long instituteID) {
 		this.instituteID = instituteID;
 	}
 
-	/*public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}*/
+	/*
+	 * public Long getId() { return id; }
+	 * 
+	 * public void setId(Long id) { this.id = id; }
+	 */
 
 	public String getBookName() {
 		return bookName;

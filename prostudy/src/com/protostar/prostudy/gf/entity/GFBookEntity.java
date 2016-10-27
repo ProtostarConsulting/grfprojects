@@ -2,12 +2,14 @@ package com.protostar.prostudy.gf.entity;
 
 import java.util.Date;
 
+import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Ignore;
 import com.googlecode.objectify.annotation.Index;
 import com.protostar.prostudy.entity.BaseEntity;
 
 @Entity
+@Cache
 public class GFBookEntity extends BaseEntity{
 
 	/*@Id
