@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -21,6 +23,7 @@ import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.api.datastore.QueryResultIterator;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.cmd.Query;
+import com.googlecode.objectify.cmd.QueryKeys;
 import com.protostar.prostudy.gf.entity.GFExamResultEntity;
 import com.protostar.prostudy.gf.entity.GFStudentEntity;
 import com.protostar.prostudy.gf.entity.PartnerSchoolEntity;
@@ -95,8 +98,19 @@ public class GFStudentService {
 		List<GFExamResultEntity> resultList = ofy().load()
 				.type(GFExamResultEntity.class).filter("grfReviewed", false)
 				.project("createdDate", "school").distinct(true).list();
-		logger.info("getExamResultsPendingGRFReview:resultList:" + resultList.size());
-		return resultList;
+
+		Set<Long> schoolIds = new HashSet<Long>();
+		List<GFExamResultEntity> examResultList = new ArrayList<GFExamResultEntity>();
+		for (GFExamResultEntity next : resultList) {
+			if (!schoolIds.contains(next.getSchool().getId())) {
+				examResultList.add(next);
+				schoolIds.add(next.getSchool().getId());
+			}
+		}
+
+		logger.info("getExamResultsPendingGRFReview:examResultList:"
+				+ examResultList.size());
+		return examResultList;
 	}
 
 	@ApiMethod(name = "fetchExamResultByPaging", path = "fetchExamResultByPaging")
@@ -110,11 +124,10 @@ public class GFStudentService {
 		 */
 
 		Query<GFExamResultEntity> filterInstituteQuery = ofy().load()
-				.type(GFExamResultEntity.class)
-				.project("createdDate", "grfReviewed", "school").distinct(true);
+				.type(GFExamResultEntity.class).project("school")
+				.distinct(true).order("-createdDate");
 
-		int totalCount = ofy().load().type(GFExamResultEntity.class)
-				.project("school").distinct(true).count();
+		int totalCount = filterInstituteQuery.count();
 
 		if (pagingInfo.getWebSafeCursorString() != null)
 			filterInstituteQuery = filterInstituteQuery.startAt(Cursor
@@ -122,15 +135,13 @@ public class GFStudentService {
 
 		QueryResultIterator<GFExamResultEntity> iterator = filterInstituteQuery
 				.limit(pagingInfo.getLimit()).iterator();
-		List<GFExamResultEntity> examResultList = new ArrayList<GFExamResultEntity>();
-		Set<Long> schoolIds = new HashSet<Long>();
 
+		List<GFExamResultEntity> examResultList = new ArrayList<GFExamResultEntity>();
 		while (iterator.hasNext()) {
 			GFExamResultEntity next = iterator.next();
-			if (!schoolIds.contains(next.getSchool().getId())) {
-				examResultList.add(next);
-				schoolIds.add(next.getSchool().getId());
-			}
+			// this is projected, need whole object
+			examResultList.add(ofy().load().type(GFExamResultEntity.class)
+					.id(next.getId()).now());
 		}
 
 		Cursor cursor = iterator.getCursor();

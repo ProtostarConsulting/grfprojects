@@ -205,6 +205,8 @@ angular
 					}
 
 					$scope.addExamResultList = function() {
+						$location.hash('topRight');
+						$anchorScroll();
 						$scope.loading = true;
 
 						var resultWrapper = {
@@ -223,9 +225,7 @@ angular
 											}
 
 											if (!$scope.curUser) {
-												$scope.data.guestSuccessMsg = "Data saved successfully. If any question, please contact GRF office. Thank you.";
-												$location.hash('topRight');
-												$anchorScroll();
+												$scope.data.guestSuccessMsg = "Data saved successfully. If any question, please contact GRF office. Thank you.";												
 											} else {
 												$state.reload();
 											}

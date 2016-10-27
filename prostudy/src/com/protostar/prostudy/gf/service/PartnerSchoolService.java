@@ -17,11 +17,9 @@ import java.util.logging.Logger;
 
 import javax.mail.MessagingException;
 
-import com.google.api.server.spi.config.AnnotationBoolean;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
-import com.google.api.server.spi.config.ApiResourceProperty;
 import com.google.api.server.spi.config.Named;
 import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.api.datastore.DatastoreService;
@@ -36,7 +34,6 @@ import com.googlecode.objectify.Key;
 import com.googlecode.objectify.LoadResult;
 import com.googlecode.objectify.cmd.Query;
 import com.protostar.prostudy.gf.entity.ExamDetail;
-import com.protostar.prostudy.gf.entity.GFCourierEntity;
 import com.protostar.prostudy.gf.entity.NotificationData;
 import com.protostar.prostudy.gf.entity.PartnerSchoolEntity;
 import com.protostar.prostudy.gf.entity.PaymentDetail;
