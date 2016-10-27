@@ -101,9 +101,10 @@ angular
 
 						}
 
-						if ($scope.examResultList.length < ($scope.query.limit * $scope.query.page)) {
+						if ($scope.examResultList.length < ($scope.query.limit * $scope.query.page)
+								&& ($scope.query.totalSize == 0 || $scope.examResultList.length < $scope.query.totalSize)) {
 							$log
-									.debug("Need to fetch this page data from server. Doing so....");
+									.debug("Need to fetch this page data from server....");
 							var pagingInfoTemp = {
 								entityList : null,
 								startPage : $scope.query.page,
@@ -166,6 +167,7 @@ angular
 							}
 						}
 					}
+					
 					$scope.searchByGrfRegNoChange = function() {
 						var enteredGrfRegNo = $scope.query.searchByGrfRegNo
 								.trim();
@@ -231,10 +233,9 @@ angular
 					$scope.pendingGrfReview = function() {
 						if (!$scope.query.grfReviewed) {
 							$scope.query.searchSchoolTxt = "";
-							$scope.query.searchByGrfRegNo = "";							
+							$scope.query.searchByGrfRegNo = "";
 							$scope.query.page = 1;
-							$scope
-									.getExamResultsPendingGRFReview();
+							$scope.getExamResultsPendingGRFReview();
 						} else {
 							// let user type whole 12 chars of GRF No
 							// restore $scope.examResultList if was filtered
@@ -245,7 +246,7 @@ angular
 							}
 						}
 					}
-					
+
 					$scope.getExamResultsPendingGRFReview = function() {
 						$scope.searchTextDone = true;
 						$scope.examResultList = [];
@@ -253,7 +254,8 @@ angular
 						var gfStudentService = appEndpointSF
 								.getGFStudentService();
 						gfStudentService
-								.getExamResultsPendingGRFReview($scope.curUser.instituteID)
+								.getExamResultsPendingGRFReview(
+										$scope.curUser.instituteID)
 								.then(
 										function(resultList) {
 											if (resultList) {
@@ -263,7 +265,7 @@ angular
 											$scope.searchTextDone = false;
 										});
 					}
-					
+
 					$scope.cancel = function() {
 						$state.go('gandhifoundation');
 					}
@@ -280,7 +282,6 @@ angular
 
 					$scope.waitForServiceLoad();
 
-					
 					$scope.cancelButton = function() {
 						$state.go("studentModule", {});
 					}
