@@ -35,7 +35,7 @@
 	<md-toolbar style="height: 80px; width: 100%">
 	<div id="container" class="md-toolbar-tools">
 		<img hide-xs id="image" src="img/images/GVSP_GRF_Logo_2.png"
-			style="height: 79px; width: 319px" /> <span flex></span>
+			style="height: 79px; width: 319px" /> <span flex hide-xs></span>
 		<div layout="row" layout-align="end start">
 			<md-button ng-hide="curUser !== null" ng-show="curUser == null"
 				ng-click="loginClick()"> <span
@@ -245,7 +245,7 @@
 					ui-sref="studentModule.gvspStartExam" ng-click="close()"
 					class="menu-heading md-primary" aria-label="Take GVSP Exam"
 					show-gt-md> <menu-link section="child">Take
-			GVSP Exam</menu-link> </md-button> <md-button ui-sref="studentModule.addExamResult"
+				GVSP Exam</menu-link> </md-button> <md-button ui-sref="studentModule.addExamResult"
 					ng-click="close()" class="menu-heading md-primary"
 					aria-label="Add GVSP Exam Results" show-gt-md> <menu-link
 					section="child">Add GVSP Exam Results</menu-link> </md-button> </md-content>
@@ -262,7 +262,7 @@
 						md-svg-src="img/icons/menu.svg"></md-icon> </md-button>
 				</div>
 			</div>
-			<md-card>
+			<!-- <md-card> -->
 			<div layout="column" layout-align="top stretch">
 				<!--<div ng-view></div>-->
 				<div ui-view>
@@ -342,8 +342,13 @@
 				<p>&nbsp;</p>
 				<p>&nbsp;</p>
 				<p>&nbsp;</p>
+				<md-content layout="column">
+					<hr>
+					<span flex>©2017-2018 ProStudy Google Cloud Platform, a product
+						of Protostar Consulting Services, Pune. All rights reserved. </span>
+				</md-content>
 			</div>
-			</md-card> <!--This is a botton section of the app--> <!-- <md-divider></md-divider> -->
+			<!-- </md-card> --> <!--This is a botton section of the app--> <!-- <md-divider></md-divider> -->
 		</section>
 	</div>
 	</md-content> </md-card> </md-content>

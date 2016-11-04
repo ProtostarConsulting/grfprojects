@@ -125,7 +125,7 @@ public class GFStudentService {
 
 		Query<GFExamResultEntity> filterInstituteQuery = ofy().load()
 				.type(GFExamResultEntity.class).project("school")
-				.distinct(true).order("-createdDate");
+				.distinct(true);
 
 		int totalCount = filterInstituteQuery.count();
 
@@ -134,6 +134,7 @@ public class GFStudentService {
 					.fromWebSafeString(pagingInfo.getWebSafeCursorString()));
 
 		QueryResultIterator<GFExamResultEntity> iterator = filterInstituteQuery
+				.order("school").order("-createdDate")
 				.limit(pagingInfo.getLimit()).iterator();
 
 		List<GFExamResultEntity> examResultList = new ArrayList<GFExamResultEntity>();
