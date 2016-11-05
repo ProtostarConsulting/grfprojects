@@ -216,7 +216,8 @@ angular
 															function(school) {
 																var paymentDetailList = $scope
 																		.getPaymentDetailListByCurrentYear(school);
-																$scope.t_totalAmountByPaymentType += paymentDetailList[0].payAmount;
+																for (var i = 0; i < paymentDetailList.length; i++)
+																	$scope.t_totalAmountByPaymentType += paymentDetailList[i].payAmount;
 															});
 											$scope.loading = false;
 										});
@@ -239,10 +240,7 @@ angular
 													.forEach(
 															$scope.fitlteredCourierList,
 															function(courier) {
-																if (courier.logistics
-																		.trim() == courierLogistics) {
-																	$scope.t_totalCostByLogisticType += courier.courierCost;
-																}
+																$scope.t_totalCostByLogisticType += courier.courierCost;
 															});
 											$scope.loading = false;
 										});
