@@ -16,6 +16,15 @@ public class ExamDetail {
 
 	private List<PaymentDetail> paymentDetail;
 	private BookSummary bookSummary;
+	private Integer numberOfCoordinators = 1;
+
+	public Integer getNumberOfCoordinators() {
+		return numberOfCoordinators;
+	}
+
+	public void setNumberOfCoordinators(Integer numberOfCoordinators) {
+		this.numberOfCoordinators = numberOfCoordinators;
+	}
 
 	public String getTotalStudent() {
 		return totalStudent;

@@ -11,6 +11,7 @@ public class BookSummary {
 	private Integer amtForGRF80per;
 	
 	
+	
 	public List<BookDetail> getBookDetail() {
 		return bookDetail;
 	}
@@ -41,6 +42,5 @@ public class BookSummary {
 	public void setAppearedSchoolTotalStud(Integer appearedSchoolTotalStud) {
 		this.appearedSchoolTotalStud = appearedSchoolTotalStud;
 	}
-	
-	
+		
 }

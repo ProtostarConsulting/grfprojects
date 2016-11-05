@@ -78,13 +78,17 @@
 					<tr>
 						<td ng-style="getTableStyle()" flex="10">Standard</td>
 						<td ng-repeat="book in bookDetailList" ng-style="getTableStyle()">{{book.standard}}</td>
+						<td ng-style="getTableStyle()" flex="10">No. of Coordinators</td>
 					</tr>
 					<tr>
-						<td  ng-style="getTableStyle()" flex="10">Total Students Registered</td>
+						<td ng-style="getTableStyle()" flex="10">Total Students
+							Registered</td>
 						<td ng-repeat="book in bookDetailList" ng-style="getTableStyle()">{{book.totalStud}}</td>
+						<td ng-style="getTableStyle()" flex="10"></td>
 					</tr>
 					<tr>
-						<td ng-style="getTableStyle()" flex="10">Total Students Appeared</td>
+						<td ng-style="getTableStyle()" flex="10">Total Students
+							Appeared</td>
 						<td ng-repeat="book in bookDetailList" ng-style="getTableStyle()"><md-input-container
 								style="margin: 0; padding: 0; padding-left: 5px;">
 							<input name=appearedTotal aria-label="Total Students Appeared"
@@ -95,7 +99,13 @@
 								<div ng-message="required">This field is required.</div>
 							</div>
 							</md-input-container></td>
+						<td ng-style="getTableStyle()"><md-input-container
+								style="margin: 0; padding: 0; padding-left: 5px;">
+							<input name=noOfCordinators aria-label="Total Students Appeared"
+								type="number" ng-model="examDetail.numberOfCoordinators"
+								ng-required="true"> </md-input-container></td>
 					</tr>
+
 				</table>
 				</ng-form>
 				<hr>
@@ -114,8 +124,8 @@
 							flex><b>Standard:&nbsp;{{std}}</b></span>
 					</div>
 					<div id="standardList"
-						ng-repeat="examResult in getResultListFor(std)"
-						layout="column" flex="100">
+						ng-repeat="examResult in getResultListFor(std)" layout="column"
+						flex="100">
 
 						<ng-form ng-if="$index<=2" name="recordForm"
 							ng-style="getFormRowStyle()" layout="row" layout-padding

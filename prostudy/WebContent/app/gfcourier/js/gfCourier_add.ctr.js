@@ -48,10 +48,10 @@ angular
 
 					$scope.addGFCourier = function() {
 						$scope.loading = true;
-						if ($scope.selectedGFStudID == "") {
-							$scope.tempCourierObj.instituteID = $scope.curUser.instituteID;
-							$scope.tempCourierObj.schoolName = $scope.institute;
-						}
+
+						$scope.tempCourierObj.instituteID = $scope.curUser.instituteID;
+						if($scope.partnerSchool)
+							$scope.tempCourierObj.schoolName = $scope.partnerSchool
 
 						$scope.tempCourierObj.modifiedDate = new Date();
 						$scope.tempCourierObj.modifiedBy = $scope.curUser.email_id;
@@ -66,7 +66,7 @@ angular
 									 * $scope.gfCourierForm.$setValidity();
 									 * $scope.gfCourierForm.$setUntouched();
 									 */
-									if ($scope.selectedGFStudID == "") {
+									if ($scope.selectedGFCourierID == "") {
 										$scope.showAddToast();
 									} else {
 										$scope.showUpdateToast();

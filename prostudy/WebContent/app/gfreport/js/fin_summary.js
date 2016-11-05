@@ -18,9 +18,6 @@ angular
 					$scope.amountPaymentsTotal = 0;
 					$scope.noOfCourierParcelsTotal = 0;
 					$scope.chargesCourierTotal = 0;
-					
-					
-					
 
 					$scope.paymentModes = [ {
 						mode : 'Cash',
@@ -109,6 +106,10 @@ angular
 					}
 
 					function updateLogisticListObj(courierObj) {
+						if (!courierObj.logistics) {
+							return;
+						}
+
 						var logisticsIndex = logisticsList
 								.indexOf(courierObj.logistics.trim())
 						if (logisticsIndex >= 0) {
@@ -137,12 +138,40 @@ angular
 									$scope.calculateByCourierList();
 								});
 					}
+					$scope.getFinSummayReportData = function() {
+						var PartnerService = appEndpointSF
+								.getPartnerSchoolService();
+						$scope.noOfPaymentsTotal = 0;
+						$scope.noOfCourierParcelsTotal = 0;
+
+						PartnerService
+								.getFinSummayReportData(
+										$scope.curUser.instituteID)
+								.then(
+										function(finSummayReportData) {
+											$scope.finSummayReportData = finSummayReportData;
+											$scope.angular
+													.forEach(
+															$scope.finSummayReportData.paymentModesData,
+															function(paymodeObj) {
+																$scope.noOfPaymentsTotal += parseInt(paymodeObj.noOfPayments);
+															});
+											angular
+													.forEach(
+															$scope.finSummayReportData.logisticsWiseData,
+															function(
+																	logisticsObj) {
+																$scope.noOfCourierParcelsTotal += parseInt(logisticsObj.noOfParcels);
+															});
+											$scope.loading = false;
+										});
+					}
 
 					$scope.waitForServiceLoad = function() {
 						if (appEndpointSF.is_service_ready) {
-							$scope.getPartnerSchoolByInstitute();
-							$scope.getGFCourierByInstitute();
-
+							// $scope.getPartnerSchoolByInstitute();
+							// $scope.getGFCourierByInstitute();
+							$scope.getFinSummayReportData();
 						} else {
 							$log.debug("Services Not Loaded, watiting...");
 							$timeout($scope.waitForServiceLoad, 1000);
@@ -158,72 +187,95 @@ angular
 						return $scope.t_totalCostByLogisticType
 					}
 					$scope.clearfilterValues = function(courierType) {
-						
+
 						$scope.filterType = '';
 						$scope.filterPaymentType = '';
 						$scope.filterLogisticsType = '';
 						$scope.t_totalAmountByPaymentType = 0;
 						$scope.t_totalCostByLogisticType = 0;
-						
+
 					}
 
 					$scope.filterSchoolListBy = function(paymentType) {
+						$scope.loading = true;
 						$scope.fitlteredSchoolList = [];
 						$scope.t_totalAmountByPaymentType = 0;
-						
-						angular.forEach($scope.pSchoolList, function(school) {
-							var paymentDetailList = $scope
-									.getPaymentDetailListByCurrentYear(school);
-							if (paymentDetailList.length > 0
-									&& paymentDetailList[0].payReceivedBy
-											.trim() == paymentType) {
-								$scope.fitlteredSchoolList.push(school);
-								$scope.t_totalAmountByPaymentType += paymentDetailList[0].payAmount;
-							}
-						});
+
+						var PartnerService = appEndpointSF
+								.getPartnerSchoolService();
+
+						PartnerService
+								.getSchoolByPaymentMode(paymentType)
+								.then(
+										function(list) {
+											$scope.fitlteredSchoolList = list;
+											$scope.t_totalAmountByPaymentType = 0;
+											angular
+													.forEach(
+															$scope.fitlteredSchoolList,
+															function(school) {
+																var paymentDetailList = $scope
+																		.getPaymentDetailListByCurrentYear(school);
+																$scope.t_totalAmountByPaymentType += paymentDetailList[0].payAmount;
+															});
+											$scope.loading = false;
+										});
+
 					}
 
-					$scope.filterCourierListBy = function(courierType) {
+					$scope.filterCourierListBy = function(courierLogistics) {
+						$scope.loading = true;
 						$scope.fitlteredCourierList = [];
 						$scope.t_totalCostByLogisticType = 0;
-						
-						angular
-								.forEach(
-										$scope.gfCouriertList,
-										function(courier) {
-											if (courier.logistics.trim() == courierType) {
-												$scope.fitlteredCourierList
-														.push(courier);
-												$scope.t_totalCostByLogisticType += courier.courierCost;
-											}
+
+						var gfCourierService = appEndpointSF
+								.getGFCourierService();
+						gfCourierService
+								.getCourierByLogisticsType(courierLogistics)
+								.then(
+										function(gfCouriertList) {
+											$scope.fitlteredCourierList = gfCouriertList;
+											angular
+													.forEach(
+															$scope.fitlteredCourierList,
+															function(courier) {
+																if (courier.logistics
+																		.trim() == courierLogistics) {
+																	$scope.t_totalCostByLogisticType += courier.courierCost;
+																}
+															});
+											$scope.loading = false;
 										});
+
 					}
 
 					$scope.filterBy = function(fType, fSubType) {
-						
-						$scope.otherFilterType=fType;
-						$scope.filterSubType=fSubType;
-						
+
+						$scope.otherFilterType = fType;
+						$scope.filterSubType = fSubType;
+
 						$location.hash('topRight');
 						$anchorScroll();
-						$scope.displayButton=true;
+						$scope.displayButton = true;
 						$scope.filterType = fType;
 						if ($scope.filterType == 'school') {
 							$scope.filterPaymentType = fSubType;
 							$scope.filterSchoolListBy(fSubType);
-							
+
 						} else if ($scope.filterType == 'courier') {
 							$scope.filterLogisticsType = fSubType;
 							$scope.filterCourierListBy(fSubType);
-							
+
 						}
 
-					}			
-							
-						$scope.downloadSummaryReport = function(){
-							document.location.href="DownloadFinicialSummaryReport?summaryReportFilterType1="+$scope.otherFilterType+"&summaryReportFilterType2="+$scope.filterSubType;
-						}
-							
+					}
+
+					$scope.downloadSummaryReport = function() {
+						document.location.href = "DownloadFinicialSummaryReport?summaryReportFilterType1="
+								+ $scope.otherFilterType
+								+ "&summaryReportFilterType2="
+								+ $scope.filterSubType;
+					}
 
 					$scope.getRowStyle = function(even) {
 						if (!even) {
@@ -241,7 +293,7 @@ angular
 							};
 						}
 					}
-					
+
 					$scope.getTHStyle = function() {
 						return {
 							'border' : '1px solid black',
