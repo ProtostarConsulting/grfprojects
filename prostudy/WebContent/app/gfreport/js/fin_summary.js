@@ -11,41 +11,6 @@ angular
 					$scope.loading = true;
 					$scope.filterType = '';
 
-					$scope.pSchoolList = [];
-					$scope.gfCouriertList = [];
-
-					$scope.noOfPaymentsTotal = 0;
-					$scope.amountPaymentsTotal = 0;
-					$scope.noOfCourierParcelsTotal = 0;
-					$scope.chargesCourierTotal = 0;
-
-					$scope.paymentModes = [ {
-						mode : 'Cash',
-						noOfPayments : 0,
-						amount : 0
-					}, {
-						mode : 'D.D',
-						noOfPayments : 0,
-						amount : 0
-					}, {
-						mode : 'NEFT/RTGS',
-						noOfPayments : 0,
-						amount : 0
-					}, {
-						mode : 'Other',
-						noOfPayments : 0,
-						amount : 0
-					} ];
-
-					$scope.logisticsListData = [];
-					angular.forEach(logisticsList, function(o) {
-						$scope.logisticsListData.push({
-							logistic : o,
-							noOfParcels : 0,
-							charges : 0
-						});
-					});
-
 					$scope.getPaymentDetailListByCurrentYear = function(school) {
 						var date1 = new Date();
 						var year1 = date1.getFullYear();
@@ -64,80 +29,7 @@ angular
 						return paymentDetailList;
 					}
 
-					function updatePaymentModeObj(school, modesArray) {
-						var paymentDetailList = $scope
-								.getPaymentDetailListByCurrentYear(school);
-						if (paymentDetailList.length > 0) {
-							var paymentModeIndex = modesArray
-									.indexOf(paymentDetailList[0].payReceivedBy
-											.trim())
-							if (paymentModeIndex >= 0) {
-								paymentModeObj = $scope.paymentModes[paymentModeIndex];
-								paymentModeObj.noOfPayments += 1;
-								paymentModeObj.amount += paymentDetailList[0].payAmount;
-								$scope.noOfPaymentsTotal++;
-								$scope.amountPaymentsTotal += paymentDetailList[0].payAmount;
 
-							}
-						}
-					}
-
-					$scope.calculateBySchoolList = function() {
-						var modesArray = [];
-						angular.forEach($scope.paymentModes, function(o) {
-							modesArray.push(o.mode);
-						});
-						angular.forEach($scope.pSchoolList, function(school) {
-							updatePaymentModeObj(school, modesArray);
-						});
-					}
-
-					$scope.getPartnerSchoolByInstitute = function() {
-						var PartnerService = appEndpointSF
-								.getPartnerSchoolService();
-
-						PartnerService.getPartnerByInstitute(
-								$scope.curUser.instituteID).then(
-								function(pSchoolList) {
-									$scope.pSchoolList = pSchoolList;
-									$scope.calculateBySchoolList();
-									$scope.loading = false;
-								});
-					}
-
-					function updateLogisticListObj(courierObj) {
-						if (!courierObj.logistics) {
-							return;
-						}
-
-						var logisticsIndex = logisticsList
-								.indexOf(courierObj.logistics.trim())
-						if (logisticsIndex >= 0) {
-							logisticsObj = $scope.logisticsListData[logisticsIndex];
-							logisticsObj.noOfParcels += 1;
-							logisticsObj.charges += courierObj.courierCost;
-							$scope.noOfCourierParcelsTotal++;
-							$scope.chargesCourierTotal += courierObj.courierCost;
-
-						}
-					}
-
-					$scope.calculateByCourierList = function() {
-						angular.forEach($scope.gfCouriertList, function(
-								courierObj) {
-							updateLogisticListObj(courierObj);
-						});
-					}
-					$scope.getGFCourierByInstitute = function(refresh) {
-						var gfCourierService = appEndpointSF
-								.getGFCourierService();
-						gfCourierService.getGFCourierByInstitute(
-								$scope.curUser.instituteID).then(
-								function(gfCouriertList) {
-									$scope.gfCouriertList = gfCouriertList;
-									$scope.calculateByCourierList();
-								});
-					}
 					$scope.getFinSummayReportData = function() {
 						var PartnerService = appEndpointSF
 								.getPartnerSchoolService();
@@ -254,6 +146,7 @@ angular
 
 						$location.hash('topRight');
 						$anchorScroll();
+						
 						$scope.displayButton = true;
 						$scope.filterType = fType;
 						if ($scope.filterType == 'school') {

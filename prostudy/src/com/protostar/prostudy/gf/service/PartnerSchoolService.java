@@ -27,6 +27,7 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.QueryResultIterator;
+import com.google.appengine.api.memcache.Expiration;
 import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
 import com.google.common.base.CaseFormat;
@@ -51,7 +52,16 @@ public class PartnerSchoolService {
 	public static boolean notificationEnabled = true;
 	private Entity schoolAndStudentCountEntity = new Entity(
 			CURRENT_YEAR_SCHOOL_AND_STUDENT_COUNT_KIND,
-			CURRENT_YEAR_SCHOOL_AND_STUDENT_COUNT_KEY);;
+			CURRENT_YEAR_SCHOOL_AND_STUDENT_COUNT_KEY);
+	public static String currentYear;
+	static {
+		Date date = new Date();
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		Integer year = cal.get(Calendar.YEAR);
+		currentYear = "".concat(year.toString()).concat("-")
+				.concat("" + (year - 1999));
+	}
 
 	// private boolean notificationEnabled = false;
 
@@ -133,12 +143,6 @@ public class PartnerSchoolService {
 
 		if (partnerSchoolEntity == null)
 			return null;
-		Date date = new Date();
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(date);
-		Integer year = cal.get(Calendar.YEAR);
-		String currentYear = "".concat(year.toString()).concat("-")
-				.concat("" + (year - 1999));
 
 		for (ExamDetail exam : partnerSchoolEntity.getExamDetailList()) {
 			if (currentYear.equals(exam.getYearOfExam())) {
@@ -319,8 +323,7 @@ public class PartnerSchoolService {
 
 		List<PartnerSchoolEntity> fileredSchoolList = new ArrayList<PartnerSchoolEntity>();
 
-		for (int i = 0; i < schoolList.size(); i++) {
-			PartnerSchoolEntity currentSchool = schoolList.get(i);
+		for (PartnerSchoolEntity currentSchool : schoolList) {
 			ExamDetail examDeatil = getExamDeatilByCurretnYear(currentSchool);
 			if (examDeatil == null) {
 				continue;
@@ -337,7 +340,6 @@ public class PartnerSchoolService {
 					fileredSchoolList.add(currentSchool);
 				}
 			}
-
 		}
 
 		return fileredSchoolList;
@@ -349,12 +351,18 @@ public class PartnerSchoolService {
 		SchoolAndStudentCount schoolAndStudentCount = new SchoolAndStudentCount();
 		MemcacheService memcacheService = MemcacheServiceFactory
 				.getMemcacheService();
+		logger.info("schoolAndStudentCountEntity.getKey():"
+				+ schoolAndStudentCountEntity.getKey().toString());
 		Object cacheObject = memcacheService.get(schoolAndStudentCountEntity
 				.getKey());
 
 		if (cacheObject != null && cacheObject instanceof SchoolAndStudentCount) {
+			logger.info("Got schoolAndStudentCountEntity in Cache: "
+					+ schoolAndStudentCountEntity);
 			schoolAndStudentCount = (SchoolAndStudentCount) cacheObject;
 		} else {
+			logger.info("NOT found schoolAndStudentCountEntity in Cache. Need to get from Datastore... "
+					+ schoolAndStudentCountEntity);
 			DatastoreService datastore = DatastoreServiceFactory
 					.getDatastoreService();
 
@@ -522,7 +530,8 @@ public class PartnerSchoolService {
 
 	}
 
-	private class PaymentModeWiseData {
+	static class PaymentModeWiseData implements Serializable {
+		private static final long serialVersionUID = 1L;
 		public String paymentMode;
 		public Long noOfPayments = 0L;
 		public Float amount = 0F;
@@ -530,10 +539,10 @@ public class PartnerSchoolService {
 		public PaymentModeWiseData(String paymentMode) {
 			this.paymentMode = paymentMode;
 		}
-
 	}
 
-	private class LogisticsWiseData {
+	static class LogisticsWiseData implements Serializable {
+		private static final long serialVersionUID = 1L;
 		public String logistic;
 		public Long noOfParcels = 0L;
 		public Float charges = 0F;
@@ -543,64 +552,36 @@ public class PartnerSchoolService {
 		}
 	}
 
-	private class FinSummayReportData {
+	static class FinSummayReportData implements Serializable {
+		private static final long serialVersionUID = 1L;
 		public List<PaymentModeWiseData> paymentModesData = new ArrayList<PaymentModeWiseData>();
 		public List<LogisticsWiseData> logisticsWiseData = new ArrayList<LogisticsWiseData>();
 
 		public Float amountPaymentsTotal = 0F;
 		public Float chargesCourierTotal = 0F;
-
-		public void updatePaymentModeWiseData(
-				PartnerSchoolEntity partnerSchoolEntity) {
-			ExamDetail examDeatil = getExamDeatilByCurretnYear(partnerSchoolEntity);
-			if (examDeatil == null) {
-				return;
-			}
-			List<PaymentDetail> paymentDetailList = examDeatil
-					.getPaymentDetail();
-			if (paymentDetailList == null || paymentDetailList.size() == 0) {
-				return;
-			}
-			for (PaymentDetail paymentDetail : paymentDetailList) {
-				for (PaymentModeWiseData paymentModeReportObj : paymentModesData) {
-					if (paymentDetail.getPayReceivedBy() != null
-							&& paymentModeReportObj.paymentMode
-									.equalsIgnoreCase(paymentDetail
-											.getPayReceivedBy().trim())) {
-						paymentModeReportObj.noOfPayments++;
-						paymentModeReportObj.amount += paymentDetail
-								.getPayAmount();
-						amountPaymentsTotal += paymentDetail.getPayAmount();
-						;
-					}
-				}
-			}
-		}
-
-		public void updateLogisticsModeWiseData(GFCourierEntity courierEntity) {
-			if (courierEntity.getCourierDocketID() == null
-					|| courierEntity.getCourierDocketID().isEmpty()) {
-				return;
-			}
-			for (LogisticsWiseData logisticsReportObj : logisticsWiseData) {
-				if (courierEntity.getLogistics() != null
-						&& logisticsReportObj.logistic
-								.equalsIgnoreCase(courierEntity.getLogistics()
-										.trim())) {
-					logisticsReportObj.noOfParcels++;
-					logisticsReportObj.charges += courierEntity
-							.getCourierCost();
-					chargesCourierTotal += courierEntity.getCourierCost();
-				}
-			}
-
-		}
 	}
 
 	@ApiMethod(name = "getFinSummayReportData", path = "getFinSummayReportData")
 	public FinSummayReportData getFinSummayReportData(
 			@Named("instituteID") Long id) {
 
+		MemcacheService memcacheService = MemcacheServiceFactory
+				.getMemcacheService();
+		String memecacheKey = "FinSummayReportData-" + currentYear;
+
+		Object foundCacheObject = memcacheService.get(memecacheKey);
+		if (foundCacheObject != null) {
+			if (foundCacheObject instanceof FinSummayReportData) {
+				logger.info("getFinSummayReportData-finSummayReportData Found in Cache, returning it."
+						+ foundCacheObject);
+				return (FinSummayReportData) foundCacheObject;
+			} else {
+				logger.info("getFinSummayReportData-finSummayReportData Found in Cache is WRONG type");
+			}
+		}
+
+		logger.info("getFinSummayReportData-finSummayReportData NOT Found in Cache:"
+				+ foundCacheObject);
 		FinSummayReportData finSummayReportData = new FinSummayReportData();
 		String[] paymentModes = { "Cash", "D.D", "NEFT/RTGS", "Other" };
 		String[] logisticsList = { "By Post", "By Hand", "ST Postal",
@@ -615,21 +596,71 @@ public class PartnerSchoolService {
 					string));
 		}
 
-		List<PartnerSchoolEntity> schoolList = ofy().load()
-				.type(PartnerSchoolEntity.class).filter("instituteID", id)
-				.list();
-		System.out.println("schoolList:" + schoolList.size());
-		for (PartnerSchoolEntity partnerSchoolEntity : schoolList) {
-			finSummayReportData.updatePaymentModeWiseData(partnerSchoolEntity);
-		}
+		updatePaymentModesData(finSummayReportData);
+		updateLogisticsData(finSummayReportData);
+		Expiration expirationTenMins = Expiration.byDeltaSeconds(60 * 60);
+		// put in memcache.
+		memcacheService.put(memecacheKey, finSummayReportData,
+				expirationTenMins);
 
+		return finSummayReportData;
+	}
+
+	private void updateLogisticsData(FinSummayReportData finSummayReportData) {
 		List<GFCourierEntity> courierList = ofy().load()
 				.type(GFCourierEntity.class).list();
-		System.out.println("courierList:" + courierList.size());
+
 		for (GFCourierEntity courierEntity : courierList) {
-			finSummayReportData.updateLogisticsModeWiseData(courierEntity);
+			/*if (courierEntity.getCourierDocketID() == null
+					|| courierEntity.getCourierDocketID().isEmpty()) {
+				continue;
+			}*/
+			for (LogisticsWiseData logisticsReportObj : finSummayReportData.logisticsWiseData) {
+				if (courierEntity.getLogistics() != null
+						&& logisticsReportObj.logistic
+								.equalsIgnoreCase(courierEntity.getLogistics()
+										.trim())) {
+					logisticsReportObj.noOfParcels++;
+					logisticsReportObj.charges += courierEntity
+							.getCourierCost();
+					finSummayReportData.chargesCourierTotal += courierEntity
+							.getCourierCost();
+					continue;
+				}
+			}
 		}
-		return finSummayReportData;
+	}
+
+	private void updatePaymentModesData(FinSummayReportData finSummayReportData) {
+		List<PartnerSchoolEntity> schoolList = ofy().load()
+				.type(PartnerSchoolEntity.class).list();
+
+		for (PartnerSchoolEntity partnerSchoolEntity : schoolList) {
+			ExamDetail examDeatil = getExamDeatilByCurretnYear(partnerSchoolEntity);
+			if (examDeatil == null) {
+				continue;
+			}
+			List<PaymentDetail> paymentDetailList = examDeatil
+					.getPaymentDetail();
+			if (paymentDetailList == null || paymentDetailList.size() == 0) {
+				continue;
+			}
+			for (PaymentDetail paymentDetail : paymentDetailList) {
+				for (PaymentModeWiseData paymentModeReportObj : finSummayReportData.paymentModesData) {
+					if (paymentDetail.getPayReceivedBy() != null
+							&& paymentModeReportObj.paymentMode
+									.equalsIgnoreCase(paymentDetail
+											.getPayReceivedBy().trim())) {
+						paymentModeReportObj.noOfPayments++;
+						paymentModeReportObj.amount += paymentDetail
+								.getPayAmount();
+						finSummayReportData.amountPaymentsTotal += paymentDetail
+								.getPayAmount();
+						continue;
+					}
+				}
+			}
+		}
 	}
 }// end of ChapterService
 
