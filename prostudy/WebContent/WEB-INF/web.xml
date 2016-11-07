@@ -89,6 +89,16 @@
     <url-pattern>/UploadBulkBookServlet</url-pattern>
   </servlet-mapping>
   <servlet>
+    <description></description>
+    <display-name>UploadPartnerSchoolUser</display-name>
+    <servlet-name>UploadPartnerSchoolUser</servlet-name>
+    <servlet-class>com.protostar.prostudy.gf.service.UploadPartnerSchoolUser</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UploadPartnerSchoolUser</servlet-name>
+    <url-pattern>/UploadPartnerSchoolUser</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <description/>
     <display-name>DownloadScheduledExamResult</display-name>
     <servlet-name>DownloadScheduledExamResult</servlet-name>
