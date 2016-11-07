@@ -1093,7 +1093,7 @@ app
 						}
 					})
 					.state('partnerSchool.listPartnerSchool', {
-						url : "/listPartnerSchool",
+						url : "/listPartnerSchool/:selectedPSchoolId",
 						templateUrl : '/app/gfschool/partnerSchool_list.html',
 						controller : 'partnerSchoolListCtr'
 					})
