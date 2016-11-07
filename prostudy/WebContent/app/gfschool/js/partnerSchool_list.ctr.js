@@ -23,6 +23,7 @@ angular
 					$scope.pSchoolList = [];
 					$scope.schools = [];
 					$scope.pagingInfoReturned = null;
+					$scope.selectedPSchoolId = $stateParams.selectedPSchoolId?$stateParams.selectedPSchoolId:null;
 
 					$scope.refreshListPage = function() {
 						// Remove cache and reset everything.
@@ -356,5 +357,109 @@ angular
 						};
 
 					}
+					
+					// -----------------------Upload School User-----
+					// CSV-------------------
+					$scope.UploadSchoolUserExcel = function(ev) {
+
+						var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))
+								&& $scope.customFullscreen;
+						$mdDialog
+								.show(
+										{
+											controller : DialogController,
+											templateUrl : '/app/gfschool/uploadSchoolUser.html',
+											parent : angular
+													.element(document.body),
+											targetEvent : ev,
+											clickOutsideToClose : true,
+											fullscreen : useFullScreen,
+											locals : {
+												curUser : $scope.curUser,
+												getFreshScools : $scope.selectedPSchoolId
+											}
+										})
+								.then(
+										function(answer) {
+											$scope.status = 'You said the information was "'
+													+ answer + '".';
+										},
+										function() {
+											$scope.status = 'You cancelled the dialog.';
+										});
+					};
+					
+					function DialogController($scope, $mdDialog, curUser,getFreshScools) {
+
+						$scope.csvFile;
+						$scope.uploadProgressMsg = null;
+						$scope.uploadSchoolUserCSV = function() {
+							var csvFile = $scope.csvFile;
+							Upload
+									.upload({
+										url : 'UploadPartnerSchoolUser',
+										data : {
+											file : csvFile,
+											'instituteId' : curUser.instituteID,
+											'partnerSchoolID' :getFreshScools
+										}
+									})
+									.then(
+											function(resp) {
+												$log
+														.debug('Successfully uploaded '
+																+ resp.config.data.file.name
+																+ '.'
+																+ angular
+																		.toJson(resp.data));
+												$scope.uploadProgressMsg = 'Successfully uploaded '
+														+ resp.config.data.file.name
+														+ '.';
+												$mdToast
+														.show($mdToast
+																.simple()
+																.content(
+																		'School User Data Uploaded Sucessfully.')
+																.position("top")
+																.hideDelay(3000));
+
+												$scope.csvFile = null;
+												$timeout(function() {
+													$scope.cancel();
+												}, 3000);
+												// Load the books again in the
+												// end
+
+											},
+											function(resp) {
+												$log
+														.debug('Error Ouccured, Error status: '
+																+ resp.status);
+												$scope.uploadProgressMsg = 'Error: '
+														+ resp.status;
+											},
+											function(evt) {
+												var progressPercentage = parseInt(100.0
+														* evt.loaded
+														/ evt.total);
+												$log
+														.debug('Upload progress: '
+																+ progressPercentage
+																+ '% '
+																+ evt.config.data.file.name);
+												$scope.uploadProgressMsg = 'Upload progress: '
+														+ progressPercentage
+														+ '% '
+														+ evt.config.data.file.name;
+												+'...'
+											});
+						};
+
+						$scope.cancel = function() {
+							$mdDialog.cancel();
+						};
+
+					}
+
 
 				});
