@@ -2,9 +2,11 @@ package com.protostar.prostudy.entity;
 
 import java.util.List;
 
+import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
+import com.protostar.prostudy.gf.entity.PartnerSchoolEntity;
 
 @Entity
 public class UserEntity {
@@ -41,7 +43,16 @@ public class UserEntity {
 	@Index
 	private long selectedExam;
 
+	@Index
+	private Ref<PartnerSchoolEntity> school;
+	
+	public PartnerSchoolEntity getSchool() {
+		return school == null ? null : school.get();
+	}
 
+	public void setSchool(PartnerSchoolEntity school) {
+		this.school = Ref.create(school);
+	}
 	
 	public String getStatus() {
 		return status;
