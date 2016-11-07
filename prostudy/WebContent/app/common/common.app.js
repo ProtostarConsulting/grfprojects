@@ -1,7 +1,7 @@
 var app = angular.module("prostudyApp", [ 'ngMaterial', 'ngMdIcons',
 		'ngMessages', "ui.bootstrap", "ui.router", 'ngMaterialDatePicker',
-		'md.data.table', 'ngResource', 'ngRoute', 'ngStorage', "ngAria", "ngSanitize", 'textAngular',
-		'directive.g+signin', 'ngFileUpload' ]);
+		'md.data.table', 'ngResource', 'ngRoute', 'ngStorage', "ngAria",
+		"ngSanitize", 'textAngular', 'directive.g+signin', 'ngFileUpload' ]);
 
 // Set up the cache ‘ajsCache’
 app.factory('ajsCache', function($cacheFactory) {
@@ -266,9 +266,9 @@ app
 						url : "/practiceexam",
 						templateUrl : '/app/exam/practiceExamTest.html',
 						controller : 'practiceExamTestCtr',
-						params: {
-							selectedExamId: '',
-							foundSchool: null
+						params : {
+							selectedExamId : '',
+							foundSchool : null
 						}
 					})
 					.state('exam.view', {
@@ -1330,6 +1330,14 @@ app
 							reviewByGrfRegNo : null
 						}
 					})
+					.state('studentModule.printCertificateDetail', {
+						url : "/printExamResult",
+						templateUrl : '/app/gfstudent/printCertificateDetail.html',
+						controller : 'printCertificateDetailCtr',
+						params : {
+							selectedSchoolObj: null
+						}
+					})
 					.state('studentModule.gvspStartExam', {
 						url : "/gvspExamStart",
 						templateUrl : '/app/gfstudent/gvsp_start_form.html',
@@ -1525,23 +1533,24 @@ app
 					};
 				});
 app.directive('capitalize', function() {
-	  return {
-	    require: 'ngModel',
-	    link: function(scope, element, attrs, modelCtrl) {
-	      var capitalize = function(inputValue) {
-	        if (inputValue == undefined) inputValue = '';
-	        var capitalized = inputValue.toUpperCase();
-	        if (capitalized !== inputValue) {
-	          modelCtrl.$setViewValue(capitalized);
-	          modelCtrl.$render();
-	        }
-	        return capitalized;
-	      }
-	      modelCtrl.$parsers.push(capitalize);
-	      capitalize(scope[attrs.ngModel]); // capitalize initial value
-	    }
-	  };
-	});
+	return {
+		require : 'ngModel',
+		link : function(scope, element, attrs, modelCtrl) {
+			var capitalize = function(inputValue) {
+				if (inputValue == undefined)
+					inputValue = '';
+				var capitalized = inputValue.toUpperCase();
+				if (capitalized !== inputValue) {
+					modelCtrl.$setViewValue(capitalized);
+					modelCtrl.$render();
+				}
+				return capitalized;
+			}
+			modelCtrl.$parsers.push(capitalize);
+			capitalize(scope[attrs.ngModel]); // capitalize initial value
+		}
+	};
+});
 
 app.filter('unique', function() {
 	return function(input, key) {
@@ -1567,26 +1576,27 @@ app.filter('formatFullDate', function($filter) {
 		return $filter('date')(inputDate, 'dd-MM-yyyy HH:MM a');
 	};
 });
-app.filter('trim', function () {
-    return function(value) {
-        if(!angular.isString(value)) {
-            return value;
-        }  
-        return value.replace(/^\s+|\s+$/g, ''); // you could use .trim, but it's not going to work in IE<9
-    };
+app.filter('trim', function() {
+	return function(value) {
+		if (!angular.isString(value)) {
+			return value;
+		}
+		return value.replace(/^\s+|\s+$/g, ''); // you could use .trim, but it's
+												// not going to work in IE<9
+	};
 });
 app.filter('stripHtml', function() {
 	return function(text) {
-		return  text ? String(text).replace(/<[^>]+>/gm, '') : '';
+		return text ? String(text).replace(/<[^>]+>/gm, '') : '';
 	};
 });
-app.filter('first100Chars', function () {
-    return function(value) {
-        if(!angular.isString(value)) {
-            return value;
-        }  
-        return value.length>100?value.substring(0, 99) + '...':value;
-    };
+app.filter('first100Chars', function() {
+	return function(value) {
+		if (!angular.isString(value)) {
+			return value;
+		}
+		return value.length > 100 ? value.substring(0, 99) + '...' : value;
+	};
 });
 
 app.filter('orderObjectBy', function() {
@@ -1609,7 +1619,6 @@ app.filter('orderObjectBy', function() {
 		return array;
 	}
 });
-
 
 /*
  * app.filter('orderByGRFRegNo', function() { return function(input, attribute) {

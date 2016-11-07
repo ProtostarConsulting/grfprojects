@@ -65,6 +65,11 @@
 				<div layout="column">
 					<div layout="row" layout-xs="column">
 						<span><b>School/College Name: &nbsp;</b></span><span>{{foundSchool.schoolName}}</span>
+						<span flex>&nbsp;</span>
+						<div>
+							<md-button class="md-raised md-primary"
+								ui-sref="studentModule.printCertificateDetail({selectedSchoolObj: foundSchool})">Print</md-button>
+						</div>
 					</div>
 					<div layout="row" layout-xs="column">
 						<span><b>Co-ordinator Name:
@@ -76,29 +81,23 @@
 				<ng-form name="examSumaryForm" ng-style="getFormRowStyle()">
 				<table>
 					<tr>
-						<td ng-style="getTableStyle()" flex="10">Standard</td>
-						<td ng-repeat="book in bookDetailList" ng-style="getTableStyle()">{{book.standard}}</td>
-						<td ng-style="getTableStyle()" flex="10">No. of Coordinators</td>
+						<td ng-style="getTableStyle()">Standard</td>
+						<td ng-repeat="book in bookDetailList" ng-style="getTableStyle()">{{book.standard
+							+ '-' + getGFBookByID(book.bookName).bookMedium}}</td>
+						<td ng-style="getTableStyle()">No. of Coordinators</td>
 					</tr>
 					<tr>
-						<td ng-style="getTableStyle()" flex="10">Total Students
-							Registered</td>
+						<td ng-style="getTableStyle()">Total Students Registered</td>
 						<td ng-repeat="book in bookDetailList" ng-style="getTableStyle()">{{book.totalStud}}</td>
-						<td ng-style="getTableStyle()" flex="10"></td>
+						<td ng-style="getTableStyle()"></td>
 					</tr>
 					<tr>
-						<td ng-style="getTableStyle()" flex="10">Total Students
-							Appeared</td>
+						<td ng-style="getTableStyle()">Total Students Appeared</td>
 						<td ng-repeat="book in bookDetailList" ng-style="getTableStyle()"><md-input-container
-								style="margin: 0; padding: 0; padding-left: 5px;">
+								style="margin: 0; padding: 0; padding-left: 0px;">
 							<input name=appearedTotal aria-label="Total Students Appeared"
 								type="number" ng-model="book.appearedTotalStud"
-								ng-required="true">
-							<div ng-messages="recordForm.marks.$error"
-								ng-if="examSumaryForm.appearedTotal.$submitted || examSumaryForm.appearedTotal.$touched">
-								<div ng-message="required">This field is required.</div>
-							</div>
-							</md-input-container></td>
+								ng-required="true"> </md-input-container></td>
 						<td ng-style="getTableStyle()"><md-input-container
 								style="margin: 0; padding: 0; padding-left: 5px;">
 							<input name=noOfCordinators aria-label="Total Students Appeared"
@@ -171,7 +170,11 @@
 						<md-button class="md-icon-button" id="addStudent"
 							ng-click="addMoreStudent(std)"> <ng-md-icon
 							icon="add_circle" style="fill: md-default" size="24">
-						<md-tooltip>Add More Students</md-tooltip></ng-md-icon></md-button>
+						<md-tooltip>Add 5 More Students</md-tooltip></ng-md-icon></md-button>
+						<md-button class="md-icon-button" id="removeStudent"
+							ng-click="removeStudent(std)"> <ng-md-icon
+							icon="remove_circle_outline" style="fill: md-default" size="24">
+						<md-tooltip>Remove Last Student Row</md-tooltip></ng-md-icon></md-button>
 					</div>
 				</div>
 

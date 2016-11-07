@@ -225,7 +225,7 @@ angular
 											}
 
 											if (!$scope.curUser) {
-												$scope.data.guestSuccessMsg = "Data saved successfully. If any question, please contact GRF office. Thank you.";												
+												$scope.data.guestSuccessMsg = "Data saved successfully. If any question, please contact GRF office. Thank you.";
 											} else {
 												$state.reload();
 											}
@@ -234,13 +234,22 @@ angular
 					}
 
 					$scope.addMoreStudent = function(std) {
-
 						for (var i = 1; i <= 5; i++) {
 							$scope.examResultList
 									.push($scope.getEmptyExamResult(
 											$scope.foundSchool, std));
-
 						}
+					}
+
+					$scope.removeStudent = function(std) {
+						var foundIndexList = [];
+						for (var i = 0; i < $scope.examResultList.length; i++) {
+							if($scope.examResultList[i].standard == std){
+								foundIndexList.push(i);
+							}
+						}						
+						$scope.examResultList.splice(foundIndexList[foundIndexList.length -1 ], 1);
+						//remove last row for given std
 					}
 
 					$scope.saveReviewedExamResultList = function() {
@@ -257,12 +266,34 @@ angular
 						$scope.addExamResultList();
 					}
 
+					$scope.bookStocks = [];
+					$scope.getGFBookStockByInstituteId = function() {
+						var gfBookStockService = appEndpointSF
+								.getGFBookStockService();
+						gfBookStockService.getGFBookByInstituteId(
+								$scope.curUser.instituteID).then(
+								function(tempBooks) {
+									$scope.bookStocks = tempBooks;
+								});
+					}
+					$scope.getGFBookByID = function(id) {
+						var foundBook = {};
+						angular.forEach($scope.bookStocks, function(bookObj) {
+							if (bookObj.id == id) {
+								foundBook = bookObj;
+							}
+						});
+
+						return foundBook;
+					}
+
 					$scope.cancel = function() {
 						$state.go('gandhifoundation');
 					}
 
 					$scope.waitForServiceLoad = function() {
 						if (appEndpointSF.is_service_ready) {
+							$scope.getGFBookStockByInstituteId();
 							if ($scope.reviewByGrfRegNo) {
 								$scope.grfRegNoChange($scope.reviewByGrfRegNo);
 							} else {
@@ -305,18 +336,16 @@ angular
 							'padding-top' : '1px',
 							'padding-bottom' : '2px'
 						};
-
 					}
 
 					$scope.getTableStyle = function() {
 						return {
-							'width' : '10%',
 							'border-collapse' : 'collapse',
 							'border' : '1px solid black',
 							'padding-left' : '5px',
 							'padding-right' : '5px',
 							'padding-top' : '5px'
 						};
-
 					}
+
 				});
