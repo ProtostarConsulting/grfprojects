@@ -96,7 +96,7 @@ angular
 							var payTotal = 0;
 							var paymentDate = '';
 							for (var i = 0; i < paymentDetailList.length; i++) {
-								if ($scope.filterPaymentType == paymentDetailList[0].payReceivedBy
+								if ($scope.filterPaymentType == paymentDetailList[i].payReceivedBy
 										.trim()) {
 									payTotal += paymentDetailList[i].payAmount;
 									paymentDate = paymentDetailList[i].paymentDate;
