@@ -145,7 +145,7 @@ public class PartnerSchoolService {
 			return null;
 
 		for (ExamDetail exam : partnerSchoolEntity.getExamDetailList()) {
-			if (currentYear.equals(exam.getYearOfExam())) {
+			if (currentYear.equals(exam.getYearOfExam().trim())) {
 				currentYearExamDetail = exam;
 				break;
 			}
@@ -611,10 +611,10 @@ public class PartnerSchoolService {
 				.type(GFCourierEntity.class).list();
 
 		for (GFCourierEntity courierEntity : courierList) {
-			/*if (courierEntity.getCourierDocketID() == null
-					|| courierEntity.getCourierDocketID().isEmpty()) {
-				continue;
-			}*/
+			/*
+			 * if (courierEntity.getCourierDocketID() == null ||
+			 * courierEntity.getCourierDocketID().isEmpty()) { continue; }
+			 */
 			for (LogisticsWiseData logisticsReportObj : finSummayReportData.logisticsWiseData) {
 				if (courierEntity.getLogistics() != null
 						&& logisticsReportObj.logistic
@@ -632,35 +632,33 @@ public class PartnerSchoolService {
 	}
 
 	private void updatePaymentModesData(FinSummayReportData finSummayReportData) {
-		List<PartnerSchoolEntity> schoolList = ofy().load()
-				.type(PartnerSchoolEntity.class).list();
-
-		for (PartnerSchoolEntity partnerSchoolEntity : schoolList) {
-			ExamDetail examDeatil = getExamDeatilByCurretnYear(partnerSchoolEntity);
-			if (examDeatil == null) {
-				continue;
-			}
-			List<PaymentDetail> paymentDetailList = examDeatil
-					.getPaymentDetail();
-			if (paymentDetailList == null || paymentDetailList.size() == 0) {
-				continue;
-			}
-			for (PaymentDetail paymentDetail : paymentDetailList) {
-				for (PaymentModeWiseData paymentModeReportObj : finSummayReportData.paymentModesData) {
+		for (PaymentModeWiseData paymentModeReportObj : finSummayReportData.paymentModesData) {
+			List<PartnerSchoolEntity> schoolList = getSchoolByPaymentMode(paymentModeReportObj.paymentMode
+					.trim());
+			for (PartnerSchoolEntity partnerSchoolEntity : schoolList) {
+				ExamDetail examDeatil = getExamDeatilByCurretnYear(partnerSchoolEntity);
+				if (examDeatil == null) {
+					continue;
+				}
+				List<PaymentDetail> paymentDetailList = examDeatil
+						.getPaymentDetail();
+				if (paymentDetailList == null || paymentDetailList.size() == 0) {
+					continue;
+				}
+				for (PaymentDetail paymentDetail : paymentDetailList) {
 					if (paymentDetail.getPayReceivedBy() != null
 							&& paymentModeReportObj.paymentMode
 									.equalsIgnoreCase(paymentDetail
-											.getPayReceivedBy().trim())) {
-						paymentModeReportObj.noOfPayments++;
+											.getPayReceivedBy().trim())) {						
 						paymentModeReportObj.amount += paymentDetail
 								.getPayAmount();
 						finSummayReportData.amountPaymentsTotal += paymentDetail
-								.getPayAmount();
-						continue;
-					}
+								.getPayAmount();						
+					}					
 				}
+				paymentModeReportObj.noOfPayments++;
 			}
 		}
 	}
-}// end of ChapterService
+}// end of class
 

@@ -98,10 +98,11 @@ angular
 							for (var i = 0; i < paymentDetailList.length; i++) {
 								if ($scope.filterPaymentType == paymentDetailList[0].payReceivedBy
 										.trim()) {
-									payTotal += paymentDetailList[0].payAmount;
-									paymentDate = paymentDetailList[0].paymentDate;
+									payTotal += paymentDetailList[i].payAmount;
+									paymentDate = paymentDetailList[i].paymentDate;
 								}
 							}
+							
 							paymentDetailCal.payTotal = payTotal;
 							paymentDetailCal.paymentDate = paymentDate;
 							$scope.t_totalAmountByPaymentType += payTotal;
