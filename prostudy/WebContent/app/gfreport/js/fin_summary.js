@@ -11,25 +11,6 @@ angular
 					$scope.loading = true;
 					$scope.filterType = '';
 
-					$scope.getPaymentDetailListByCurrentYear = function(school) {
-						var date1 = new Date();
-						var year1 = date1.getFullYear();
-						year1 = year1.toString().substr(2, 2);
-						year1 = date1.getFullYear() + "-" + (Number(year1) + 1);
-
-						var paymentDetailList = [];
-						for (q = 0; q < school.examDetailList.length; q++) {
-							if (school.examDetailList[q].yearOfExam == year1) {
-								if (school.examDetailList[q].paymentDetail != undefined) {
-									paymentDetailList = school.examDetailList[q].paymentDetail;
-									break;
-								}
-							}
-						}
-						return paymentDetailList;
-					}
-
-
 					$scope.getFinSummayReportData = function() {
 						var PartnerService = appEndpointSF
 								.getPartnerSchoolService();
@@ -88,6 +69,47 @@ angular
 
 					}
 
+					var date1 = new Date();
+					var currentYear = date1.getFullYear();
+					currentYear = currentYear.toString().substr(2, 2);
+					currentYear = date1.getFullYear() + "-"
+							+ (Number(currentYear) + 1);
+
+					$scope.getPaymentTotalCurrentYear = function(school) {
+
+						var paymentDetailList = [];
+						for (q = 0; q < school.examDetailList.length; q++) {
+							if (school.examDetailList[q].yearOfExam == currentYear) {
+								if (school.examDetailList[q].paymentDetail != undefined) {
+									paymentDetailList = school.examDetailList[q].paymentDetail;
+									break;
+								}
+							}
+						}
+
+						var paymentDetailCal = {
+							'payTotal' : 0,
+							'paymentDate' : ''
+						}
+
+						if (paymentDetailList && paymentDetailList.length > 0) {
+							var payTotal = 0;
+							var paymentDate = '';
+							for (var i = 0; i < paymentDetailList.length; i++) {
+								if ($scope.filterPaymentType == paymentDetailList[0].payReceivedBy
+										.trim()) {
+									payTotal += paymentDetailList[0].payAmount;
+									paymentDate = paymentDetailList[0].paymentDate;
+								}
+							}
+							paymentDetailCal.payTotal = payTotal;
+							paymentDetailCal.paymentDate = paymentDate;
+							$scope.t_totalAmountByPaymentType += payTotal;
+						}
+
+						school.paymentDetailCal = paymentDetailCal;
+					}
+
 					$scope.filterSchoolListBy = function(paymentType) {
 						$scope.loading = true;
 						$scope.fitlteredSchoolList = [];
@@ -102,15 +124,15 @@ angular
 										function(list) {
 											$scope.fitlteredSchoolList = list;
 											$scope.t_totalAmountByPaymentType = 0;
+
 											angular
 													.forEach(
 															$scope.fitlteredSchoolList,
 															function(school) {
-																var paymentDetailList = $scope
-																		.getPaymentDetailListByCurrentYear(school);
-																for (var i = 0; i < paymentDetailList.length; i++)
-																	$scope.t_totalAmountByPaymentType += paymentDetailList[i].payAmount;
+																$scope
+																		.getPaymentTotalCurrentYear(school);
 															});
+
 											$scope.loading = false;
 										});
 
@@ -146,7 +168,7 @@ angular
 
 						$location.hash('topRight');
 						$anchorScroll();
-						
+
 						$scope.displayButton = true;
 						$scope.filterType = fType;
 						if ($scope.filterType == 'school') {

@@ -126,10 +126,10 @@
 				<td style="border: 1px solid black; text-align: left; padding: 2px;">{{school.address.tal
 					+ ', ' + school.address.dist}}</td>
 				<!-- <td style="border: 1px solid black; padding: 5px; text-align: left;">{{getPaymentDetailListByCurrentYear(school)[0].payReceivedBy}}</td> -->
-				<td style="border: 1px solid black; padding: 2px; text-align: left;">{{getPaymentDetailListByCurrentYear(school)[0].paymentDate
+				<td style="border: 1px solid black; padding: 2px; text-align: left;">{{school.paymentDetailCal.paymentDate
 					| date:"dd-MM-yyyy"}}</td>
 				<td
-					style="border: 1px solid black; padding: 2px; text-align: right;">{{getPaymentDetailListByCurrentYear(school)[0].payAmount
+					style="border: 1px solid black; padding: 2px; text-align: right;">{{school.paymentDetailCal.payTotal
 					| currency:""}}</td>
 
 			</tr>
