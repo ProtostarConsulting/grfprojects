@@ -370,14 +370,30 @@ angular
 						for (var i = 0; i < $scope.partnerSchool.contactDetail.coordinatorDetail.length; i++) {
 							$scope.partnerSchool.contactDetail.coordinatorDetail[i].coordinatorMobileNum = parseInt($scope.partnerSchool.contactDetail.coordinatorDetail[i].coordinatorMobileNum);
 						}
-						$scope.a;
+						
+						/*$scope.a;
 						$scope.getDistricts($scope.a,
 								$scope.Address.state);
 						$scope.getTalukas($scope.a,
-								$scope.Address.dist);
+								$scope.Address.dist);*/
+						
+						if( $scope.partnerSchool.address.state  != "Maharashtra"){
+							$scope.partnerSchool.address.otherAddressFlag = true;
+						}
+						
+						if($scope.partnerSchool.address.otherAddressFlag == false){
+							$scope.a;
+							$scope.getDistricts($scope.a,
+									$scope.Address.state);
+							if($scope.temp.tempDistricts)
+								$scope.getTalukas($scope.a,
+									$scope.Address.dist);
+						}
+						
 						if ($scope.partnerSchool.examDetailList) {
 							$scope.examlist = $scope.partnerSchool.examDetailList;
 						}
+						
 						if ($scope.partnerSchool.address.otherAddressFlag == true) {
 							var temp = $scope.partnerSchool.address.state;
 							$scope.partnerSchool.address.state = "Other";

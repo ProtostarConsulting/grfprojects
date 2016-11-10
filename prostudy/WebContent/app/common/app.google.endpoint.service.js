@@ -149,6 +149,18 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 
 		return deferred.promise;
 	}
+	
+	GFCourierService.getCourierByDispatchDate = function(date) {
+		var deferred = $q.defer();
+		gapi.client.gfCourierService.getCourierByDispatchDate({
+			"dispatchDate" : date
+		}).execute(function(resp) {
+			deferred.resolve(resp.items);
+		});
+
+		return deferred.promise;
+	}
+	
 	GFCourierService.fetchCourierListByPaging = function(id, pagingInfo) {
 		var deferred = $q.defer();
 		gapi.client.gfCourierService.fetchCourierListByPaging({

@@ -217,7 +217,7 @@
 
 								</table>
 							</div>
-							<br ng-repeat="n in [] | range:(23-BookDetail.length)">
+							<br ng-repeat="n in [] | range:(((BookDetail.length > 10)?25:35) - BookDetail.length)">
 							<div style="font-size: 9px; padding: 10px;">
 								<br> <br> <br> <br> Created By:
 								{{curUser.firstName}} {{curUser.lastName}}<br> <br> <br>

@@ -5,9 +5,11 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.logging.Logger;
 
 import javax.mail.MessagingException;
@@ -24,8 +26,8 @@ import com.protostar.prostudy.gf.entity.ExamDetail;
 import com.protostar.prostudy.gf.entity.GFBookEntity;
 import com.protostar.prostudy.gf.entity.GFBookTransactionEntity;
 import com.protostar.prostudy.gf.entity.GFCourierEntity;
-import com.protostar.prostudy.gf.entity.GFExamResultEntity;
 import com.protostar.prostudy.gf.entity.PartnerSchoolEntity;
+import com.protostar.prostudy.until.data.DateUtil;
 import com.protostar.prostudy.until.data.EntityPagingInfo;
 
 @Api(name = "gfCourierService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.gf.service", ownerName = "com.protostar.prostudy.gf.service", packagePath = ""))
@@ -151,9 +153,11 @@ public class GFCourierService {
 	public EntityPagingInfo fetchCourierListByPaging(
 			@Named("instituteID") Long instituteID, EntityPagingInfo pagingInfo) {
 
-		/*logger.info("instituteID:" + instituteID);
-		logger.info("pagingInfo.getWebSafeCursorString():"
-				+ pagingInfo.getWebSafeCursorString());*/
+		/*
+		 * logger.info("instituteID:" + instituteID);
+		 * logger.info("pagingInfo.getWebSafeCursorString():" +
+		 * pagingInfo.getWebSafeCursorString());
+		 */
 
 		Query<GFCourierEntity> filterInstituteQuery = ofy().load()
 				.type(GFCourierEntity.class).filter("instituteID", instituteID)
@@ -231,7 +235,7 @@ public class GFCourierService {
 				.searchSchoolKeysByName(schoolNameSearchStr);
 		if (schoolKeyList == null || schoolKeyList.size() == 0)
 			return new ArrayList<GFCourierEntity>();
-		
+
 		return ofy().load().type(GFCourierEntity.class)
 				.filter("schoolName in", schoolKeyList).list();
 	}
@@ -244,6 +248,27 @@ public class GFCourierService {
 		List<GFCourierEntity> list = ofy().load().type(GFCourierEntity.class)
 				.filter("courierDocketID", null)
 				.filter("courierDispatchDate <", date).list();
+		return list;
+	}
+
+	@ApiMethod(name = "getCourierByDispatchDate", path = "getCourierByDispatchDate")
+	public List<GFCourierEntity> getCourierByDispatchDate(
+			@Named("dispatchDate") Long dispatchDate) {
+
+		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("IST"));
+		cal.setTime(new Date(dispatchDate));
+		Date dispatchDateObj = cal.getTime();
+		logger.info("dispatchDateObj:" + dispatchDateObj);
+
+		Date fromDate = DateUtil.convertCSTtoISTTime(DateUtil
+				.removeTime(dispatchDateObj));
+		Date toDate = DateUtil.addDays(fromDate, 1);
+		logger.info("fromDate:" + fromDate);
+		logger.info("toDate:" + toDate);
+
+		List<GFCourierEntity> list = ofy().load().type(GFCourierEntity.class)
+				.filter("courierDispatchDate >=", fromDate)
+				.filter("courierDispatchDate <", toDate).list();
 		return list;
 	}
 
@@ -264,4 +289,5 @@ public class GFCourierService {
 				.filter("logistics", logisticsType.trim()).list();
 		return list;
 	}
+
 }

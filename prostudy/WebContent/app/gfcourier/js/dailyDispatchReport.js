@@ -7,10 +7,10 @@ angular
 						appEndpointSF) {
 					console.log("Inside courierDailyDispatchReportCtr");
 
-					$scope.loading = true;
-					$scope.courierDispatchDate = null;
 					$scope.dateChanged = true;
-					$scope.couriertFilteredList = [];					
+					$scope.courierDispatchDate = null;
+					
+					$scope.couriertFilteredList = [];
 
 					var printDivCSS = new String(
 							'<link href="/lib/base/css/angular-material.min.css"" rel="stylesheet" type="text/css">'
@@ -46,35 +46,34 @@ angular
 					}
 
 					$scope.getCuriertFilteredList = function() {
-
 						$scope.loading = true;
 						$scope.couriertFilteredList = [];
-						for (var i = 0; i < $scope.gfCouriertList.length; i++) {
-							var courierDate = new Date(
-									$scope.gfCouriertList[i].courierDispatchDate);
-							if ($scope.courierDispatchDate.getFullYear() == courierDate
-									.getFullYear()
-									&& $scope.courierDispatchDate.getMonth() == courierDate
-											.getMonth()
-									&& $scope.courierDispatchDate.getDate() == courierDate
-											.getDate()) {
-								$scope.couriertFilteredList
-										.push($scope.gfCouriertList[i]);
-							}
-						}
-
-						$scope.loading = false;
-						$scope.dateChanged = false;
-					}
-					
-					$scope.downloadCourierDispatchReport = function(){
 						
-						document.location.href="DownloadCourierDispatchReport?courierDispatchReportByInstituteID="+$scope.curUser.instituteID+"&dispatchDate="+$scope.courierDispatchDate.getTime();
+						var gfCourierService = appEndpointSF
+								.getGFCourierService();
+						gfCourierService
+								.getCourierByDispatchDate(
+										$scope.courierDispatchDate.getTime())
+								.then(
+										function(gfCouriertList) {
+											$scope.couriertFilteredList = gfCouriertList;
+											$scope.loading = false;
+											$scope.dateChanged = false;
+										});
+
+					}
+
+					$scope.downloadCourierDispatchReport = function() {
+
+						document.location.href = "DownloadCourierDispatchReport?courierDispatchReportByInstituteID="
+								+ $scope.curUser.instituteID
+								+ "&dispatchDate="
+								+ $scope.courierDispatchDate.getTime();
 					}
 
 					$scope.waitForServiceLoad = function() {
 						if (appEndpointSF.is_service_ready) {
-							$scope.getGFCourierByInstitute();
+							//$scope.getGFCourierByInstitute();
 						} else {
 							$log.debug("Services Not Loaded, watiting...");
 							$timeout($scope.waitForServiceLoad, 1000);
@@ -86,5 +85,4 @@ angular
 					$scope.refresh = function() {
 						$state.reload();
 					}
-
 				});

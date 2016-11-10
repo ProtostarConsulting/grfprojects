@@ -1,10 +1,4 @@
-<div ng-show="loading">
-	<div layout="row" layout-sm="column" layout-align="space-around">
-		<md-progress-circular md-diameter="100" md-mode="indeterminate"></md-progress-circular>
-	</div>
-</div>
-
-<div ng-show="!loading">
+<div>
 	<h3 class="md-headline">Display Dispatch Report</h3>
 
 	<div layout="row" layout-xs="column">
@@ -16,21 +10,29 @@
 			ng-disabled="courierDispatchDate == null">Display Report</md-button>
 		<span flex></span>
 	</div>
+	<div ng-show="loading">
+		<div layout="row" layout-sm="column" layout-align="space-around">
+			<md-progress-circular md-diameter="100" md-mode="indeterminate"></md-progress-circular>
+		</div>
+	</div>
+
 	<div ng-hide="dateChanged">
 		<md-toolbar class="md-table-toolbar md-default">
 		<div class="md-toolbar-tools">
 			<span flex>Display Dispatch Report: {{ courierDispatchDate |
 				date:"dd-MM-yyyy" }}</span>
-			<div layout="row"   layout-xs="column">
-				<md-button class="md-raised md-primary" id="downloadExcel" 
-					ng-click="downloadCourierDispatchReport()">Download Courier Dispatch Report <md-tooltip>Download
-				Courier Dispatch Report</md-tooltip> </md-button>
-			</div>		
+			<div layout="row" layout-xs="column">
+				<md-button class="md-raised md-primary" id="downloadExcel"
+					ng-click="downloadCourierDispatchReport()">Download
+				Courier Dispatch Report <md-tooltip>Download Courier
+				Dispatch Report</md-tooltip> </md-button>
+			</div>
 			<md-button class="md-icon-button md-accent"
 				ng-click="printDiv('reportContentDiv')" aria-label="Favorite">
 			<md-icon md-svg-icon="img/icons/print.svg"></md-icon> </md-button>
 		</div>
 		</md-toolbar>
+
 		<div id="reportContentDiv">
 			<div>
 				<table
