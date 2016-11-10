@@ -260,8 +260,9 @@ public class GFCourierService {
 		Date dispatchDateObj = cal.getTime();
 		logger.info("dispatchDateObj:" + dispatchDateObj);
 
-		Date fromDate = DateUtil.convertCSTtoISTTime(DateUtil
-				.removeTime(dispatchDateObj));
+		// Date fromDate = DateUtil.convertCSTtoISTTime(DateUtil
+		// .removeTime(dispatchDateObj));
+		Date fromDate = DateUtil.removeTime(dispatchDateObj);
 		Date toDate = DateUtil.addDays(fromDate, 1);
 		logger.info("fromDate:" + fromDate);
 		logger.info("toDate:" + toDate);
