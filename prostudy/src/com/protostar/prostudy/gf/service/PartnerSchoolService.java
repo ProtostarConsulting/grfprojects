@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -39,6 +38,7 @@ import com.protostar.prostudy.gf.entity.GFCourierEntity;
 import com.protostar.prostudy.gf.entity.NotificationData;
 import com.protostar.prostudy.gf.entity.PartnerSchoolEntity;
 import com.protostar.prostudy.gf.entity.PaymentDetail;
+import com.protostar.prostudy.until.data.DateUtil;
 import com.protostar.prostudy.until.data.EntityPagingInfo;
 import com.protostar.prostudy.until.data.UtilityService;
 
@@ -55,12 +55,7 @@ public class PartnerSchoolService {
 			CURRENT_YEAR_SCHOOL_AND_STUDENT_COUNT_KEY);
 	public static String currentYear;
 	static {
-		Date date = new Date();
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(date);
-		Integer year = cal.get(Calendar.YEAR);
-		currentYear = "".concat(year.toString()).concat("-")
-				.concat("" + (year - 1999));
+		currentYear = DateUtil.getCurrentGVSPYear();
 	}
 
 	// private boolean notificationEnabled = false;
@@ -337,7 +332,8 @@ public class PartnerSchoolService {
 				if (paymentDetail.getPayReceivedBy() != null
 						&& payReceivedBy.equalsIgnoreCase(paymentDetail
 								.getPayReceivedBy().trim())) {
-					fileredSchoolList.add(currentSchool);
+					if (!fileredSchoolList.contains(currentSchool))
+						fileredSchoolList.add(currentSchool);
 				}
 			}
 		}
@@ -649,12 +645,12 @@ public class PartnerSchoolService {
 					if (paymentDetail.getPayReceivedBy() != null
 							&& paymentModeReportObj.paymentMode
 									.equalsIgnoreCase(paymentDetail
-											.getPayReceivedBy().trim())) {						
+											.getPayReceivedBy().trim())) {
 						paymentModeReportObj.amount += paymentDetail
 								.getPayAmount();
 						finSummayReportData.amountPaymentsTotal += paymentDetail
-								.getPayAmount();						
-					}					
+								.getPayAmount();
+					}
 				}
 				paymentModeReportObj.noOfPayments++;
 			}

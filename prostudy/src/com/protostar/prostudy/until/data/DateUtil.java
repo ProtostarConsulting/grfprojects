@@ -31,4 +31,13 @@ public class DateUtil {
 		cal.add(Calendar.DATE, days);
 		return cal.getTime();
 	}
+
+	public static String getCurrentGVSPYear() {
+		Date date = new Date();
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		Integer year = cal.get(Calendar.YEAR);
+		return "".concat(year.toString()).concat("-")
+				.concat("" + (year - 1999));
+	}
 }
