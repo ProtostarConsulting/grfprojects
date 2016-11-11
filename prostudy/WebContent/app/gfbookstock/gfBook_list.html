@@ -125,7 +125,11 @@
 					<td><md-button class="md-icon-button" id="editRecord"
 							ui-sref="bookModule.add({selectedGFBookID : book.id})">
 						<ng-md-icon icon="edit" style="fill: md-default" size="24">
-						<md-tooltip> Edit Record</md-tooltip></ng-md-icon></md-button></td>
+						<md-tooltip> Edit Record</md-tooltip></ng-md-icon></md-button>
+						<md-button class="md-icon-button" id="viewRecord"
+							ui-sref="bookModule.viewRecord({selectedGFBookID : book.id})">
+						<ng-md-icon icon="list" style="fill: md-default" size="24">
+						<md-tooltip> View Record</md-tooltip></ng-md-icon></md-button></td>
 
 				</tr>
 			</tbody>

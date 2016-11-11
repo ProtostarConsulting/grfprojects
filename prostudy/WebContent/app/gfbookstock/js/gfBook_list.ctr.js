@@ -3,8 +3,9 @@ angular
 		.controller(
 				"gfBookListCtr",
 				function($scope, $window, $mdToast, $timeout, $mdSidenav,
-						$mdUtil, $log, $q, $mdDialog, $mdMedia,
-						tableTestDataFactory,ajsCache, $state, Upload, appEndpointSF) {
+						$mdUtil, $log, $q, $mdDialog, $mdMedia, $stateParams,
+						tableTestDataFactory, ajsCache, $state, Upload,
+						appEndpointSF) {
 					console.log("Inside studentListPageCtr");
 					$scope.loading = true;
 					$scope.curUser = appEndpointSF.getLocalUserService()
@@ -31,29 +32,70 @@ angular
 						// Note this key has to be unique across application
 						// else it will return unexpected result.
 						if (!angular
-								.isUndefined(ajsCache.get(bookListCacheKey)) && !refresh) {
+								.isUndefined(ajsCache.get(bookListCacheKey))
+								&& !refresh) {
 							$log.debug("Found List in Cache, return it.")
-							$scope.bookStocks = ajsCache
-									.get(bookListCacheKey);
+							$scope.bookStocks = ajsCache.get(bookListCacheKey);
 							$scope.loading = false;
 							return;
 						}
 
-						$log.debug("NOT Found List in Cache, fetching from server.")
-						
+						$log
+								.debug("NOT Found List in Cache, fetching from server.")
+
 						var gfBookStockService = appEndpointSF
 								.getGFBookStockService();
 						gfBookStockService.getGFBookByInstituteId(
 								$scope.curUser.instituteID).then(
 								function(tempBooks) {
 									$scope.bookStocks = tempBooks;
-									ajsCache.put(bookListCacheKey,
-											tempBooks);
+									ajsCache.put(bookListCacheKey, tempBooks);
 									$scope.loading = false;
-									$log.debug ("Got books form Server...");
+									$log.debug("Got books form Server...");
 
 								});
 					}
+
+					/*$scope.fetchSchoolByBId = function(id) {
+						$scope.schoolList = [];
+						$scope.totalBookQty = 0;
+						var partnerSchoolService = appEndpointSF
+								.getPartnerSchoolService();
+						partnerSchoolService
+								.getSchoolByBId(id)
+								.then(
+										function(schoolList) {
+											$scope.schoolList = schoolList;
+											
+											 * for (var i = 0; i <
+											 * schoolList.length; i++) {
+											 * $scope.totalBookQty +=
+											 * schoolList.examDetailList.bookSummary.bookDetail.totalStud; }
+											 
+											for (var k = 0; k < schoolList.length; k++) {
+												for (var i = 0; i < schoolList[k].examDetailList.length; i++) {
+
+													for (j = 0; j < schoolList[k].examDetailList[i].bookSummary.bookDetail.length; j++) {
+														if (id == schoolList[k].examDetailList[i].bookSummary.bookDetail[j].bookName) {
+															$scope.totalBookQty = $scope.totalBookQty
+																	+ schoolList[k].examDetailList[i].bookSummary.bookDetail[j].totalStud;
+
+														} else {
+															console
+																	.log("oooooooo");
+														}
+
+													}
+
+												}
+											}
+											console.log("bookQty---"
+													+ $scope.totalBookQty);
+											console.log("schoolList---"
+													+ $scope.schoolList);
+											
+										});
+					}*/
 
 					$scope.UplodeExcel = function(ev) {
 						var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))
@@ -70,7 +112,7 @@ angular
 											fullscreen : useFullScreen,
 											locals : {
 												curUser : $scope.curUser,
-												getFreshBooks: $scope.getGFBookByInstituteId
+												getFreshBooks : $scope.getGFBookByInstituteId
 											}
 										})
 								.then(
@@ -84,27 +126,28 @@ angular
 
 					};
 
-					function DialogController($scope, $mdDialog, curUser, getFreshBooks) {
+					function DialogController($scope, $mdDialog, curUser,
+							getFreshBooks) {
 
 						$scope.csvFile;
 						$scope.uploadProgressMsg = null;
-						
+
 						$scope.uploadBooksCSV = function() {
 							$scope.loading = true;
 							var csvFile = $scope.csvFile;
 							Upload
-									.upload(
-											{
-												url : 'UploadBulkBookServlet',
-												data : {
-													file : csvFile,
-													'username' : curUser.email_id,
-													'instituteId' : curUser.instituteID
-												}
-											})
+									.upload({
+										url : 'UploadBulkBookServlet',
+										data : {
+											file : csvFile,
+											'username' : curUser.email_id,
+											'instituteId' : curUser.instituteID
+										}
+									})
 									.then(
 											function(resp) {
-												$log.debug('Successfully uploaded '
+												$log
+														.debug('Successfully uploaded '
 																+ resp.config.data.file.name
 																+ '.'
 																+ angular
@@ -119,16 +162,18 @@ angular
 																		'Books Data Uploaded Sucessfully.')
 																.position("top")
 																.hideDelay(3000));
-												
+
 												$scope.csvFile = null;
 												$timeout(function() {
-												$scope.cancel();
-												},3000);
-												//Load the books again in the end
+													$scope.cancel();
+												}, 3000);
+												// Load the books again in the
+												// end
 												getFreshBooks(true);
 											},
 											function(resp) {
-												$log.debug('Error Ouccured, Error status: '
+												$log
+														.debug('Error Ouccured, Error status: '
 																+ resp.status);
 												$scope.uploadProgressMsg = 'Error: '
 														+ resp.status;
@@ -137,7 +182,8 @@ angular
 												var progressPercentage = parseInt(100.0
 														* evt.loaded
 														/ evt.total);
-												$log.debug('Upload progress: '
+												$log
+														.debug('Upload progress: '
 																+ progressPercentage
 																+ '% '
 																+ evt.config.data.file.name);
@@ -146,25 +192,22 @@ angular
 														+ '% '
 														+ evt.config.data.file.name;
 												+'...'
-												
-/*												if(progressPercentage == 100%){
-													
-												}
-*/												
+
+												/*
+												 * if(progressPercentage ==
+												 * 100%){ }
+												 */
 											});
 						};
 
-						
 						$scope.cancel = function() {
-						    $mdDialog.cancel();
-						  };
+							$mdDialog.cancel();
+						};
 					}
 
 					$scope.waitForServiceLoad = function() {
 						if (appEndpointSF.is_service_ready) {
-
 							$scope.getGFBookByInstituteId();
-
 						} else {
 							$log.debug("Services Not Loaded, watiting...");
 							$timeout($scope.waitForServiceLoad, 1000);
@@ -172,11 +215,11 @@ angular
 					}
 
 					$scope.waitForServiceLoad();
-					
+
 					$scope.cancel = function() {
 						$state.go("bookModule.list", {});
 					}
-					
+
 					$scope.downloadData = function() {
 
 						document.location.href = "DownloadGFBooks?InstituteId="
@@ -193,7 +236,7 @@ angular
 							for (var i = 0; i < $scope.bookStocks.length; i++) {
 								if ($scope.bookStocks[i].bookQty < $scope.bookStocks[i].bookThreshold) {
 									$scope.bookStocks1
-											.push($scope.bookStocks[i]);									
+											.push($scope.bookStocks[i]);
 								}
 							}
 							$scope.bookStocks = $scope.bookStocks1;
@@ -202,5 +245,7 @@ angular
 						}
 
 					}
+
+					
 
 				});

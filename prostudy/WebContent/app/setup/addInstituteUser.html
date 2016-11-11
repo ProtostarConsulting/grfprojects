@@ -128,6 +128,11 @@
 			<div ng-message="required">Please Select School Category.</div>
 		</div>
 		</md-input-container>
+		<md-input-container flex> <label>Standard
+		</label> <md-select name="standard" ng-model="tempUser.standard">
+		<md-option ng-value="standard" ng-repeat="standard in standardList">
+		{{standard}}</md-option> </md-select>
+		</md-input-container>
 	</div>
 
 	<div layout="row" layout-align="center center">

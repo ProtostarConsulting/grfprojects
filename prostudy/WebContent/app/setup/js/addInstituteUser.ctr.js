@@ -4,7 +4,7 @@ angular
 				"addInstituteUserCtr",
 				function($scope, $window, $mdToast, $timeout, $mdSidenav,
 						$mdUtil, $log, $q, appEndpointSF, $state, $stateParams,
-						$mdDialog, objectFactory) {
+						$mdDialog, objectFactory,standardList) {
 
 					$scope.checkConfirmPassword = appEndpointSF
 							.getUtilityService().checkConfirmPassword;
@@ -17,6 +17,7 @@ angular
 
 					// $scope.curUser =
 					// appEndpointSF.getLocalUserService().getLoggedinUser();
+					$scope.standardList=standardList;
 					$scope.instRoles = [ "Admin", "Teacher", "Student" ];
 					$scope.tempUser = {
 						isGoogleUser : false,
@@ -107,7 +108,7 @@ angular
 										.then(
 												function(response) {
 													$log
-															.debug("Inside of userexists validator fn: " + response.bool);														
+															.debug("Inside of userexists validator fn: " + response.bool);													
 													if (response.bool == true) {
 														deferred.reject();
 													} else {
