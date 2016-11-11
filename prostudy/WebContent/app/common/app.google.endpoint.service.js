@@ -1917,6 +1917,17 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 		});
 		return deferred.promise;
 	}
+	
+	PartnerSchoolService.getSchoolByBId = function(id) {
+		var deferred = $q.defer();
+		gapi.client.partnerSchoolService.getSchoolByBId({
+			'id' : id
+		}).execute(function(resp) {
+			deferred.resolve(resp.items);
+
+		});
+		return deferred.promise;
+	}
 
 	PartnerSchoolService.getPSchoolByFormNumber = function(formNumber) {
 		var deferred = $q.defer();

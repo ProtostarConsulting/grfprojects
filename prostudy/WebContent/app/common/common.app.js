@@ -1456,6 +1456,11 @@ app
 						templateUrl : '/app/gfbookstock/gfBookStock_view.html',
 						controller : 'gfBookStockviewCtr'
 					})
+					.state('bookModule.viewRecord', {
+						url : "/bookModule.selectedBook/:selectedGFBookID",
+						templateUrl : '/app/gfbookstock/gfSelectedBookRecord.html',
+						controller : 'gfSelectedBookRecordCtr'
+					})
 					.state('bookModule.stockAdd', {
 						url : "/bookModule.stockAdd/:selectedGFBookStockID",
 						templateUrl : '/app/gfbookstock/gfBookStock_add.html',
