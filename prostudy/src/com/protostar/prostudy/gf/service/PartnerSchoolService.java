@@ -33,6 +33,8 @@ import com.google.common.base.CaseFormat;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.LoadResult;
 import com.googlecode.objectify.cmd.Query;
+import com.protostar.prostudy.gf.entity.BookDetail;
+import com.protostar.prostudy.gf.entity.BookSummary;
 import com.protostar.prostudy.gf.entity.ExamDetail;
 import com.protostar.prostudy.gf.entity.GFCourierEntity;
 import com.protostar.prostudy.gf.entity.NotificationData;
@@ -160,6 +162,34 @@ public class PartnerSchoolService {
 		PartnerSchoolEntity pSchool = ofy().load()
 				.type(PartnerSchoolEntity.class).id(id).now();
 		return pSchool;
+
+	}
+
+	@ApiMethod(name = "getSchoolByBId", path = "getSchoolByBId")
+	public List<PartnerSchoolEntity> getSchoolByBId(@Named("id") Long id) {
+
+		String bookID = Long.toString(id).trim();
+		List<PartnerSchoolEntity> schoolList = ofy().load()
+				.type(PartnerSchoolEntity.class).list();
+		List<PartnerSchoolEntity> filterSchoolList = new ArrayList();
+		for (int i = 0; i < schoolList.size(); i++) {
+			PartnerSchoolEntity currentSchool = schoolList.get(i);
+			List<ExamDetail> examDetailList = currentSchool.getExamDetailList();
+			if (examDetailList != null && examDetailList.size() > 0) {
+				BookSummary bookSummary = examDetailList.get(0)
+						.getBookSummary();
+				if (bookSummary != null) {
+					List<BookDetail> bookDetail = bookSummary.getBookDetail();
+					for (BookDetail book : bookDetail) {
+						if (bookID.equalsIgnoreCase(book.getBookName())) {
+							filterSchoolList.add(currentSchool);
+						}
+					}
+				}
+			}
+		}
+
+		return filterSchoolList;
 
 	}
 
