@@ -89,8 +89,7 @@
 								<ng-md-icon icon="add" style="fill: md-default" size="24">
 								<md-tooltip>Add User</md-tooltip></ng-md-icon></md-button>
 								<md-button class="md-icon-button" id="uploadSchoolUser"
-									ng-click="UploadSchoolUserExcel($event)"
-									ui-sref="partnerSchool.listPartnerSchool({selectedPSchoolId: pSchool.id})">
+									ng-click="UploadSchoolUserExcel($event, pSchool.id)">
 								<ng-md-icon icon="file_upload" style="fill: md-default"
 									size="24"> <md-tooltip> Upload School
 								User</md-tooltip></ng-md-icon></md-button>

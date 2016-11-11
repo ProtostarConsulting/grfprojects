@@ -360,8 +360,7 @@ angular
 					
 					// -----------------------Upload School User-----
 					// CSV-------------------
-					$scope.UploadSchoolUserExcel = function(ev) {
-
+					$scope.UploadSchoolUserExcel = function(ev, selectedPSchoolId) {
 						var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))
 								&& $scope.customFullscreen;
 						$mdDialog
@@ -376,7 +375,7 @@ angular
 											fullscreen : useFullScreen,
 											locals : {
 												curUser : $scope.curUser,
-												getFreshScools : $scope.selectedPSchoolId
+												selectedPSchoolId : selectedPSchoolId
 											}
 										})
 								.then(
@@ -389,7 +388,7 @@ angular
 										});
 					};
 					
-					function DialogController($scope, $mdDialog, curUser,getFreshScools) {
+					function DialogController($scope, $mdDialog, curUser,selectedPSchoolId) {
 
 						$scope.csvFile;
 						$scope.uploadProgressMsg = null;
@@ -401,7 +400,7 @@ angular
 										data : {
 											file : csvFile,
 											'instituteId' : curUser.instituteID,
-											'partnerSchoolID' :getFreshScools
+											'partnerSchoolID' : selectedPSchoolId
 										}
 									})
 									.then(
