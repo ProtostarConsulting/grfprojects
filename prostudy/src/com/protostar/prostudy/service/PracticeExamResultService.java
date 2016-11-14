@@ -2,6 +2,7 @@ package com.protostar.prostudy.service;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -44,6 +45,21 @@ public class PracticeExamResultService {
 		PracticeExamResultEntity selected = ofy().load().type(PracticeExamResultEntity.class).id(id).now();
 		return selected;
 	}
-
+	
+	@ApiMethod(name = "getResultByUId", path = "getResultByUId")
+	public List<PracticeExamResultEntity> getResultByUId(@Named("id") Long id) {
+		
+		String uid = Long.toString(id).trim();
+		List<PracticeExamResultEntity> list = ofy().load().type(PracticeExamResultEntity.class).list();
+		List<PracticeExamResultEntity> filterList = new ArrayList();
+		for (int i = 0; i < list.size(); i++) {
+			PracticeExamResultEntity resultEntity = list.get(i);
+			if(uid.equalsIgnoreCase(resultEntity.getUserId())){
+				filterList.add(resultEntity);
+			}
+		}
+		return filterList;
+		
+	}
 
 }
