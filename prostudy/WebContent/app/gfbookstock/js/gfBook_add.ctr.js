@@ -5,7 +5,7 @@ angular.module("prostudyApp").controller(
 				objectFactory, standardList) {
 
 			$scope.loading = true;
-			$scope.answerOfMediumList = [ "Marathi", "Hindi", "English", ];
+			$scope.answerOfMediumList = [ "Marathi", "Hindi", "English", "Kannada"];
 			$scope.tempBook = {
 				bookName : '',
 				bookAuther : '',
