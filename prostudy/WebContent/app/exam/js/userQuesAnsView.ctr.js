@@ -12,8 +12,8 @@ angular
 								.hideDelay(3000));
 					};
 
-					$scope.selectedResultId = $stateParams.selectedResultId;
-					$scope.selectedExamId = $stateParams.selectedExamId;
+					$scope.selectedResultId = Number($stateParams.selectedResultId);
+					$scope.selectedExamId = Number($stateParams.selectedExamId);
 
 					$scope.curuser = appEndpointSF.getLocalUserService()
 							.getLoggedinUser();
