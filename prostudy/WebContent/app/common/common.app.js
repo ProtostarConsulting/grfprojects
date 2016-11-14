@@ -1351,6 +1351,11 @@ app
 						templateUrl : '/app/gfstudent/examresult_list.html',
 						controller : 'gfExamResultListCtr'
 					})
+					.state('studentModule.viewExamResult', {
+						url : "/viewExamResult/:selectedGFStudID",
+						templateUrl : 'app/gfstudent/gfStudent_viewExamResult.html',
+						controller : 'gfStudentViewExamResult'
+					})
 
 					.state('courierModule', {
 						url : "/courierModule",
