@@ -1066,6 +1066,16 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 		});
 		return deferred.promise;
 	}
+	
+	PracticeExamService.getResultByUId = function(id) {
+		var deferred = $q.defer();
+		gapi.client.practiceExamService.getResultByUId({
+			'id' : id
+		}).execute(function(resp) {
+			deferred.resolve(resp.items);
+		});
+		return deferred.promise;
+	}
 
 	// End of PracticeExamService
 	/*------------------------------------------------------------------------------------------------------*/
