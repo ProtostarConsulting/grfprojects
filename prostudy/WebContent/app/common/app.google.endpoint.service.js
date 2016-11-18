@@ -1949,6 +1949,17 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 		});
 		return deferred.promise;
 	}
+	
+	PartnerSchoolService.getPendingResultSchools = function() {
+		var deferred = $q.defer();
+		gapi.client.partnerSchoolService.getPendingResultSchools({
+			
+		}).execute(function(resp) {
+			deferred.resolve(resp.items);
+
+		});
+		return deferred.promise;
+	}
 
 	// End of PartnerSchoolService
 
