@@ -6,11 +6,13 @@ angular
 						$mdUtil, $log, $q, appEndpointSF, $state, $stateParams,
 						$mdDialog, objectFactory, answerOfMediumList,
 						standardList, indiaAddressLookupData) {
-					
+
 					$scope.answerOfMediumList = answerOfMediumList;
 
 					$scope.standardList = angular.copy(standardList);
-					//$scope.standardList.unshift("All");
+					// $scope.standardList.unshift("All");
+					
+					$scope.pendingSchoolList = [];
 
 					$scope.selectFilterData = {
 						standard : "",
@@ -32,9 +34,9 @@ angular
 						tempTalukas : [],
 						tempVillages : []
 					}
-					
-					$scope.filterResultList = function(index, state) {				
-					
+
+					$scope.filterResultList = function(index, state) {
+
 						$scope.filteredExamResultList = [];
 
 						// To filter result list by address
@@ -59,18 +61,20 @@ angular
 										}
 									}
 								}
-							}else{
+							} else {
 								$scope.filteredExamResultList
-								.push($scope.examResultList[i]);
+										.push($scope.examResultList[i]);
 							}
 						}
-						
-						//Display only top 100 students per filter
-						var tillIndex = ($scope.filteredExamResultList.length > 100)?99:$scope.filteredExamResultList.length; 
-						$scope.filteredExamResultList = $scope.filteredExamResultList.slice(0, tillIndex); 
+
+						// Display only top 100 students per filter
+						var tillIndex = ($scope.filteredExamResultList.length > 100) ? 99
+								: $scope.filteredExamResultList.length;
+						$scope.filteredExamResultList = $scope.filteredExamResultList
+								.slice(0, tillIndex);
 
 					}
-					
+
 					$scope.getDistricts = function(index, state) {
 						$scope.temp.tempDistricts = [];
 						for (var i = 0; i < $scope.Country.states.length; i++) {
@@ -89,42 +93,48 @@ angular
 						}
 					};
 
-					/*$scope.getTalukas = function(index, district) {
+					/*
+					 * $scope.getTalukas = function(index, district) {
+					 * 
+					 * $scope.temp.tempTalukas = []; for (var j = 0; j <
+					 * $scope.temp.tempDistricts.length; j++) { if
+					 * ($scope.temp.tempDistricts[j].name == district) {
+					 * $scope.temp.tempTalukas =
+					 * $scope.temp.tempDistricts[j].talukas; if
+					 * (!$scope.containsObject({ name : "All" },
+					 * $scope.temp.tempTalukas)) {
+					 * $scope.temp.tempTalukas.unshift({ name : "All" }); } } } };
+					 */
 
-						$scope.temp.tempTalukas = [];
-						for (var j = 0; j < $scope.temp.tempDistricts.length; j++) {
-							if ($scope.temp.tempDistricts[j].name == district) {
-								$scope.temp.tempTalukas = $scope.temp.tempDistricts[j].talukas;
-								if (!$scope.containsObject({
-									name : "All"
-								}, $scope.temp.tempTalukas)) {
-									$scope.temp.tempTalukas.unshift({
-										name : "All"
-									});
-								}
-							}
-						}
-					};*/
-					
 					$scope.getExamResultEntities = function() {
 						var gfStudentService = appEndpointSF
 								.getGFStudentService();
 						$scope.loading = true;
-						gfStudentService.getExamResultEntities(
+						/*gfStudentService.getExamResultEntities(
 								$scope.curUser.instituteID).then(
 								function(resp) {
 									$scope.examResultList = resp.items;
-									//$scope.filteredExamResultList = $scope.examResultList;
+									// $scope.filteredExamResultList =
+									// $scope.examResultList;
 									$scope.filteredExamResultList = [];
+									$scope.loading = false;
+								});*/
+						var PartnerService = appEndpointSF
+								.getPartnerSchoolService();
+						PartnerService.getPendingResultSchools().then(
+								function(list) {
+									$scope.pendingSchoolList = list;
 									$scope.loading = false;
 								});
 					}
-					
-					
-					$scope.downloadData = function(){
-															
-						document.location.href="DownloadExamResultReport?examResultByStandard="+$scope.selectFilterData.standard+"&examResultByDistrict="+$scope.selectFilterData.dist;
-						
+
+					$scope.downloadData = function() {
+
+						document.location.href = "DownloadExamResultReport?examResultByStandard="
+								+ $scope.selectFilterData.standard
+								+ "&examResultByDistrict="
+								+ $scope.selectFilterData.dist;
+
 					}
 
 					$scope.cancel = function() {
@@ -149,7 +159,7 @@ angular
 					};
 
 					$scope.cancelButton = function() {
-						//$state.go("studentModule", {});
+						// $state.go("studentModule", {});
 					}
 
 					$scope.getRowStyle = function(even) {
