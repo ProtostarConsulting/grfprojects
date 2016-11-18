@@ -37,6 +37,7 @@ import com.protostar.prostudy.gf.entity.BookDetail;
 import com.protostar.prostudy.gf.entity.BookSummary;
 import com.protostar.prostudy.gf.entity.ExamDetail;
 import com.protostar.prostudy.gf.entity.GFCourierEntity;
+import com.protostar.prostudy.gf.entity.GFExamResultEntity;
 import com.protostar.prostudy.gf.entity.NotificationData;
 import com.protostar.prostudy.gf.entity.PartnerSchoolEntity;
 import com.protostar.prostudy.gf.entity.PaymentDetail;
@@ -369,6 +370,35 @@ public class PartnerSchoolService {
 		}
 
 		return fileredSchoolList;
+	}
+
+	@ApiMethod(name = "getPendingResultSchools", path = "getPendingResultSchools")
+	public List<PartnerSchoolEntity> getPendingResultSchools() {
+
+		List<PartnerSchoolEntity> schoolList = ofy().load()
+				.type(PartnerSchoolEntity.class).list();
+		List<PartnerSchoolEntity> pendingSchoolList = new ArrayList();
+		List<GFExamResultEntity> examResultList = ofy().load()
+				.type(GFExamResultEntity.class).list();
+		for (PartnerSchoolEntity currentSchool : schoolList) {
+			if(!containSchool(examResultList, currentSchool)){
+				pendingSchoolList.add(currentSchool);
+			}
+
+		}
+		
+		return pendingSchoolList;
+
+	}
+	
+	private boolean containSchool(List<GFExamResultEntity> resultList,PartnerSchoolEntity school) {
+		for (GFExamResultEntity result : resultList) {
+			if(school.getId()== result.getSchool().getId()){
+				return true;
+			}
+		}
+		return false;
+		
 	}
 
 	@ApiMethod(name = "getCurrentYearSchoolAndStudentCount", path = "getCurrentYearSchoolAndStudentCount")
