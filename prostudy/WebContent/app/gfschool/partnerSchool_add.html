@@ -321,7 +321,8 @@
 			</md-input-container>
 			<!-- <span flex="10"></span> -->
 			<!-- <md-input-container flex> Total= <b>{{examDetail.total}} -->
-			</b> </md-input-container>
+			</b>
+			</md-input-container>
 		</div>
 		<div layout="row" layout-xs="column">
 
@@ -559,10 +560,10 @@
 							type="number" ng-model="bb.bookPrise"> --> {{bb.bookPrise |
 							number : 2}}</md-input-container></td>
 						<td><md-input-container flex> <input
-								type="number" name="totalStud" min="1"  ng-model="bb.totalStud" aria-label="totalStud"
+								type="number" name="totalStud" min="1" ng-model="bb.totalStud"
+								aria-label="totalStud"
 								ng-change="calculate($index,bb.totalStud)"
-								ng-model-options="{ debounce: 1000 }">
-							</md-input-container></td>
+								ng-model-options="{ debounce: 1000 }"> </md-input-container></td>
 						<td><md-input-container flex> <!-- <input
 							type="number" name="totalFees" ng-model="bb.totalFees"> -->
 							{{bb.totalFees | number : 2}}</md-input-container></td>
@@ -592,38 +593,45 @@
 		</span>
 
 		<div>
-			<table>
-
+			<md-data-table-container>
+			<table md-data-table>
+				<tbody>
+				<thead>
+					<tr>
+						<th width=30%></th>
+						<th width=10%></th>
+						<th width=20% name="Fees (INR)"></th>
+						<th width=10px></th>
+						<th width=20%></th>
+					</tr>
+				</thead>
 				<tr>
 					<td>Total :-</td>
+					<td></td>
 					<td>{{bookSummary.total | number : 2}}</td>
-					<td></td>
-					<td></td>
 					<td></td>
 					<td></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>20% Fees for Institute :-</td>
+					<td></td>
 					<td>{{bookSummary.amtForInst20per | number : 2}}</td>
-					<td></td>
-					<td></td>
 					<td></td>
 					<td></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>80% Fees for GRF :-</td>
+					<td></td>
 					<td>{{bookSummary.amtForGRF80per | number : 2}}</td>
-					<td></td>
-					<td></td>
 					<td></td>
 					<td></td>
 					<td></td>
 				</tr>
 				</tbody>
-
 			</table>
+			</md-data-table-container>
 		</div>
 
 		<section layout="row" layout-sm="column" layout-align="end end">
@@ -760,7 +768,7 @@
 				</div>
 				</md-input-container>
 			</div>
-			<div layout="row" layout-xs="column" flex>
+			<!-- <div layout="row" layout-xs="column" flex>
 				<md-input-container flex="20">Total Fees To Be
 				Paid = {{bookSummary.amtForGRF80per }} </md-input-container>
 				<span flex="10"></span>
@@ -769,7 +777,7 @@
 				<span flex="10"></span>
 				<md-input-container flex="20">Pending Fees =
 				{{PaymentDetail.pAmount}} </md-input-container>
-			</div>
+			</div> -->
 			<section layout="row" layout-sm="column" layout-align="end end">
 				<md-button
 					ng-disabled="partnerSchoolForm.payment.$invalid || partnerSchoolForm.nameOfBank.$invalid 
@@ -784,6 +792,17 @@
 			<md-button class="md-raised md-primary"
 				ng-click="enableAddPaymentFlag()"> Add Payment </md-button>
 		</section>
+
+		<div layout="row" layout-xs="column" flex>
+			<md-input-container flex="20">Total Fees To Be
+			Paid = {{bookSummary.amtForGRF80per }} </md-input-container>
+			<span flex="10"></span>
+			<md-input-container flex="20">Total Paid Fees =
+			{{PaymentDetail.tPaid }} </md-input-container>
+			<span flex="10"></span>
+			<md-input-container flex="20">Pending Fees =
+			{{PaymentDetail.pAmount}} </md-input-container>
+		</div>
 		<div>
 			<md-data-table-container>
 			<table md-data-table>
@@ -800,8 +819,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr md-auto-select
-						ng-repeat="pd in PaymentDet track by $index">
+					<tr md-auto-select ng-repeat="pd in PaymentDet track by $index">
 						<td
 							title=Branch:-{{pd.branchName}}-Transaction/DD/Slip:-{{pd.transactionNumber}}>{{pd.payReceivedBy}}</td>
 						<td>{{pd.paymentDate | formatDate}}</td>
