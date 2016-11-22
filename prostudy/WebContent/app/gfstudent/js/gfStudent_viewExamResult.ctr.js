@@ -14,7 +14,7 @@ angular
 					$scope.examResults = [];
 					
 					$scope.getStudResultByUId = function() {
-
+						$scope.loading = true;
 						var PracticeExamService = appEndpointSF
 								.getPracticeExamService();
 						PracticeExamService
@@ -22,6 +22,7 @@ angular
 								.then(
 										function(studResult) {
 											$scope.examResults = studResult;
+											$scope.loading = false;
 										});
 					}
 

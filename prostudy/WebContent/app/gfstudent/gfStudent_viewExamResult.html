@@ -1,4 +1,9 @@
-<div>
+<div ng-if="loading">
+	<div layout="row" layout-sm="column" layout-align="space-around">
+		<md-progress-circular md-diameter="100" md-mode="indeterminate"></md-progress-circular>
+	</div>
+</div>
+<div ng-if="!loading">
 	<md-toolbar class="md-table-toolbar md-default"
 		ng-hide="selected.length">
 	<div class="md-toolbar-tools">
@@ -28,7 +33,7 @@
 					<td>{{exam.test[0].standard}}</td>
 					<td>
 						<div layout="row" flex>
-							<md-button class="md-icon-button" id="viewCourier"
+							<md-button class="md-icon-button" id="viewExamResult"
 								ui-sref="userQuesAnsView({selectedResultId : exam.id, selectedExamId : exam.testID})">
 							<ng-md-icon icon="pageview" style="fill: md-default" size="24">
 							<md-tooltip>View Result</md-tooltip></ng-md-icon></md-button>
@@ -40,6 +45,6 @@
 		</md-data-table-container>
 		<md-data-table-pagination md-limit="query.limit"
 			md-limit-options="query.limitOptions" md-page="query.page"
-			md-total={{gfCouriertList.length}} md-trigger="onpagechange"></md-data-table-pagination>
+			md-total={{examResults.length}} md-trigger="onpagechange"></md-data-table-pagination>
 	</div>
 </div>

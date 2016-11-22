@@ -59,10 +59,10 @@ angular
 					}
 
 					$scope.getPracticeExamResultbyID = function() {
-
+						$scope.loading = true;
 						var PracticeExamService = appEndpointSF
 								.getPracticeExamService();
-
+						
 						PracticeExamService
 								.getPracticeExamResultbyID(
 										$scope.selectedResultId)
@@ -72,7 +72,8 @@ angular
 											for(var i = 0; i< $scope.examResults.userAns.length; i++){
 												if($scope.examResults.userAns[i].userOption)
 													$scope.answeredLength++;
-											}											
+											}
+											$scope.loading = false;
 
 										});
 					}

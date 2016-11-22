@@ -330,7 +330,7 @@ angular
 							modifiedBy : $scope.curUser ? $scope.curUser.email_id
 									: 'guest',
 							school : school,
-							institute : school.institute,
+							institute : school?school.institute:null,
 							examYear : year1,
 							grfReviewed : false,
 							examResult : examResult

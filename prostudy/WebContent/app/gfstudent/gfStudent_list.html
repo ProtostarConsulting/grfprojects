@@ -15,49 +15,47 @@
 	<div layout="row" layout-xs="column">
 		<md-input-container flex> <label>Search
 			By Name</label> <input ng-model="searchByName"> </md-input-container>
-	
-		<md-input-container flex> <label>Search
-			By School / College / Institute
-		</label> <md-select name="level" ng-model="schoolName">
-		<md-option ng-value="Other" ng-model="other">All</md-option>
-		<md-option ng-value="school.schoolName"
-			ng-repeat="school in pSchoolList">{{school.schoolName}}</md-option>
-			
-		</md-select>
 
-		</md-input-container>
+		<md-input-container flex> <label>Search
+			By School / College / Institute </label> <md-select name="level"
+			ng-model="schoolName"> <md-option ng-value="Other"
+			ng-model="other">All</md-option> <md-option
+			ng-value="school.schoolName" ng-repeat="school in pSchoolList">{{school.schoolName}}</md-option>
+
+		</md-select> </md-input-container>
 	</div>
 	<div>
-	 <md-toolbar class="md-table-toolbar md-default" ng-hide="selected.length">
-          <div class="md-toolbar-tools">
-            <span>Students List</span>
-            <div flex></div>
-            <md-button class="md-icon-button" ng-click="getGFStudentsByInstitute(true)">
-              <md-icon>refresh</md-icon>
-            </md-button>
-          </div>
-        </md-toolbar>
-        
-        <md-toolbar class="md-table-toolbar alternate" ng-show="selected.length">
-          <div class="md-toolbar-tools">
-            <span>{{selected.length}} {{selected.length > 1 ? 'Students' : 'Student'}} selected</span>
-          </div>
-        </md-toolbar>
-		<md-data-table-container>
-		
-		<md-data-table-container>
-		<table md-data-table md-row-select="selected" class="md-primary"
-			md-progress="deferred">
-			<thead md-order="query.order" md-trigger="onorderchange">
+		<md-toolbar class="md-table-toolbar md-default"
+			ng-hide="selected.length">
+		<div class="md-toolbar-tools">
+			<span>Students List</span>
+			<div flex></div>
+			<md-button class="md-icon-button"
+				ng-click="getGFStudentsByInstitute(true)"> <md-icon>refresh</md-icon>
+			</md-button>
+		</div>
+		</md-toolbar>
 
+		<md-toolbar class="md-table-toolbar alternate"
+			ng-show="selected.length">
+		<div class="md-toolbar-tools">
+			<span>{{selected.length}} {{selected.length > 1 ? 'Students' :
+				'Student'}} selected</span>
+		</div>
+		</md-toolbar>
+		<md-data-table-container> <md-data-table-container>
+		<table md-data-table class="md-primary" md-progress="deferred">
+			<thead md-order="query.order" md-trigger="onorderchange">
 				<tr>
 					<th order-by="firstName" name="Name"></th>
 					<th order-by="standard" name="Standard"></th>
 					<th order-by="schoolName" name="School Name"></th>
+					<th name="Contact No"></th>
+					<th name="Actions"></th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr md-auto-select
+				<tr
 					ng-repeat="student in gfStudentList | orderBy: query.order | filter: schoolName | filter: searchByName | limitTo: query.limit: (query.page - 1) * query.limit">
 
 					<td>{{student.fName}} {{student.lName}}</td>
@@ -68,17 +66,16 @@
 							ui-sref="studentModule.add({selectedGFStudID : student.id})"
 							class="md-fab md-primary md-hue-2" ng-click=""> <md-icon
 							md-svg-src="img/icons/edit.svg"></md-icon> <md-tooltip>Edit
-						</md-tooltip></md-button></td>
-					<td><md-button
+						</md-tooltip></md-button>
+						<md-button
 							ui-sref="studentModule.viewExamResult({selectedGFStudID : student.id})"
 							class="md-fab md-primary md-hue-2" ng-click=""> <md-icon
-							md-svg-src="img/icons/result.svg"></md-icon> <md-tooltip>View Exam
-						</md-tooltip></md-button></td>
+							md-svg-src="img/icons/result.svg"></md-icon> <md-tooltip>View
+						Exam </md-tooltip></md-button></td>
 				</tr>
 			</tbody>
 		</table>
-		</md-data-table-container>
-		<md-data-table-pagination md-limit="query.limit" md-page="query.page"
+		</md-data-table-container> <md-data-table-pagination md-limit="query.limit" md-page="query.page"
 			md-total={{gfStudentList.length}} md-trigger="onpagechange"></md-data-table-pagination>
 	</div>
 </div>

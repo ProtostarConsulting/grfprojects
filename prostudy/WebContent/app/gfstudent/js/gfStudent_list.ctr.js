@@ -13,8 +13,8 @@ angular
 								.position("top").hideDelay(3000));
 					};
 					$scope.query = {
-						order : 'description',
-						limit : 5,
+						order : 'standard',
+						limit : 50,
 						page : 1
 					};
 
@@ -34,6 +34,7 @@ angular
 							return;
 						}
 						
+						$scope.loading = true;
 						var gfStudentService = appEndpointSF
 								.getGFStudentService();
 						gfStudentService.getGFStudentsByInstitute(
@@ -42,6 +43,7 @@ angular
 									$scope.gfStudentList = gfStudentList;
 									ajsCache.put(studentListCacheKey,
 											gfStudentList);
+									$scope.loading = false;
 								});
 					}
 
