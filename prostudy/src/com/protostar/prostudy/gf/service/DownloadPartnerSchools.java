@@ -46,7 +46,7 @@ public class DownloadPartnerSchools extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//System.out.println("hi i am download servlet");
+		// System.out.println("hi i am download servlet");
 		Long insId = Long.parseLong(request.getParameter("InstituteId"));
 
 		System.out.println("insid===" + insId);
@@ -238,7 +238,7 @@ public class DownloadPartnerSchools extends HttpServlet {
 								&& !paymentDetailList.isEmpty()) {
 							float totalPaid = 0;
 							for (PaymentDetail paymentRecord : paymentDetailList) {
-								totalPaid += paymentRecord.gettPaid();
+								totalPaid += paymentRecord.getPayAmount();
 							}
 							String payReceivedBy = UtilityService
 									.trimForCSV(paymentDetailList.get(0)

@@ -197,8 +197,9 @@ angular
 					$scope.getCurYear();
 
 					$scope.calculateTotal = function() {
-						$scope.examDetail.total = Number($scope.examDetail.male)
-								+ Number($scope.examDetail.female);
+						// $scope.examDetail.total =
+						// Number($scope.examDetail.male)
+						// + Number($scope.examDetail.female);
 					}
 
 					$scope.selectedPSchoolId = $stateParams.selectedPSchoolId;
@@ -430,6 +431,8 @@ angular
 								$scope.examDetail.female = parseInt($scope.examDetail.female);
 								$scope.examDetail.total = parseInt($scope.examDetail.total);
 
+								$scope.calculateActualStudTotal();
+
 								if ($scope.bookSummary != undefined) {
 									k = 1;
 								}
@@ -541,6 +544,14 @@ angular
 								.round(($scope.bookSummary.total / 100) * 80);
 
 						$scope.calculatepaidandpending();
+						$scope.calculateActualStudTotal();
+					}
+
+					$scope.calculateActualStudTotal = function() {
+						$scope.examDetail.total = 0;
+						for (count = 0; count < $scope.bookSummary.bookDetail.length; count++) {
+							$scope.examDetail.total += $scope.bookSummary.bookDetail[count].totalStud;
+						}
 					}
 
 					// -----------add coordinator--------------

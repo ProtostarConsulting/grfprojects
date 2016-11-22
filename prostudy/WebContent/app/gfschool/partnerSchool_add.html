@@ -320,7 +320,7 @@
 			</div>
 			</md-input-container>
 			<!-- <span flex="10"></span> -->
-			<md-input-container flex> Total= <b>{{examDetail.total}}
+			<!-- <md-input-container flex> Total= <b>{{examDetail.total}} -->
 			</b> </md-input-container>
 		</div>
 		<div layout="row" layout-xs="column">
@@ -559,8 +559,9 @@
 							type="number" ng-model="bb.bookPrise"> --> {{bb.bookPrise |
 							number : 2}}</md-input-container></td>
 						<td><md-input-container flex> <input
-								type="number" name="totalStud" min="1" aria-label="totalStud"
-								ng-blur="calculate($index,bb.totalStud)" ng-model="bb.totalStud">
+								type="number" name="totalStud" min="1"  ng-model="bb.totalStud" aria-label="totalStud"
+								ng-change="calculate($index,bb.totalStud)"
+								ng-model-options="{ debounce: 1000 }">
 							</md-input-container></td>
 						<td><md-input-container flex> <!-- <input
 							type="number" name="totalFees" ng-model="bb.totalFees"> -->
@@ -571,7 +572,14 @@
 								md-svg-icon="img/icons/ic_remove_circle_outline_black_24px.svg"
 								aria-label="Prev Week"></md-icon> </md-button></td>
 					</tr>
-
+					<tr>
+						<td></td>
+						<td></td>
+						<td>Total Students:</td>
+						<td>{{examDetail.total}}</td>
+						<td></td>
+						<td></td>
+					</tr>
 				</tbody>
 
 
