@@ -531,7 +531,7 @@
 		<div>
 			<md-data-table-container>
 			<table md-data-table>
-				<thead md-order="query.order" md-trigger="onorderchange">
+				<thead>
 					<tr>
 
 						<th width=20% name="Select Standard"></th>
@@ -581,8 +581,6 @@
 						<td></td>
 					</tr>
 				</tbody>
-
-
 			</table>
 			</md-data-table-container>
 		</div>
@@ -594,8 +592,7 @@
 		</span>
 
 		<div>
-			<md-data-table-container>
-			<table md-data-table>
+			<table>
 
 				<tr>
 					<td>Total :-</td>
@@ -627,7 +624,6 @@
 				</tbody>
 
 			</table>
-			</md-data-table-container>
 		</div>
 
 		<section layout="row" layout-sm="column" layout-align="end end">
@@ -791,11 +787,11 @@
 		<div>
 			<md-data-table-container>
 			<table md-data-table>
-				<thead md-order="query.order" md-trigger="onorderchange">
+				<thead>
 					<tr>
 
-						<th name="Payment Received Vai" order-by="payReceivedBy"></th>
-						<th name="Date"></th>
+						<th name="Payment Received Vai"></th>
+						<th name="Date" order-by="paymentDate"></th>
 						<th name="Bank Name"></th>
 						<th name="Payment Fees"></th>
 
@@ -805,14 +801,13 @@
 				</thead>
 				<tbody>
 					<tr md-auto-select
-						ng-repeat="pd in PaymentDet track by $index  | orderBy: query.order | limitTo: query.limit: (query.page - 1) * query.limit ">
+						ng-repeat="pd in PaymentDet track by $index">
 						<td
 							title=Branch:-{{pd.branchName}}-Transaction/DD/Slip:-{{pd.transactionNumber}}>{{pd.payReceivedBy}}</td>
 						<td>{{pd.paymentDate | formatDate}}</td>
 						<td>{{pd.nameOfBank}}</td>
 						<td>{{pd.payAmount}}</td>
 						<td>{{pd.pAmount}}</td>
-
 					</tr>
 				</tbody>
 			</table>
