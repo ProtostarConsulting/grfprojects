@@ -750,7 +750,7 @@ app
 						controller : 'standardBookCtr'
 					})
 					.state('book.standard_chapterList', {
-						url : "/standard_chapterList/:selectedBookId",
+						url : "/standard_chapterList/:selectedBookId/:selectedBookBlobKey",
 						templateUrl : "/app/book/standard_chapterList.html",
 						controller : 'standard_chapterListCtr'
 					})
