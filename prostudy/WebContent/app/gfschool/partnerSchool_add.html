@@ -253,10 +253,10 @@
 		</div>
 
 		<section layout="row" layout-sm="column" layout-align="end end">
-			<md-button class="md-raised md-primary" ng-click="addPartnerSchool()"
+			<md-button class="md-raised md-primary" ng-click="addPartnerSchool()" 
 				ng-disabled="partnerSchoolForm.name.$invalid || partnerSchoolForm.category.$invalid || partnerSchoolForm.formNumber.$invalid 
 				|| partnerSchoolForm.line1.$invalid ||partnerSchoolForm.city.$invalid || partnerSchoolForm.state.$invalid  
-				|| partnerSchoolForm.dist.$invalid || partnerSchoolForm.taluka.$invalid || partnerSchoolForm.pin.$invalid">Save
+				|| partnerSchoolForm.dist.$invalid || partnerSchoolForm.taluka.$invalid || partnerSchoolForm.pin.$invalid ||!visible">Save
 			& Next</md-button>
 			<md-button class="md-raised md-primary" ng-click="moveToNextTab()"
 				ng-disabled="partnerSchoolForm.name.$invalid || partnerSchoolForm.category.$invalid || partnerSchoolForm.formNumber.$invalid 
@@ -357,11 +357,11 @@
 
 		<section layout="row" layout-sm="column" layout-align="end end">
 			<md-button
-				ng-disabled="partnerSchoolForm.totalStudent.$invalid || partnerSchoolForm.male.$invalid || partnerSchoolForm.female.$invalid"
+				ng-disabled="partnerSchoolForm.totalStudent.$invalid || partnerSchoolForm.male.$invalid || partnerSchoolForm.female.$invalid ||!visible"
 				class="md-raised md-primary" ng-click="addPartnerSchool()">Save
 			& Next</md-button>
 			<md-button class="md-raised md-primary" ng-click="moveToNextTab()"
-				ng-disabled="partnerSchoolForm.totalStudent.$invalid || partnerSchoolForm.male.$invalid || partnerSchoolForm.female.$invalid">Next</md-button>
+				ng-disabled="partnerSchoolForm.totalStudent.$invalid || partnerSchoolForm.male.$invalid || partnerSchoolForm.female.$invalid ">Next</md-button>
 		</section>
 		</md-content> </md-tab> <md-tab label="Contact Detail" ng-click="setCurrentTab(2)"
 			ng-disabled="enableTillTabNo<2"> <md-content
@@ -503,7 +503,7 @@
 		<section layout="row" layout-sm="column" layout-align="end end">
 			<md-button
 				ng-disabled="partnerSchoolForm.headMasterName.$invalid || partnerSchoolForm.cordName.$invalid 
-				|| partnerSchoolForm.cordMobileNo.$invalid"
+				|| partnerSchoolForm.cordMobileNo.$invalid ||!visible"
 				class="md-raised md-primary" ng-click="addPartnerSchool()">Save
 			& Next</md-button>
 			<md-button class="md-raised md-primary" ng-click="moveToNextTab()"
@@ -635,7 +635,7 @@
 		</div>
 
 		<section layout="row" layout-sm="column" layout-align="end end">
-			<md-button ng-disabled="partnerSchoolForm.totalStud.$invalid"
+			<md-button ng-disabled="partnerSchoolForm.totalStud.$invalid ||!visible"
 				class="md-raised md-primary" ng-click="addPartnerSchool()">Save
 			</md-button>
 		</section>
