@@ -72,34 +72,34 @@ public class UploadBookPDFServlet extends HttpServlet {
 			// This is required as there is bug in md-select which preponds the dot operator
 			// Checkbox issue   isPDF=request.getParameter("isPDF")!=false;
 			
-			Boolean isPDF= Boolean.parseBoolean(request.getParameter("isPDF"));
+			Boolean isPDF= Boolean.parseBoolean(request.getParameter("isPDF.hidden"));
 			
 			instituteID=Long.parseLong(request.getParameter("instituteID"));
 		
-			System.out.println("isPDF1--"+request.getParameter("isPDF"));	
+			System.out.println("isPDF1--"+request.getParameter("isPDF.hidden"));	
 			System.out.println("isPDF2--"+isPDF);	
 			
-			String standard = request.getParameter("standard");
+			String standard = request.getParameter("standard.hidden");
 			if (standard == null) {
-				standard = request.getParameter(".standard");
+				standard = request.getParameter("standard.hidden");
 			}
-			String board = request.getParameter("board");
+			String board = request.getParameter("board.hidden");
 			if (board == null) {
-				board = request.getParameter(".board");
+				board = request.getParameter("board.hidden");
 			}
-			String division = request.getParameter("division");
+			String division = request.getParameter("division.hidden");
 			if (division == null) {
-				division = request.getParameter(".division");
+				division = request.getParameter("division.hidden");
 			}
-			String subject = request.getParameter("subject");
+			String subject = request.getParameter("subject.hidden");
 			if (subject == null) {
-				subject = request.getParameter(".subject");
+				subject = request.getParameter("subject.hidden");
 			}
 		
 
 			bookEntity.setBook_name(request.getParameter("book_name"));
 			bookEntity.setAuthor(request.getParameter("author"));
-			bookEntity.setStandard(board);
+			bookEntity.setBoard(board);
 			bookEntity.setStandard(standard);
 			bookEntity.setDivision(division);
 			bookEntity.setSubject(subject);

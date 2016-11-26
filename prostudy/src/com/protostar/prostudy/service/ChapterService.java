@@ -12,7 +12,7 @@ import com.googlecode.objectify.Key;
 import com.protostar.prostudy.entity.ChapterEntity;
 
 
-//@Api(name = "chapterService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.service", ownerName = "com.protostar.prostudy.service", packagePath = ""))
+@Api(name = "chapterService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.service", ownerName = "com.protostar.prostudy.service", packagePath = ""))
 public class ChapterService {
 
 	@SuppressWarnings("unused")
