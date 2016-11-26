@@ -221,16 +221,16 @@ function appEndpointSF($log, localDBServiceFactory, googleEndpointSF) {
 
 		}, apiRoot);
 
-	/*	gapi.client.load('chapterService', 'v0.1', function() {
-			$log.debug("chapterService Loaded....");
+		gapi.client.load('chapterService', 'v0.1', function() {
+			$log.debug("ChapterService Loaded....");
 
 		}, apiRoot);
 
 		gapi.client.load('bookService', 'v0.1', function() {
-			$log.debug("bookService Loaded....");
+			$log.debug("BookService Loaded....");
 
 		}, apiRoot);
-*/
+
 		gapi.client.load('studentService', 'v0.1', function() {
 			$log.debug("StudentService Loaded....");
 
