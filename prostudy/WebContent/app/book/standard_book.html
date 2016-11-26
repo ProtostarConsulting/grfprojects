@@ -30,7 +30,7 @@
 					ng-repeat="book in stdBooks  | orderBy: query.order | limitTo: query.limit: (query.page - 1) * query.limit | filter: {book_name: searchCategory}  ">
 
 					<td ng-click="showBookContents()"><a
-						ui-sref="book.standard_chapterList({selectedBookId : book.id})"><b>{{book.book_name}}</b></a></td>
+						ui-sref="book.standard_chapterList({selectedBookId : book.id, selectedBookBlobKey : book.blobKey})"><b>{{book.book_name}}</b></a></td>
 
 				</tr>
 			</tbody>

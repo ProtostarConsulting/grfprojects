@@ -20,6 +20,7 @@
 			</div>
 			</md-input-container>
 
+			<input type="hidden" name="standard.hidden" id="standard.hidden" value="{{tempBook.standard}}">
 			<md-input-container flex> <label>Standard<span
 				style="color: red" ng-show="bookForm.standard.$error.required"
 				class="mandatory">*</span></label> <md-select name="standard" id="standard"
@@ -46,6 +47,7 @@
 			</div>
 			</md-input-container>
 
+			<input type="hidden" name="division.hidden" id="division.hidden" value="{{tempBook.division}}">
 			<md-input-container flex> <label>Division<span
 				style="color: red" ng-show="bookForm.division.$error.required"
 				class="mandatory">*</span></label> <md-select name="division" id="division"
@@ -62,10 +64,11 @@
 
 		<div layout="row" layout-align="centre centre" layout-xs="column">
 
+			<input type="hidden" name="board.hidden" id="board.hidden" value="{{tempBook.board}}">
 			<md-input-container flex> <label>Board<span
 				style="color: red" ng-show="bookForm.board.$error.required"
 				class="mandatory">*</span></label> <md-select name="board" id="board"
-				ng-model="tempBook.board" "
+				ng-model="tempBook.board" 
 						ng-required="true"> <md-option
 				ng-value="board" ng-repeat="board in boards">{{board}}</md-option> </md-select>
 			<div ng-messages="bookForm.board.$error"
@@ -74,6 +77,7 @@
 			</div>
 			</md-input-container>
 
+			<input type="hidden" name="subject.hidden" id="subject.hidden" value="{{tempBook.subject}}">
 			<md-input-container flex> <label>Subject<span
 				style="color: red" ng-show="bookForm.subject.$error.required"
 				class="mandatory">*</span></label> <md-select name="subject" id="subject"
@@ -94,6 +98,7 @@
 		value={{curUser.instituteID}}>
 
 	<div layout="row" layout-align="centre centre" layout-xs="column">
+		<input type="hidden" name="isPDF.hidden" id="isPDF.hidden" value="{{tempBook.isPDF}}">
 		<md-input-container flex> <md-checkbox id="isPDF"
 			name="isPDF" ng-model="tempBook.isPDF"> <label>Is
 			PDF..</label> </md-checkbox></md-input-container>

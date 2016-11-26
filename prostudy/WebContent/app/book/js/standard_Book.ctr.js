@@ -15,8 +15,8 @@ angular.module("prostudyApp").controller(
 
 			$scope.getStandardByInstitute = function() {
 
-				var StudentService = appEndpointSF.getStudentService();
-				StudentService.getStandardByInstitute(
+				var StandardService = appEndpointSF.getStudentService();
+				StandardService.getStandardByInstitute(
 						$scope.curUser.instituteID).then(
 						function(standardList) {
 

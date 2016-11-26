@@ -20,6 +20,7 @@ angular
 					};
 
 					$scope.selectedBookId = $stateParams.selectedBookId;
+					$scope.selectedBookBlobKey = $stateParams.selectedBookBlobKey;
 					
 					$scope.showBookContents = function() {
 						var BookService = appEndpointSF.getBookService();
@@ -27,10 +28,19 @@ angular
 						BookService.getBookbyID($scope.selectedBookId)
 								.then(
 										function(bookList) {
-																		
-										$scope.book_ChapterDetails = bookList.chapters;
-										$scope.selectedChapter = $scope.book_ChapterDetails;
-										$scope.chapters.push($scope.selectedChapter[0]);
+										if(bookList.isPDF != true){
+											$scope.book_ChapterDetails = bookList.chapters;
+											//$scope.selectedChapter = $scope.book_ChapterDetails;
+											for (var i = 0; i < bookList.chapters.length; i++) {
+												$scope.chapters.push($scope.book_ChapterDetails[i]);
+											}
+										}
+										else{
+											//window.location.href = 'app/book/book_viewpdf.html?blobKey='+$scope.selectedBookBlobKey;
+											$state.go('book.viewbookpdf', {blobKey: $scope.selectedBookBlobKey });
+										}
+										
+										
 
 										});
 
