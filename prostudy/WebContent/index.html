@@ -218,16 +218,14 @@
 						ng-class="{dataContent:true, activeContent:data.expanded5}">
 						<md-content flex layout="column" layout-xs="column"
 							layout-align="center start"> <md-button flex
-							ui-sref="chapter.add" ng-click="close()"
-							class="md-primary">Chapter Add</md-button> <md-button flex
-							ui-sref="chapter.list" ng-click="close()"
+							ui-sref="chapter.add" ng-click="close()" class="md-primary">Chapter
+						Add</md-button> <md-button flex ui-sref="chapter.list" ng-click="close()"
 							class="md-primary">Chapter List</md-button> <md-button flex
-							ui-sref="book.add" ng-click="close()"
-							class="md-primary">Book Add</md-button> <md-button flex
-							ui-sref="book.list" ng-click="close()"
+							ui-sref="book.add" ng-click="close()" class="md-primary">Book
+						Add</md-button> <md-button flex ui-sref="book.list" ng-click="close()"
 							class="md-primary">Book List</md-button> <md-button flex
-							ui-sref="book.standard" ng-click="close()"
-							class="md-primary">Book By Standard</md-button>
+							ui-sref="book.standard" ng-click="close()" class="md-primary">Book
+						By Standard</md-button>
 					</div>
 				</div>
 			</div>
@@ -250,6 +248,15 @@
 						ng-class="{expandCollapse:true, active:data.expanded6}"></span>
 				</div>
 				</md-toolbar>
+				<div id="studentDiv" ng-if="curUser.role == 'Student'"
+					ng-class="{dataContent:true, activeContent:data.expanded6}">
+					<md-content flex layout="column" layout-xs="column"
+						layout-align="center start"> <md-button flex
+						ui-sref="updatemyprofile" ng-click="close()">Update
+					Profile</md-button> <md-button flex ui-sref="favourite" ng-click="close()">Favourite</md-button>
+					</md-content>
+				</div>
+
 				<div style="margin-left: 15px;"
 					ng-class="{dataContent:true, activeContent:data.expanded6}">
 					<md-content flex layout="column" layout-xs="column"

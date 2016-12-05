@@ -20,7 +20,7 @@ angular
 
 					// $scope.curUser=appEndpointSF.getLocalUserService().getLoggedinUser();
 					$scope.students = [];
-
+					
 					$scope.getGFStudentsByInstitute = function(refresh) {
 
 						var studentListCacheKey = "getGFStudentsByInstitute";
@@ -58,7 +58,7 @@ angular
 									$scope.pSchoolList = pSchoolList;
 								});
 					}
-
+					
 					$scope.waitForServiceLoad = function() {
 						if (appEndpointSF.is_service_ready) {
 
@@ -66,13 +66,17 @@ angular
 								$scope.getStudentByExam();
 							} else {
 								$scope.getGFStudentsByInstitute();
-								$scope.getPartnerByInstitute();
-
+								$scope.getPartnerByInstitute();		
+								
 							}
 						} else {
 							$log.debug("Services Not Loaded, watiting...");
 							$timeout($scope.waitForServiceLoad, 1000);
 						}
+					}
+					
+					$scope.downloadCertificate = function(id) {
+						window.open("PrintCertificatePdf?id="+id);
 					}
 
 					$scope.waitForServiceLoad();

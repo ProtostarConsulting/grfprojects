@@ -41,7 +41,7 @@
 							icon="thumb_down"></ng-md-icon>{{book.dislikes}}</md-button></td>
 					<td><div layout="row" flex>
 							<md-button
-								ui-sref="book.edit({selectedBookId: selected[0].id, standard: selected[0].standard, division: selected[0].division, subject: selected[0].subject})">
+								ui-sref="book.edit({selectedBookId: book.id, standard: book.standard, division: book.division, subject: book.subject})">
 							<ng-md-icon icon="mode_edit" style="fill: md-default" size="20">
 							<md-tooltip> Edit </md-tooltip></ng-md-icon></md-button>
 							<a ui-sref="book.viewbookpdf({blobKey : book.blobKey})"> <!-- <md-button

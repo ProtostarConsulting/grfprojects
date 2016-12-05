@@ -62,16 +62,18 @@
 					<td>{{student.standard}}</td>
 					<td>{{student.school.schoolName}}</td>
 					<td>{{student.contact}}</td>
-					<td><md-button Fluid
+					<td><md-button class="md-icon-button"
 							ui-sref="studentModule.add({selectedGFStudID : student.id})"
-							class="md-fab md-primary md-hue-2" ng-click=""> <md-icon
-							md-svg-src="img/icons/edit.svg"></md-icon> <md-tooltip>Edit
-						</md-tooltip></md-button>
-						<md-button
+							ng-click=""> <ng-md-icon icon="mode_edit"
+							style="fill: md-default" size="24"> <md-tooltip>
+						Edit</md-tooltip></ng-md-icon></md-button> <md-button class="md-icon-button"
 							ui-sref="studentModule.viewExamResult({selectedGFStudID : student.id})"
-							class="md-fab md-primary md-hue-2" ng-click=""> <md-icon
-							md-svg-src="img/icons/result.svg"></md-icon> <md-tooltip>View
-						Exam </md-tooltip></md-button></td>
+							ng-click=""> <ng-md-icon icon="pageview"
+							style="fill: md-default" size="24"> <md-tooltip>
+						View Exam</md-tooltip></ng-md-icon></md-button> <md-button class="md-icon-button"
+							ng-click="downloadCertificate(student.id)"> <ng-md-icon
+							icon="print" style="fill: md-default" size="24"> <md-tooltip>
+						Download Certificate</md-tooltip></ng-md-icon></md-button></td>
 				</tr>
 			</tbody>
 		</table>
