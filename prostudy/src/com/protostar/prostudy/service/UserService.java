@@ -21,6 +21,7 @@ import com.googlecode.objectify.Key;
 import com.protostar.prostudy.entity.RoleSecEntity;
 import com.protostar.prostudy.entity.StudSubEntity;
 import com.protostar.prostudy.entity.UserEntity;
+import com.protostar.prostudy.gf.entity.GFStudentEntity;
 import com.protostar.prostudy.gf.service.EmailHandler;
 import com.protostar.prostudy.proadmin.entities.PaymentPlanType;
 import com.protostar.prostudy.until.data.ServerMsg;
@@ -37,8 +38,23 @@ public class UserService {
 		String nextPRN = UtilityService.getNextPRN(user.getRole());
 		user.setPRN(nextPRN);
 
+					
 		UserEntity now = user;
 		ofy().save().entity(user).now();
+		
+		GFStudentEntity stud = new GFStudentEntity();
+		if(user.getRole().equalsIgnoreCase("Student")){
+			stud.setUser(user);
+			stud.setfName(user.getFirstName());
+			stud.setlName(user.getLastName());
+			stud.setInstituteID(user.getInstituteID());
+			stud.setRole(user.getRole());
+			stud.setPrn(nextPRN);
+			stud.setSchool(user.getSchool());
+			stud.setStandard(user.getStandard());
+			ofy().save().entity(stud).now();
+			}
+		
 		logger.info("now_user :" + now);
 		new EmailHandler().sendNewUserRegistrationEmail(user);
 		return now;

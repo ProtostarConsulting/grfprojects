@@ -5,6 +5,7 @@ import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Index;
 import com.protostar.prostudy.entity.BaseEntity;
+import com.protostar.prostudy.entity.UserEntity;
 
 @Entity
 @Cache
@@ -25,6 +26,7 @@ public class GFStudentEntity extends BaseEntity {
 	private String role;
 
 	private Ref<PartnerSchoolEntity> school;
+	private Ref<UserEntity> user;
 
 	public long getInstituteID() {
 		return instituteID;
@@ -108,6 +110,14 @@ public class GFStudentEntity extends BaseEntity {
 
 	public void setSchool(PartnerSchoolEntity school) {
 		this.school = Ref.create(school);
+	}
+
+	public UserEntity getUser() {
+		return user == null? null: user.get();
+	}
+
+	public void setUser(UserEntity user) {
+		this.user = Ref.create(user);
 	}
 
 }
