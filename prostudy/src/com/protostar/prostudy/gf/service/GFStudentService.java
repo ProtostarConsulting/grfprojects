@@ -7,9 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -23,13 +21,14 @@ import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.api.datastore.QueryResultIterator;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.cmd.Query;
-import com.googlecode.objectify.cmd.QueryKeys;
 import com.protostar.prostudy.gf.entity.GFExamResultEntity;
 import com.protostar.prostudy.gf.entity.GFStudentEntity;
 import com.protostar.prostudy.gf.entity.PartnerSchoolEntity;
+import com.protostar.prostudy.until.data.Constants;
 import com.protostar.prostudy.until.data.EntityPagingInfo;
+import com.protostar.prostudy.until.data.EntityUtil;
 import com.protostar.prostudy.until.data.GFExamResultEntityList;
-import com.protostar.prostudy.until.data.UtilityService;
+import com.protostar.prostudy.until.data.SequenceGeneratorShardedService;
 
 @Api(name = "gfStudentService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.gf.service", ownerName = "com.protostar.prostudy.gf.service", packagePath = ""))
 public class GFStudentService {
@@ -40,9 +39,24 @@ public class GFStudentService {
 	@ApiMethod(name = "addGFStudent", path = "addGFStudent")
 	public GFStudentEntity addGFStudent(GFStudentEntity gfStudentEntity) {
 
-		String nextPRN = UtilityService.getNextPRN(gfStudentEntity.getRole());
-		gfStudentEntity.setPrn(nextPRN);
+		/*
+		 * String nextPRN =
+		 * UtilityService.getNextPRN(gfStudentEntity.getRole());
+		 * gfStudentEntity.setPrn(nextPRN);
+		 */
 
+		if (gfStudentEntity.getPrn() == null
+				|| gfStudentEntity.getPrn().isEmpty()) {
+			SequenceGeneratorShardedService sequenceGenerator = new SequenceGeneratorShardedService(
+					EntityUtil.getInstituteEntityRawKey(gfStudentEntity
+							.getInstitute()),
+					Constants.STUDENT_REGISTRATION_NO_COUNTER);
+			Long nextSequenceNumber = sequenceGenerator.getNextSequenceNumber();
+			gfStudentEntity.setPrn(nextSequenceNumber.toString());
+			gfStudentEntity.setCreatedDate(new Date());
+		}
+
+		gfStudentEntity.setModifiedDate(new Date());
 		ofy().save().entity(gfStudentEntity).now();
 		return gfStudentEntity;
 

@@ -6,6 +6,7 @@ import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
+import com.googlecode.objectify.annotation.Parent;
 
 @Entity
 public abstract class BaseEntity {
@@ -14,6 +15,8 @@ public abstract class BaseEntity {
 	private Long id;
 	@Index
 	Ref<InstituteEntity> institute;
+	/*@Parent
+	Ref<InstituteEntity> institute;*/
 	@Index
 	private Date createdDate;
 	@Index
