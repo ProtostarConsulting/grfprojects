@@ -1,28 +1,39 @@
 package com.protostar.prostudy.until;
 
 import java.io.ByteArrayOutputStream;
-import java.io.PrintWriter;
-import java.io.StringReader;
-import java.io.Writer;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.File;
 
 import javax.servlet.ServletOutputStream;
 
 import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.ColumnText;
+import com.itextpdf.text.pdf.GrayColor;
+import com.itextpdf.text.pdf.PRStream;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfName;
+import com.itextpdf.text.pdf.PdfObject;
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfStream;
+import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.tool.xml.XMLWorkerHelper;
 import com.protostar.prostudy.gf.entity.GFStudentEntity;
 import com.protostar.prostudy.until.data.DateUtil;
 
 import freemarker.template.Configuration;
-import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
 
 public class PDFHtmlTemplateService {
 
+	public static final Font FONT = new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL, GrayColor.BLACK);
 	static Configuration cfg = null;
+	
 
 	public Configuration getConfiguration() {
 
@@ -42,7 +53,6 @@ public class PDFHtmlTemplateService {
 
 	public void generateCertificate(GFStudentEntity studEntity,
 			ServletOutputStream outputStream) {
-		// TODO Auto-generated method stub
 		if (studEntity instanceof GFStudentEntity) {
 			generateStudentCertificate(studEntity, outputStream);
 		}
@@ -51,46 +61,79 @@ public class PDFHtmlTemplateService {
 
 	private void generateStudentCertificate(GFStudentEntity studEntity,
 			ServletOutputStream outputStream) {
-		// TODO Auto-generated method stub
 		try {
-			Document document = new Document();
+						
+			ByteArrayOutputStream boas = new ByteArrayOutputStream();
+
+			String path = "img/BulkUploadFormats/CERTIFICATE_GVSP.pdf";
+			File f = new File(path);
+			PdfReader reader = null ;
+			byte []img = new byte[1024];
+				if(f.isFile() && f.canRead()){
+					reader = new PdfReader(f.getAbsolutePath());
+					for (int i = 0; i < reader.getXrefSize(); i++) {
+						PdfObject pdfObject = reader.getPdfObject(i);
+						if(pdfObject != null){
+							if(pdfObject.isStream()){
+								PdfStream stream = (PdfStream)pdfObject;
+								PdfObject pdfSubtype = stream.get(PdfName.SUBTYPE);
+								if(pdfSubtype != null){
+									if(pdfSubtype.toString().equals(PdfName.IMAGE.toString())){
+										img =PdfReader.getStreamBytesRaw((PRStream)stream);
+										boas.write(img);
+									}
+								}
+							}
+						}
+					}
+				}
+			
+			String studName = studEntity.getfName().toUpperCase() + "  "+studEntity.getmName().toUpperCase() + "  "
+						+ studEntity.getlName().toUpperCase();
+			String year = DateUtil.getCurrentGVSPYear();
+			String schoolName = studEntity.getSchool().getSchoolName().toUpperCase();
+			String std = studEntity.getStandard().toLowerCase();
+			
+			Document document = new Document(PageSize.A4);
 			PdfWriter writer = PdfWriter.getInstance(document, outputStream);
 			document.open();
-			XMLWorkerHelper worker = XMLWorkerHelper.getInstance();
-			Map<String, Object> root = new HashMap<String, Object>();
-
-			Image logoURL = Image.getInstance("img/images/grf_logo_new_50x57.gif");
-			logoURL.setAbsolutePosition(50f, 745f);
-			logoURL.scaleToFit(50f, 50f);
-			String logo = String.valueOf(document.add(logoURL));
-			//root.put("logo", logo);
+			PdfContentByte cb = writer.getDirectContent();
+			Image i = Image.getInstance(img);
+			i.scaleToFit(500f, 800f);
+			document.add(getWaterMark(cb,i,studName,year,schoolName,std));
 			
-			String studName = studEntity.getfName() + " "
-					+ studEntity.getlName();
-			
-			root.put("studName", studName.toUpperCase());
-			
-			String studStandard = studEntity.getStandard();
-			root.put("studStandard", studStandard);
-
-			String year = DateUtil.getCurrentGVSPYear();
-			root.put("date", year);
-
-			Template template = getConfiguration().getTemplate("email_templates/StudentCretificatePDF.ftlh");
-
-			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(
-					5000);
-			Writer out = new PrintWriter(byteArrayOutputStream);
-			template.process(root, out);
- 
-			String pdfXMLContent = byteArrayOutputStream.toString();
-
-			worker.parseXHtml(writer, document, new StringReader(pdfXMLContent));
+			boas.close();
 			document.close();
 			
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
+	}
+
+	private Image getWaterMark(PdfContentByte cb, Image i, String studName, String year, String school, String standard) throws DocumentException {
+
+		float width = i.getScaledWidth();
+		float height = i.getScaledHeight();
+		double d1 = width/2.08;
+		float width1 = (float)d1;
+		double d2 = height/2.08;
+		float height1 = (float)d2;
+		double w1 = width/1.9;
+		float width2 = (float)w1;
+		double w2 = width/1.9;
+		float height2 = (float)w2;
+		double w3 = width/1.91;
+		float width3 =(float)w3;
+		double w4 = height/1.91;
+		float height3 = (float)w4;
+		double w5 = height/1.95;
+		float height4 = (float)w5;
+		PdfTemplate template2 = cb.createTemplate(width, height);
+		template2.addImage(i,width,0,0,height,0,0);
+		ColumnText.showTextAligned(template2, Element.ALIGN_CENTER, new Phrase(school, FONT), width1, height1, 0);
+		ColumnText.showTextAligned(template2, Element.ALIGN_CENTER, new Phrase(year, FONT), width2, height2, 0);
+		ColumnText.showTextAligned(template2, Element.ALIGN_CENTER, new Phrase(studName, FONT), width3, height3, 0);
+		ColumnText.showTextAligned(template2, Element.ALIGN_UNDEFINED, new Phrase(standard, FONT), 452f, height4, 0);
+		return Image.getInstance(template2);
 	}
 }
