@@ -39,17 +39,12 @@ public class GFStudentService {
 	@ApiMethod(name = "addGFStudent", path = "addGFStudent")
 	public GFStudentEntity addGFStudent(GFStudentEntity gfStudentEntity) {
 
-		/*
-		 * String nextPRN =
-		 * UtilityService.getNextPRN(gfStudentEntity.getRole());
-		 * gfStudentEntity.setPrn(nextPRN);
-		 */
-
+		
 		if (gfStudentEntity.getPrn() == null
 				|| gfStudentEntity.getPrn().isEmpty()) {
 			SequenceGeneratorShardedService sequenceGenerator = new SequenceGeneratorShardedService(
 					EntityUtil.getInstituteEntityRawKey(gfStudentEntity
-							.getInstitute()),
+							.getInstituteID()),
 					Constants.STUDENT_REGISTRATION_NO_COUNTER);
 			Long nextSequenceNumber = sequenceGenerator.getNextSequenceNumber();
 			gfStudentEntity.setPrn(nextSequenceNumber.toString());
@@ -106,6 +101,79 @@ public class GFStudentService {
 		return resultList;
 	}
 
+	@ApiMethod(name = "getPendingResultSchools", path = "getPendingResultSchools")
+	public List<PartnerSchoolEntity> getPendingResultSchools() {
+
+		List<PartnerSchoolEntity> schoolList = ofy().load()
+				.type(PartnerSchoolEntity.class).list();
+		List<PartnerSchoolEntity> pendingSchoolList = new ArrayList();
+		/*
+		 * List<GFExamResultEntity> examResultList = ofy().load()
+		 * .type(GFExamResultEntity.class).list();
+		 */
+		List<GFExamResultEntity> examResultList = ofy().load()
+				.type(GFExamResultEntity.class).project("school")
+				.distinct(true).list();
+		List<Long> resultSchoolIds = new ArrayList<Long>(examResultList.size());
+		for (GFExamResultEntity result : examResultList) {
+			resultSchoolIds.add(result.getSchool().getId());
+		}
+
+		for (PartnerSchoolEntity currentSchool : schoolList) {
+			if (!resultSchoolIds.contains(currentSchool.getId())) {
+				pendingSchoolList.add(currentSchool);
+			}
+		}
+		return pendingSchoolList;
+	}
+
+	@ApiMethod(name = "fetchExamResultPendingByPaging", path = "fetchExamResultPendingByPaging")
+	public EntityPagingInfo fetchExamResultPendingByPaging(
+			@Named("instituteID") Long instituteID, EntityPagingInfo pagingInfo) {
+
+		Query<GFExamResultEntity> resultQuery = ofy().load()
+				.type(GFExamResultEntity.class).project("school")
+				.distinct(true);
+		List<GFExamResultEntity> examResultList = resultQuery.list();
+		List<Long> resultSchoolIds = new ArrayList<Long>(examResultList.size());
+		for (GFExamResultEntity result : examResultList) {
+			resultSchoolIds.add(result.getSchool().getId());
+		}
+
+		Query<PartnerSchoolEntity> totalSchoolsQuery = ofy().load()
+				.type(PartnerSchoolEntity.class);
+
+		int totalCount = totalSchoolsQuery.count() - resultQuery.count();
+
+		if (pagingInfo.getWebSafeCursorString() != null)
+			totalSchoolsQuery = totalSchoolsQuery.startAt(Cursor
+					.fromWebSafeString(pagingInfo.getWebSafeCursorString()));
+
+		List<GFExamResultEntity> examResultListToReturn = new ArrayList<GFExamResultEntity>();
+		QueryResultIterator<PartnerSchoolEntity> iterator = totalSchoolsQuery
+				.iterator();
+		while (iterator.hasNext()) {
+			PartnerSchoolEntity currentSchool = iterator.next();
+			if (!resultSchoolIds.contains(currentSchool.getId())) {
+				GFExamResultEntity e = new GFExamResultEntity();
+				e.setSchool(currentSchool);
+				examResultListToReturn.add(e);
+
+				if (examResultListToReturn.size() == pagingInfo.getLimit()) {
+					break;
+				}
+			}
+
+		}
+
+		Cursor cursor = iterator.getCursor();
+		pagingInfo.setEntityList(examResultListToReturn);
+		pagingInfo.setWebSafeCursorString(cursor.toWebSafeString());
+		pagingInfo.setTotalEntities(totalCount);
+
+		return pagingInfo;
+	}
+
 	@ApiMethod(name = "getExamResultsPendingGRFReview", path = "getExamResultsPendingGRFReview")
 	public List<GFExamResultEntity> getExamResultsPendingGRFReview(
 			@Named("instituteID") Long id) {
@@ -151,27 +219,26 @@ public class GFStudentService {
 				.order("school").order("-createdDate")
 				.limit(pagingInfo.getLimit()).iterator();
 
-		List<GFExamResultEntity> examResultList = new ArrayList<GFExamResultEntity>();
+		List<Long> toFetchList = new ArrayList<Long>();
 		while (iterator.hasNext()) {
 			GFExamResultEntity next = iterator.next();
 			// this is projected, need whole object
-			examResultList.add(ofy().load().type(GFExamResultEntity.class)
-					.id(next.getId()).now());
+			/*
+			 * examResultList.add(ofy().load().type(GFExamResultEntity.class)
+			 * .id(next.getId()).now());
+			 */
+			toFetchList.add(next.getId());
 		}
+		// this is projected, need whole object
+		Collection<GFExamResultEntity> values = ofy().load()
+				.type(GFExamResultEntity.class).ids(toFetchList).values();
+		List<GFExamResultEntity> examResultList = new ArrayList<GFExamResultEntity>(
+				values);
 
 		Cursor cursor = iterator.getCursor();
 		pagingInfo.setEntityList(examResultList);
 		pagingInfo.setWebSafeCursorString(cursor.toWebSafeString());
 		pagingInfo.setTotalEntities(totalCount);
-
-		/*
-		 * logger.info("pagingInfo.getStartPage:" + pagingInfo.getStartPage());
-		 * logger.info("pagingInfo.getLimit():" + pagingInfo.getLimit());
-		 * logger.info("pagingInfo.getEntityList().size: " +
-		 * pagingInfo.getEntityList().size());
-		 * logger.info("pagingInfo.getTotalEntities: " +
-		 * pagingInfo.getTotalEntities());
-		 */
 
 		return pagingInfo;
 	}

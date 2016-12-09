@@ -35,7 +35,15 @@ angular
 								.position("top").capsule(true).hideDelay(9000));
 					};
 					$scope.back = function() {
-						window.history.back();
+						window.history.back();// for #tp1
+						window.history.back(); // to actual view
+					};
+
+					$scope.hasUserAuthority = function(user, authorityToCheck) {
+						return user.authority
+								&& user.authority.length
+								&& user.authority.indexOf(authorityToCheck
+										.trim()) > -1
 					};
 
 					$scope.data = {

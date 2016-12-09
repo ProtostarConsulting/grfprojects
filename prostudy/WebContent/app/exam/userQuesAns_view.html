@@ -6,18 +6,16 @@
 <div ng-if="!loading">
 
 	<!-- <h3 class="md-headline">Result & Statistics</h3> -->
-	<b>Online Exam is completed successfully. You may close the window.
-		Thank you.</b> <br>
+	<b>Online Exam completed successfully. Thank you.</b> <br>
 	<p>&nbsp;</p>
 	<div layout="column" layout-align="center center">
 		<h3 class="md-headline">Result Summary</h3>
-		<b>Your score : {{examResults.score}}/{{totalLength}}<br>
+		<b>Your score : {{examResultObj.score}}/{{totalLength}}<br>
 		</b> <b>Total number of questions : {{totalLength}}<br></b> <b>Number
 			of answered questions : {{answeredLength}}<br>
 		</b> <b>Number of unanswered questions : {{totalLength -
 			answeredLength}}</b>
 	</div>
-
 	<hr>
 	<p>&nbsp;</p>
 	<div layout="column" layout-align="center center">
@@ -25,25 +23,25 @@
 	</div>
 	<div layout="row" layout-align="center center" layout-xs="column"
 		layout-wrap>
-		<div flex="50" ng-repeat="item in newQues">
+		<div flex="50" ng-repeat="item in examResultObj.test">
 			<div>
 				<md-content flex layout-padding> <b
-					ng-bind-html="+ (item.qId) +')'+ item.description"></b> </md-content>
+					ng-bind-html="($index + 1) +')'+ item.description"></b> </md-content>
 			</div>
 
 
 			<div layout="column">
 				<md-checkbox
-					ng-checked="examResults.userAns[$index].userOption=='option1'"
+					ng-checked="examResultObj.userAns[$index].userOption=='option1'"
 					disabled> {{item.option1}} </md-checkbox>
 				<md-checkbox
-					ng-checked="examResults.userAns[$index].userOption=='option2'"
+					ng-checked="examResultObj.userAns[$index].userOption=='option2'"
 					disabled> {{item.option2}} </md-checkbox>
 				<md-checkbox
-					ng-checked="examResults.userAns[$index].userOption=='option3'"
+					ng-checked="examResultObj.userAns[$index].userOption=='option3'"
 					disabled> {{item.option3}} </md-checkbox>
 				<md-checkbox
-					ng-checked="examResults.userAns[$index].userOption=='option4'"
+					ng-checked="examResultObj.userAns[$index].userOption=='option4'"
 					disabled> {{item.option4}} </md-checkbox>
 
 				<td><b>Correct Answer :{{item.correctAns }}</b></td>

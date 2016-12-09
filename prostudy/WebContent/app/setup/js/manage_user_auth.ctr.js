@@ -3,12 +3,14 @@ angular
 		.controller(
 				"manageUserAuthCtr",
 				function($scope, $window, $mdToast, $timeout, $mdSidenav,
-						$mdUtil, $log, $state, $stateParams, objectFactory,
-						appEndpointSF) {
-
+						$mdUtil, $log, $state, $stateParams, $mdConstant,
+						objectFactory, appEndpointSF) {
+					$log.debug("Inside manageUserAuthCtr");
 					$scope.curUser = appEndpointSF.getLocalUserService()
 							.getLoggedinUser();
-					$log.debug("Inside manageUserAuthCtr");
+
+					$scope.authChipSepKeys = [ $mdConstant.KEY_CODE.ENTER,
+							$mdConstant.KEY_CODE.COMMA ];
 
 					$scope.selectedUserEmailId = $stateParams.selectedUserEmailId;
 
@@ -66,6 +68,9 @@ angular
 														.then(
 																function(user) {
 																	$scope.selectedUser = user;
+																	$scope.selectedUser.authority = ($scope.selectedUser.authority && angular
+																			.isArray($scope.selectedUser.authority)) ? $scope.selectedUser.authority
+																			: [];
 																	$log
 																			.debug("user.authorizations: "
 																					+ user.authorizations);

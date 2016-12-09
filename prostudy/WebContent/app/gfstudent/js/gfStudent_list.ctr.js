@@ -54,7 +54,6 @@ angular
 						PartnerSchoolService.getPartnerByInstitute(
 								$scope.curUser.instituteID).then(
 								function(pSchoolList) {
-
 									$scope.pSchoolList = pSchoolList;
 								});
 					}

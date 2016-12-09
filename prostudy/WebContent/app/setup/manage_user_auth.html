@@ -22,6 +22,21 @@
 			</div>
 		</div>
 	</div>
+	<h4 ng-init="adhocAuthToogle=false"
+		ng-click="adhocAuthToogle=!adhocAuthToogle">
+		Adhoc Authorizations
+		<md-button class="md-icon-button" ng-show="adhocAuthToogle">
+		<ng-md-icon icon="keyboard_arrow_up" style="fill: md-default"
+			size="24"> <md-tooltip> Expand</md-tooltip></ng-md-icon></md-button>
+		<md-button class="md-icon-button" ng-show="!adhocAuthToogle">
+		<ng-md-icon icon="keyboard_arrow_down" style="fill: md-default"
+			size="24"> <md-tooltip> Collapse</md-tooltip></ng-md-icon></md-button>
+	</h4>
+	<div ng-show="adhocAuthToogle">
+		<md-chips ng-model="selectedUser.authority" md-separator-keys="authChipSepKeys"
+			secondary-placeholder="Comma separated values"></md-chips>
+	</div>
+	
 	<div layout="row">
 		<md-button ng-click="cancelButton()" class="md-primary md-raised">Cancel</md-button>
 		<md-button ng-click="saveAuthorization()" class="md-primary md-raised">Save

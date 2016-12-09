@@ -1,4 +1,10 @@
-<div id="studentListDiv">
+<div ng-show="loading">
+	<div layout="row" layout-sm="column" layout-align="space-around">
+		<md-progress-circular md-diameter="100" md-mode="indeterminate"></md-progress-circular>
+	</div>
+</div>
+
+<div ng-show="!loading" id="studentListDiv">
 	<h3 class="md-headline">Student List</h3>
 
 	<div layout="row" layout-align="end end" layout-xs="column">
@@ -62,18 +68,24 @@
 					<td>{{student.standard}}</td>
 					<td>{{student.school.schoolName}}</td>
 					<td>{{student.contact}}</td>
-					<td><md-button class="md-icon-button"
-							ui-sref="studentModule.add({selectedGFStudID : student.id})"
-							ng-click=""> <ng-md-icon icon="mode_edit"
-							style="fill: md-default" size="24"> <md-tooltip>
-						Edit</md-tooltip></ng-md-icon></md-button> <md-button class="md-icon-button"
-							ui-sref="studentModule.viewExamResult({selectedGFStudID : student.id})"
-							ng-click=""> <ng-md-icon icon="pageview"
-							style="fill: md-default" size="24"> <md-tooltip>
-						View Exam</md-tooltip></ng-md-icon></md-button> <md-button class="md-icon-button"
-							ng-click="downloadCertificate(student.id)"> <ng-md-icon
-							icon="print" style="fill: md-default" size="24"> <md-tooltip>
-						Download Certificate</md-tooltip></ng-md-icon></md-button></td>
+					<td>
+						<div layout="row" flex>
+							<md-button class="md-icon-button"
+								ui-sref="studentModule.add({selectedGFStudID : student.id})"
+								ng-click=""> <ng-md-icon icon="mode_edit"
+								style="fill: md-default" size="24"> <md-tooltip>
+							Edit</md-tooltip></ng-md-icon></md-button>
+							<md-button class="md-icon-button"
+								ui-sref="studentModule.viewExamResult({selectedGFStudID : student.id})"
+								ng-click=""> <ng-md-icon icon="pageview"
+								style="fill: md-default" size="24"> <md-tooltip>
+							View Exam</md-tooltip></ng-md-icon></md-button>
+							<md-button class="md-icon-button"
+								ng-click="downloadCertificate(student.id)"> <ng-md-icon
+								icon="print" style="fill: md-default" size="24"> <md-tooltip>
+							Download Certificate</md-tooltip></ng-md-icon></md-button>
+						</div>
+					</td>
 				</tr>
 			</tbody>
 		</table>

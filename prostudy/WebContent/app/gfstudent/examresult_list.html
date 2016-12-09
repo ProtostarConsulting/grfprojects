@@ -20,7 +20,13 @@
 					ng-change="searchByGrfRegNoChange()"
 					ng-model-options="{ debounce: 1000 }"> </md-input-container>
 				<md-input-container flex> <md-checkbox
-					ng-model="query.grfReviewed" ng-click="pendingGrfReview()"
+					ng-model="query.pendingResults" ng-true-value="true"
+					ng-false-value="false" ng-click="pendingResultsList()"
+					style="padding-top: 10px" aria-label="Show Pending Result">
+				Show Pending Result</md-checkbox> </md-input-container>	
+				<md-input-container flex> <md-checkbox
+					ng-model="query.grfReviewed" ng-true-value="true"
+					ng-false-value="false" ng-click="pendingGrfReview()"
 					style="padding-top: 10px" aria-label="Show Pending GRF Review">
 				Show Pending GRF Review</md-checkbox> </md-input-container>
 			</div>
@@ -30,7 +36,7 @@
 			ng-hide="selected.length">
 
 		<div class="md-toolbar-tools">
-			<span>Exam Result List</span>
+			<span ng-bind="query.pendingResults?'Pending Exam Result List':'Exam Result List'"></span>
 			<div flex></div>
 
 			<md-button class="md-icon-button" id="downloadExcel"

@@ -19,6 +19,7 @@ angular
 						totalSizeBackup : 0,
 						searchByGrfRegNo : '',
 						searchSchoolTxt : '',
+						pendingResults : false,
 						grfReviewed : false,
 						entityList : null,
 
@@ -73,6 +74,7 @@ angular
 						$scope.pagingInfoReturned = null;
 						$scope.query.searchByGrfRegNo = "";
 						$scope.query.searchSchoolTxt = "";
+						$scope.query.pendingResults = false;
 						$scope.query.grfReviewed = false;
 						$scope.examResultList = [];
 						$scope.onpagechange();
@@ -116,30 +118,26 @@ angular
 
 							var gfStudentService = appEndpointSF
 									.getGFStudentService();
-							gfStudentService
-									.fetchExamResultByPaging(
-											$scope.curUser.instituteID,
-											pagingInfoTemp)
-									.then(
-											function(pagingInfoReturned) {
-												$scope.pagingInfoReturned = pagingInfoReturned;
-												if ($scope.examResultList.length < pagingInfoReturned.totalEntities) {
-													$scope.examResultList = $scope.examResultList
-															.concat(pagingInfoReturned.entityList);
-												} else {
-													$scope.examResultList = pagingInfoReturned.entityList;
-												}
-												$scope.examResultListBackup = $scope.examResultList;
-												$scope.query.totalSize = pagingInfoReturned.totalEntities;
-												$scope.query.totalSizeBackup = pagingInfoReturned.totalEntities;
-												$scope.query.entityList = $scope.examResultList;
-
-												ajsCache.put(
-														examResultListCacheKey,
-														$scope.query);
-
-												$scope.loading = false;
-											});
+							if ($scope.query.pendingResults) {
+								gfStudentService
+										.fetchExamResultPendingByPaging(
+												$scope.curUser.instituteID)
+										.then(
+												function(pagingInfoReturned) {
+													initpagingInfoReturned(pagingInfoReturned);
+													$scope.loading = false;
+												});
+							} else {
+								gfStudentService
+										.fetchExamResultByPaging(
+												$scope.curUser.instituteID,
+												pagingInfoTemp)
+										.then(
+												function(pagingInfoReturned) {
+													initpagingInfoReturned(pagingInfoReturned);
+													$scope.loading = false;
+												});
+							}
 						} else {
 							$log
 									.debug("NOT Need to fetch from server. Just returned...");
@@ -147,11 +145,28 @@ angular
 						}
 					}
 
+					function initpagingInfoReturned(pagingInfoReturned) {
+						$scope.pagingInfoReturned = pagingInfoReturned;
+						if ($scope.examResultList.length < pagingInfoReturned.totalEntities) {
+							$scope.examResultList = $scope.examResultList
+									.concat(pagingInfoReturned.entityList);
+						} else {
+							$scope.examResultList = pagingInfoReturned.entityList;
+						}
+						$scope.examResultListBackup = $scope.examResultList;
+						$scope.query.totalSize = pagingInfoReturned.totalEntities;
+						$scope.query.totalSizeBackup = pagingInfoReturned.totalEntities;
+						$scope.query.entityList = $scope.examResultList;
+
+						ajsCache.put(examResultListCacheKey, $scope.query);
+					}
+
 					$scope.searchTextDone = false;
 					$scope.searchSchoolTxtChange = function() {
 						if ($scope.query.searchSchoolTxt
 								&& $scope.query.searchSchoolTxt.length >= 3) {
 							$scope.query.searchByGrfRegNo = "";
+							$scope.query.pendingResults = false;
 							$scope.query.grfReviewed = false;
 							$scope.query.page = 1;
 							$scope
@@ -167,12 +182,13 @@ angular
 							}
 						}
 					}
-					
+
 					$scope.searchByGrfRegNoChange = function() {
 						var enteredGrfRegNo = $scope.query.searchByGrfRegNo
 								.trim();
 						if (enteredGrfRegNo && enteredGrfRegNo.length >= 5) {
 							$scope.query.searchSchoolTxt = "";
+							$scope.query.pendingResults = false;
 							$scope.query.grfReviewed = false;
 							$scope.query.page = 1;
 							var grfRegNo = (enteredGrfRegNo
@@ -232,6 +248,7 @@ angular
 
 					$scope.pendingGrfReview = function() {
 						if (!$scope.query.grfReviewed) {
+							$scope.query.pendingResults = false;
 							$scope.query.searchSchoolTxt = "";
 							$scope.query.searchByGrfRegNo = "";
 							$scope.query.page = 1;
@@ -244,6 +261,20 @@ angular
 								$scope.examResultList = $scope.examResultListBackup;
 								$scope.query.totalSize = $scope.query.totalSizeBackup;
 							}
+						}
+					}
+
+					$scope.pendingResultsList = function() {
+						if (!$scope.query.pendingResults) {
+							$scope.query.grfReviewed = false;
+							$scope.query.searchSchoolTxt = "";
+							$scope.query.searchByGrfRegNo = "";
+							$scope.query.page = 1;
+							$scope.fetchExamResultPendingByPaging();
+						} else {
+							$scope.refreshListPage();
+							//This is needed as refreshListPage has changed this value.
+							$scope.query.pendingResults = true;
 						}
 					}
 
@@ -264,6 +295,20 @@ angular
 											}
 											$scope.searchTextDone = false;
 										});
+					}
+
+					$scope.fetchExamResultPendingByPaging = function() {
+						$scope.searchTextDone = true;
+						$scope.examResultList = [];
+						$log.debug("Fetcing Pending Result List");
+						var gfStudentService = appEndpointSF
+								.getGFStudentService();
+						gfStudentService.fetchExamResultPendingByPaging(
+								$scope.curUser.instituteID).then(
+								function(pagingInfoReturned) {
+									initpagingInfoReturned(pagingInfoReturned);
+									$scope.searchTextDone = false;
+								});
 					}
 
 					$scope.cancel = function() {

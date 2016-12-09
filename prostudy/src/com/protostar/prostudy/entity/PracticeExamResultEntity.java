@@ -7,7 +7,7 @@ import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
 @Entity
-public class PracticeExamResultEntity {
+public class PracticeExamResultEntity extends BaseEntity{
 
 	@Id
 	private Long id;
