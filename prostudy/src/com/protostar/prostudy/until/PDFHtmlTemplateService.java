@@ -23,6 +23,7 @@ import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStream;
 import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.protostar.prostudy.gf.entity.GFExamResultEntity;
 import com.protostar.prostudy.gf.entity.GFStudentEntity;
 import com.protostar.prostudy.until.data.DateUtil;
 
@@ -51,18 +52,20 @@ public class PDFHtmlTemplateService {
 		return cfg;
 	}
 
-	public void generateCertificate(GFStudentEntity studEntity,
+	public void generateCertificate(GFStudentEntity studEntity,GFExamResultEntity examResultEntity,
 			ServletOutputStream outputStream) {
-		if (studEntity instanceof GFStudentEntity) {
-			generateStudentCertificate(studEntity, outputStream);
+		if (studEntity instanceof GFStudentEntity || examResultEntity instanceof GFExamResultEntity) {
+			generateStudentCertificate(studEntity, examResultEntity, outputStream);
 		}
 
 	}
 
-	private void generateStudentCertificate(GFStudentEntity studEntity,
+	private void generateStudentCertificate(GFStudentEntity studEntity,GFExamResultEntity examResultEntity,
 			ServletOutputStream outputStream) {
 		try {
 						
+			String studName = null,schoolName = null,std = null;
+			String year = DateUtil.getCurrentGVSPYear();
 			ByteArrayOutputStream boas = new ByteArrayOutputStream();
 
 			String path = "img/BulkUploadFormats/CERTIFICATE_GVSP.pdf";
@@ -88,11 +91,19 @@ public class PDFHtmlTemplateService {
 					}
 				}
 			
-			String studName = studEntity.getfName().toUpperCase() + "  "+studEntity.getmName().toUpperCase() + "  "
+			if(studEntity != null){
+				studName = studEntity.getfName().toUpperCase() + "  "+studEntity.getmName().toUpperCase() + "  "
 						+ studEntity.getlName().toUpperCase();
-			String year = DateUtil.getCurrentGVSPYear();
-			String schoolName = studEntity.getSchool().getSchoolName().toUpperCase();
-			String std = studEntity.getStandard().toLowerCase();
+				schoolName = studEntity.getSchool().getSchoolName().toUpperCase();
+				std = studEntity.getStandard().toLowerCase();
+			}
+			
+			if(examResultEntity != null){
+				studName = examResultEntity.getStudName().toUpperCase();
+				schoolName = examResultEntity.getSchool().getSchoolName().toUpperCase();
+				std = examResultEntity.getStandard();
+				
+			}
 			
 			Document document = new Document(PageSize.A4);
 			PdfWriter writer = PdfWriter.getInstance(document, outputStream);

@@ -11,6 +11,7 @@ import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.config.Named;
 import com.protostar.prostudy.entity.PracticeExamResultEntity;
+import com.protostar.prostudy.gf.entity.GFExamResultEntity;
 
 @Api(name = "practiceExamService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.service", ownerName = "com.protostar.prostudy.service", packagePath = ""))
 public class PracticeExamResultService {
@@ -68,6 +69,14 @@ public class PracticeExamResultService {
 		 */
 		return list;
 
+	}
+
+	@ApiMethod(name = "getExamResultbyID")
+	public GFExamResultEntity getGFExamResultDetailsbyID(@Named("id") Long id) {
+
+		GFExamResultEntity selected = ofy().load()
+				.type(GFExamResultEntity.class).id(id).now();
+		return selected;
 	}
 
 }
