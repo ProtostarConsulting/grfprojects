@@ -203,6 +203,10 @@ angular
 						return foundResultList;
 
 					}
+					
+					$scope.downloadCertificate = function(id){
+						window.open("PrintCertificatePdf?examID="+id);
+					}
 
 					$scope.addExamResultList = function() {
 						$location.hash('topRight');

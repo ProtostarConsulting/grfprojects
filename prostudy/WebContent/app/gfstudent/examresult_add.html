@@ -145,7 +145,10 @@
 							ng-if="recordForm.marks.$submitted || recordForm.marks.$touched">
 							<div ng-message="required">This field is required.</div>
 						</div>
-						</md-input-container></ng-form>
+						</md-input-container> <md-button class="md-icon-button"
+							ng-click="downloadCertificate(examResult.id)"> <ng-md-icon
+							icon="print" style="fill: md-default" size="24"> <md-tooltip>
+						Download Certificate</md-tooltip></ng-md-icon></md-button> </ng-form>
 
 
 						<div ng-if="$index>=3" layout="column">
@@ -161,7 +164,11 @@
 								ng-model="examResult.studName" capitalize> </md-input-container flex> <md-input-container
 								flex="25" style="margin: 0; padding: 0; padding-left: 10px;">
 							<input name="marks" aria-label="Student Marks" type="number"
-								ng-model="examResult.marks"> </md-input-container> </ng-form>
+								ng-model="examResult.marks"> </md-input-container>
+							<md-button class="md-icon-button"
+								ng-click="downloadCertificate(examResult.id)"> <ng-md-icon
+								icon="print" style="fill: md-default" size="24"> <md-tooltip>
+							Download Certificate</md-tooltip></ng-md-icon></md-button> </ng-form>
 
 						</div>
 
