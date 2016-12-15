@@ -7,16 +7,7 @@
 <div ng-show="!loading" id="studentListDiv">
 	<h3 class="md-headline">Student List</h3>
 
-	<div layout="row" layout-align="end end" layout-xs="column">
 
-		<md-button hide-xs class="md-raised md-primary" id="uplodeExcel"
-			ng-click="UplodeExcel($event)">Upload Students<md-tooltip>
-		Export Students</md-tooltip> </md-button>
-
-		<md-button hide-xs class="md-raised md-primary" id="downloadExcel"
-			ng-click="downloadData()">Download Students <md-tooltip>Download
-		Students</md-tooltip> </md-button>
-	</div>
 
 	<div layout="row" layout-xs="column">
 		<md-input-container flex> <label>Search
@@ -34,11 +25,19 @@
 		<md-toolbar class="md-table-toolbar md-default"
 			ng-hide="selected.length">
 		<div class="md-toolbar-tools">
-			<span>Students List</span>
-			<div flex></div>
-			<md-button class="md-icon-button"
-				ng-click="getGFStudentsByInstitute(true)"> <md-icon>refresh</md-icon>
-			</md-button>
+			<span>Students List</span> <span flex></span>
+			<md-button class="md-icon-button" id="uplodeExcel"
+				ng-click="UplodeExcel($event)"> <ng-md-icon
+				icon="file_upload" style="fill: md-default" size="24">
+			<md-tooltip>Upload CSV Data</md-tooltip></ng-md-icon></md-button>
+			<md-button class="md-icon-button" id="downloadExcel"
+				ng-click="downloadData()"> <ng-md-icon
+				icon="file_download" style="fill: md-default" size="24">
+			<md-tooltip>Download CSV Data</md-tooltip></ng-md-icon></md-button>
+			<md-button class="md-icon-button" id="refreshIcon"
+				ng-click="getGFStudentsByInstitute(true)"> <ng-md-icon
+				icon="refresh" style="fill: md-default" size="24"> <md-tooltip>Refresh
+			List</md-tooltip></ng-md-icon></md-button>
 		</div>
 		</md-toolbar>
 
