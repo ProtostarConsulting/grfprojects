@@ -68,7 +68,6 @@ public class PDFHtmlTemplateService {
 			GFExamResultEntity examResultEntity,
 			ServletOutputStream outputStream) {
 		try {
-
 			String studName = null, schoolName = null, std = null;
 			String year = DateUtil.getCurrentGVSPYear();
 			ByteArrayOutputStream boas = new ByteArrayOutputStream();
@@ -104,7 +103,7 @@ public class PDFHtmlTemplateService {
 						+ studEntity.getlName().toUpperCase();
 				schoolName = studEntity.getSchool().getSchoolName()
 						.toUpperCase();
-				std = studEntity.getStandard().toLowerCase();
+				std = studEntity.getStandard().toUpperCase();
 			}
 
 			if (examResultEntity != null) {
