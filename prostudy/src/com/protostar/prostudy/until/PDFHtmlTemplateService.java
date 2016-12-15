@@ -111,7 +111,7 @@ public class PDFHtmlTemplateService {
 				studName = examResultEntity.getStudName().toUpperCase();
 				schoolName = examResultEntity.getSchool().getSchoolName()
 						.toUpperCase();
-				std = examResultEntity.getStandard();
+				std = examResultEntity.getStandard().toUpperCase();
 			}
 
 			Document document = new Document(PageSize.A4);
