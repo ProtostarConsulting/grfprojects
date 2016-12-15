@@ -15,47 +15,45 @@ import com.protostar.prostudy.gf.entity.GFStudentEntity;
 import com.protostar.prostudy.service.PracticeExamResultService;
 import com.protostar.prostudy.until.PDFHtmlTemplateService;
 
-
 public class PrintCertificatePdf extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-   
-    public PrintCertificatePdf() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public PrintCertificatePdf() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String id = request.getParameter("id");
-		Long studId = (id != null)? Long.parseLong(id) : 10L;
-		
+		Long studId = (id != null) ? Long.parseLong(id) : 10L;
+
 		String examID = request.getParameter("examID");
 		Long examResultId = (examID != null) ? Long.parseLong(examID) : 10L;
-		
+
 		PDFHtmlTemplateService pdfHtmlTemplateService = new PDFHtmlTemplateService();
-		
+
 		response.setContentType("application/PDF");
 		ServletOutputStream outputStream = response.getOutputStream();
-		
+
 		Date date = new Date();
 		String DATE_FORMAT = "dd/MMM/yyyy";
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
-		
+
 		String fileNameAppend = "_" + sdf.format(date);
 		response.setHeader("Content-disposition",
 				"inline; filename='Certificate" + fileNameAppend + ".pdf'");
-		
+
 		GFStudentService gfStudentService = new GFStudentService();
 		GFStudentEntity studEntity = null;
 		studEntity = gfStudentService.getGFStudentById(studId);
-		
+
 		PracticeExamResultService examService = new PracticeExamResultService();
 		GFExamResultEntity examResult = null;
 		examResult = examService.getGFExamResultDetailsbyID(examResultId);
-
-		pdfHtmlTemplateService.generateCertificate(studEntity,examResult,outputStream);
+		pdfHtmlTemplateService.generateCertificate(studEntity, examResult,
+				outputStream);
 	}
-		
+
 }
