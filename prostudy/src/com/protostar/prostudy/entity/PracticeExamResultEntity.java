@@ -3,14 +3,11 @@ package com.protostar.prostudy.entity;
 import java.util.List;
 
 import com.googlecode.objectify.annotation.Entity;
-import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
 @Entity
-public class PracticeExamResultEntity extends BaseEntity{
+public class PracticeExamResultEntity extends BaseEntity {
 
-	@Id
-	private Long id;
 	private String examTitle;
 	@Index
 	private String userId;
@@ -76,14 +73,6 @@ public class PracticeExamResultEntity extends BaseEntity{
 
 	public void setUserAns(List<UserAnsEntity> userAns) {
 		this.userAns = userAns;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getExamTitle() {

@@ -39,6 +39,8 @@ public class GFCourierEntity extends BaseEntity {
 	private String courierDocketID;
 	private float courierCost;
 	private String courierDispatchNotes;
+	private String courierPhone1;
+	private String courierPhone2;
 
 	public String getNote() {
 		return note;
@@ -202,5 +204,21 @@ public class GFCourierEntity extends BaseEntity {
 
 	public void setCourierDispatchNotes(String courierDispatchNotes) {
 		this.courierDispatchNotes = courierDispatchNotes;
+	}
+
+	public String getCourierPhone1() {
+		return courierPhone1;
+	}
+
+	public void setCourierPhone1(String courierPhone1) {
+		this.courierPhone1 = courierPhone1;
+	}
+
+	public String getCourierPhone2() {
+		return courierPhone2;
+	}
+
+	public void setCourierPhone2(String courierPhone2) {
+		this.courierPhone2 = courierPhone2;
 	}
 }

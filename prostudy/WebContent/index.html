@@ -31,9 +31,20 @@
 	<md-content> <!-- Parent tag--> <md-card
 		name="outerMdCard"> <!-- <div layout="column" layout-fill> -->
 
-	<md-content id="topRight" ng-hide="loading"> <!-- Top Navigation Pane -->
+	<md-content id="topRight" ng-hide="loading"  ng-controller="AppCtrl"> <!-- Top Navigation Pane -->
 	<md-toolbar style="height: 80px; width: 100%">
 	<div id="container" class="md-toolbar-tools">
+		<div ng-hide="toggleMainMenuSwitch">
+			<md-button ng-click="toggleMainMenu()" class="md-fab md-mini"
+				aria-label="Mini FAB"> <md-icon
+				md-svg-src="img/icons/menu.svg"></md-icon> </md-button>
+		</div>
+		<div ng-show="toggleMainMenuSwitch">
+			<md-button ng-click="toggleMainMenu()" class="md-fab md-mini"
+				aria-label="Mini FAB"> <md-icon
+				md-svg-src="/img/icons/ic_keyboard_arrow_left_black_24px.svg"></md-icon>
+			</md-button>
+		</div>
 		<img hide-xs id="image" src="img/images/GVSP_GRF_Logo_2.png"
 			style="height: 79px; width: 319px" /> <span flex hide-xs></span>
 		<div layout="row" layout-align="end start">
@@ -56,14 +67,14 @@
 		</div>
 	</div>
 	</md-toolbar>
-	<div ng-controller="AppCtrl">
+	<div>
 		<section layout="row" flex>
 			<!-- Left Navigation Pane -->
 			<md-sidenav class="md-sidenav-left md-whiteframe-z2"
-				md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+				md-component-id="left" md-is-locked-open="toggleMainMenuSwitch">
 			<md-toolbar class="md-theme-indigo"> <!-- <h1 class="md-toolbar-tools">Apps Module</h1> -->
-			<h1 class="md-toolbar-tools" ng-bind="curUser.instituteObj.name"></h1>
-			</md-toolbar> <md-content layout="column" ng-controller="LeftCtrl"> <md-content
+			<h1 class="md-toolbar-tools" ng-click="toggleMainMenu()" ng-bind="curUser.instituteObj.name"></h1>
+			</md-toolbar> <md-content layout="column"> <md-content
 				ng-if="curUser != null" ng-clock>
 			<div style="padding-top: 1px;"></div>
 			<div class="md-accordion">
@@ -289,14 +300,7 @@
 
 			<!-- ng-show="curUser.role == 'Admin' || curUser.role == 'Teacher' || curUser.role == 'Student'" -->
 
-			<md-content flex layout-padding>
-			<div class="md-toolbar-tools" hide-gt-md>
-				<div>
-					<md-button ng-click="toggleLeft()" class="md-fab md-mini"
-						aria-label="Mini FAB" hide-gt-md> <md-icon
-						md-svg-src="img/icons/menu.svg"></md-icon> </md-button>
-				</div>
-			</div>
+			<md-content flex layout-padding>			
 			<!-- <md-card> -->
 			<div layout="column" layout-align="top stretch">
 				<!--<div ng-view></div>-->

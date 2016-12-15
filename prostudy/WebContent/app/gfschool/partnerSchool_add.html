@@ -534,7 +534,6 @@
 			<table md-data-table>
 				<thead>
 					<tr>
-
 						<th width=20% name="Select Standard"></th>
 						<th width=20% name="Select Book Name"></th>
 						<th width=20% name="Fees"></th>
@@ -543,28 +542,28 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="bb in  bookSummary.bookDetail">
-						<td><md-input-container flex> <md-select
+					<tr ng-repeat="bb in  bookSummary.bookDetail" style="margin: 0; padding-left: 0; padding-right: 5px;">
+						<td><md-input-container flex style="margin: 0; padding-left: 0; padding-right: 5px;"> <md-select
 								focus-on="!selectedPSchoolId && selectedIndex==3"
 								name="standard" aria-label="Select Standard"
 								ng-model="bb.standard"> <md-option
 								ng-value="standard" ng-repeat="standard in standardList"
 								placeholder="standard">{{standard}}</md-option> </md-select> </md-input-container></td>
-						<td><md-input-container flex> <md-select
+						<td><md-input-container flex style="margin: 0; padding-left: 0; padding-right: 5px;"> <md-select
 								ng-model="bb.bookName" placeholder="Select book"
 								ng-change="setfees(bb.bookName,$index)"> <md-option
 								ng-value="book.id" ng-repeat="book in bookStocks "
 								ng-if="book.standard==bb.standard">{{book.bookName}}({{book.bookMedium}})</md-option>
 							</md-select> </md-input-container></td>
-						<td><md-input-container flex> <!-- <input
+						<td><md-input-container flex style="margin: 0; padding-left: 0; padding-right: 5px;"> <!-- <input
 							type="number" ng-model="bb.bookPrise"> --> {{bb.bookPrise |
 							number : 2}}</md-input-container></td>
-						<td><md-input-container flex> <input
+						<td><md-input-container flex style="margin: 0; padding-left: 0; padding-right: 5px;"> <input
 								type="number" name="totalStud" min="1" ng-model="bb.totalStud"
 								aria-label="totalStud"
 								ng-change="calculate($index,bb.totalStud)"
 								ng-model-options="{ debounce: 1000 }"> </md-input-container></td>
-						<td><md-input-container flex> <!-- <input
+						<td><md-input-container flex style="margin: 0; padding-left: 0; padding-right: 5px;"> <!-- <input
 							type="number" name="totalFees" ng-model="bb.totalFees"> -->
 							{{bb.totalFees | number : 2}}</md-input-container></td>
 						<td><md-button class="md-icon-button"

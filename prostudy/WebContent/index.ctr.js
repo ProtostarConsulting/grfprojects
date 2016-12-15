@@ -8,7 +8,7 @@ angular
 
 					$log.debug("Inside indexCtr");
 					$scope.angular = angular;
-					
+
 					var defaulLogingUserIconURL = '/img/icons/ic_person_24px.svg';
 					var defaulInstituteLogoURL = '/img/images/grf_logo_new.gif';
 
@@ -432,7 +432,7 @@ angular
 						getUserAuthTree();
 						$scope.initDone = true;
 						$scope.loading = false;
-						$scope.data.expanded5 = true; 
+						$scope.data.expanded5 = true;
 						$state.go("welcome");
 
 					}
@@ -525,27 +525,23 @@ angular
 
 					// Common Utility Functions-END
 
-				}).controller('AppCtrl',
-				function($scope, $timeout, $mdSidenav, $mdUtil, $log) {
-					$scope.toggleLeft = buildToggler('left');
+				})
+		.controller(
+				'AppCtrl',
+				function($scope, $timeout, $mdSidenav, $mdUtil, $log, $mdMedia) {
+					$scope.toggleMainMenuSwitch = $mdMedia('gt-md');
 
-					function buildToggler(navID) {
-						var debounceFn = $mdUtil.debounce(function() {
-							$mdSidenav(navID).toggle().then(function() {
-								$log.debug("toggle " + navID + " is done");
-							});
-						}, 200);
-						return debounceFn;
+					$scope.toggleMainMenu = function() {
+						$scope.toggleMainMenuSwitch = !$scope.toggleMainMenuSwitch;
+						$log
+								.debug("toggle left menu. $scope.toggleMainMenuSwitch:"
+										+ $scope.toggleMainMenuSwitch);
 					}
 
-				}).controller(
-				'LeftCtrl',
-				function($scope, $timeout, $mdSidenav, $log) {
 					$scope.close = function() {
-						$mdSidenav('left').close().then(function() {
-							$log.debug("close LEFT is done");
-						});
-					};
+						if (!$mdMedia('gt-md'))
+							$scope.toggleMainMenu();
+					}					
 
 					$scope.menu = '';
 					$scope.toggleMenu = function(menu) {
