@@ -214,7 +214,18 @@
 											align="right" width=10%>{{pd.pAmount}}</td>
 
 									</tr>
-
+									<tr>
+										<td
+											style="border: 1px solid black; text-align: left; border-spacing: 0px; border-collapse: collapse; font-size: 11px; padding-right: 10px; padding-left: 10px;"
+											colspan="5" width=50%>Total in words:</td>
+									</tr>
+									<tr>
+										<td
+											style="border: 1px solid black; border-spacing: 0px; border-collapse: collapse; font-size: 11px; padding-right: 10px; padding-left: 10px;"
+											colspan="5" width=10% align="right"><b>RUPEES {{totalPaidFees |
+												numToWord | uppercase}} ONLY</b></td>
+									</tr>
+									
 								</table>
 							</div>
 							<br ng-repeat="n in [] | range:(((BookDetail.length > 10)?25:35) - BookDetail.length)">

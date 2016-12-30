@@ -95,9 +95,15 @@ angular
 								$scope.BookDetail = $scope.examList[i].bookSummary.bookDetail;
 								$scope.PaymentDet = $scope.examList[i].paymentDetail;
 								$scope.totalStudents = 0;
+								$scope.totalPaidFees = 0;
 								if ($scope.BookDetail != undefined) {
 									for (var k = 0; k < $scope.BookDetail.length; k++) {
 										$scope.totalStudents += $scope.BookDetail[k].totalStud;
+									}
+								}
+								if($scope.PaymentDet != undefined){
+									for (var j = 0; j < $scope.PaymentDet.length; j++) {
+										$scope.totalPaidFees += $scope.PaymentDet[j].payAmount;
 									}
 								}
 							}
