@@ -37,7 +37,6 @@ public class DownloadSchoolByLanguage extends HttpServlet {
 		int totalStudent = 0;
 		String currTotal = null;
 
-		System.out.println("insid===" + insId);
 		PartnerSchoolService patss = new PartnerSchoolService();
 
 		Date date = new Date();

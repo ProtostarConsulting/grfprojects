@@ -40,4 +40,13 @@ public class DateUtil {
 		return "".concat(year.toString()).concat("-")
 				.concat("" + (year - 1999));
 	}
+	
+	public static String getPreviousGVSPYear() {
+		Calendar cal = Calendar.getInstance();
+		//cal.setTime(date);
+		cal.add(Calendar.YEAR, -1);
+		Integer year = cal.get(Calendar.YEAR);
+		return "".concat(year.toString()).concat("-")
+				.concat("" + (year - 1999));
+	}
 }

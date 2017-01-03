@@ -63,6 +63,11 @@ public class PartnerSchoolService {
 	static {
 		currentYear = DateUtil.getCurrentGVSPYear();
 	}
+	
+	public static String previousYear;
+	static {
+		previousYear = DateUtil.getPreviousGVSPYear();
+	}
 
 	// private boolean notificationEnabled = false;
 
@@ -156,7 +161,7 @@ public class PartnerSchoolService {
 			return null;
 
 		for (ExamDetail exam : partnerSchoolEntity.getExamDetailList()) {
-			if (currentYear.equals(exam.getYearOfExam().trim())) {
+			if (currentYear.equals(exam.getYearOfExam().trim()) || previousYear.equals(exam.getYearOfExam().trim())) {
 				currentYearExamDetail = exam;
 				break;
 			}
