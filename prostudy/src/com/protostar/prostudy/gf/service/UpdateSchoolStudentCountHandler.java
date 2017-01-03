@@ -40,6 +40,10 @@ public class UpdateSchoolStudentCountHandler extends HttpServlet {
 		System.out
 				.println("UpdateSchoolStudentCountHandler: finished count udpate job: "
 						+ new Date());
+		System.out
+				.println("getFinSummayReportData: started job: " + new Date());
+		schoolService.getFinSummayReportData(null);
+		System.out.println("getFinSummayReportData: ended job: " + new Date());
 
 	}
 

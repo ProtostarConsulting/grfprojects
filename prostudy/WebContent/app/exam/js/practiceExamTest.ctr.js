@@ -318,7 +318,7 @@ angular
 					$scope.getEmptyExamResult = function(school, standard,
 							examResult) {
 						var date1 = new Date();
-						var year1 = date1.getFullYear();
+						var year1 = date1.getFullYear(2016, 11, 11);
 						year1 = year1.toString().substr(2, 2);
 						year1 = date1.getFullYear() + "-" + (Number(year1) + 1);
 						return {
