@@ -69,7 +69,7 @@ angular
 
 					}
 
-					var date1 = new Date();
+					var date1 = new Date(2016, 11, 11);
 					var currentYear = date1.getFullYear();
 					currentYear = currentYear.toString().substr(2, 2);
 					currentYear = date1.getFullYear() + "-"
@@ -102,7 +102,7 @@ angular
 									paymentDate = paymentDetailList[i].paymentDate;
 								}
 							}
-							
+
 							paymentDetailCal.payTotal = payTotal;
 							paymentDetailCal.paymentDate = paymentDate;
 							$scope.t_totalAmountByPaymentType += payTotal;

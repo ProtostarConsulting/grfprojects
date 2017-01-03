@@ -189,7 +189,7 @@ angular
 					$scope.getPrvYears();
 					// ---get curyear ------
 					$scope.getCurYear = function() {
-						var date = new Date();
+						var date = new Date(2016, 11, 11);
 						var curyear = date.getFullYear();
 						curyear = curyear.toString().substr(2, 2);
 						$scope.yearOfExam = date.getFullYear() + "-"
@@ -495,7 +495,7 @@ angular
 								.then(
 										function(list) {
 											$scope.schoolList = list;
-											if (list.length > 0) {
+											if (list && list.length > 0) {
 												$scope.visible = $scope
 														.hasUserAuthority(
 																$scope.curUser,
