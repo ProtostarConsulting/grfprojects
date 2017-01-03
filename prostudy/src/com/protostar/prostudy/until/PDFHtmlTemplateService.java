@@ -126,7 +126,11 @@ public class PDFHtmlTemplateService {
 			// -----Student Name-----
 			cb.saveState();
 			cb.beginText();
-			cb.moveText(240f, 503f);
+			if (studName.length() > 20) {
+				cb.moveText(180f, 503f);
+			} else {
+				cb.moveText(240f, 503f);
+			}
 			cb.setFontAndSize(bf, 12);
 			cb.showText(studName);
 			cb.endText();
@@ -134,7 +138,11 @@ public class PDFHtmlTemplateService {
 			// -----School Name----
 			cb.saveState();
 			cb.beginText();
-			cb.moveText(250f, 477f);
+			if (schoolName.length() > 20) {
+				cb.moveText(160f, 477f);
+			} else {
+				cb.moveText(250f, 477f);
+			}
 			cb.setFontAndSize(bf, 12);
 			cb.showText(schoolName);
 			cb.endText();
