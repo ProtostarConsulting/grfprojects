@@ -63,7 +63,7 @@ public class PartnerSchoolService {
 	static {
 		currentYear = DateUtil.getCurrentGVSPYear();
 	}
-	
+
 	public static String previousYear;
 	static {
 		previousYear = DateUtil.getPreviousGVSPYear();
@@ -161,7 +161,8 @@ public class PartnerSchoolService {
 			return null;
 
 		for (ExamDetail exam : partnerSchoolEntity.getExamDetailList()) {
-			if (currentYear.equals(exam.getYearOfExam().trim()) || previousYear.equals(exam.getYearOfExam().trim())) {
+			if (currentYear.equals(exam.getYearOfExam().trim())
+					|| previousYear.equals(exam.getYearOfExam().trim())) {
 				currentYearExamDetail = exam;
 				break;
 			}
@@ -497,6 +498,9 @@ public class PartnerSchoolService {
 					try {
 						studNumbers = Long.parseLong(examDeatilByCurretnYear
 								.getTotal());
+						//next year use below commented code to get correct count.
+						// studNumbers =
+						// calculateTotalStudents(examDeatilByCurretnYear);
 					} catch (Exception ex) {
 						logger.warning("updateCurrentYearSchoolAndStudentCount: "
 								+ ex.getMessage());
@@ -544,6 +548,18 @@ public class PartnerSchoolService {
 		memcacheService.put(schoolAndStudentCountEntity.getKey(),
 				schoolAndStudentCount);
 		datastore.put(schoolAndStudentCountEntity);
+	}
+
+	private int calculateTotalStudents(ExamDetail examDeatilByCurretnYear) {
+		List<BookDetail> bookDetailList = examDeatilByCurretnYear
+				.getBookSummary().getBookDetail();
+		int total = 0;
+		for (BookDetail bookDetail : bookDetailList) {
+			System.out.println("bookDetail.getTotalStud():"
+					+ bookDetail.getTotalStud());
+			total += bookDetail.getTotalStud();
+		}
+		return total;
 	}
 
 	static class SchoolAndStudentCount implements Serializable {
