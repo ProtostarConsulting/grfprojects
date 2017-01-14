@@ -21,6 +21,8 @@ import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.api.datastore.QueryResultIterator;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.cmd.Query;
+import com.protostar.prostudy.entity.PracticeExamEntity;
+import com.protostar.prostudy.entity.UserEntity;
 import com.protostar.prostudy.gf.entity.GFExamResultEntity;
 import com.protostar.prostudy.gf.entity.GFStudentEntity;
 import com.protostar.prostudy.gf.entity.PartnerSchoolEntity;
@@ -39,7 +41,6 @@ public class GFStudentService {
 	@ApiMethod(name = "addGFStudent", path = "addGFStudent")
 	public GFStudentEntity addGFStudent(GFStudentEntity gfStudentEntity) {
 
-		
 		if (gfStudentEntity.getPrn() == null
 				|| gfStudentEntity.getPrn().isEmpty()) {
 			SequenceGeneratorShardedService sequenceGenerator = new SequenceGeneratorShardedService(
@@ -140,8 +141,8 @@ public class GFStudentService {
 			resultSchoolIds.add(result.getSchool().getId());
 		}
 
-		Query<PartnerSchoolEntity> totalSchoolsQuery = ofy().load()
-				.type(PartnerSchoolEntity.class);
+		Query<PartnerSchoolEntity> totalSchoolsQuery = ofy().load().type(
+				PartnerSchoolEntity.class);
 
 		int totalCount = totalSchoolsQuery.count() - resultQuery.count();
 
@@ -343,4 +344,28 @@ public class GFStudentService {
 		return resultList;
 	}
 
+	@ApiMethod(name = "addPracticeExamToStudent", path = "addPracticeExamToStudent")
+	public void addPracticeExamToStudent(PracticeExamEntity exam) {
+
+		String standard = exam.getStandard();
+		List<GFStudentEntity> studentList = ofy().load()
+				.type(GFStudentEntity.class).filter("standard", standard)
+				.list();
+
+		List<UserEntity> userList = ofy().load().type(UserEntity.class)
+				.filter("standard", standard).list();
+
+		List<PracticeExamEntity> examEntity = new ArrayList<PracticeExamEntity>();
+		examEntity.add(exam);
+
+		for (int i = 0; i < studentList.size(); i++) {
+			studentList.get(i).setExam(examEntity);
+			ofy().save().entity(studentList.get(i)).now();
+		}
+
+		for (int j = 0; j < userList.size(); j++) {
+			userList.get(j).setMyExams(examEntity);
+			ofy().save().entity(userList.get(j)).now();
+		}
+	}
 }

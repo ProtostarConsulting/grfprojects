@@ -18,6 +18,7 @@
 				<th order-by="date" name="Created on Date"></th>
 				<th order-by="category" name="Category"></th>
 				<th order-by="standard" name="Standard"></th>
+				<th order-by="action" name="Action"></th>
 
 			</tr>
 		</thead>
@@ -30,18 +31,21 @@
 				<td>{{test.date | formatDate}}</td>
 				<td>{{test.category}}</td>
 				<td>{{test.standard}}</td>
-				<!-- <td><md-button ng-click="addTestToMyList(test.id)"
+				<td><md-button ng-click="addTestToMyList(test.id)"
 						ng-disabled="isContainsTest(curUser.myExams,test)"> <md-icon
 						md-svg-src="img/icons/add_fav.svg"></md-icon> <md-tooltip>Add
-					To MyPractice Exam</md-tooltip></md-button></td>
+					To MyPractice Exam</md-tooltip></md-button> <md-button class="md-icon-button"
+					id="assignExamToStudent" ng-click="assignExamToStudent(test)">
+					<ng-md-icon icon="person_add" style="fill: md-default" size="18">
+					<md-tooltip>Assign Exam To Student</md-tooltip></ng-md-icon></md-button></td>
 
-				<td><md-button ng-click="like(test.id)"> <ng-md-icon
+				<!-- <td><md-button ng-click="like(test.id)"> <ng-md-icon
 						icon="thumb_up"></ng-md-icon>{{test.likes}}</md-button></td>
 
 				<td><md-button ng-click="dislike(test.id)"> <ng-md-icon
 						icon="thumb_down"></ng-md-icon>{{test.dislikes}}</md-button></td> -->
 
-				
+
 
 
 			</tr>
@@ -56,13 +60,12 @@
 
 		<a ui-sref="exam.practiceexamtest({selectedExamId: selected[0].id})"><md-button
 				ng-show="selected.length == 1" class="md-fab md-primary md-hue-2"
-				ng-click="">
-			<md-icon md-svg-src="img/icons/start.svg"></md-icon> <md-tooltip>Start</md-tooltip></md-button>
-		</a> <a ui-sref="exam.editpracticeexam({selectedExamId: selected[0].id})"><md-button
+				ng-click=""> <md-icon md-svg-src="img/icons/start.svg"></md-icon>
+			<md-tooltip>Start</md-tooltip></md-button> </a> <a
+			ui-sref="exam.editpracticeexam({selectedExamId: selected[0].id})"><md-button
 				ng-show="selected.length == 1" class="md-fab md-primary md-hue-2"
-				ng-click="">
-			<md-icon md-svg-src="img/icons/edit.svg"></md-icon> <md-tooltip>Edit</md-tooltip>
-			</md-button> </a>
+				ng-click=""> <md-icon md-svg-src="img/icons/edit.svg"></md-icon>
+			<md-tooltip>Edit</md-tooltip> </md-button> </a>
 
 	</div>
 </div>

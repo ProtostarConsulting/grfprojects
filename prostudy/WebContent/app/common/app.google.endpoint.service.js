@@ -21,6 +21,15 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 
 		return deferred.promise;
 	}
+	
+	GFStudentService.addPracticeExamToStudent = function(exam) {
+		var deferred = $q.defer();
+		gapi.client.gfStudentService.addPracticeExamToStudent(exam).execute(
+				function(resp) {
+					deferred.resolve(resp);
+				});
+		return deferred.promise;
+	}
 
 	GFStudentService.getGFStudentsByInstitute = function(instituteID) {
 		var deferred = $q.defer();
