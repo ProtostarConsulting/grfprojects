@@ -1,13 +1,10 @@
 package com.protostar.prostudy.gf.entity;
 
-import java.util.List;
-
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Index;
 import com.protostar.prostudy.entity.BaseEntity;
-import com.protostar.prostudy.entity.PracticeExamEntity;
 import com.protostar.prostudy.entity.UserEntity;
 
 @Entity
@@ -28,15 +25,6 @@ public class GFStudentEntity extends BaseEntity {
 	private long instituteID;
 	private String prn;
 	private String role;
-	private List<PracticeExamEntity> exam;
-	
-	public List<PracticeExamEntity> getExam() {
-		return exam;
-	}
-
-	public void setExam(List<PracticeExamEntity> exam) {
-		this.exam = exam;
-	}
 
 	private Ref<PartnerSchoolEntity> school;
 	private Ref<UserEntity> user;

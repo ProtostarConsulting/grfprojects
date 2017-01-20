@@ -21,6 +21,7 @@ import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.api.datastore.QueryResultIterator;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.cmd.Query;
+import com.protostar.prostudy.entity.BookEntity;
 import com.protostar.prostudy.entity.PracticeExamEntity;
 import com.protostar.prostudy.entity.UserEntity;
 import com.protostar.prostudy.gf.entity.GFExamResultEntity;
@@ -352,20 +353,74 @@ public class GFStudentService {
 				.type(GFStudentEntity.class).filter("standard", standard)
 				.list();
 
-		List<UserEntity> userList = ofy().load().type(UserEntity.class)
-				.filter("standard", standard).list();
-
-		List<PracticeExamEntity> examEntity = new ArrayList<PracticeExamEntity>();
-		examEntity.add(exam);
+		List<UserEntity> userListToUpdate = new ArrayList<UserEntity>();
 
 		for (int i = 0; i < studentList.size(); i++) {
-			studentList.get(i).setExam(examEntity);
-			ofy().save().entity(studentList.get(i)).now();
+			GFStudentEntity currentStudent = studentList.get(i);
+			UserEntity user = currentStudent.getUser();
+			List<PracticeExamEntity> userExamList = user.getMyExams();
+			if (userExamList != null) {
+				boolean examAlreadyFound = false;
+				for (int j = 0; j < userExamList.size(); j++) {
+					if (userExamList.get(j).getId().equals(exam.getId())) {
+						examAlreadyFound = true;
+						break;
+					}
+				}
+				if (!examAlreadyFound) {
+					userExamList.add(exam);
+					userListToUpdate.add(user);
+				}
+			} else {
+				userExamList = new ArrayList<PracticeExamEntity>();
+				userExamList.add(exam);
+				user.setMyExams(userExamList);
+				userListToUpdate.add(user);
+			}
 		}
 
-		for (int j = 0; j < userList.size(); j++) {
-			userList.get(j).setMyExams(examEntity);
-			ofy().save().entity(userList.get(j)).now();
+		ofy().save().entities(userListToUpdate);
+
+	}
+
+	@ApiMethod(name = "addBookToStudent", path = "addBookToStudent")
+	public void addBookToStudent(BookEntity book) {
+
+		String standard = book.getStandard();
+
+		List<GFStudentEntity> studentList = ofy().load()
+				.type(GFStudentEntity.class).filter("standard", standard)
+				.list();
+
+		List<UserEntity> userListToUpdate = new ArrayList<UserEntity>();
+
+		for (int i = 0; i < studentList.size(); i++) {
+			GFStudentEntity currentStudent = studentList.get(i);
+			UserEntity user = currentStudent.getUser();
+			List<BookEntity> bookEntityList = user.getMyBooks();
+			if (bookEntityList != null) {
+				boolean alreadyFound = false;
+				for (int j = 0; j < bookEntityList.size(); j++) {
+					if (bookEntityList.get(j).getId().equals(book.getId())) {
+						alreadyFound = true;
+						break;
+					}
+				}
+
+				if (!alreadyFound) {
+					bookEntityList.add(book);
+					userListToUpdate.add(user);
+				}
+
+			} else {
+				bookEntityList = new ArrayList<BookEntity>();
+				bookEntityList.add(book);
+				user.setMyBooks(bookEntityList);
+				userListToUpdate.add(user);
+			}
 		}
+
+		ofy().save().entities(userListToUpdate);
+
 	}
 }

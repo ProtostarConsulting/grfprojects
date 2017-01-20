@@ -11,10 +11,9 @@
 				<tr>
 					<th name="Book Name" order-by="book_name"></th>
 					<th name="Author" order-by="author"></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th name="Action"></th>
+					<th name="Standard"></th>
+					<th name="Subject"></th>
+					<th name="Actions"></th>
 
 				</tr>
 			</thead>
@@ -28,27 +27,33 @@
 					<td ng-show="book.blobKey" ng-click="showBookContents()"><a
 						ui-sref="book.viewbookpdf({blobKey : book.blobKey})"><b>{{book.book_name}}</b></a></td>
 					<td>{{book.author}}</td>
+					<td>{{book.standard}}</td>
+					<td>{{book.subject}}</td>
 
-					<td><md-button ng-click="addBookToMyList(book.id)"
-							ng-disabled="isContainsBook(curUser.myBooks,book)"> <md-icon
-							md-svg-src="img/icons/add_fav.svg"></md-icon> <md-tooltip>Add
-						To MyBooks</md-tooltip></md-button></td>
-
-					<td><md-button ng-click="like(book.id)" aria-label="likes"> <ng-md-icon
-							icon="thumb_up"></ng-md-icon>{{book.likes}}</md-button></td>
-
-					<td><md-button ng-click="dislike(book.id)" aria-label="dislikes"> <ng-md-icon
-							icon="thumb_down"></ng-md-icon>{{book.dislikes}}</md-button></td>
 					<td><div layout="row" flex>
-							<md-button
+							<md-button ng-click="addBookToMyList(book.id)"
+								ng-disabled="isContainsBook(curUser.myBooks,book)">
+							<md-icon md-svg-src="img/icons/add_fav.svg"></md-icon> <md-tooltip>Add
+							To MyBooks</md-tooltip></md-button>
+							<md-button class="md-icon-button" id="likeBook"
+								ng-click="like(book.id)" aria-label="likes"> <ng-md-icon
+								icon="thumb_up" style="fill: md-default" size="18"></ng-md-icon>{{book.likes}}</md-button>
+							<md-button class="md-icon-button" id="dislikeBook"
+								ng-click="dislike(book.id)" aria-label="dislikes"> <ng-md-icon
+								icon="thumb_down" style="fill: md-default" size="18"></ng-md-icon>{{book.dislikes}}</md-button>
+							<md-button class="md-icon-button" id="editBook"
 								ui-sref="book.edit({selectedBookId: book.id, standard: book.standard, division: book.division, subject: book.subject})">
-							<ng-md-icon icon="mode_edit" style="fill: md-default" size="20">
+							<ng-md-icon icon="mode_edit" style="fill: md-default" size="18">
 							<md-tooltip> Edit </md-tooltip></ng-md-icon></md-button>
-							<a ui-sref="book.viewbookpdf({blobKey : book.blobKey})"> <!-- <md-button
+							<!-- <a ui-sref="book.viewbookpdf({blobKey : book.blobKey})"> <md-button
 									ng-show="book.blobKey"> <ng-md-icon icon="pageview"
 									style="fill: md-default" size="20"> <md-tooltip>
-								View PDF </md-tooltip></ng-md-icon></md-button> -->
-							</a>
+								View PDF </md-tooltip></ng-md-icon></md-button>
+							</a> -->
+							<md-button class="md-icon-button" id="assignBookToStudent"
+								ng-click="assignBookToStudent(book)"> <ng-md-icon
+								icon="person_add" style="fill: md-default" size="18">
+							<md-tooltip>Assign Book To Student</md-tooltip></ng-md-icon></md-button>
 						</div></td>
 				</tr>
 			</tbody>
