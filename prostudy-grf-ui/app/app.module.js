@@ -12,16 +12,19 @@ var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
 var material_1 = require('@angular/material');
-var stockitem_list_component_1 = require('./stock/stockitem.list.component');
-var stockitem_add_form_component_1 = require('./stock/stockitem.add.form.component');
 var app_component_1 = require('./app.component');
+var page_not_found_component_1 = require('./page-not-found.component');
+var proerp_module_1 = require('./proerp/proerp.module');
+var setup_module_1 = require('./setup/setup.module');
+var feature_component_1 = require('./prostudy/feature.component');
+var app_routing_module_1 = require('./app-routing.module');
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, material_1.MaterialModule.forRoot()],
-            declarations: [app_component_1.AppComponent, stockitem_list_component_1.StockItemListComponent, stockitem_add_form_component_1.StockItemAddFormComponent],
+            imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, material_1.MaterialModule.forRoot(), proerp_module_1.ProERPModule, setup_module_1.SetupModule, app_routing_module_1.AppRoutingModule],
+            declarations: [app_component_1.AppComponent, page_not_found_component_1.PageNotFoundComponent, feature_component_1.ProStudyComponent],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])

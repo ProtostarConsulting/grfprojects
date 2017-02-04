@@ -9,21 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var AppComponent = (function () {
-    function AppComponent() {
+var forms_1 = require('@angular/forms');
+var feature_component_1 = require('./feature.component');
+var add_user_component_1 = require('./add-user.component');
+var list_user_component_1 = require('./list-user.component');
+var setup_routing_module_1 = require('./setup-routing.module');
+var SetupModule = (function () {
+    function SetupModule() {
     }
-    AppComponent.prototype.selectProduct = function (product) {
-        this.selectedProduct = product;
-    };
-    AppComponent = __decorate([
-        core_1.Component({
-            selector: 'my-app',
-            templateUrl: './app/app.component.html',
-            styleUrls: ['./app/app.component.css']
+    SetupModule = __decorate([
+        core_1.NgModule({
+            imports: [forms_1.FormsModule, forms_1.FormsModule, setup_routing_module_1.SetupRoutingModule],
+            declarations: [feature_component_1.SetupComponent, add_user_component_1.AddUserComponent, list_user_component_1.ListUserComponent]
         }), 
         __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    ], SetupModule);
+    return SetupModule;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.SetupModule = SetupModule;
+//# sourceMappingURL=setup.module.js.map

@@ -9,21 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var AppComponent = (function () {
-    function AppComponent() {
+var forms_1 = require('@angular/forms');
+var feature_component_1 = require('./feature.component');
+var ch1_component_1 = require('./ch1.component');
+var ch2_component_1 = require('./ch2.component');
+var proerp_routing_module_1 = require('./proerp-routing.module');
+var ProERPModule = (function () {
+    function ProERPModule() {
     }
-    AppComponent.prototype.selectProduct = function (product) {
-        this.selectedProduct = product;
-    };
-    AppComponent = __decorate([
-        core_1.Component({
-            selector: 'my-app',
-            templateUrl: './app/app.component.html',
-            styleUrls: ['./app/app.component.css']
+    ProERPModule = __decorate([
+        core_1.NgModule({
+            imports: [forms_1.FormsModule, forms_1.FormsModule, proerp_routing_module_1.ProERPRoutingModule],
+            declarations: [feature_component_1.ProERPComponent, ch1_component_1.Ch1Component, ch2_component_1.Ch2Component]
         }), 
         __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    ], ProERPModule);
+    return ProERPModule;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.ProERPModule = ProERPModule;
+//# sourceMappingURL=proerp.module.js.map

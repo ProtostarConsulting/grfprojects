@@ -9,21 +9,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var AppComponent = (function () {
-    function AppComponent() {
+var ProStudyComponent = (function () {
+    function ProStudyComponent() {
     }
-    AppComponent.prototype.selectProduct = function (product) {
-        this.selectedProduct = product;
-    };
-    AppComponent = __decorate([
+    ProStudyComponent = __decorate([
         core_1.Component({
-            selector: 'my-app',
-            templateUrl: './app/app.component.html',
-            styleUrls: ['./app/app.component.css']
+            selector: 'prostudy-help-index',
+            templateUrl: './app/prostudy/module.component.html',
+            styleUrls: ['./app/prostudy/module.component.css']
         }), 
         __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    ], ProStudyComponent);
+    return ProStudyComponent;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.ProStudyComponent = ProStudyComponent;
+//# sourceMappingURL=module.component.js.map

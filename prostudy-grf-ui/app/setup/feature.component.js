@@ -9,21 +9,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var AppComponent = (function () {
-    function AppComponent() {
+var router_1 = require('@angular/router');
+var SetupComponent = (function () {
+    function SetupComponent(route, router) {
+        this.route = route;
+        this.router = router;
     }
-    AppComponent.prototype.selectProduct = function (product) {
-        this.selectedProduct = product;
+    SetupComponent.prototype.goToCh1 = function () {
+        this.router.navigate(['/setup-index/ch1', 15]);
     };
-    AppComponent = __decorate([
+    SetupComponent = __decorate([
         core_1.Component({
-            selector: 'my-app',
-            templateUrl: './app/app.component.html',
-            styleUrls: ['./app/app.component.css']
+            moduleId: module.id,
+            selector: 'proerp-help-index',
+            templateUrl: './feature.component.html',
+            styleUrls: ['./feature.component.css']
         }), 
-        __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router])
+    ], SetupComponent);
+    return SetupComponent;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.SetupComponent = SetupComponent;
+//# sourceMappingURL=feature.component.js.map
