@@ -5,7 +5,7 @@ import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 
 @Component( {
-    template: `<h2>ProERP Chapter 1</h2> received id is: {{id}}   
+    template: `<h2>Add User</h2> received id is: {{id}}   
     <p>You can post info and stories with Blogger. When you use
         Blogger, make sure you comply with the Blogger Content Policy and
         Terms of Service. Start using Blogger Make sure your browser uses
@@ -36,7 +36,7 @@ export class AddUserComponent implements OnInit {
         private router: Router
     ) { }
 
-    ngOnInit() {
+    ngOnInit() {    
         this.route.params.switchMap(( params: Params ) => ( params['id'] ) ).subscribe(( id: string ) => {
             this.id = id;
             console.log("this.id: " + this.id)});
