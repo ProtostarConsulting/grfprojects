@@ -1,0 +1,62 @@
+<!-- <div class="container" [hidden]="submitted">
+	<h1>Stock Item Form</h1>
+	<form (ngSubmit)="onSubmit()" #itemForm="ngForm">
+		{{diagnostic}}
+		<div class="form-group">
+			<label for="name">Item Name</label> <input #spy type="text"
+				class="form-control" id="itemName" name="itemName"
+				[(ngModel)]="model.itemName" required> <br>TODO: remove
+			this: {{spy.className}}
+		</div>
+		<div class="form-group">
+			<label for="name">Item Price</label> <input type="number"
+				class="form-control" id="itemPrice" name="itemPrice"
+				[(ngModel)]="model.itemPrice" required>
+		</div>
+		<div class="form-group">
+			<label for="name">Item Unit</label> <input type="text"
+				class="form-control" id="itemUnit" name="itemUnit"
+				[(ngModel)]="model.itemUnit">
+		</div>
+
+		<button type="submit" class="btn btn-default" [disabled]="!itemForm.form.valid">Submit</button>
+		<button type="button" class="btn btn-default" (click)="newItem(); itemForm.reset()">New Hero</button>
+	</form>
+</div> -->
+
+<form class="example-form">
+  <md-input-container class="example-full-width">
+    <input md-input placeholder="Company (disabled)" disabled value="ProDigital">
+  </md-input-container>
+
+  <table class="example-full-width" cellspacing="0"><tr>
+    <td><md-input-container class="example-full-width">
+      <input md-input placeholder="First name">
+    </md-input-container></td>
+    <td><md-input-container class="example-full-width">
+      <input md-input placeholder="Long Last Name That Will Be Truncated">
+    </md-input-container></td>
+  </tr></table>
+
+  <p>
+    <md-input-container class="example-full-width">
+      <textarea md-input placeholder="Address">1600 Amphitheatre Pkwy</textarea>
+    </md-input-container>
+    <md-input-container class="example-full-width">
+      <textarea md-input placeholder="Address 2"></textarea>
+    </md-input-container>
+  </p>
+
+  <table class="example-full-width" cellspacing="0"><tr>
+    <td><md-input-container class="example-full-width">
+      <input md-input placeholder="City">
+    </md-input-container></td>
+    <td><md-input-container class="example-full-width">
+      <input md-input placeholder="State">
+    </md-input-container></td>
+    <td><md-input-container class="example-full-width">
+      <input md-input #postalCode maxlength="5" placeholder="Postal Code" value="94043">
+      <md-hint align="end">{{postalCode.value.length}} / 5</md-hint>
+    </md-input-container></td>
+  </tr></table>
+</form>
