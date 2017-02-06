@@ -1,0 +1,18 @@
+<div class="app-content">
+	<h4>List User Componenet</h4>
+	<table>
+	 	<tr> 
+			 <th> Sr. No. </th>	
+			 <th> Name </th>	
+			 <th> Email </th>
+			 <th> Actions </th>	
+		</tr>	
+		<tr *ngFor="let user of userList"> 
+			 <td> {{user.id}} </td>	
+			 <td> {{user.firstName}} </td>	
+			 <td> {{user.email_id}} </td>	
+			 <td> </td>	
+		</tr>	 
+	 </table>
+	<!-- Routed views go here -->
+</div>

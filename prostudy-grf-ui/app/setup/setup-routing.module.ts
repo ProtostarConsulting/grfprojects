@@ -2,29 +2,27 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { SetupComponent } from './feature.component';
-import { AddUserComponent } from './add-user.component';
-import { ListUserComponent } from './list-user.component';
+import { AddUserPage } from './add-user.page';
+import { ListUserPage } from './list-user.page';
 
 const proerpRoutes: Routes = [
     {
         path: 'setup-index', component: SetupComponent,
         children: [
-            { path: 'ch1/:id', component: AddUserComponent },
-            { path: 'ch1', component: AddUserComponent },
-            { path: 'ch2', component: ListUserComponent },
-            { path: '', component: ListUserComponent }
+            { path: 'user/:id', component: AddUserPage },
+            { path: 'user', component: AddUserPage },
+            { path: 'listuser', component: ListUserPage },
+            { path: '', component: ListUserPage }
         ]
     },
-
-
 ];
 
-@NgModule( {
+@NgModule({
     imports: [
-        RouterModule.forChild( proerpRoutes )
+        RouterModule.forChild(proerpRoutes)
     ],
     exports: [
         RouterModule
     ]
 })
-export class SetupRoutingModule {}
+export class SetupRoutingModule { }

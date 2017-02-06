@@ -15,6 +15,6 @@ export class SetupComponent {
         ) { }
     
     goToCh1(){
-        this.router.navigate(['/setup-index/ch1', 15]);
+        this.router.navigate(['/setup-index/user', 15]);
     }
 }
