@@ -1,26 +1,24 @@
 <div class="app-content">
 	<h4>Add User Componenet</h4>
 	<form class="example-form">
-		<md-input-container class="example-full-width">
-			<input md-input placeholder="Company (disabled)" disabled value="Google">
-		</md-input-container>
-
 		<table class="example-full-width" cellspacing="0">
 			<tr>
 				<td>
 					<md-input-container class="example-full-width">
-						<input md-input placeholder="First name">
+						<input md-input name="fname" placeholder="First Name" [(ngModel)]="user.firstName">
 					</md-input-container>
 				</td>
 				<td>
 					<md-input-container class="example-full-width">
-						<input md-input placeholder="Long Last Name That Will Be Truncated">
+						<input md-input name="lname" placeholder="Last Name" [(ngModel)]="user.lastName">
 					</md-input-container>
 				</td>
 			</tr>
 		</table>
-
 		<p>
+			<md-input-container class="example-full-width">
+						<input md-input name="email" placeholder="Email Address" [(ngModel)]="user.email_id">
+					</md-input-container>
 			<md-input-container class="example-full-width">
 				<textarea md-input placeholder="Address">1600 Amphitheatre Pkwy</textarea>
 			</md-input-container>
@@ -49,5 +47,8 @@
 				</td>
 			</tr>
 		</table>
-	</form>	
+		<div class="button-row">
+			<button md-raised-button (click)="saveUser()"> Save </button>
+		</div>
+	</form>
 </div>

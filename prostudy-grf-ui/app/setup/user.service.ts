@@ -4,6 +4,9 @@ import { GoogleEndpointService } from './google-endpoint.service';
 
 
 export class User {
+  role: string = 'Student';
+  instituteID: string = '5910974510923776';
+  password: string = '1';
 }
 
 @Injectable()
@@ -23,6 +26,13 @@ export class UserService {
     return this.loadingEP;
   }
 
+  public saveUser(user: User): boolean {
+    this.gapi.client.userService.addUser(user).execute((data: any) => {
+      console.log('data:' + data);
+    });
+    return true;
+  }
+
   public getUserList(): Promise<User[]> {
     console.log('Came to UserService:getUserList');
     // This is one way of calling async
@@ -33,7 +43,6 @@ export class UserService {
         resolve(data.items);
       });
     });
-
     //Second way ??
   }
 }

@@ -15,18 +15,27 @@ import { UserService, User } from './user.service';
 })
 export class AddUserComponent implements OnInit {
     id: string;
+    user: User = new User();
 
     constructor(
         private route: ActivatedRoute,
         private router: Router,
         private userService: UserService
-    ) { }
+    ) {
+        this.user = new User();
+     }
 
     ngOnInit() {
         this.route.params.switchMap((params: Params) => (params['id'])).subscribe((id: string) => {
             this.id = id;
             console.log('this.id: ' + this.id)
         });
+    }
+    saveUser() {
+        this.user.role = 'Admin';
+        this.user.password = '1';
+        this.user.instituteID = '5910974510923776';
+        this.userService.saveUser(this.user);
     }
 
 }
