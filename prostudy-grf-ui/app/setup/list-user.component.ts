@@ -1,7 +1,9 @@
 import { Component, Optional } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MdDialog, MdDialogRef, MdSnackBar } from '@angular/material';
 
 import { UserService, User } from './user.service';
+import { RouteData } from '../route-data.provider';
 
 
 @Component({
@@ -12,7 +14,12 @@ import { UserService, User } from './user.service';
 })
 export class ListUserComponent {
     userList: User[];
-    constructor(private userService: UserService) {
+    constructor(
+        private route: ActivatedRoute,
+        private router: Router,
+        private routeData: RouteData,
+        private userService: UserService
+    ) {
         this.userList = new Array<User>();
         console.log('came to contructor...');
     }
@@ -23,12 +30,17 @@ export class ListUserComponent {
         (function waitTillLoadingEP(me): void {
             if (me.userService.isLoadingEP() && --noOfTries) {
                 console.log('Waiting for Loading EP...every 2 seconds...?');
-                setTimeout(function () { waitTillLoadingEP(me) }, 2000);
+                setTimeout(function () { waitTillLoadingEP(me); }, 2000);
             } else {
                 console.log('Loading EP done!');
                 me.getUserList();
             }
         })(this);
+    }
+
+    goToUser(selectedUser: User): void {
+        this.routeData.params = {'selectedUser' : selectedUser};
+        this.router.navigate(['/setup-index/user']);
     }
 
     getUserList(): void {
@@ -37,8 +49,6 @@ export class ListUserComponent {
             this.userList = list;
             console.log('Came to ListUserComponent:userList:' + this.userList);
         });
-
-
     }
 }
 

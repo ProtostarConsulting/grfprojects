@@ -4,6 +4,7 @@ import { GoogleEndpointService } from './google-endpoint.service';
 
 
 export class User {
+  id: string;
   role: string = 'Student';
   instituteID: string = '5910974510923776';
   password: string = '1';

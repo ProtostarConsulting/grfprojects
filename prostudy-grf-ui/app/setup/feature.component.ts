@@ -1,5 +1,5 @@
 import { Component, Optional } from '@angular/core';
-import {MdDialog, MdDialogRef, MdSnackBar} from '@angular/material';
+import { MdDialog, MdDialogRef, MdSnackBar } from '@angular/material';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
@@ -10,11 +10,11 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 })
 export class SetupComponent {
     constructor(
-            private route: ActivatedRoute,
-            private router: Router
-        ) { }
-    
-    goToCh1(){
+        private route: ActivatedRoute,
+        private router: Router
+    ) { }
+
+    goToAddUser(): void {
         this.router.navigate(['/setup-index/user', 15]);
     }
 }

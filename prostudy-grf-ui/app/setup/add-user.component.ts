@@ -1,9 +1,8 @@
 import { Component, Optional, OnInit } from '@angular/core';
 import { MdDialog, MdDialogRef, MdSnackBar } from '@angular/material';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import 'rxjs/add/operator/switchMap';
-import { Observable } from 'rxjs/Observable';
 
+import { RouteData } from '../route-data.provider';
 import { UserService, User } from './user.service';
 
 
@@ -15,21 +14,24 @@ import { UserService, User } from './user.service';
 })
 export class AddUserComponent implements OnInit {
     id: string;
-    user: User = new User();
+    user: User;
 
     constructor(
         private route: ActivatedRoute,
         private router: Router,
+        private routeData: RouteData,
         private userService: UserService
     ) {
         this.user = new User();
-     }
+    }
 
     ngOnInit() {
-        this.route.params.switchMap((params: Params) => (params['id'])).subscribe((id: string) => {
-            this.id = id;
-            console.log('this.id: ' + this.id)
-        });
+        if (this.routeData.params.selectedUser) {
+            this.user = this.routeData.params.selectedUser;
+            console.log('this.user.id: ' + this.user.id);
+            // Clean the data from routeData 
+            this.routeData.params.selectedUser = null;
+        }
     }
     saveUser() {
         this.user.role = 'Admin';

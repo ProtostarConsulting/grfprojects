@@ -6,6 +6,8 @@ import { MaterialModule } from '@angular/material';
 
 
 import { AppComponent } from './app.component';
+import { RouteData } from './route-data.provider';
+
 import { PageNotFoundComponent } from './page-not-found.component';
 
 import { ProERPModule } from './proerp/proerp.module';
@@ -19,6 +21,7 @@ import { AppRoutingModule } from './app-routing.module';
 @NgModule( {
     imports: [BrowserModule, FormsModule, MaterialModule.forRoot(), ProERPModule, SetupModule, AppRoutingModule],
     declarations: [AppComponent, PageNotFoundComponent, ProStudyComponent],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    providers: [RouteData]
 })
 export class AppModule { }

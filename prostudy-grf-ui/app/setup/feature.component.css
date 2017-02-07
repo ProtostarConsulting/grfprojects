@@ -71,15 +71,27 @@ md-sidenav-layout.m2app-dark {
 .app-progress {
   margin: 20px;
 }
+.example-container {
+  width: 500px;
+}
 
-.example-table tr {
+.example-button-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.example-table tr:nth-child(odd) {
   padding: 20px;
   background-color: lightsteelblue 
+}
+.example-table tr:nth-child(even) {
+  padding: 20px;
+  background-color: lightskyblue
 }
 .example-table th {
   margin: 10px;
   padding: 20px;
-  background-color: lightslategrey
+  background-color: lightgreen
 }
 .example-table td {
   padding: 20px;

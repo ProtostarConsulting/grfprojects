@@ -1,5 +1,6 @@
 <div class="app-content">
-	<h4>Add User Componenet</h4>
+	<h4 *ngIf="user.id"> Edit User Component</h4>
+	<h4 *ngIf="!user.id"> Add User Component</h4>
 	<form class="example-form">
 		<table class="example-full-width" cellspacing="0">
 			<tr>
@@ -17,8 +18,8 @@
 		</table>
 		<p>
 			<md-input-container class="example-full-width">
-						<input md-input name="email" placeholder="Email Address" [(ngModel)]="user.email_id">
-					</md-input-container>
+				<input md-input name="email" placeholder="Email Address" [(ngModel)]="user.email_id">
+			</md-input-container>
 			<md-input-container class="example-full-width">
 				<textarea md-input placeholder="Address">1600 Amphitheatre Pkwy</textarea>
 			</md-input-container>
@@ -47,8 +48,9 @@
 				</td>
 			</tr>
 		</table>
-		<div class="button-row">
+		<div class="example-button-row">
 			<button md-raised-button (click)="saveUser()"> Save </button>
+			<button md-raised-button> Cancel </button>
 		</div>
 	</form>
 </div>
