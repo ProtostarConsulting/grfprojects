@@ -64,40 +64,34 @@ md-sidenav-layout.m2app-dark {
 
 .app-list {
   border: 1px solid rgba(0,0,0,0.12);
-  width: 350px;
+  width: 90%;
+  margin: 20px;
+}
+
+proerp-list-school{
+  border: 1px solid rgba(0,0,0,0.12);
+  width: 90%;
   margin: 20px;
 }
 
 .app-progress {
   margin: 20px;
 }
-.example-container {
-  width: 500px;
-}
 
-.example-button-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-.example-table tr:nth-child(odd) {
+.example-table tr {
   padding: 20px;
   background-color: lightsteelblue 
-}
-.example-table tr:nth-child(even) {
-  padding: 20px;
-  background-color: lightskyblue
 }
 .example-table th {
   margin: 10px;
   padding: 20px;
-  background-color: lightgreen
+  background-color: lightslategrey
 }
 .example-table td {
   padding: 20px;
 }
 .example-form {
-  width: 900px;
+  width: 1000px;
 }
 
 .example-full-width {

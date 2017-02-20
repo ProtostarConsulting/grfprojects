@@ -24,6 +24,7 @@ export class GoogleEndpointService {
           }
         };
         //this.gapi.load('client:auth2', callback);
+        this.gapi.client.load('gfBookStockService','v0.1', callback, apiEndPoint);
         this.gapi.client.load('userService', 'v0.1', callback, apiEndPoint);
         this.gapi.client.load('partnerSchoolService', 'v0.1', callback, apiEndPoint);
       };

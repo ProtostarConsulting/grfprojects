@@ -1,0 +1,11 @@
+<div class="app-content">
+	<h1>Book Page</h1>
+	<nav>
+		<a  (click)="goToAddGfBook()" routerLinkActive="active">Add Book</a> <span style="padding: 10px;"> </span> <a routerLink="listgfbook"
+			routerLinkActive="active">List Book</a> <span style="padding: 10px;"> </span> <a routerLink="addgfbookstock"
+			routerLinkActive="active">Add Book Stock</a><span style="padding: 10px;"> </span><a routerLink=""
+			routerLinkActive="active">Book Transaction</a><br>
+	</nav>
+	<router-outlet></router-outlet>
+	<!-- Routed views go here -->
+</div>

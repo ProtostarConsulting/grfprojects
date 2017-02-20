@@ -102,4 +102,5 @@ md-sidenav-layout.m2app-dark {
 
 .example-full-width {
   width: 100%;
+  border-collapse: collapse;
 }

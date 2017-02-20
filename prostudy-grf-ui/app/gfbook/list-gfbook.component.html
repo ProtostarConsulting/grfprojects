@@ -1,0 +1,28 @@
+<div class="example-full-width">
+	<h4>List Book Componenet</h4>
+	<table class="example-table">
+		<tr>
+			<th> Standard </th>
+			<th> Book Name </th>
+			<th> Book Author</th>
+			<th> Weight </th>
+			<th> Fees </th>
+			<th> Quantity </th>
+			<th> Action </th>
+		</tr>
+		<tr *ngFor="let book of bookList">
+			<td> {{book.standard}} </td>
+			<td> {{book.bookName}} </td>
+			<td> {{book.bookAuther}}</td>
+			<td> {{book.weight}}</td>
+			<td> {{book.bookPrice}} </td>
+			<td> {{book.bookQty}}</td>
+			<td>
+				<div class="example-button-row">
+					<a md-button (click)="goToGfbook(book)">
+				Edit</a></div>
+			</td>
+		</tr> 
+	</table>
+	<!-- Routed views go here -->
+</div>

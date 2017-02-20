@@ -1,0 +1,34 @@
+<div class="app-content">
+    <!--<h4 *ngIf="book.id"> Edit Book Component</h4>
+	<h4 *ngIf="!book.id"> Add Book Component</h4>-->
+    <h4>Add Book Stock Component</h4>
+    <form class="example-form">
+        <table class="example-full-width" cellspacing="0">
+            <tr>
+                <td style="padding-right: 10px">
+                    <md-input-container class="example-full-width">
+                        <input md-input type="date" name="bookQty" placeholder="Enter Today's Date" [(ngModel)]="bookstock.feedStockDate">
+                    </md-input-container>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-right: 10px">
+<md-select name="bookstock" placeholder="bookstock" [(ngModel)]="bookstock.book">
+    <md-option *ngFor="let book of tempBookStocks" [value]="book">
+        {{book.bookName}}({{book.bookMedium}})
+    </md-option>
+</md-select>
+</td>
+<td style="padding-right: 10px">
+<md-input-container class="example-full-width">
+    <input md-input name="bookQty" placeholder="Book Quantity" [(ngModel)]="bookstock.bookQty">
+</md-input-container>
+</td>
+</tr>
+</table>
+<div class="example-button-row">
+    <button md-raised-button (click)="addGFBookStock()"> Save </button>
+    <button md-raised-button> Cancel </button>
+</div>
+</form>
+</div>

@@ -1,0 +1,72 @@
+<div class="app-content">
+	<h4 *ngIf="book.id"> Edit Book Component</h4>
+	<h4 *ngIf="!book.id"> Add Book Component</h4>
+	<form class="example-form">
+		<table class="example-full-width" cellspacing="0">
+			<tr>
+				<td style="padding-right: 10px">
+<md-input-container class="example-full-width">
+	<input md-input name="bookName" #bookName placeholder="Book Name" [(ngModel)]="book.bookName">
+</md-input-container>
+</td>
+<td>
+	<md-input-container class="example-full-width">
+		<input md-input name="bookAuther" placeholder="Book Author" [(ngModel)]="book.bookAuther">
+	</md-input-container>
+</td>
+</tr>
+<tr>
+	<td style="padding-right: 10px">
+<md-input-container class="example-full-width">
+	<input md-input name="weight" placeholder="Weight" [(ngModel)]="book.weight">
+</md-input-container>
+</td>
+<td>
+	<md-input-container class="example-full-width">
+		<input md-input name="bookPrice" placeholder="Fees" [(ngModel)]="book.bookPrice">
+	</md-input-container>
+</td>
+</tr>
+<tr>
+	<td style="padding-right: 10px">
+<md-input-container class="example-full-width">
+	<input md-input name="bookPublication" placeholder="Book Publication" [(ngModel)]="book.bookPublication">
+</md-input-container>
+</td>
+<td style="padding-right: 10px">
+<md-select name="standard" placeholder="Select Standard" [(ngModel)]="book.standard">
+	<md-option *ngFor="let standard of standardList" [value]="standard">
+		{{ standard }}
+	</md-option>
+</md-select>
+</td>
+</tr>
+<tr>
+	<td style="padding-right: 10px">
+<md-select name="bookMedium" placeholder="Medium" [(ngModel)]="book.bookMedium">
+	<md-option *ngFor="let medium of medium" [value]="medium">
+		{{ medium }}
+	</md-option>
+</md-select>
+</td>
+<td style="padding-right: 10px">
+<md-input-container class="example-full-width">
+	<input md-input name="bookQty" placeholder="Book Quantity" [(ngModel)]="book.bookQty">
+</md-input-container>
+</td>
+</tr>
+<tr>
+	<td style="padding-right: 10px">
+<md-input-container class="example-full-width">
+	<input md-input name="bookThreshold" placeholder="Threshold" [(ngModel)]="book.bookThreshold">
+</md-input-container>
+</td>
+</tr>
+</table>
+
+<div class="example-button-row">
+	<button md-raised-button (click)="addbook()"> Save </button>
+	<button md-raised-button> Cancel </button>
+</div>
+</form>
+</div>
