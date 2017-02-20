@@ -12,6 +12,8 @@ import { PageNotFoundComponent } from './page-not-found.component';
 
 import { ProERPModule } from './proerp/proerp.module';
 import { SetupModule } from './setup/setup.module';
+import { SchoolModule } from './partnerschool/school.module';
+import { GfBookModule } from './gfbook/gfbook.module';
 
 import { ProStudyComponent } from './prostudy/feature.component';
 
@@ -19,7 +21,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 
 @NgModule( {
-    imports: [BrowserModule, FormsModule, MaterialModule.forRoot(), ProERPModule, SetupModule, AppRoutingModule],
+    imports: [BrowserModule, FormsModule, MaterialModule.forRoot(), ProERPModule, SetupModule,SchoolModule,GfBookModule, AppRoutingModule],
     declarations: [AppComponent, PageNotFoundComponent, ProStudyComponent],
     bootstrap: [AppComponent],
     providers: [RouteData]
