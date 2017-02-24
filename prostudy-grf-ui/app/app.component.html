@@ -1,37 +1,33 @@
 <md-sidenav-layout [class.m2app-dark]="isDarkTheme">
 
-<md-sidenav #sidenav mode="side" class="app-sidenav">
-<h3>Select Product</h3>
-<div class="example-button-column">
-	<!-- <a md-button routerLink=".">ProERP</a> <br> <br> <a md-button
+	<md-sidenav #sidenav mode="side" class="app-sidenav">
+		<h3>Select Product</h3>
+		<div class="example-button-column">
+			<!-- <a md-button routerLink=".">ProERP</a> <br> <br> <a md-button
 		routerLink=".">ProStudy</a> <br> <br> <a md-button
 		routerLink=".">Google Cloud Plus</a> <br> <br> <a md-button
 		routerLink=".">Google Cloud Business Plus</a> <br> <br> -->
-	<nav>
-		<a routerLink="/proerp-index" routerLinkActive="active">ProERP
-			App</a> <br> <a routerLink="/prostudy-index"
-			routerLinkActive="active">ProStudy App</a><br>
-			<a routerLink="/school-index"
-			routerLinkActive="active">School</a><br>
-			<a routerLink="/gfbook-index"
-			routerLinkActive="active">Book</a><br>
-			<a routerLink="/setup-index"
-			routerLinkActive="active">Setup</a><br>
-	</nav>
-</div>
-</md-sidenav> <md-toolbar color="primary">
-<button class="app-icon-button" (click)="sidenav.toggle()">
+			<nav>
+				<a routerLink="/proerp-index" routerLinkActive="active">ProERP
+			App</a> <br> <a routerLink="/prostudy-index" routerLinkActive="active">ProStudy App</a><br>
+				<a routerLink="/school-index" routerLinkActive="active">School</a><br>
+				<a routerLink="/gfbook-index" routerLinkActive="active">Book</a><br>
+				<a routerLink="/setup-index" routerLinkActive="active">Setup</a><br>
+			</nav>
+		</div>
+	</md-sidenav>
+	<md-toolbar color="primary">
+		<button class="app-icon-button" (click)="sidenav.toggle()">
 	<i class="material-icons app-toolbar-menu">menu</i>
-</button>
-
-Gandhi Research Foundation<span class="app-toolbar-filler"></span> <md-input-container>
+</button> Gandhi Research Foundation<span class="app-toolbar-filler"></span>
+		<!--<md-input-container>
 <input md-input placeholder="Search Here" value=""> </md-input-container>
 <button md-button (click)="isDarkTheme = !isDarkTheme">TOGGLE
-	DARK THEME</button>
-</md-toolbar>
+	DARK THEME</button>-->
+	</md-toolbar>
 
-<div class="app-content" style="min-height: 100%; min-width: 100%;">
-	<!-- <proerp-help-index *ngIf="selectedProduct=='proerp'">
+	<div class="app-content" style="min-height: 100%; min-width: 100%;">
+<!-- <proerp-help-index *ngIf="selectedProduct=='proerp'">
 	</proerp-help-index>
 	<prostudy-help-index *ngIf="selectedProduct=='prostudy'">
 	</prostudy-help-index>
@@ -40,8 +36,8 @@ Gandhi Research Foundation<span class="app-toolbar-filler"></span> <md-input-con
 		routerLink="/prostudy-index" routerLinkActive="active fluffy"
 		queryParams="{'id':4, 'name':'ravi'}">Heroes</a>
  -->
-	<router-outlet></router-outlet>
-	<!-- Routed views go here -->
+<router-outlet></router-outlet>
+<!-- Routed views go here -->
 
 
 </div>

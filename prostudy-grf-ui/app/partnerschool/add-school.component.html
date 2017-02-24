@@ -100,7 +100,7 @@
 </tr>
 </table>
 <div class="example-button-row">
-	<button md-raised-button (click)="saveSchool()"> Save </button>
+	<button md-raised-button color="primary" (click)="saveSchool()"> Save </button>
 </div>
 </md-tab>
 <md-tab label="Exam Details" (click)="setCurrentTab(1)" [disabled]="enableTillTabNo<1">Content 2
@@ -154,7 +154,7 @@
 </tr>
 </table>
 <div class="example-button-row">
-	<button md-raised-button (click)="saveSchool()"> Save </button>
+	<button md-raised-button color="primary" (click)="saveSchool()"> Save </button>
 </div>
 </md-tab>
 <md-tab label="Contact Details" (click)="setCurrentTab(2)" [disabled]="enableTillTabNo<2">
@@ -220,7 +220,7 @@
 </md-input-container>
 </td>
 <td>
-	<button md-raised-button (click)="removeCoordinator(i)"> Delete </button>
+	<button md-mini-fab color="accent" (click)="removeCoordinator(i)"> <md-icon>delete</md-icon> </button>
 </td>
 </tr>
 </tbody>
@@ -229,7 +229,7 @@
 <button md-raised-button (click)="addCoordinator()"><span mdTooltip="Add Co-ordinator">Add</span> </button>
 <p>&nbsp;&nbsp;</p>
 <div class="example-button-row">
-	<button md-raised-button (click)="saveSchool()"> Save </button>
+	<button md-raised-button color="primary" (click)="saveSchool()"> Save </button>
 </div>
 </md-tab>
 <md-tab label="Book Details" (click)="setCurrentTab(3)" [disabled]="enableTillTabNo<3">

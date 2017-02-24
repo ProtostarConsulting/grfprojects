@@ -5,7 +5,9 @@ md-sidenav-layout.m2app-dark {
 .app-content {
   padding: 20px;
 }
-
+md-tab {
+  padding: 20px;
+}
 .app-content md-card {
   margin: 20px;
 }
