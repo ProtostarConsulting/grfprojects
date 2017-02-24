@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { GoogleEndpointService } from './google-endpoint.service';
+import { GoogleEndpointService } from '../core/google-endpoint.service';
 
 
 export class User {
@@ -13,22 +13,12 @@ export class User {
 @Injectable()
 export class UserService {
   private gapi: any;
-  private loadingEP: boolean = true;
   constructor(private googleApiService: GoogleEndpointService) {
-    if (this.loadingEP) {
-      googleApiService.GetClient().then((gapi: any) => {
-        this.gapi = gapi;
-        this.loadingEP = false;
-      });
-    }
-  }
-
-  public isLoadingEP(): boolean {
-    return this.loadingEP;
+    this.gapi = googleApiService.getGAPI();
   }
 
   public saveUser(user: User): boolean {
-    this.gapi.client.userService.addUser(user).execute((data: any) => {
+    this.googleApiService.getGAPI().client.userService.addUser(user).execute((data: any) => {
       console.log('data:' + data);
     });
     return true;
@@ -39,7 +29,7 @@ export class UserService {
     // This is one way of calling async
     return new Promise(resolve => {
       // Simulate server latency with 2 second delay      
-      this.gapi.client.userService.getUserList().execute((data: any) => {
+      this.googleApiService.getGAPI().client.userService.getUserList().execute((data: any) => {
         console.log('data.items:' + data.items);
         resolve(data.items);
       });

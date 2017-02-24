@@ -48,9 +48,12 @@
 				</td>
 			</tr>
 		</table>
-		<div class="example-button-row">
-			<button md-raised-button (click)="saveUser()"> Save </button>
+		<div class="button-row">
+			<button md-raised-button color="primary" (click)="saveUser()"> Save </button>
+			<button md-raised-button color="accent" (click)="saveUser()"> Save </button>
+			<button md-raised-button color="warn" (click)="saveUser()"> Save </button>
 			<button md-raised-button> Cancel </button>
+			<md-icon (click)="saveUser()">delete</md-icon>
 		</div>
 	</form>
 </div>

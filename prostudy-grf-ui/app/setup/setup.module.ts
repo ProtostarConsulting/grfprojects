@@ -12,14 +12,13 @@ import { ListUserPage } from './list-user.page';
 
 import { SetupRoutingModule } from './setup-routing.module';
 
-import { GoogleEndpointService } from './google-endpoint.service';
 import { UserService } from './user.service';
 
 
 @NgModule({
     imports: [BrowserModule, FormsModule, MaterialModule, SetupRoutingModule],
     declarations: [SetupComponent, AddUserComponent, ListUserComponent, AddUserPage, ListUserPage],
-    providers: [UserService, GoogleEndpointService]
+    providers: [UserService]
 })
 export class SetupModule {
 }

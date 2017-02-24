@@ -80,6 +80,11 @@ md-sidenav-layout.m2app-dark {
   align-items: center;
   justify-content: space-around;
 }
+.button-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
 .example-table tr:nth-child(odd) {
   padding: 20px;
   background-color: lightsteelblue 

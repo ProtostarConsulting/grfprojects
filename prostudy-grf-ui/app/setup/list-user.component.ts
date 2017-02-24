@@ -26,16 +26,17 @@ export class ListUserComponent {
 
     ngOnInit() {
         console.log('came to ngOnInit...');
-        let noOfTries = 5;
-        (function waitTillLoadingEP(me): void {
-            if (me.userService.isLoadingEP() && --noOfTries) {
-                console.log('Waiting for Loading EP...every 2 seconds...?');
-                setTimeout(function () { waitTillLoadingEP(me); }, 2000);
-            } else {
-                console.log('Loading EP done!');
-                me.getUserList();
-            }
-        })(this);
+        this.getUserList();
+        // let noOfTries = 5;
+        // (function waitTillLoadingEP(me): void {
+        //     if (me.userService.isLoadingEP() && --noOfTries) {
+        //         console.log('Waiting for Loading EP...every 2 seconds...?');
+        //         setTimeout(function () { waitTillLoadingEP(me); }, 2000);
+        //     } else {
+        //         console.log('Loading EP done!');
+        //         me.getUserList();
+        //     }
+        // })(this);
     }
 
     goToUser(selectedUser: User): void {
