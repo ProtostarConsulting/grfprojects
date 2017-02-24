@@ -1,16 +1,10 @@
 import { Injectable } from '@angular/core';
 
+import { ApiConfig } from './api.config';
+
 const url = 'https://apis.google.com/js/client.js?onload=__onGoogleLoaded';
 const gapiOnLoaded = '__onGoogleLoaded';
 const clientName = 'gapi';
-
-
-@Injectable()
-export class ApiConfig {
-  apiUrl: string;
-  apiToken: string;
-  endpointhost: string = 'localhost:8881';
-}
 
 @Injectable()
 export class GoogleEndpointService {

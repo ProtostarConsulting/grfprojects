@@ -18,11 +18,12 @@ import { GfBookModule } from './gfbook/gfbook.module';
 import { ProStudyComponent } from './prostudy/feature.component';
 
 import { AppRoutingModule } from './app-routing.module';
-import { ApiConfig, GoogleEndpointService } from './core/google-endpoint.service';
+import { ApiConfig } from './core/api.config';
+import { GoogleEndpointService } from './core/google-endpoint.service';
 
 
-@NgModule( {
-    imports: [BrowserModule, FormsModule, MaterialModule.forRoot(), ProERPModule, SetupModule,SchoolModule,GfBookModule, AppRoutingModule],
+@NgModule({
+    imports: [BrowserModule, FormsModule, MaterialModule.forRoot(), ProERPModule, SetupModule, SchoolModule, GfBookModule, AppRoutingModule],
     declarations: [AppComponent, PageNotFoundComponent, ProStudyComponent],
     bootstrap: [AppComponent],
     providers: [RouteData, ApiConfig, GoogleEndpointService]
