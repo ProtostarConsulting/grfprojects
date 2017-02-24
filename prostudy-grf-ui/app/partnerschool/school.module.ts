@@ -12,12 +12,11 @@ import { ListSchoolPage } from './list-school.page';
 import { SchoolRoutingModule } from './school-routing.module';
 
 import { PartnerSchoolService } from './school.service';
-import { GoogleEndpointService } from './google-endpoint.service';
 
 @NgModule({
     imports:[BrowserModule, FormsModule, MaterialModule, SchoolRoutingModule, MdRadioModule],
-    declarations:[SchoolComponent,AddSchoolComponent,ListSchoolComponent,AddSchoolPage,ListSchoolPage],
-    providers:[PartnerSchoolService, GoogleEndpointService]
+    declarations:[SchoolComponent, AddSchoolComponent,ListSchoolComponent,AddSchoolPage,ListSchoolPage],
+    providers:[PartnerSchoolService]
 })
 export class SchoolModule {
     
