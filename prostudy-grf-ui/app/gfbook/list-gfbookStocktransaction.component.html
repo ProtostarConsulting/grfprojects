@@ -1,0 +1,21 @@
+<div class="example-full-width">
+    <h4>Book Transaction List Component </h4>
+    <table class="example-table">
+        <tr>
+            <th> Standard </th>
+            <th> Book Name </th>
+            <th> Medium </th>
+            <th> Tx Qty </th>
+            <th> Transaction Type </th>
+            <th> Transaction Date </th>
+        </tr>
+        <tr *ngFor="let book of bookStocks">
+            <td> {{book.book.standard}} </td>
+			<td> {{book.book.bookName}} </td>
+			<td> {{book.book.bookMedium}}</td>
+			<td> {{book.bookQty}}</td>
+			<td> {{book.transactionType}} </td>
+			<td> {{book.transactionDate | date:"short"}}</td>
+        </tr>
+    </table>
+</div>

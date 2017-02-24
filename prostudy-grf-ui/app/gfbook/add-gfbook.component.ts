@@ -1,5 +1,7 @@
-import {Component, Optional, OnInit, AfterContentInit, ContentChild,
-  AfterViewChecked, AfterViewInit, ViewChild, ViewChildren} from '@angular/core';
+import {
+  Component, Optional, OnInit, AfterContentInit, ContentChild,
+  AfterViewChecked, AfterViewInit, ViewChild, ViewChildren
+} from '@angular/core';
 import { MdDialog, MdDialogRef, MdSnackBar } from '@angular/material';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
@@ -17,18 +19,19 @@ import { GFBookStockService, GFBook } from './gfbook.service';
 })
 
 export class AddGfbookComponent implements OnInit {
-  
-  @ViewChildren('bookName') vc: any;
 
+  @ViewChildren('bookName') vc: any;
   ngAfterViewInit() {
     this.vc.first.nativeElement.focus();
   }
 
+  submitted = false;
+  active = true;
   id: string;
   book: GFBook;
   standardList: string[];
   medium: string[];
-  date:Date = new Date();
+  date: Date = new Date();
 
   constructor(
     private route: ActivatedRoute,
@@ -44,14 +47,16 @@ export class AddGfbookComponent implements OnInit {
 
   ngOnInit() {
     if (this.routeData.params.selectedBook) {
-            this.book = this.routeData.params.selectedBook;
-            console.log('this.user.id: ' + this.book.id);
-            // Clean the data from routeData 
-            this.routeData.params.selectedBook = null;
-        }
+      this.book = this.routeData.params.selectedBook;
+      console.log('this.user.id: ' + this.book.id);
+      // Clean the data from routeData 
+      this.routeData.params.selectedBook = null;
+    }
   }
 
   addbook() {
+    this.submitted = true;
+    this.active = false;
     this.book.instituteID = '5910974510923776';
     this.book.bookFeedDate = this.date;
     this.gfbookservice.addbook(this.book);

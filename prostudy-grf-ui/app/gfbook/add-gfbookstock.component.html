@@ -6,14 +6,14 @@
         <table class="example-full-width" cellspacing="0">
             <tr>
                 <td style="padding-right: 10px">
-                    <md-input-container class="example-full-width">
-                        <input md-input type="date" name="bookQty" placeholder="Enter Today's Date" [(ngModel)]="bookstock.feedStockDate">
-                    </md-input-container>
-                </td>
-            </tr>
-            <tr>
-                <td style="padding-right: 10px">
-<md-select name="bookstock" placeholder="bookstock" [(ngModel)]="bookstock.book">
+<md-input-container class="example-full-width">
+    <input md-input type="date" name="bookQty" placeholder="Enter Today's Date" [(ngModel)]="feedStockDate">
+</md-input-container>
+</td>
+</tr>
+<tr *ngFor="let tempBookStock of newBookStockList">
+    <td style="padding-right: 10px">
+<md-select name="bookstock" placeholder="bookstock" [(ngModel)]="book">
     <md-option *ngFor="let book of tempBookStocks" [value]="book">
         {{book.bookName}}({{book.bookMedium}})
     </md-option>
@@ -21,13 +21,18 @@
 </td>
 <td style="padding-right: 10px">
 <md-input-container class="example-full-width">
-    <input md-input name="bookQty" placeholder="Book Quantity" [(ngModel)]="bookstock.bookQty">
+    <input md-input name="bookQty" placeholder="Book Quantity" [(ngModel)]="bookQty">
 </md-input-container>
 </td>
 </tr>
+<tr>
+    <td>
+        <button md-raised-button (click)="addNewEntry()"> Add New Entry </button>
+    </td>
+</tr>
 </table>
 <div class="example-button-row">
-    <button md-raised-button (click)="addGFBookStock()"> Save </button>
+    <button md-raised-button (click)="addGFbookStock()"> Save </button>
     <button md-raised-button> Cancel </button>
 </div>
 </form>

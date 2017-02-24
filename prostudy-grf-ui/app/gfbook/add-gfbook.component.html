@@ -1,13 +1,19 @@
 <div class="app-content">
-	<h4 *ngIf="book.id"> Edit Book Component</h4>
-	<h4 *ngIf="!book.id"> Add Book Component</h4>
-	<form class="example-form">
-		<table class="example-full-width" cellspacing="0">
-			<tr>
-				<td style="padding-right: 10px">
+	<div [hidden]="submitted">
+		<h4 *ngIf="book.id"> Edit Book Component</h4>
+		<h4 *ngIf="!book.id"> Add Book Component</h4>
+		<form class="example-form" *ngIf="active">
+			<table class="example-full-width" cellspacing="0">
+				<tr>
+					<td style="padding-right: 10px">
 <md-input-container class="example-full-width">
-	<input md-input name="bookName" #bookName placeholder="Book Name" [(ngModel)]="book.bookName">
+	<input md-input name="bookName" #bookName placeholder="Book Name" [(ngModel)]="book.bookName" required>
 </md-input-container>
+<!--<div [hidden]="!bookName.errors.required" style="color:red"> bookName is required
+</div>-->
+<!--<<div *ngIf="bookName.errors && (bookName.dirty || bookName.touched)" class="alert alert-danger">
+	
+</div>>-->
 </td>
 <td>
 	<md-input-container class="example-full-width">
@@ -69,4 +75,5 @@
 	<button md-raised-button> Cancel </button>
 </div>
 </form>
+</div>
 </div>

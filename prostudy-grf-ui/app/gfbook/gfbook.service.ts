@@ -18,16 +18,24 @@ export class GFBook {
 }
 
 export class GFBookStock {
-  id: string;
   bookQty: number;
   feedStockDate: Date = new Date();
   instituteID: string = '5910974510923776';
   book: GFBook = new GFBook();
 }
 
+export class GFBookTransaction {
+  transactionType:string;
+  transactionDate:Date = new Date();
+  instituteID: string = '5910974510923776';
+  bookQty:number;
+  book:GFBook;
+}
+
 @Injectable()
 export class GFBookStockService {
 
+  backObj:GFBook;
   private gapi: any;
   private loadingEP: boolean = true;
   constructor(private googleApiService: GoogleEndpointService) {
@@ -45,6 +53,24 @@ export class GFBookStockService {
 
   public addbook(book: GFBook): boolean {
     this.gapi.client.gfBookStockService.addGFBook(book).execute((data: any) => {
+      this.backObj = data;
+      this.addTranAfterAddBook(this.backObj);
+      console.log('data:' + data);
+    });
+    return true;
+  }
+
+  public addGFBookStock(bookStockEntry: GFBookStock): boolean {
+    console.log('inside addGFBookStock');
+    this.gapi.client.gfBookStockService.addGFBookStock(bookStockEntry).execute((data: any) => {
+      console.log('data:' + data);
+    });
+    return true;
+  }
+
+  public addTranAfterAddBook(book: GFBook): boolean {
+    console.log('inside addTranAfterAddBook');
+    this.gapi.client.gfBookStockService.addTranAfterAddBook(book).execute((data: any) => {
       console.log('data:' + data);
     });
     return true;
@@ -56,6 +82,19 @@ export class GFBookStockService {
     return new Promise(resolve => {
       // Simulate server latency with 2 second delay      
       this.gapi.client.gfBookStockService.getGFBookByInstituteId({ 'instituteID': instituteID }).execute((data: any) => {
+        console.log('data.items:' + data.items);
+        resolve(data.items);
+      });
+    });
+    //Second way ??
+  }
+
+  public getGFBookStockTransactionByInstituteId(instituteID: number): Promise<GFBookTransaction[]> {
+    console.log('Came to partnerSchoolService:getGFBookByInstituteId');
+    // This is one way of calling async
+    return new Promise(resolve => {
+      // Simulate server latency with 2 second delay      
+      this.gapi.client.gfBookStockService.getGFBookStockTransactionByInstituteId({ 'instituteID': instituteID }).execute((data: any) => {
         console.log('data.items:' + data.items);
         resolve(data.items);
       });

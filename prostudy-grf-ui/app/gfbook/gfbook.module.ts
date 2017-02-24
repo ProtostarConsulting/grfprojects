@@ -10,6 +10,8 @@ import { ListGfbookPage } from './list-gfbook.page';
 import { ListGfBookComponent } from './list-gfbook.component';
 import { AddGfBookStockPage } from './add-gfbookstock.page';
 import { AddGfbookStockComponent } from './add-gfbookstock.component';
+import { ListGfBookStockTransactionComponent } from './list-gfbookStocktransaction.component';
+import { ListGfbookStockTransactionPage } from './list-gfbookStocktransaction.page';
 
 import { GfBookRoutingModule } from'./gfbook-routing.module';
 
@@ -19,7 +21,7 @@ import { GoogleEndpointService } from './google-endpoint.service';
 
 @NgModule({
     imports: [BrowserModule, FormsModule, MaterialModule,GfBookRoutingModule],
-    declarations:[GfBookComponent,AddGfbookComponent,AddGfbookPage,ListGfbookPage,ListGfBookComponent,AddGfBookStockPage,AddGfbookStockComponent],
+    declarations:[GfBookComponent,AddGfbookComponent,AddGfbookPage,ListGfbookPage,ListGfBookComponent,AddGfBookStockPage,AddGfbookStockComponent,ListGfbookStockTransactionPage,ListGfBookStockTransactionComponent],
     providers:[GFBookStockService, GoogleEndpointService]
 })
 
