@@ -1,7 +1,7 @@
 import { Component, Optional } from '@angular/core';
 
-
-import {MdDialog, MdDialogRef, MdSnackBar} from '@angular/material';
+import { MdDialog, MdDialogRef, MdSnackBar } from '@angular/material';
+import { GoogleEndpointService } from './core/google-endpoint.service';
 
 @Component({
     selector: 'my-app',
@@ -10,8 +10,12 @@ import {MdDialog, MdDialogRef, MdSnackBar} from '@angular/material';
 })
 export class AppComponent {
     selectedProduct: string;
-
- selectProduct(product: string){
-     this.selectedProduct = product;
- }
+    constructor(private googleApiService: GoogleEndpointService) {
+        console.log('Calling initialize api....');
+        googleApiService.getClient();
+        console.log('Calling initialize api....Done');
+    }
+    selectProduct(product: string) {
+        this.selectedProduct = product;
+    }
 }
