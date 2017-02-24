@@ -25,11 +25,15 @@ export class PartnerSchoolService {
   }
 
 
-  public saveSchool(school: PartnerSchool): boolean {
-    this.gapi.client.partnerSchoolService.addPartnerSchool(school).execute((data: any) => {
-      console.log('data:' + data);
+  public saveSchool(school: PartnerSchool): Promise<PartnerSchool> {
+    return new Promise(resolve => {
+      // Simulate server latency with 2 second delay      
+      this.gapi.client.partnerSchoolService.addPartnerSchool(school).execute((data: PartnerSchool) => {
+        resolve(data);
+        console.log('data:' + data);
+      });
+      console.log("inside saveSchool---");
     });
-    return true;
   }
 
   public getPartnerByInstitute(instituteID: number): Promise<PartnerSchool[]> {

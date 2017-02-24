@@ -30,7 +30,7 @@ export class ContactDetail {
 }
 
 export class CoordinatorDetail {
-    srno:number=1;
+    srno:number;
     coordinatorName:string;
     coordinatorPhoneNum:string;
     coordinatorEmailId:string;
@@ -46,12 +46,11 @@ export class ExamDetail {
     bookRequired:string;
     modeOfExam:string;
     bookSummary:BookSummary = new BookSummary();
-    paymentDetail:Array<PaymentDetail>;
+    paymentDetail:any;
 }
 
 export class BookSummary {
     total:number;
-    appearedSchoolTotalStud:number = 0;
     amtForInst20per:number;
     amtForGRF80per:number;
     bookDetail:Array<BookDetail>;
@@ -62,7 +61,6 @@ export class BookDetail {
     bookPrise:number;
     standard:string;
     totalStud:number;
-    appearedTotalStud:number = 0;
     totalFees:number;
 }
 

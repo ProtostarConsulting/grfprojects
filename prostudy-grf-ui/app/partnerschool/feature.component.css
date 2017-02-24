@@ -97,3 +97,9 @@ proerp-list-school{
 .example-full-width {
   width: 100%;
 }
+
+.example-button-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
