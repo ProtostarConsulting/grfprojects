@@ -36,13 +36,10 @@
 </tr>
 <tr>
 	<td style="padding-right: 10px">
-<!--md-input-container class="example-full-width">
-	<input md-input name="category" placeholder="Category" [(ngModel)]="school.category">
-</md-input-container>-->
-<md-select name="category" placeholder="Category" [(ngModel)]="school.category">
-	<md-option *ngFor="let category of partnerSchoolLevels" [value]="category">
-		{{ category }}
-	</md-option>
+<md-select style="width: 100%;" name="category" placeholder="Category" [(ngModel)]="school.category">
+<md-option *ngFor="let category of partnerSchoolLevels" [value]="category">
+	{{ category }}
+</md-option>
 </md-select>
 </td>
 <td>
@@ -73,27 +70,54 @@
 </md-input-container>
 </td>
 <td style="padding-right: 10px;">
-<md-input-container class="example-full-width">
-	<input md-input placeholder="State" name="state" [(ngModel)]="address.state">
+<md-select style="width: 50%;" name="state" placeholder="State" [(ngModel)]="address.state" *ngIf="address.state != 'Other'" (ngModelChange)="getDistricts(address.state)">
+	<md-option *ngFor="let states of country.states" [value]="states.name">
+		{{ states.name }}
+	</md-option>
+</md-select>
+<md-input-container class="example-full-width" *ngIf="address.state == 'Other'">
+	<input md-input name="otherState" placeholder="Enter State Name" [(ngModel)]="address.otherState">
 </md-input-container>
 </td>
 </tr>
 </table>
 <table class="example-full-width" cellspacing="0">
-	<tr>
+	<tr *ngIf="address.state == 'Other'">
 		<td style="padding-right: 10px;">
 <md-input-container class="example-full-width">
-	<input md-input placeholder="District" name="district" [(ngModel)]="address.dist">
+	<input md-input placeholder="District" name="district" [(ngModel)]="address.otherDist">
 </md-input-container>
 </td>
 <td style="padding-right: 10px;">
 <md-input-container class="example-full-width">
-	<input md-input placeholder="Taluka" name="taluka" [(ngModel)]="address.tal">
+	<input md-input placeholder="Taluka" name="Taluka" [(ngModel)]="address.otherTal">
 </md-input-container>
+</td>
+<td style="padding-right: 10px;">
+<md-input-container class="example-full-width">
+	<input md-input #postalCode placeholder="Postal Code" name="pin" [(ngModel)]="address.pin">
+	<md-hint align="end">{{postalCode.value.length}} / 5</md-hint>
+</md-input-container>
+</td>
+</tr>
+<tr *ngIf="address.state != 'Other'">
+	<td style="padding-right: 10px;">
+<md-select name="district" placeholder="District" [(ngModel)]="address.dist" (ngModelChange)="getTalukas(address.dist)">
+	<md-option *ngFor="let district of temp.tempDistricts" [value]="district.name">
+		{{ district.name }}
+	</md-option>
+</md-select>
+</td>
+<td style="padding-right: 10px;">
+<md-select name="taluka" placeholder="Taluka" [(ngModel)]="address.tal" (ngModelChange)="getVillages(address.tal)">
+	<md-option *ngFor="let taluka of temp.tempTalukas" [value]="taluka.name">
+		{{ taluka.name }}
+	</md-option>
+</md-select>
 </td>
 <td>
 	<md-input-container class="example-full-width">
-		<input md-input #postalCode placeholder="Postal Code" name="pin" [(ngModel)]="address.pin" value="94043">
+		<input md-input #postalCode placeholder="Postal Code" name="pin" [(ngModel)]="address.pin">
 		<md-hint align="end">{{postalCode.value.length}} / 5</md-hint>
 	</md-input-container>
 </td>
@@ -103,15 +127,15 @@
 	<button md-raised-button color="primary" (click)="saveSchool()"> Save </button>
 </div>
 </md-tab>
-<md-tab label="Exam Details" (click)="setCurrentTab(1)" [disabled]="enableTillTabNo<1">Content 2
+<md-tab label="Exam Details" (click)="setCurrentTab(1)" [disabled]="enableTillTabNo<1">
 	<table class="example-full-width" cellspacing="0">
 		<tr>
 			<td style="padding-right: 10px;">
 <h5>Select Year </h5>
-<md-select name="yearOfExam" [(ngModel)]="yearOfExam" (ngModelChange)="getExamByYear(yearOfExam)">
-	<md-option *ngFor="let Year of Years" [value]="Year">
-		{{ Year }}
-	</md-option>
+<md-select style="width: 100%;" name="yearOfExam" [(ngModel)]="yearOfExam" (ngModelChange)="getExamByYear(yearOfExam)">
+<md-option *ngFor="let Year of Years" [value]="Year">
+	{{ Year }}
+</md-option>
 </md-select>
 </td>
 <td style="padding-right: 10px;">
@@ -235,14 +259,13 @@
 <md-tab label="Book Details" (click)="setCurrentTab(3)" [disabled]="enableTillTabNo<3">
 	<table class="example-full-width" cellspacing="0">
 		<tr>
-			<td width=20% name="Select Standard">Select Standard</td>
-			<td width=20% name="Select Book Name">Select Book Name</td>
-			<td width=20% name="Fees">Fees</td>
-			<td width=20% name="Total Student">Total Student</td>
-			<td width=20% name="Total Fees">Total Fees</td>
+			<th>Select Standard</th>
+			<th>Select Book Name</th>
+			<th>Fees</th>
+			<th>Total Student</th>
+			<th>Total Fees</th>
 		</tr>
 		<tr *ngFor="let bookDetail of bookSummary.bookDetail; let i = index">
-			<!--<tr>-->
 			<td style="padding-right: 10px">
 <md-select name="standard" placeholder="Select Standard" [(ngModel)]="bookDetail.standard">
 	<md-option *ngFor="let standard of standardList" [value]="standard">
@@ -251,12 +274,9 @@
 </md-select>
 </td>
 <td style="padding-right: 10px">
-<!--<md-input-container class="example-full-width">
-	<input md-input name="bookName" placeholder="Enter Book Name" [(ngModel)]="bookDetail.bookName">
-</md-input-container>-->
-<md-select name="bookName" placeholder="Enter Book Name" [(ngModel)]="bookDetail.bookName" (ngModelChange)="setfees(bookDetail.bookName,i)">
+<md-select name="bookName" placeholder="Select Book Name" [(ngModel)]="bookDetail.bookName" (ngModelChange)="setfees(bookDetail.bookName,i)">
 	<md-option *ngFor="let book of bookStocks" [value]="book.id">
-		<span  *ngIf="book.standard == bookDetail.standard">
+		<span *ngIf="book.standard == bookDetail.standard">
 			{{book.bookName}}({{book.bookMedium}})
 		</span>
 	</md-option>
@@ -264,20 +284,21 @@
 </td>
 <td style="padding-right: 10px">
 <md-input-container class="example-full-width">
-	<input md-input>
-	{{bookDetail.bookPrise}}
+	<input md-input disabled> {{bookDetail.bookPrise}}
 </md-input-container>
 </td>
 <td style="padding-right: 10px">
 <md-input-container class="example-full-width">
-	<input md-input name="totalStud" placeholder="Enter Book Total Student" [(ngModel)]="bookDetail.totalStud" (ngModelChange)="calculate(bookDetail.totalStud,i)">
+	<input md-input name="totalStud" placeholder="Enter Book Total Student" [(ngModel)]="bookDetail.totalStud" (change)="calculate(i,bookDetail.totalStud)">
 </md-input-container>
 </td>
 <td style="padding-right: 10px">
 <md-input-container class="example-full-width">
-	<input md-input>
-	{{bookDetail.totalFees}}
+	<input md-input disabled> {{bookDetail.totalFees}}
 </md-input-container>
+</td>
+<td>
+	<button md-mini-fab color="accent" (click)="removeBook(i)"> <md-icon>delete</md-icon> </button>
 </td>
 </tr>
 <tr>
@@ -289,6 +310,9 @@
 	<td></td>
 </tr>
 </table>
+<span>
+	<button md-raised-button  (click)="addBook()"> Add </button>
+</span>
 <div>
 	<table>
 		<tbody>
@@ -329,18 +353,109 @@
 	</table>
 </div>
 <div class="example-button-row">
-	<button md-raised-button (click)="saveSchool()"> Save </button>
+	<button md-raised-button color="primary" (click)="saveSchool()"> Save </button>
 </div>
 </md-tab>
 <md-tab label="Payment Details" (click)="setCurrentTab(4)" [disabled]="enableTillTabNo<4">
 	<div align="right">
-		<button style="padding-right: 10px" md-raised-button> Add Courier </button>
-<button style="padding-right: 10px" md-raised-button> Print </button>
-<button style="padding-right: 10px" md-raised-button> Print Address </button>
+		<button style="padding-right: 10px" md-raised-button color="primary"> Add Courier </button>
+<button style="padding-right: 10px" md-raised-button color="primary"> Print </button>
+<button style="padding-right: 10px" md-raised-button color="primary"> Print Address </button>
+</div>
+<div alin="left" *ngIf="!addPaymentFlag">
+	<button md-raised-button color="primary" (click)="enableAddPaymentFlag()">Add Payment</button>
+</div>
+<section name="payment add section" *ngIf="addPaymentFlag">
+	<table class="example-full-width" cellspacing="0">
+		<tr>
+			<td style="padding-right: 10px">
+<md-select style="width: 100%;" name="payment" placeholder="payment" [(ngModel)]="PaymentDetail.payReceivedBy">
+<md-option *ngFor="let paymentReceivedBy of paymentReceivedBy" [value]="paymentReceivedBy">
+	{{ paymentReceivedBy }}
+</md-option>
+</md-select>
+</td>
+<td>
+	<md-input-container class="example-full-width">
+		<input md-input type="date" name="paymentDate" placeholder="Enter Payment Date" [(ngModel)]="PaymentDetail.paymentDate">
+	</md-input-container>
+</td>
+</tr>
+<tr>
+	<td style="padding-right: 10px">
+<md-select style="width: 100%;" name="nameOfBank" placeholder="Name Of Bank" [(ngModel)]="PaymentDetail.nameOfBank" *ngIf="PaymentDetail.nameOfBank !=
+'Other'">
+<md-option *ngFor="let bankName of bankNameList" [value]="bankName">
+	{{ bankName }}
+</md-option>
+</md-select>
+
+<md-input-container class="example-full-width" *ngIf="PaymentDetail.nameOfBank == 'Other'">
+	<input md-input name="otherNameOfBank" placeholder="Other Name Of Bank" [(ngModel)]="tempPaymentData.otherNameOfBank">
+</md-input-container>
+</td>
+<td style="padding-right: 10px">
+<md-input-container class="example-full-width">
+	<input md-input name="branchName" placeholder="Enter Branch Name" [(ngModel)]="PaymentDetail.branchName">
+</md-input-container>
+</td>
+</tr>
+<tr>
+	<td>
+		<md-input-container class="example-full-width">
+			<input md-input name="transactionNumber" placeholder="Enter Transaction/DD/Slip Number" [(ngModel)]="PaymentDetail.transactionNumber">
+		</md-input-container>
+	</td>
+	<td>
+		<md-input-container class="example-full-width">
+			<input md-input type="date" name="depositDate" placeholder="Enter Deposited Date" [(ngModel)]="PaymentDetail.depositDate">
+		</md-input-container>
+	</td>
+</tr>
+<tr>
+	<td style="padding-right: 10px;">
+<md-input-container class="example-full-width">
+	<input md-input name="payAmount" placeholder="Paid Fees" [(ngModel)]="PaymentDetail.payAmount">
+</md-input-container>
+</td>
+<td>
+	<md-input-container class="example-full-width">
+		<input md-input name="note" placeholder="Note" [(ngModel)]="PaymentDetail.note">
+	</md-input-container>
+</td>
+</tr>
+</table>
+<div class="example-button-row">
+	<button md-raised-button color="primary" (click)="saveSchool()"> Save </button>
+</div>
+</section>
+<div layout="row">
+	<section>
+		<md-input-container style="padding-right: 10px;" ><input md-input disabled>Total Fees To Be Paid = {{bookSummary.amtForGRF80per }} </md-input-container>
+<md-input-container style="padding-right: 10px;" ><input md-input disabled>Total Paid Fees = {{PaymentDetail.tPaid }} </md-input-container>
+<md-input-container style="padding-right: 10px;" ><input md-input disabled>Pending Fees = {{PaymentDetail.pAmount}} </md-input-container>
+</section>
+</div>
+<div class="example-full-width" style="padding: 20px;">
+<table class="example-table">
+	<tr>
+		<th>Payment Received Via</th>
+		<th>Date</th>
+		<th>Bank Name</th>
+		<th>Payment Fees</th>
+		<th>Pending Fees</th>
+	</tr>
+	<tr *ngFor="let pd of PaymentDet;let i=index;trackBy:i">
+		<td>{{pd.payReceivedBy}}</td>
+		<td>{{pd.paymentDate | date:"short"}}</td>
+		<td>{{pd.nameOfBank}}</td>
+		<td>{{pd.payAmount}}</td>
+		<td>{{pd.pAmount}}</td>
+	</tr>
+</table>
 </div>
 </md-tab>
 <md-tab label="Notification" [disabled]="enableTillTabNo<5">
-	Content 6
 	<table class="example-full-width" cellspacing="0" style="font-family: arial, sans-serif; border-collapse: collapse; border: 1px solid black; width: 80%; margin-left: 20px;">
 <tr style="border: 1px solid #8cced4; text-align: left; padding: 8px; background-color: #44acb6;">
 <th>Notification Type</th>
@@ -348,10 +463,12 @@
 </tr>
 <tr style="border: 1px solid #dddddd; text-align: left; padding: 8px; background-color: #8cced4;">
 <td>Registration SMS Count</td>
+<!--<td [innerHTML]="examDetail.notificationData.registrationSmsSent"></td>-->
 <td></td>
 </tr>
 <tr style="border: 1px solid #dddddd; text-align: left; padding: 8px; background-color: #8cced4;">
 <td>Courier SMS Count</td>
+<!--<td [innerHTML]="examDetail.notificationData.currierSmsSent"></td>-->
 <td></td>
 </tr>
 </table>

@@ -11,18 +11,12 @@ export class PartnerSchoolService {
 
   private gapi: any;
   constructor(private googleApiService: GoogleEndpointService) {
-    this.gapi = googleApiService.getClient();
-    // if (this.loadingEP) {
-    //   googleApiService.GetClient().then((gapi: any) => {
-    //     this.gapi = gapi;
-    //     this.loadingEP = false;
-    //   });
-    // }
+    this.gapi = googleApiService.getClient();  
   }
 
   public saveSchool(school: PartnerSchool): Promise<PartnerSchool> {
     return new Promise(resolve => {
-      this.gapi.client.partnerSchoolService.addPartnerSchool(school).execute((data: PartnerSchool) => {
+      this.googleApiService.getGAPI().client.partnerSchoolService.addPartnerSchool(school).execute((data: PartnerSchool) => {
         resolve(data);
         console.log('data:' + data);
       });

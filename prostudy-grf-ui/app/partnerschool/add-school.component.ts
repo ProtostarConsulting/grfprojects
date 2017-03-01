@@ -12,6 +12,7 @@ import { RouteData } from '../route-data.provider';
 import { PartnerSchoolService } from './school.service';
 import { PartnerSchool, Address, ExamDetail, ContactDetail, CoordinatorDetail, PaymentDetail, BookSummary, BookDetail } from './partner-school';
 import { GFBookStockService, GFBook } from '../gfbook/gfbook.service';
+import { standardList, partnerSchoolLevels, indiaAddressLookupData, IndiaStatesInfo } from '../core/constant.app';
 
 @Component({
     moduleId: module.id,
@@ -35,17 +36,9 @@ export class AddSchoolComponent implements OnInit {
     standardList: string[];
     currentSchool: PartnerSchool;
     bookStocks: GFBook[];
-
-    tabNext() {
-        this.selectedIndex = (this.selectedIndex == this.maxTabNo) ? this.selectedIndex : this.selectedIndex + 1;
-    }
-    setCurrentTab(tabIndex: number) {
-        this.selectedIndex = tabIndex;
-    }
-    enableTillTabNo = (this.selectedPSchoolId == "") ? 0 : this.maxTabNo;
-
     Years: Array<string> = [];
     id: string;
+    country: IndiaStatesInfo;
     school: PartnerSchool = new PartnerSchool();
     address: Address = new Address();
     examDetail: ExamDetail = new ExamDetail();
@@ -55,6 +48,11 @@ export class AddSchoolComponent implements OnInit {
     PaymentDet: Array<PaymentDetail> = [];
     bookSummary: BookSummary = new BookSummary();
     bookDetail: BookDetail = new BookDetail();
+    bankNameList: string[];
+    paymentReceivedBy: string[];
+    addPaymentFlag: boolean;
+    tempPaymentData: any;
+    temp: any;
 
     constructor(
         private route: ActivatedRoute,
@@ -63,9 +61,20 @@ export class AddSchoolComponent implements OnInit {
         private partnerschoolService: PartnerSchoolService,
         private gfbookService: GFBookStockService
     ) {
-        this.partnerSchoolLevels = ["School & Junior College", "Jr.& Sr. College", "D.Ed College", "Prison", "B.Ed College", "MBBS", "Nurses Course", "Engineearing", "All"];
-        this.standardList = ["5th", "6th", "7th", "8th", "9th", "10th",
-            "11th", "12th", "FY", "SY", "TY", "Fr. Y", "PG/D. & B. Ed-1", "PG/D. & B. Ed-2", "Teacher"];
+        this.partnerSchoolLevels = partnerSchoolLevels;
+        this.standardList = standardList;
+        this.country = indiaAddressLookupData;
+        this.bankNameList = ['Sri. Mahaveer Co-op. Bank Ltd.', 'State Bank of India', 'Axis Bank', 'Other'];
+        this.paymentReceivedBy = ['Cash', 'D.D', 'NEFT/RTGS', '--'];
+        this.addPaymentFlag = false;
+        this.tempPaymentData = {
+            otherNameOfBank: null
+        };
+        this.temp = {
+            tempDistricts: [],
+            tempTalukas: [],
+            tempVillages: []
+        };
         this.school.examDetailList = [];
         this.contactDetail.coordinatorDetail = [];
         this.examDetail.bookSummary.bookDetail = [];
@@ -101,31 +110,19 @@ export class AddSchoolComponent implements OnInit {
             transactionNumber: "",
             depositDate: new Date(),
         };
-        /**this.bookSummary = {
-            bookDetail: [{
-                standard: "",
-                bookName: "",
-                bookPrise: 0,
-                totalStud: 0,
-                totalFees: 0
-            }],
-            total: 0,
-            amtForInst20per: 0,
-            amtForGRF80per: 0
-        };
-
-        this.bookDetail = {
-            standard: "",
-            bookName: "",
-            bookPrise: 0,
-            totalStud: 0,
-            totalFees: 0
-    };*/
         this.getCurYear();
         this.getPrvYears();
         this.getNextYears();
 
     }
+
+    tabNext() {
+        this.selectedIndex = (this.selectedIndex == this.maxTabNo) ? this.selectedIndex : this.selectedIndex + 1;
+    }
+    setCurrentTab(tabIndex: number) {
+        this.selectedIndex = tabIndex;
+    }
+    enableTillTabNo = (this.selectedPSchoolId == "") ? 0 : this.maxTabNo;
 
     year: string;
     curyear1: string;
@@ -173,43 +170,18 @@ export class AddSchoolComponent implements OnInit {
             this.enableTillTabNo = this.maxTabNo;
         }
         this.getGFBookStockByInstituteId();
+        this.calculatepaidandpending();
     }
-
-    initSchoolLoad(pschool: any) {
-        this.school = pschool;
-        this.school.formNumber = this.school.formNumber;
-        this.address = this.school.address;
-        this.school.address.pin = this.school.address.pin;
-        this.contactDetail = this.school.contactDetail;
-        this.contactDetail.headMasterMobile = this.school.contactDetail.headMasterMobile;
-        if (this.contactDetail.coordinatorDetail) {
-            for (let i = 0; i < this.contactDetail.coordinatorDetail.length; i++) {
-                this.contactDetail.coordinatorDetail[i].coordinatorMobileNum = this.contactDetail.coordinatorDetail[i].coordinatorMobileNum;
-            }
-        }
-
-        if (this.school.examDetailList) {
-            this.examlist = this.school.examDetailList;
-        }
-
-        this.getExamByYear('');
-    }
-
-    getGFBookStockByInstituteId(): void {
-        this.gfbookService.getGFBookByInstituteId(this.school.instituteID).then(list => {
-            this.bookStocks = list;
-            console.log('Came to bookList:' + this.bookStocks.length);
-        });
-    }
-    examlist: Array<ExamDetail> = [];
 
     saveSchool() {
 
         this.tabNext();
         this.enableTillTabNo++;
+
+        this.calculatepaidandpending();
         if (this.PaymentDetail.payReceivedBy != "") {
             if (this.PaymentDetail.nameOfBank == 'Other') {
-                //this.PaymentDetail.nameOfBank = this.tempPaymentData.otherNameOfBank;
+                this.PaymentDetail.nameOfBank = this.tempPaymentData.otherNameOfBank;
             }
             this.PaymentDet.push(this.PaymentDetail);
             this.examDetail.paymentDetail = (this.PaymentDet);
@@ -227,17 +199,26 @@ export class AddSchoolComponent implements OnInit {
             };
         }
 
-        //this.bookSummary.bookDetail.push(this.bookDetail);
+
         this.examDetail.bookSummary = this.bookSummary;
         this.school.instituteID = +'5910974510923776';
         this.school.contactDetail = this.contactDetail;
+        if (this.school.address.state == "Other") {
+            this.school.address.state = this.school.address.otherState;
+            this.school.address.dist = this.school.address.otherDist;
+            this.school.address.tal = this.school.address.otherTal;
+            this.school.address.otherAddressFlag = true;
+        }
+        else {
+            this.school.address.otherAddressFlag = false;
+        }
         this.school.address = this.address;
 
         if (this.currentSchool != undefined && this.selectedPSchoolId == "") {
             this.school.id = this.currentSchool.id;
         }
         this.getExamByYear('');
-        //this.examlist.push(this.examDetail);
+
         this.school.examDetailList = this.examlist;
         this.partnerschoolService.saveSchool(this.school).then(schoolObj => {
             console.log('Saved currentSchool:' + this.currentSchool);
@@ -247,10 +228,60 @@ export class AddSchoolComponent implements OnInit {
                 if (this.school.examDetailList) {
                     this.examlist = this.currentSchool.examDetailList;
                     this.getExamByYear('');
+                    this.addPaymentFlag = false;
                 }
             }
         });
+
+        this.calculatepaidandpending();
     }
+
+    initSchoolLoad(pschool: any) {
+        this.school = pschool;
+        this.school.formNumber = this.school.formNumber;
+        this.address = this.school.address;
+        this.school.address.pin = this.school.address.pin;
+        this.contactDetail = this.school.contactDetail;
+        this.contactDetail.headMasterMobile = this.school.contactDetail.headMasterMobile;
+        if (this.contactDetail.coordinatorDetail) {
+            for (let i = 0; i < this.contactDetail.coordinatorDetail.length; i++) {
+                this.contactDetail.coordinatorDetail[i].coordinatorMobileNum = this.contactDetail.coordinatorDetail[i].coordinatorMobileNum;
+            }
+        }
+
+        if (this.school.address.state != "Maharashtra") {
+            this.school.address.otherAddressFlag = true;
+        }
+
+        if (this.school.address.otherAddressFlag == false) {
+            this.getDistricts(this.address.state);
+            if (this.temp.tempDistricts)
+                this.getTalukas(this.address.dist);
+        }
+
+        if (this.school.address.otherAddressFlag == true) {
+            let temp = this.school.address.state;
+            this.school.address.state = "Other";
+            this.school.address.otherState = temp;
+            this.school.address.otherDist = this.school.address.dist;
+            this.school.address.otherTal = this.school.address.tal;
+            this.school.address.otherAddressFlag = true;
+        }
+
+        if (this.school.examDetailList) {
+            this.examlist = this.school.examDetailList;
+        }
+
+        this.getExamByYear('');
+    }
+
+    getGFBookStockByInstituteId(): void {
+        this.gfbookService.getGFBookByInstituteId(this.school.instituteID).then(list => {
+            this.bookStocks = list;
+            console.log('Came to bookList:' + this.bookStocks.length);
+        });
+    }
+    examlist: Array<ExamDetail> = [];
 
     getExamByYear(year1: any) {
         if (year1 == '') {
@@ -296,7 +327,7 @@ export class AddSchoolComponent implements OnInit {
                 totalStudent: "",
                 male: "",
                 female: "",
-                total: "",
+                total: 0,
                 yearOfExam: this.yearOfExam,
                 bookRequired: 'OffLine',
                 modeOfExam: 'OffLine',
@@ -304,12 +335,25 @@ export class AddSchoolComponent implements OnInit {
                 paymentDetail: this.PaymentDet,
             };
         };
-        //this.examDetail.bookSummary = this.bookSummary;
-        //this.examDetail.yearOfExam = this.yearOfExam;
-        //this.examDetail.paymentDetail = this.PaymentDet;
+
         this.examlist = [];
         this.examlist.push(this.examDetail);
         this.examDetail = this.examlist[this.examlist.length - 1];
+    }
+
+    addBook() {
+        this.bookSummary.bookDetail.push({
+            standard: "",
+            bookName: "",
+            bookPrise: 0,
+            totalStud: 0,
+            totalFees: 0
+        });
+    }
+
+    removeBook(index: number) {
+        this.calculate(index, 0);
+        this.bookSummary.bookDetail.splice(index, 1);
     }
 
     calculate(index: number, val: number) {
@@ -330,9 +374,9 @@ export class AddSchoolComponent implements OnInit {
     }
 
     calculateActualStudTotal() {
-        this.examDetail.total = '0';
+        this.examDetail.total = 0;
         for (let i = 0; i < this.bookSummary.bookDetail.length; i++) {
-            this.examDetail.total += this.bookSummary.bookDetail[i].totalStud;
+            this.examDetail.total += Number(this.bookSummary.bookDetail[i].totalStud);
         }
     }
 
@@ -351,16 +395,20 @@ export class AddSchoolComponent implements OnInit {
         if (this.PaymentDet.length != 0) {
 
             for (let i = 0; i < this.PaymentDet.length; i++) {
-                this.PaymentDetail.tPaid += this.PaymentDet[i].payAmount;
+                this.PaymentDetail.tPaid += Number(this.PaymentDet[i].payAmount);
             }
-            this.PaymentDetail.tPaid += this.PaymentDetail.payAmount;
+            this.PaymentDetail.tPaid += Number(this.PaymentDetail.payAmount);
             this.PaymentDetail.pAmount = this.bookSummary.amtForGRF80per
                 - this.PaymentDetail.tPaid;
         } else {
-            this.PaymentDetail.tPaid = this.PaymentDetail.payAmount;
+            this.PaymentDetail.tPaid = Number(this.PaymentDetail.payAmount);
             this.PaymentDetail.pAmount = this.bookSummary.amtForGRF80per
                 - this.PaymentDetail.tPaid;
         }
+    }
+
+    enableAddPaymentFlag() {
+        this.addPaymentFlag = true;
     }
 
     addCoordinator() {
@@ -392,6 +440,33 @@ export class AddSchoolComponent implements OnInit {
     }
     removeCoordinator(index: any) {
         this.contactDetail.coordinatorDetail.splice(index, 1);
+    }
+
+    getDistricts(state: string) {
+        this.temp.tempDistricts = [];
+        for (let i = 0; i < this.country.states.length; i++) {
+            if (this.country.states[i].name == state) {
+                this.temp.tempDistricts = this.country.states[i].districts;
+            }
+        }
+    }
+
+    getTalukas(district: string) {
+        this.temp.tempTalukas = [];
+        for (let i = 0; i < this.temp.tempDistricts.length; i++) {
+            if (this.temp.tempDistricts[i].name == district) {
+                this.temp.tempTalukas = this.temp.tempDistricts[i].talukas;
+            }
+        }
+    }
+
+    getVillages(taluka: string) {
+        this.temp.tempVillages = [];
+        for (let i = 0; i < this.temp.tempTalukas.length; i++) {
+            if (this.temp.tempTalukas[i].name == taluka) {
+                this.temp.tempVillages = this.temp.tempTalukas[i].villages;
+            }
+        }
     }
 
 }

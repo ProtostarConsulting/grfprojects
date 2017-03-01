@@ -16,9 +16,16 @@ export class PartnerSchool {
 export class Address {
   line1:string;
   line2:string;
+  country : "India";
   city:string;
+  dist:string;
   state:string;
+  tal:string;
   pin:string;
+  otherAddressFlag:boolean;
+  otherState : string;
+  otherDist : string;
+  otherTal : string;
 }
 
 export class ContactDetail {
@@ -41,7 +48,7 @@ export class ExamDetail {
     totalStudent:string;
     male:string;
     female:string;
-    total:string;
+    total:number;
     yearOfExam:string;
     bookRequired:string;
     modeOfExam:string;
@@ -60,7 +67,7 @@ export class BookDetail {
     bookName:string;
     bookPrise:number;
     standard:string;
-    totalStud:number;
+    totalStud:number=0;
     totalFees:number;
 }
 
