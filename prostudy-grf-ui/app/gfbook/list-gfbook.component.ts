@@ -30,16 +30,7 @@ export class ListGfBookComponent {
 
     ngOnInit() {
         console.log('came to ngOnInit...');
-        let noOfTries = 5;
-        (function waitTillLoadingEP(me): void {
-            if (me.gfbookService.isLoadingEP() && --noOfTries) {
-                console.log('Waiting for Loading EP...every 2 seconds...?');
-                setTimeout(function () { waitTillLoadingEP(me) }, 2000);
-            } else {
-                console.log('Loading EP done!');
-                me.getGFBookByInstituteId();
-            }
-        })(this);
+        this.getGFBookByInstituteId();
     }
 
     goToGfbook(selectedBook: GFBook) {

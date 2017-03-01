@@ -38,16 +38,7 @@ export class AddGfbookStockComponent {
 
     ngOnInit() {
         console.log('came to ngOnInit...');
-        let noOfTries = 5;
-        (function waitTillLoadingEP(me): void {
-            if (me.gfbookservice.isLoadingEP() && --noOfTries) {
-                console.log('Waiting for Loading EP...every 2 seconds...?');
-                setTimeout(function () { waitTillLoadingEP(me) }, 2000);
-            } else {
-                console.log('Loading EP done!');
-                me.getGFBookByInstituteId();
-            }
-        })(this);
+        this.getGFBookByInstituteId();
     }
 
     getTempBookStock() {
@@ -71,16 +62,12 @@ export class AddGfbookStockComponent {
         this.newBookStockList.splice(0,this.newBookStockList.length);
         this.newBookStockList.push(this.bookstock);
         this.gfbookservice.addGFBookStock(this.bookstock);
-        /**this.newBookStockList.forEach(function (bookstock) {
-            
-        });*/
     }
 
     getGFBookByInstituteId(): void {
         console.log('Came to ListGfBookComponent:getGFBookByInstituteId');
         this.gfbookservice.getGFBookByInstituteId(this.instituteID).then(list => {
             this.tempBookStocks=list;
-            console.log('Came to ListGfBookComponent:bookList:' + this.tempBookStocks);
         });
     }
 }

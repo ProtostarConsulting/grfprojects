@@ -16,13 +16,12 @@ import { ListGfbookStockTransactionPage } from './list-gfbookStocktransaction.pa
 import { GfBookRoutingModule } from'./gfbook-routing.module';
 
 import { GFBookStockService } from './gfbook.service';
-import { GoogleEndpointService } from './google-endpoint.service';
 
 
 @NgModule({
     imports: [BrowserModule, FormsModule, MaterialModule,GfBookRoutingModule],
     declarations:[GfBookComponent,AddGfbookComponent,AddGfbookPage,ListGfbookPage,ListGfBookComponent,AddGfBookStockPage,AddGfbookStockComponent,ListGfbookStockTransactionPage,ListGfBookStockTransactionComponent],
-    providers:[GFBookStockService, GoogleEndpointService]
+    providers:[GFBookStockService]
 })
 
 export class GfBookModule{

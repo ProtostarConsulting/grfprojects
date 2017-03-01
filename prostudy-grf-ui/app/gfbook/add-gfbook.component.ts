@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { RouteData } from '../route-data.provider';
 import { GFBookStockService, GFBook } from './gfbook.service';
+import { standardList, answerOfMediumList } from '../core/constant.app';
 
 
 @Component({
@@ -25,13 +26,12 @@ export class AddGfbookComponent implements OnInit {
     this.vc.first.nativeElement.focus();
   }
 
-  submitted = false;
-  active = true;
   id: string;
   book: GFBook;
   standardList: string[];
   medium: string[];
   date: Date = new Date();
+  currentBook: GFBook;
 
   constructor(
     private route: ActivatedRoute,
@@ -40,25 +40,32 @@ export class AddGfbookComponent implements OnInit {
     private gfbookservice: GFBookStockService
   ) {
     this.book = new GFBook();
-    this.standardList = ["5th", "6th", "7th", "8th", "9th", "10th",
-      "11th", "12th", "FY", "SY", "TY", "Fr. Y", "PG/D. & B. Ed-1", "PG/D. & B. Ed-2", "Teacher"];
-    this.medium = ["Marathi", "Hindi", "English", "Kannada"];
+    this.standardList = standardList;
+    this.medium = answerOfMediumList;
   }
 
   ngOnInit() {
     if (this.routeData.params.selectedBook) {
       this.book = this.routeData.params.selectedBook;
-      console.log('this.user.id: ' + this.book.id);
+      console.log('this.book.id: ' + this.book.id);
       // Clean the data from routeData 
       this.routeData.params.selectedBook = null;
     }
   }
 
   addbook() {
-    this.submitted = true;
-    this.active = false;
     this.book.instituteID = '5910974510923776';
     this.book.bookFeedDate = this.date;
     this.gfbookservice.addbook(this.book);
+    this.gfbookservice.addbook(this.book).then(bookObj => {
+      console.log('Saved currentBook:' + bookObj);
+      this.currentBook = bookObj;
+      this.addTranAfterAddBook();
+
+    });
+  }
+
+  addTranAfterAddBook() {
+    this.gfbookservice.addTranAfterAddBook(this.currentBook);
   }
 }
