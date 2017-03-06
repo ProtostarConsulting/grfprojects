@@ -481,8 +481,6 @@ export const indiaAddressLookupData:IndiaStatesInfo = {
 					name : "Udgir"
 				} ]
 			}, {
-				name : "Mumbai City"
-			}, {
 				name : "Mumbai Suburban",
 				talukas : [ {
 					name : "Andheri"

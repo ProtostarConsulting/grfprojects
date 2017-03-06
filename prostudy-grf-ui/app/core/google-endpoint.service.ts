@@ -21,7 +21,7 @@ export class GoogleEndpointService {
         this.gapi = window[clientName];
         // Loads the OAuth and other APIs asynchronously, and triggers login
         // when they have completed.
-        let apisToLoad = 3; // must match number of calls to gapi.client.load()
+        let apisToLoad = 4; // must match number of calls to gapi.client.load()
         let callback = function () {
           console.log('Loading API : ' + apisToLoad);
           if (--apisToLoad === 0) {
@@ -32,6 +32,7 @@ export class GoogleEndpointService {
         this.gapi.client.load('gfBookStockService','v0.1', callback, apiEndPoint);
         this.gapi.client.load('userService', 'v0.1', callback, apiEndPoint);
         this.gapi.client.load('partnerSchoolService', 'v0.1', callback, apiEndPoint);
+        this.gapi.client.load('gfCourierService', 'v0.1', callback, apiEndPoint);
       };
       this.loadScript();
     });
