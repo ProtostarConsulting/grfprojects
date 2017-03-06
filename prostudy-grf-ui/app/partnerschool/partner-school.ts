@@ -53,6 +53,7 @@ export class ExamDetail {
     bookRequired:string;
     modeOfExam:string;
     bookSummary:BookSummary = new BookSummary();
+    notificationData:NotificationData = new NotificationData();
     paymentDetail:any;
 }
 
@@ -82,4 +83,11 @@ export class PaymentDetail {
     branchName:string;
     transactionNumber:string;
     depositDate:Date = new Date();
+}
+
+export class NotificationData {
+    registrationSmsSent:number = 0;
+    currierSmsSent:number = 0;
+    registrationEmailSent:number = 0;
+    currierEmailSent:number = 0;
 }

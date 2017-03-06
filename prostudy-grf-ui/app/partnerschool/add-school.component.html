@@ -71,9 +71,9 @@
 </td>
 <td style="padding-right: 10px;">
 <md-select style="width: 50%;" name="state" placeholder="State" [(ngModel)]="address.state" *ngIf="address.state != 'Other'" (ngModelChange)="getDistricts(address.state)">
-	<md-option *ngFor="let states of country.states" [value]="states.name">
-		{{ states.name }}
-	</md-option>
+<md-option *ngFor="let states of country.states" [value]="states.name">
+	{{ states.name }}
+</md-option>
 </md-select>
 <md-input-container class="example-full-width" *ngIf="address.state == 'Other'">
 	<input md-input name="otherState" placeholder="Enter State Name" [(ngModel)]="address.otherState">
@@ -82,26 +82,8 @@
 </tr>
 </table>
 <table class="example-full-width" cellspacing="0">
-	<tr *ngIf="address.state == 'Other'">
+	<tr *ngIf="address.state != 'Other'">
 		<td style="padding-right: 10px;">
-<md-input-container class="example-full-width">
-	<input md-input placeholder="District" name="district" [(ngModel)]="address.otherDist">
-</md-input-container>
-</td>
-<td style="padding-right: 10px;">
-<md-input-container class="example-full-width">
-	<input md-input placeholder="Taluka" name="Taluka" [(ngModel)]="address.otherTal">
-</md-input-container>
-</td>
-<td style="padding-right: 10px;">
-<md-input-container class="example-full-width">
-	<input md-input #postalCode placeholder="Postal Code" name="pin" [(ngModel)]="address.pin">
-	<md-hint align="end">{{postalCode.value.length}} / 5</md-hint>
-</md-input-container>
-</td>
-</tr>
-<tr *ngIf="address.state != 'Other'">
-	<td style="padding-right: 10px;">
 <md-select name="district" placeholder="District" [(ngModel)]="address.dist" (ngModelChange)="getTalukas(address.dist)">
 	<md-option *ngFor="let district of temp.tempDistricts" [value]="district.name">
 		{{ district.name }}
@@ -120,6 +102,24 @@
 		<input md-input #postalCode placeholder="Postal Code" name="pin" [(ngModel)]="address.pin">
 		<md-hint align="end">{{postalCode.value.length}} / 5</md-hint>
 	</md-input-container>
+</td>
+</tr>
+<tr *ngIf="address.state == 'Other'">
+	<td style="padding-right: 10px;">
+<md-input-container class="example-full-width">
+	<input md-input placeholder="District" name="district" [(ngModel)]="address.otherDist">
+</md-input-container>
+</td>
+<td style="padding-right: 10px;">
+<md-input-container class="example-full-width">
+	<input md-input placeholder="Taluka" name="Taluka" [(ngModel)]="address.otherTal">
+</md-input-container>
+</td>
+<td style="padding-right: 10px;">
+<md-input-container class="example-full-width">
+	<input md-input #postalCode placeholder="Postal Code" name="pin" [(ngModel)]="address.pin">
+	<md-hint align="end">{{postalCode.value.length}} / 5</md-hint>
+</md-input-container>
 </td>
 </tr>
 </table>
@@ -358,9 +358,9 @@
 </md-tab>
 <md-tab label="Payment Details" (click)="setCurrentTab(4)" [disabled]="enableTillTabNo<4">
 	<div align="right">
-		<button style="padding-right: 10px" md-raised-button color="primary"> Add Courier </button>
-<button style="padding-right: 10px" md-raised-button color="primary"> Print </button>
-<button style="padding-right: 10px" md-raised-button color="primary"> Print Address </button>
+		<button style="padding-right: 10px" md-raised-button color="primary" (click)="gotoAddCourier(school,yearOfExam)"> Add Courier </button>
+<button style="padding-right: 10px" md-raised-button color="primary" (click)="gotoprintbookdetails(school,bookStocks,yearOfExam)"> Print </button>
+<button style="padding-right: 10px" md-raised-button color="primary" (click)="gotoprintaddess(school,yearOfExam)"> Print Address </button>
 </div>
 <div alin="left" *ngIf="!addPaymentFlag">
 	<button md-raised-button color="primary" (click)="enableAddPaymentFlag()">Add Payment</button>
@@ -463,13 +463,11 @@
 </tr>
 <tr style="border: 1px solid #dddddd; text-align: left; padding: 8px; background-color: #8cced4;">
 <td>Registration SMS Count</td>
-<!--<td [innerHTML]="examDetail.notificationData.registrationSmsSent"></td>-->
-<td></td>
+<td>{{ examDetail.notificationData.registrationSmsSent }}</td>
 </tr>
 <tr style="border: 1px solid #dddddd; text-align: left; padding: 8px; background-color: #8cced4;">
 <td>Courier SMS Count</td>
-<!--<td [innerHTML]="examDetail.notificationData.currierSmsSent"></td>-->
-<td></td>
+<td>{{ examDetail.notificationData.currierSmsSent }}</td>
 </tr>
 </table>
 </md-tab>

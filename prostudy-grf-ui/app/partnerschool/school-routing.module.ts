@@ -4,6 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { SchoolComponent } from './feature.component';
 import { AddSchoolPage } from './add-school.page';
 import { ListSchoolPage } from './list-school.page';
+import { PrintBookDetailsPage } from './print-bookdetails.page';
+import { PrintAddressPage } from './print-address.page';
 
 const proerpRoutes: Routes = [
     {
@@ -12,6 +14,8 @@ const proerpRoutes: Routes = [
             { path: 'addschool/:id', component: AddSchoolPage },
             { path: 'addschool', component: AddSchoolPage },
             { path: 'listschool', component: ListSchoolPage },
+            { path: 'printbookdetails', component: PrintBookDetailsPage },
+            { path: 'printaddress', component: PrintAddressPage },
             { path: '', component: ListSchoolPage }
         ]
     },
