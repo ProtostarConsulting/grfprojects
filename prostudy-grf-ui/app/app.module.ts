@@ -14,6 +14,7 @@ import { ProERPModule } from './proerp/proerp.module';
 import { SetupModule } from './setup/setup.module';
 import { SchoolModule } from './partnerschool/school.module';
 import { GfBookModule } from './gfbook/gfbook.module';
+import { CouriersModule } from './couriers/courier.module';
 
 import { ProStudyComponent } from './prostudy/feature.component';
 
@@ -23,7 +24,7 @@ import { GoogleEndpointService } from './core/google-endpoint.service';
 
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, MaterialModule.forRoot(), ProERPModule, SetupModule, SchoolModule, GfBookModule, AppRoutingModule],
+    imports: [BrowserModule, FormsModule, MaterialModule.forRoot(), ProERPModule, SetupModule, SchoolModule, GfBookModule, CouriersModule, AppRoutingModule],
     declarations: [AppComponent, PageNotFoundComponent, ProStudyComponent],
     bootstrap: [AppComponent],
     providers: [RouteData, ApiConfig, GoogleEndpointService]
