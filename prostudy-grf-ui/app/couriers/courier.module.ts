@@ -10,13 +10,15 @@ import { ListCourierComponent } from './list-couriers.component';
 import { ListCourierPage } from './list-couries.page';
 import { SearchCourierPage } from './search-courier.page';
 import { SearchCourierComponent } from './search-courier.component';
+import { ViewCourierComponent } from './view-couriers.component';
+import { ViewCourierPage } from './view-couriers.page';
 
 import { CourierSerivces,GFCourier } from './courier.service';
 import { CourierRoutingModule } from './courier-routing.module';
 
 @NgModule({
     imports:[BrowserModule, FormsModule, MaterialModule, CourierRoutingModule, MdRadioModule],
-    declarations:[CouriersComponent,AddCourierComponent,AddCourierPage,ListCourierPage,ListCourierComponent,SearchCourierPage,SearchCourierComponent],
+    declarations:[CouriersComponent,AddCourierComponent,AddCourierPage,ListCourierPage,ListCourierComponent,SearchCourierPage,SearchCourierComponent,ViewCourierComponent,ViewCourierPage],
     providers:[CourierSerivces]
 })
 export class CouriersModule {

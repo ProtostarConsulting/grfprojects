@@ -5,6 +5,7 @@ import { CouriersComponent } from './feature.component';
 import { AddCourierPage } from './add-courier.page';
 import { ListCourierPage } from './list-couries.page';
 import { SearchCourierPage } from './search-courier.page';
+import { ViewCourierPage } from './view-couriers.page';
 
 const proerpRoutes: Routes = [
     {
@@ -13,6 +14,7 @@ const proerpRoutes: Routes = [
             { path: 'addCourier', component: AddCourierPage },
             { path: 'listcourier', component: ListCourierPage },
             { path:'searchcourier', component:SearchCourierPage},
+            { path:'viewcourier', component:ViewCourierPage},
             { path: '', component: ListCourierPage }
         ]
     },
