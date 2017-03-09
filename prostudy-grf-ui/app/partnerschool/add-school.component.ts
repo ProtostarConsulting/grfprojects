@@ -486,7 +486,7 @@ export class AddSchoolComponent implements OnInit {
 
     gotoAddCourier(selectedSchool:PartnerSchool,yearOfExam:string){
         this.routeData.params = { 'selectedSchool': selectedSchool,'yearOfExam':yearOfExam };
-        this.router.navigate(['/courier-index/addCourier']);
+        this.router.navigate(['/courier-index/addCourierFromPS']);
     }
 
 }
