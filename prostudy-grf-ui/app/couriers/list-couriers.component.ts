@@ -49,4 +49,9 @@ export class ListCourierComponent {
         this.routeData.params = { 'selectedCourierID': selectedCourierID };
         this.router.navigate(['/courier-index/addCourier']);
     }
+
+    gotoAddCourier(schoolGRFNo:string){
+        this.routeData.params = { 'schoolGRFNo': schoolGRFNo };
+        this.router.navigate(['/courier-index/addCourier']);
+    }
 }

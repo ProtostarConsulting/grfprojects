@@ -19,7 +19,7 @@ export class GFCourier {
   id: string;
   instituteID: number;
   logistics: string;
-  schoolName: PartnerSchool;
+  schoolName: any;
   totalFees: number;
   totalWeight: number;
   courierDispatchNotes: string;
