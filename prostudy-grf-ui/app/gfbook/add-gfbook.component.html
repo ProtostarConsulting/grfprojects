@@ -1,7 +1,7 @@
 <div class="app-content">
-		<h4 *ngIf="book.id"> Edit Book Component</h4>
-		<h4 *ngIf="!book.id"> Add Book Component</h4>
-		<form class="example-form" *ngIf="active">
+		<h4 *ngIf="book.id"> Edit Book</h4>
+		<h4 *ngIf="!book.id"> Add Book</h4>
+		<form class="example-form">
 			<table class="example-full-width" cellspacing="0">
 				<tr>
 					<td style="padding-right: 10px">
@@ -65,8 +65,8 @@
 </table>
 
 <div class="example-button-row">
-	<button md-raised-button (click)="addbook()"> Save </button>
-	<button md-raised-button> Cancel </button>
+	<button md-raised-button color="primary" (click)="addbook()"> Save </button>
+	<button md-raised-button (click)="gotolist()"> Cancel </button>
 </div>
 </form>
 </div>

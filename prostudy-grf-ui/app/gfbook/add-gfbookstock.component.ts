@@ -70,4 +70,8 @@ export class AddGfbookStockComponent {
             this.tempBookStocks=list;
         });
     }
+
+    gotolist(){
+     this.router.navigate(['/gfbook-index/listgfbook']);
+  }
 }

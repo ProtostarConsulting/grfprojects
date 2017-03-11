@@ -88,4 +88,16 @@ export class GFBookStockService {
       });
     });
   }
+
+  public getGFBookById(id: string): Promise<GFBook> {
+    // This is one way of calling async
+    return new Promise(resolve => {
+      // Simulate server latency with 2 second delay      
+      this.googleApiService.getGAPI().client.gfBookStockService.getGFBookById(
+        { 'id': id }).execute((data: any) => {
+          resolve(data);
+        });
+    });
+    //Second way ??
+  }
 }

@@ -1,7 +1,5 @@
 <div class="app-content">
-    <!--<h4 *ngIf="book.id"> Edit Book Component</h4>
-	<h4 *ngIf="!book.id"> Add Book Component</h4>-->
-    <h4>Add Book Stock Component</h4>
+    <h4>Add Book Stock </h4>
     <form class="example-form">
         <table class="example-full-width" cellspacing="0">
             <tr>
@@ -32,8 +30,8 @@
 </tr>
 </table>
 <div class="example-button-row">
-    <button md-raised-button (click)="addGFbookStock()"> Save </button>
-    <button md-raised-button> Cancel </button>
+    <button md-raised-button color="primary" (click)="addGFbookStock()"> Save </button>
+    <button md-raised-button (click)="gotolist()"> Cancel </button>
 </div>
 </form>
 </div>

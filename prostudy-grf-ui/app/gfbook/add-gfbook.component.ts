@@ -26,12 +26,12 @@ export class AddGfbookComponent implements OnInit {
     this.vc.first.nativeElement.focus();
   }
 
-  id: string;
   book: GFBook;
   standardList: string[];
   medium: string[];
   date: Date = new Date();
   currentBook: GFBook;
+  bookID: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -46,7 +46,8 @@ export class AddGfbookComponent implements OnInit {
 
   ngOnInit() {
     if (this.routeData.params.selectedBook) {
-      this.book = this.routeData.params.selectedBook;
+      this.bookID = this.routeData.params.selectedBook;
+      this.getGFBookById(this.bookID);
       console.log('this.book.id: ' + this.book.id);
       // Clean the data from routeData 
       this.routeData.params.selectedBook = null;
@@ -65,7 +66,17 @@ export class AddGfbookComponent implements OnInit {
     });
   }
 
+  getGFBookById(id: string) {
+    this.gfbookservice.getGFBookById(id).then(tempbook => {
+      this.book = tempbook;
+    });
+  }
+
   addTranAfterAddBook() {
     this.gfbookservice.addTranAfterAddBook(this.currentBook);
+  }
+
+  gotolist(){
+     this.router.navigate(['/gfbook-index/listgfbook']);
   }
 }
