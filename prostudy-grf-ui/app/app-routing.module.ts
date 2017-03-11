@@ -8,6 +8,7 @@ import { SetupComponent } from './setup/feature.component';
 import { SchoolComponent } from './partnerschool/feature.component';
 import { GfBookComponent } from './gfbook/feature.component';
 import { CouriersComponent } from './couriers/feature.component';
+import { GfStudentComponent } from './gfStudent/feature.component';
  
 
 const appRoutes: Routes = [
@@ -17,6 +18,7 @@ const appRoutes: Routes = [
     { path: 'school-index', component: SchoolComponent },
     { path: 'gfbook-index', component: GfBookComponent },
     { path: 'courier-index', component: CouriersComponent },
+    { path: 'student-index', component: GfStudentComponent },
     { path: '', component: ProStudyComponent, pathMatch: 'full' },
     { path: '**', component: PageNotFoundComponent }
 ];
