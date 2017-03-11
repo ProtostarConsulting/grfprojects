@@ -1,12 +1,10 @@
 <h3>Search Courier</h3>
-
 <div>
     <form name="gfCourierForm">
         <table>
             <tr>
                 <td style="padding-right: 10px;">
                     <h5>Select Year</h5>
-                    <!-- 	<span flex="10"></span> -->
                     <md-select style="width: 100%;" name="yearOfExam" [(ngModel)]="yearOfExam">
 <md-option *ngFor="let Year of Years" [value]="Year">
     {{ Year }}

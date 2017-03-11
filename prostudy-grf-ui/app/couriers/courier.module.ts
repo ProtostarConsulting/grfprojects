@@ -14,15 +14,17 @@ import { ViewCourierComponent } from './view-couriers.component';
 import { ViewCourierPage } from './view-couriers.page';
 import { AddCourierFromPSComponent } from './gfCourier_directAddFromPS';
 import { AddCourierFromPSPage } from './gfCourier_directAddFromPS.page';
+import { Dialog1 } from './gfCourier_directAddFromPS';
 
-import { CourierSerivces,GFCourier } from './courier.service';
+import { CourierSerivces, GFCourier } from './courier.service';
 import { CourierRoutingModule } from './courier-routing.module';
 
 @NgModule({
-    imports:[BrowserModule, FormsModule, MaterialModule, CourierRoutingModule, MdRadioModule],
-    declarations:[CouriersComponent,AddCourierComponent,AddCourierPage,ListCourierPage,ListCourierComponent,SearchCourierPage,SearchCourierComponent,ViewCourierComponent,ViewCourierPage,AddCourierFromPSPage,AddCourierFromPSComponent],
-    providers:[CourierSerivces]
+    imports: [BrowserModule, FormsModule, MaterialModule, CourierRoutingModule, MdRadioModule],
+    declarations: [CouriersComponent, AddCourierComponent, AddCourierPage, ListCourierPage, ListCourierComponent, SearchCourierPage, SearchCourierComponent, ViewCourierComponent, ViewCourierPage, AddCourierFromPSPage, AddCourierFromPSComponent, Dialog1],
+    entryComponents: [Dialog1],
+    providers: [CourierSerivces]
 })
 export class CouriersModule {
-    
+
 }

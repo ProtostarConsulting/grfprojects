@@ -35,7 +35,6 @@ export class AddCourierComponent implements OnInit {
     courierDispatchDate: any;
     courierTypelist: string[];
     logisticsList: string[];
-    qtyErrorMsg: string;
     tempQty: number;
     currentSchool: PartnerSchool;
 
@@ -77,7 +76,6 @@ export class AddCourierComponent implements OnInit {
         if (this.routeData.params.selectedCourierID) {
             this.id = this.routeData.params.selectedCourierID;
             this.getGFCourierById(this.id);
-            console.log('this.user.id: ' + this.id);
             // Clean the data from routeData 
             this.routeData.params.selectedCourierID = null;
         }
@@ -110,7 +108,6 @@ export class AddCourierComponent implements OnInit {
         }
 
         this.courierservice.addCourier(this.tempCourierObj).then(courierObj => {
-            console.log('Saved currentSchool:' + courierObj);
             this.tempCourierObj = courierObj;
             if (this.tempCourierObj) {
                 this.router.navigate(['/courier-index/listcourier']);
@@ -150,7 +147,6 @@ export class AddCourierComponent implements OnInit {
                 + this.school.address.pin;
             this.tempCourierObj.courierFrom = "Protostar, E101, MG Apts, Kasarwadi, Pune";
         });
-        //console.log("school Name****"+this.school.schoolName);
     }
 
     addBook() {
@@ -170,7 +166,6 @@ export class AddCourierComponent implements OnInit {
         let lineSelectedItem = this.tempCourierObj.bookLineItemList[index];
         lineSelectedItem.id = stockItem.id;
         lineSelectedItem.bookName = stockItem.bookName;
-        // lineSelectedItem.bookQty = stockItem.bookQty;
         lineSelectedItem.bookPrice = stockItem.bookPrice;
         lineSelectedItem.bookAuther = stockItem.bookAuther;
         lineSelectedItem.weight = stockItem.weight;
@@ -181,12 +176,9 @@ export class AddCourierComponent implements OnInit {
     checkBookStock(item: any) {
         for (let i = 0; i < this.bookStocks.length; i++) {
             if (item.id == this.bookStocks[i].id) {
-                this.qtyErrorMsg = "";
                 if (this.bookStocks[i].bookQty < item.bookQty) {
-                    this.qtyErrorMsg = "Quantity entered is not available in stock";
                     item.bookQty = 1;
                     item.bkQty = this.bookStocks[i].bookQty;
-                    //this.showAlert(item);
                 }
                 this.tempQty = this.bookStocks[i].bookQty - item.bookQty;
             }
@@ -215,7 +207,6 @@ export class AddCourierComponent implements OnInit {
     getGFBookStockByInstituteId(): void {
         this.gfbookService.getGFBookByInstituteId(this.tempCourierObj.instituteID).then(list => {
             this.bookStocks = list;
-            console.log("bookStocks length****" + this.bookStocks.length);
         });
     }
 
