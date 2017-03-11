@@ -1,0 +1,25 @@
+<div class="example-full-width">
+	<h4>List Student</h4>
+	<table class="example-table">
+		<tr>
+			<th> Name </th>
+			<th> Standard</th>
+			<th> School Name</th>
+			<th> Contact no </th>
+			<th style="text-align: center;"> Actions </th>
+</tr>
+<tr *ngFor="let student of studentList">
+	<td> {{student.fName}} {{student.lName}} </td>
+	<td> {{student.standard}} </td>
+	<td> {{student.school.schoolName}} </td>
+	<td> {{student.contact}} </td>
+	<td>
+		<div class="example-button-row">
+			<a md-button (click)="gotoEditStudent(student.id)">
+				Edit </a>
+		</div>
+	</td>
+</tr>
+</table>
+<!-- Routed views go here -->
+</div>
