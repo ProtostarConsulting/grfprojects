@@ -42,7 +42,7 @@ export class AddSchoolComponent implements OnInit {
     school: PartnerSchool = new PartnerSchool();
     address: Address = new Address();
     examDetail: ExamDetail = new ExamDetail();
-    notificationData:NotificationData = new NotificationData();
+    notificationData: NotificationData = new NotificationData();
     contactDetail: ContactDetail = new ContactDetail();
     coordinatorDetail: CoordinatorDetail = new CoordinatorDetail();
     PaymentDetail: PaymentDetail = new PaymentDetail();
@@ -332,7 +332,7 @@ export class AddSchoolComponent implements OnInit {
                 yearOfExam: this.yearOfExam,
                 bookRequired: 'OffLine',
                 modeOfExam: 'OffLine',
-                notificationData:this.notificationData,
+                notificationData: this.notificationData,
                 bookSummary: this.bookSummary,
                 paymentDetail: this.PaymentDet,
             };
@@ -413,6 +413,37 @@ export class AddSchoolComponent implements OnInit {
         this.addPaymentFlag = true;
     }
 
+    onlineChClicked() {
+        if (this.examDetail.modeOfExam == '' || this.examDetail.modeOfExam == 'OffLine') {
+            this.examDetail.modeOfExam = 'OnLine';
+        } else {
+            this.examDetail.modeOfExam == ''
+        }
+    }
+    offlineChClicked() {
+        if (this.examDetail.modeOfExam == '' || this.examDetail.modeOfExam == 'OnLine') {
+            this.examDetail.modeOfExam = 'OffLine';
+        } else {
+            this.examDetail.modeOfExam == ''
+        }
+    }
+
+    onlinebookChClicked() {
+        if (this.examDetail.bookRequired == '' || this.examDetail.bookRequired == 'OffLine') {
+            this.examDetail.bookRequired = 'OnLine';
+        } else {
+            this.examDetail.bookRequired == ''
+        }
+    }
+
+    offlinebookChClicked() {
+        if (this.examDetail.bookRequired == '' || this.examDetail.bookRequired == 'OnLine') {
+            this.examDetail.bookRequired = 'OffLine';
+        } else {
+            this.examDetail.bookRequired == ''
+        }
+    }
+
     addCoordinator() {
         if (this.contactDetail.coordinatorDetail == undefined) {
             this.contactDetail = {
@@ -449,7 +480,6 @@ export class AddSchoolComponent implements OnInit {
         for (let i = 0; i < this.country.states.length; i++) {
             if (this.country.states[i].name == state) {
                 this.temp.tempDistricts = this.country.states[i].districts;
-                console.log('district length***'+this.temp.tempDistricts.length);
             }
         }
     }
@@ -459,7 +489,6 @@ export class AddSchoolComponent implements OnInit {
         for (let i = 0; i < this.temp.tempDistricts.length; i++) {
             if (this.temp.tempDistricts[i].name == district) {
                 this.temp.tempTalukas = this.temp.tempDistricts[i].talukas;
-                console.log('tempTalukas length***'+this.temp.tempTalukas.length);
             }
         }
     }
@@ -469,23 +498,22 @@ export class AddSchoolComponent implements OnInit {
         for (let i = 0; i < this.temp.tempTalukas.length; i++) {
             if (this.temp.tempTalukas[i].name == taluka) {
                 this.temp.tempVillages = this.temp.tempTalukas[i].villages;
-                //console.log('tempVillages length***'+this.temp.tempVillages.length);
             }
         }
     }
 
-    gotoprintbookdetails(selectedSchool:PartnerSchool,bookStocks:GFBook,yearOfExam:string){
-        this.routeData.params = { 'selectedSchool': selectedSchool,'bookStocks':bookStocks,'yearOfExam':yearOfExam };
+    gotoprintbookdetails(selectedSchool: PartnerSchool, bookStocks: GFBook, yearOfExam: string) {
+        this.routeData.params = { 'selectedSchool': selectedSchool, 'bookStocks': bookStocks, 'yearOfExam': yearOfExam };
         this.router.navigate(['/school-index/printbookdetails']);
     }
 
-    gotoprintaddess(selectedSchool:PartnerSchool,yearOfExam:string){
-        this.routeData.params = { 'selectedSchool': selectedSchool,'yearOfExam':yearOfExam };
+    gotoprintaddess(selectedSchool: PartnerSchool, yearOfExam: string) {
+        this.routeData.params = { 'selectedSchool': selectedSchool, 'yearOfExam': yearOfExam };
         this.router.navigate(['/school-index/printaddress']);
     }
 
-    gotoAddCourier(selectedSchool:PartnerSchool,yearOfExam:string){
-        this.routeData.params = { 'selectedSchool': selectedSchool,'yearOfExam':yearOfExam };
+    gotoAddCourier(selectedSchool: PartnerSchool, yearOfExam: string) {
+        this.routeData.params = { 'selectedSchool': selectedSchool, 'yearOfExam': yearOfExam };
         this.router.navigate(['/courier-index/addCourierFromPS']);
     }
 
