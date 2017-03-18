@@ -81,4 +81,28 @@ export class CourierSerivces {
     });
     //Second way ??
   }
+
+  public getCourierByLogisticsType(courierLogistics: string): Promise<GFCourier> {
+    // This is one way of calling async
+    return new Promise(resolve => {
+      // Simulate server latency with 2 second delay      
+      this.googleApiService.getGAPI().client.gfCourierService.getCourierByLogisticsType(
+        { 'logisticsType': courierLogistics }).execute((data: any) => {
+          resolve(data.items);
+        });
+    });
+    //Second way ??
+  }
+
+  public getCourierByDispatchDate(date: any): Promise<GFCourier> {
+    // This is one way of calling async
+    return new Promise(resolve => {
+      // Simulate server latency with 2 second delay      
+      this.googleApiService.getGAPI().client.gfCourierService.getCourierByDispatchDate(
+        { 'dispatchDate': date }).execute((data: any) => {
+          resolve(data.items);
+        });
+    });
+    //Second way ??
+  }
 }
