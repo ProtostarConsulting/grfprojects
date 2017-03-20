@@ -1,10 +1,11 @@
 import { Component, Optional, OnInit } from '@angular/core';
 import { MdDialog, MdDialogRef, MdSnackBar } from '@angular/material';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Http, RequestOptions, URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 
-import { partnerSchoolLevels, IndiaStatesInfo } from '../core/constant.app';
+import { partnerSchoolLevels, IndiaStatesInfo, indiaAddressLookupData } from '../core/constant.app';
 import { PartnerSchool } from '../partnerschool/partner-school';
 import { PartnerSchoolService } from '../partnerschool/school.service';
 
@@ -31,7 +32,8 @@ export class SchoolListReportCompoent {
         private route: ActivatedRoute,
         private router: Router,
         private routeData: RouteData,
-        private partnerschoolservice: PartnerSchoolService, ) {
+        private partnerschoolservice: PartnerSchoolService,
+        private http: Http ) {
         this.instituteID = 5910974510923776;
         this.selectFilterData = {
             category: "All",
@@ -48,7 +50,7 @@ export class SchoolListReportCompoent {
 
         this.partnerSchoolLevels = partnerSchoolLevels;
         //this.country = indiaAddressLookupData;
-        //this.country = Object.assign({},indiaAddressLookupData);
+        this.country = Object.assign({},indiaAddressLookupData);
         this.country.states.unshift({
             name: "All",
             districts: []
@@ -94,6 +96,30 @@ export class SchoolListReportCompoent {
             this.schoolList = list;
         });
     }
+
+    downloadschoolData(){
+   
+        let params = new URLSearchParams();
+        params.set('InstituteId', this.instituteID.toString());
+        return this.http.get('http://localhost:8888/DownloadPartnerSchools', { search: params })
+            .toPromise()
+            .then((response: any) => {
+                let headers = response.headers;
+                console.log("headers: " + headers);
+                let data1 = response._body;
+                let saveAs = require('file-saver');
+                let blob = new Blob([data1], { type: 'application/csv;charset=utf-8' });
+                saveAs(blob, "SchoolData_"+new Date().toLocaleDateString()+".csv");
+                let url = window.URL.createObjectURL(blob);
+                window.open(url);
+            })
+            .catch(this.handleError);
+    }
+
+    private handleError(error: any): Promise<any> {
+    console.error('An error occurred', error); // for demo purposes only
+    return Promise.reject(error.message || error);
+  }
 
     getDistricts(state: string) {
         this.temp.tempDistricts = [];

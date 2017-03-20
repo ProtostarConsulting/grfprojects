@@ -11,7 +11,7 @@
 	<div [hidden]="dateChanged">
 		<span >Display Dispatch Report: {{ courierDispatchDate | date:"mediumDate" }}</span>
 			<div align="right">
-				<button style="padding-right: 10px" md-raised-button color="primary" > Download Courier Dispatch Report</button>
+				<button style="padding-right: 10px" md-raised-button color="primary" (click)="downloadcourierdispatchReport()" > Download Courier Dispatch Report</button>
 				<button style="padding-right: 10px" md-raised-button color="primary" (click)="printDiv('reportContentDiv')"> Print</button>
 			</div>		
 

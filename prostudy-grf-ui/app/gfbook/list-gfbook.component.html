@@ -1,5 +1,8 @@
 <div class="example-full-width" style="padding: 20px;">
 	<h4>List Book</h4>
+	<div align="right">
+		<button md-raised-button color="primary" (click)="downloadData()"> Download CSV Data </button>
+	</div>
 	<table class="example-table">
 		<tr>
 			<th> Standard </th>
@@ -8,7 +11,7 @@
 			<th> Weight </th>
 			<th> Fees </th>
 			<th> Quantity </th>
-			<th> Action </th>
+			<th style="text-align: center;"> Action </th>
 		</tr>
 		<tr *ngFor="let book of bookList">
 			<td> {{book.standard}} </td>
@@ -19,10 +22,12 @@
 			<td> {{book.bookQty}}</td>
 			<td>
 				<div class="example-button-row">
-					<a md-button (click)="goToGfbook(book.id)">
-				Edit</a></div>
+					<a md-button (click)="gotoGfbook(book.id)">
+				Edit</a>
+				<a md-button (click)="gotoviewGfbookRecord(book.id)">
+				View Record</a>
+				</div>
 			</td>
 		</tr> 
 	</table>
-	<!-- Routed views go here -->
 </div>

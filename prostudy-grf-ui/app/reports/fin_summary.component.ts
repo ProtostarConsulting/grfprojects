@@ -186,42 +186,11 @@ export class FinSummaryCompoent {
         }
     }
 
-    downloadSummaryReport = function () {
-        window.location.href = "DownloadFinicialSummaryReport?summaryReportFilterType1="
-            + this.otherFilterType
-            + "&summaryReportFilterType2="
-            + this.filterSubType;
-    }
+    downloadSummaryReport() {
 
-    downloadFile(data: Response) {
-        var blob = new Blob([data], { type: 'text/csv' });
-        var url = window.URL.createObjectURL(blob);
-        window.open(url);
-    }
-
-    downloadFileTemp(): any {
-
-        /**let data = 'fname, lname, gan, law, ravi, sharma';      
-        let saveAs = require('file-saver');
-        let blob = new Blob([JSON.stringify(data)], { type: 'text/csv;charset=utf-8' });
-        saveAs(blob, "file.csv");
-        let url = window.URL.createObjectURL(blob);
-        window.open(url);*/
         let params = new URLSearchParams();
         params.set('summaryReportFilterType1', this.otherFilterType);
         params.set('summaryReportFilterType2', this.filterSubType);
-
-        /**return this.http.get('http://localhost:8888/DownloadFinicialSummaryReport', { search: params })
-            .map((res: Response) => {
-                let data = res.json();
-                //let data = 'fname, lname, gan, law, ravi, sharma';
-                let saveAs = require('file-saver');
-                let blob = new Blob([JSON.stringify(data)], { type: 'text/plain;charset=utf-8' });
-                saveAs(blob, "file.csv");
-                let url = window.URL.createObjectURL(blob);
-                window.open(url);
-
-            });*/
 
         return this.http.get('http://localhost:8888/DownloadFinicialSummaryReport', { search: params })
             .toPromise()
@@ -231,7 +200,7 @@ export class FinSummaryCompoent {
                 let data1 = response._body;
                 let saveAs = require('file-saver');
                 let blob = new Blob([data1], { type: 'application/csv;charset=utf-8' });
-                saveAs(blob, "file.csv");
+                saveAs(blob, "FinancialSummaryCSV"+this.filterSubType+new Date().toLocaleDateString()+".csv");
                 let url = window.URL.createObjectURL(blob);
                 window.open(url);
             })

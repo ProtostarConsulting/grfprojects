@@ -6,6 +6,7 @@ import { AddGfbookPage } from './add-gfbook.page';
 import { ListGfbookPage } from './list-gfbook.page';
 import { AddGfBookStockPage } from './add-gfbookstock.page';
 import { ListGfbookStockTransactionPage } from './list-gfbookStocktransaction.page';
+import { ViewBookRecordPage } from './view-gfbookRecord.page';
 
 const proerpRoutes: Routes = [
     {
@@ -16,6 +17,7 @@ const proerpRoutes: Routes = [
             { path: 'addgfbookstock', component: AddGfBookStockPage },
             { path: 'listgfbook', component: ListGfbookPage },
             { path: 'listgfbookstocktransaction', component: ListGfbookStockTransactionPage },
+            { path: 'viewgfbookrecord', component: ViewBookRecordPage},
             { path: '', component: ListGfbookPage }
         ]
     },

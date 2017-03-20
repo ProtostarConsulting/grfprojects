@@ -85,4 +85,16 @@ export class PartnerSchoolService {
     });
     //Second way ??
   }
+
+  public getSchoolByBId(id:string): Promise<PartnerSchool[]> {
+    // This is one way of calling async
+    return new Promise(resolve => {
+      // Simulate server latency with 2 second delay      
+      this.googleApiService.getGAPI().client.partnerSchoolService.getSchoolByBId(
+        { 'id': id }).execute((data: any) => {
+          resolve(data.items);
+        });
+    });
+    //Second way ??
+  }
 }
