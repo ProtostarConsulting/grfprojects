@@ -72,7 +72,7 @@ export class ViewBookRecordComponent {
         this.router.navigate(['/gfbook-index/listgfbook']);
     }
 
-    getRowStyle(even: number) {
+    getRowStyle(even: number): any {
         if (!even) {
             return {
                 'border': '1px solid black',
@@ -89,7 +89,7 @@ export class ViewBookRecordComponent {
         }
     }
 
-    getTHStyle() {
+    getTHStyle(): any {
         return {
             'border': '1px solid black',
             'text-align': 'center',
