@@ -10,6 +10,7 @@ import { GfBookComponent } from './gfbook/feature.component';
 import { CouriersComponent } from './couriers/feature.component';
 import { GfStudentComponent } from './gfStudent/feature.component';
 import { ReportsComponent } from './reports/feature.component';
+import { ExamDetailComponent } from './examdetail_withoutlogin/feature.component';
  
 
 const appRoutes: Routes = [
@@ -21,6 +22,7 @@ const appRoutes: Routes = [
     { path: 'courier-index', component: CouriersComponent },
     { path: 'student-index', component: GfStudentComponent },
     { path: 'reports-index', component: ReportsComponent },
+    { path: 'examdetail-index', component: ExamDetailComponent },
     { path: '', component: ProStudyComponent, pathMatch: 'full' },
     { path: '**', component: PageNotFoundComponent }
 ];

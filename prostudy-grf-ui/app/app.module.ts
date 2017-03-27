@@ -17,16 +17,16 @@ import { GfBookModule } from './gfbook/gfbook.module';
 import { CouriersModule } from './couriers/courier.module';
 import { GfStudentModule } from './gfStudent/gfStudent.module';
 import { ReportsModule } from './reports/reports.module';
+import { ExamDetailModule } from './examdetail_withoutlogin/examdetails.module';
 
 import { ProStudyComponent } from './prostudy/feature.component';
-
 import { AppRoutingModule } from './app-routing.module';
 import { ApiConfig } from './core/api.config';
 import { GoogleEndpointService } from './core/google-endpoint.service';
 
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, MaterialModule.forRoot(), ProERPModule, SetupModule, SchoolModule, GfBookModule, GfStudentModule, CouriersModule, ReportsModule, AppRoutingModule],
+    imports: [BrowserModule, FormsModule, MaterialModule.forRoot(), ProERPModule, SetupModule, SchoolModule, GfBookModule, GfStudentModule, CouriersModule, ReportsModule, ExamDetailModule, AppRoutingModule],
     declarations: [AppComponent, PageNotFoundComponent, ProStudyComponent],
     bootstrap: [AppComponent],
     providers: [RouteData, ApiConfig, GoogleEndpointService]
