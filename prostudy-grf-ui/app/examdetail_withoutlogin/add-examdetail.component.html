@@ -1,0 +1,29 @@
+<div>
+    <form>
+        <table class="example-full-width">
+            <tr>
+                <td style="padding-right: 10px">
+                    <md-input-container class="example-full-width">
+                        <input md-input name="grfRegNo" placeholder="Enter GRF.Reg. No." [(ngModel)]="data.grfRegNo">
+                    </md-input-container>
+                </td>
+                <td>
+                    <md-input-container class="example-full-width">
+                        <input md-input name="coordinatorMobileNumberEntered" placeholder="Enter
+					        Co-ordinator Mobile Number" [(ngModel)]="data.coordinatorMobileNumberEntered">
+                    </md-input-container>
+                </td>
+            </tr>
+        </table>
+        <div class="example-button-row">
+            <button md-raised-button color="primary" (click)="grfRegNoChange(data.grfRegNo)" *ngIf="!isLoggedIn"> Verify </button>
+            <button md-raised-button color="primary" (click)="grfRegNoChange(data.grfRegNo)" *ngIf="isLoggedIn"> Display </button>
+        </div>
+        <div *ngIf="!data.foundValidRecord">
+            <span style="color: red">{{data.errorMsg}}</span>
+        </div>
+        <div *ngIf="data.guestSuccessMsg !=''">
+            <h3 class="md-title">{{data.guestSuccessMsg}}</h3>
+        </div>
+    </form>
+</div>
