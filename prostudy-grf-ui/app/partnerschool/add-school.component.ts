@@ -54,11 +54,12 @@ export class AddSchoolComponent implements OnInit {
     addPaymentFlag: boolean;
     tempPaymentData: any;
     temp: any;
+    routeData: RouteData;
 
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private routeData: RouteData,
+        routeData: RouteData,
         private partnerschoolService: PartnerSchoolService,
         private gfbookService: GFBookStockService
     ) {
@@ -114,7 +115,7 @@ export class AddSchoolComponent implements OnInit {
         this.getCurYear();
         this.getPrvYears();
         this.getNextYears();
-
+        this.routeData = routeData;
     }
 
     tabNext() {
