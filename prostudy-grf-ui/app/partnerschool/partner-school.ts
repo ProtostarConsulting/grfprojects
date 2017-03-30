@@ -11,6 +11,7 @@ export class PartnerSchool {
     address:Address = new Address();
     contactDetail:ContactDetail = new ContactDetail();
     examDetailList:Array<ExamDetail>;
+    schoolSelfUpdate:boolean;
 }
 
 export class Address {

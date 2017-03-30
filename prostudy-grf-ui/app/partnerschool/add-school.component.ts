@@ -162,13 +162,15 @@ export class AddSchoolComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (this.routeData.params.selectedSchool) {
+        if (this.routeData.params.selectedSchool || this.routeData.params.isLoggedIn) {
             this.school = this.routeData.params.selectedSchool;
+            this.school.schoolSelfUpdate = this.routeData.params.isLoggedIn;
             console.log('this.school.id: ' + this.school.id);
             // Clean the data from routeData
             this.initSchoolLoad(this.school);
             this.selectedPSchoolId = this.school.id;
             this.routeData.params.selectedSchool = null;
+            this.routeData.params.isLoggedIn = null;
             this.enableTillTabNo = this.maxTabNo;
         }
         this.getGFBookStockByInstituteId();

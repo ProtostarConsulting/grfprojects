@@ -34,6 +34,7 @@ export class UpdateSchoolWithoutLogin extends AddSchoolComponent {
     ngOnInit() {
         if (this.routeData.params.selectedSchool) {
             this.school = this.routeData.params.selectedSchool;
+            this.school.schoolSelfUpdate = true;
             this.initSchoolLoad(this.school);
             // Clean the data from routeData
             this.routeData.params.selectedSchool = null;

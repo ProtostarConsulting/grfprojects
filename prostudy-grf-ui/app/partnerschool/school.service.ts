@@ -97,4 +97,16 @@ export class PartnerSchoolService {
     });
     //Second way ??
   }
+
+  public getSchoolByselfUpdateStatus(): Promise<PartnerSchool[]> {
+    // This is one way of calling async
+    return new Promise(resolve => {
+      // Simulate server latency with 2 second delay      
+      this.googleApiService.getGAPI().client.partnerSchoolService.getSchoolByselfUpdateStatus(
+        {  }).execute((data: any) => {
+          resolve(data.items);
+        });
+    });
+    //Second way ??
+  }
 }

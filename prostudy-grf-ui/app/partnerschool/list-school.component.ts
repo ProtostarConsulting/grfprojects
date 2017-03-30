@@ -18,7 +18,7 @@ import { RouteData } from '../route-data.provider';
 export class ListSchoolComponent {
     schoolList: PartnerSchool[];
     private instituteID: number;
-    school: PartnerSchool = new PartnerSchool();
+    isLoggedIn: boolean;
 
     constructor(private route: ActivatedRoute,
         private router: Router,
@@ -27,16 +27,23 @@ export class ListSchoolComponent {
         private http: Http) {
         this.schoolList = new Array<PartnerSchool>();
         console.log('came to contructor...');
-        this.instituteID = this.school.instituteID;
+        this.instituteID = 5910974510923776;
     }
 
     ngOnInit() {
         console.log('came to ngOnInit...');
+        this.isLoggedIn = false;
         this.getPartnerByInstitute();
     }
 
+    pendingschoolSelfUpdateList(){
+        this.partnerschoolService.getSchoolByselfUpdateStatus().then(list => {
+            this.schoolList = list;
+        });
+    }
+
     goToSchool(selectedSchool: PartnerSchool) {
-        this.routeData.params = { 'selectedSchool': selectedSchool };
+        this.routeData.params = { 'selectedSchool': selectedSchool, 'isLoggedIn': this.isLoggedIn };
         this.router.navigate(['/school-index/addschool']);
     }
 
