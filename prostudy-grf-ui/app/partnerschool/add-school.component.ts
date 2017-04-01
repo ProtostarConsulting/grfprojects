@@ -321,7 +321,8 @@ export class AddSchoolComponent implements OnInit {
                     bookName: "",
                     bookPrise: 0,
                     totalStud: 0,
-                    totalFees: 0
+                    totalFees: 0,
+                    appearedTotalStud: 0
                 }],
                 total: 0,
                 amtForInst20per: 0,
@@ -352,7 +353,8 @@ export class AddSchoolComponent implements OnInit {
             bookName: "",
             bookPrise: 0,
             totalStud: 0,
-            totalFees: 0
+            totalFees: 0,
+            appearedTotalStud: 0
         });
     }
 
