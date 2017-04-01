@@ -1,0 +1,145 @@
+<div>
+    <h4> Add Exam Result </h4>
+    <form class="example-form">
+        <div *ngIf="!reviewByGrfRegNo">
+        <table class="example-full-width">
+            <tr>
+                <td style="padding-right: 10px">
+<md-input-container class="example-full-width">
+    <input md-input name="grfRegNo" placeholder="Enter GRF.Reg. No." [(ngModel)]="data.grfRegNo">
+</md-input-container>
+</td>
+<td *ngIf="curUser">
+    <md-input-container class="example-full-width">
+        <input md-input name="coordinatorMobileNumberEntered" placeholder="Enter
+					Co-ordinator Mobile Number" [(ngModel)]="data.coordinatorMobileNumberEntered">
+    </md-input-container>
+</td>
+</tr>
+</table>
+<div class="example-button-row">
+    <button md-raised-button color="primary" (click)="grfRegNoChange(data.grfRegNo)" *ngIf="!curUser"> Verify </button>
+    <button md-raised-button color="primary" (click)="grfRegNoChange(data.grfRegNo)" *ngIf="curUser"> Display </button>
+</div>
+</div>
+
+<div *ngIf="!data.foundValidRecord">
+    <span style="color: red">{{data.errorMsg}}</span>
+</div>
+<div *ngIf="data.guestSuccessMsg !=''">
+    <h3 class="md-title" style="color: green">{{data.guestSuccessMsg}}</h3>
+</div>
+
+<div *ngIf="data.foundValidRecord && data.guestSuccessMsg ==''">
+    <div layout="column">
+        <div layout="row" layout-xs="column">
+            <span><b>School/College Name: &nbsp;</b></span><span>{{foundSchool.schoolName}}</span>
+            <span>&nbsp;</span>
+            <!--<div>
+                <button class="md-raised md-primary" ui-sref="studentModule.printCertificateDetail({selectedSchoolObj: foundSchool})">Print</button>
+            </div>-->
+        </div>
+        <div layout="row" layout-xs="column">
+            <span><b>Co-ordinator Name:
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></span><span>{{coordinatorDetail.coordinatorName}}</span>
+        </div>
+    </div>
+    <hr>
+    <form #examSumaryForm="ngForm" [ngStyle]="getFormRowStyle()">
+        <table>
+            <tr>
+                <td [ngStyle]="getTableStyle()">Standard</td>
+                <td *ngFor="let book of bookDetailList" [ngStyle]="getTableStyle()">{{book.standard + '-' + getGFBookByID(book.bookName).bookMedium}}</td>
+                <td [ngStyle]="getTableStyle()">No. of Coordinators</td>
+            </tr>
+            <tr>
+                <td [ngStyle]="getTableStyle()">Total Students Registered</td>
+                <td *ngFor="let book of bookDetailList" [ngStyle]="getTableStyle()">{{book.totalStud}}</td>
+                <td [ngStyle]="getTableStyle()"></td>
+            </tr>
+            <tr>
+				<td [ngStyle]="getTableStyle()">Total Students Appeared</td>
+				<td *ngFor="let book of bookDetailList" [ngStyle]="getTableStyle()">
+                    <md-input-container style="margin: 0; padding: 0; padding-left: 0px;">
+						<input md-input name=appearedTotal aria-label="Total Students Appeared"
+								type="number" [(ngModel)]="book.appearedTotalStud"> 
+                    </md-input-container>
+                </td>
+				<td [ngStyle]="getTableStyle()">
+                    <md-input-container	style="margin: 0; padding: 0; padding-left: 5px;">
+						<input md-input name=noOfCordinators aria-label="Total Students Appeared"
+								type="number" [(ngModel)]="examDetail.numberOfCoordinators"> 
+                    </md-input-container>
+                </td>
+			</tr>
+        </table>
+    </form>
+    <hr>
+    <h3 class="md-title">Please enter standard wise result below.</h3>
+    <div layout="row">
+		<span style="padding: 10px;"><b>Student by Rank</b></span> <span style="padding: 15px;"> <b>Student
+							Name</b></span> <span><b>Marks</b></span>
+	</div>
+    <div id="standardList" *ngFor="let std of currentSchoolStandardList"
+					layout="column">
+					<div layout="row" style="margin: 10px;">
+						<span style="border: 1px solid #dddddd; text-align: left; padding: 8px; background-color: #8cced4;"
+							flex><b>Standard:&nbsp;{{std}}</b></span>
+					</div>
+					<div id="standardList"
+						*ngFor="let examResult of getResultListFor(std); let i = index;" layout="column"
+						flex="100">
+
+                        <form #recordForm="ngForm" *ngIf="i<=2" [ngStyle]="getFormRowStyle()"  layout="row" layout-padding
+							flex="100">
+                            <span [ngStyle]="getStandardLabelStyle()"
+							flex="25"><b>Student No.&nbsp;{{i+1}}</b></span><md-input-container
+							flex="50" style="margin: 0; padding: 0;"> <input md-input
+							name="studName" aria-label="Student Name"
+							[(ngModel)]="examResult.studName" capitalize>
+						</md-input-container><md-input-container flex="25"
+							style="margin: 0; padding: 0; padding-left: 10px;">
+						<input md-input name="marks" aria-label="Student Marks" type="number"
+							[(ngModel)]="examResult.marks">
+						</md-input-container>
+                        <span><a md-button (click)="downloadCertificate(examResult.id)">
+				Download Certificate </a></span>
+                        </form>
+
+                        <div *ngIf="i>=3">
+                            <h3 class="md-title" *ngIf="i==3">Enter Other Students
+								Details of Standard: {{std}}</h3>
+                             <form #recordForm="ngForm" [ngStyle]="getFormRowStyle()" layout="row" layout-padding flex="100">
+                                    <span [ngStyle]="getStandardLabelStyle()" flex="25"><b>Student
+									No.&nbsp;{{i+1}}</b></span>
+                                    <md-input-container flex="50" style="margin: 0; padding: 0;"> <input md-input
+								name="studName" aria-label="Student Name"
+								[(ngModel)]="examResult.studName" capitalize> </md-input-container>
+                                <md-input-container flex="25" style="margin: 0; padding: 0; padding-left: 10px;">
+						            <input md-input name="marks" aria-label="Student Marks" type="number"
+							                [(ngModel)]="examResult.marks">
+						        </md-input-container>
+                                <span><a md-button (click)="downloadCertificate(examResult.id)">
+				                    Download Certificate </a></span>
+                             </form>   
+                        </div>
+					</div>
+					<div layout="row">
+                        <button md-raised-button color="primary" (click)="addMoreStudent(std)"> Add 5 More Students </button>
+                        <button md-raised-button color="primary" (click)="removeStudent(std)"> Remove Last Student Row </button>
+					</div>
+		</div>
+        <div class="example-button-row" layout="row" layout-align="center center" layout-xs="column"
+					*ngIf="!reviewByGrfRegNo">
+             <button md-raised-button color="primary" (click)="addExamResultList()"> Save Result </button>
+             <button md-raised-button color="primary" > Cancel </button>       
+		</div>
+        <div class="example-button-row" layout="row" layout-align="center center" layout-xs="column"
+					*ngIf="reviewByGrfRegNo">
+             <button md-raised-button color="primary" (click)="saveReviewedExamResultList()">Review & Save
+					Result </button>
+             <button md-raised-button color="primary" > Cancel </button>       
+		</div>
+</div>
+</form>
+</div>

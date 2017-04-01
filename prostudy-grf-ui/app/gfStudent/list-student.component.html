@@ -1,5 +1,5 @@
 <div class="example-full-width">
-	<h4>List Student</h4>
+	<h4>Student List</h4>
 	<div align="right">
 		<button md-raised-button color="primary" (click)="downloadData()"> Download CSV Data </button>
 	</div>
@@ -20,6 +20,8 @@
 		<div class="example-button-row">
 			<a md-button (click)="gotoEditStudent(student.id)">
 				Edit </a>
+			<a md-button (click)="downloadcertificate(student.id)">
+				Download Certificate </a>	
 		</div>
 	</td>
 </tr>
