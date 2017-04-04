@@ -2,36 +2,37 @@
     <h4 *ngIf="selectedGFStudID"> Edit Student</h4>
     <h4 *ngIf="!selectedGFStudID"> Add Student</h4>
     <form class="example-form">
-        <table class="example-full-width" >
-            <tr>
-                <td style="padding-right: 10px">
+        <div class="form-group">
+            <table class="example-full-width">
+                <tr>
+                    <td style="padding-right: 10px">
 <md-select style="margin-top: 10px; margin-bottom: 15px;" name="school" placeholder="Select School" [(ngModel)]="tempStudent.school.schoolName">
-    <md-option *ngFor="let school of schoolList" [value]="school.schoolName">
-        {{ school.schoolName }}
-    </md-option>
+<md-option *ngFor="let school of schoolList" [value]="school.schoolName">
+    {{ school.schoolName }}
+</md-option>
 </md-select>
 </td>
 </tr>
 <tr>
     <td style="padding-right: 10px">
 <md-select style="margin-top: 10px; margin-bottom: 15px;" name="standard" placeholder="Select Standard" [(ngModel)]="tempStudent.standard">
-    <md-option *ngFor="let standard of standardList" [value]="standard">
-        {{ standard }}
-    </md-option>
+<md-option *ngFor="let standard of standardList" [value]="standard">
+    {{ standard }}
+</md-option>
 </md-select>
 </td>
 <td>
     <md-select style="margin-top: 10px; margin-bottom: 15px;" name="bookMedium" placeholder="Medium" [(ngModel)]="tempStudent.mediumOfAnswer">
-        <md-option *ngFor="let medium of medium" [value]="medium">
-            {{ medium }}
-        </md-option>
-    </md-select>
+<md-option *ngFor="let medium of medium" [value]="medium">
+    {{ medium }}
+</md-option>
+</md-select>
 </td>
 </tr>
 <tr>
     <td style="padding-right: 10px">
 <md-input-container class="example-full-width">
-    <input md-input name="fName" placeholder="First Name" [(ngModel)]="tempStudent.fName">
+    <input md-input name="fName" placeholder="First Name" [(ngModel)]="tempStudent.fName">   
 </md-input-container>
 </td>
 <td style="padding-right: 10px">
@@ -51,13 +52,13 @@
     <input md-input name="gender" placeholder="Gender" [(ngModel)]="tempStudent.gender">
 </md-input-container>-->
 <div>
-    <input name="malechk" type="checkbox" [checked]="tempStudent.gender == 'Male'" (change)="maleChClicked()" /> Male
-    <input name="femalechk" type="checkbox" [checked]="tempStudent.gender == 'Female'" (change)="femaleChClicked()" /> Female
+    <md-checkbox name="malechk" type="checkbox" [checked]="tempStudent.gender == 'Male'" (change)="maleChClicked()">Male</md-checkbox>
+    <md-checkbox name="femalechk" type="checkbox" [checked]="tempStudent.gender == 'Female'" (change)="femaleChClicked()">Female</md-checkbox>
 </div>
 </td>
 </tr>
 </table>
-
+</div>
 <div class="example-button-row">
     <button md-raised-button color="primary" (click)="addStudent()" *ngIf="!selectedGFStudID"> Save </button>
     <button md-raised-button color="primary" (click)="addStudent()" *ngIf="selectedGFStudID"> Update </button>

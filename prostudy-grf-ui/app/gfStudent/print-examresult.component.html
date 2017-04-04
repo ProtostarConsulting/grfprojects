@@ -2,11 +2,12 @@
 <body>
 	<div class="example-full-width">
         <div align="left">
-                <button style="padding-right: 10px" md-raised-button color="primary" (click)="gotoexamresultlist()"> Back </button>
+			<md-icon (click)="gotoexamresultlist()"><span mdTooltip="Back"> reply</span></md-icon>
         </div>
 		<div align="right">
-                <button style="padding-right: 10px" md-raised-button color="primary" (click)="printBookDetailDiv('bookDetailDiv')"> Print </button>
-            </div>
+			<md-icon (click)="printBookDetailDiv('bookDetailDiv')"><span mdTooltip="Print"> print</span></md-icon>
+			<span style="padding-right: 20px"></span>
+        </div>
 		<div id="bookDetailDiv"
 			style="size: 20cm 27.7cm; margin: 5mm 5mm 5mm 5mm;">
 			<table style="width: 100%;">

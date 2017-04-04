@@ -1,7 +1,4 @@
-import {
-    Component, Optional, OnInit, AfterContentInit, ContentChild,
-    AfterViewChecked, AfterViewInit, ViewChild, ViewChildren
-} from '@angular/core';
+import { Component, Optional, OnInit } from '@angular/core';
 import { MdDialog, MdDialogRef, MdSnackBar } from '@angular/material';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
@@ -12,7 +9,6 @@ import { RouteData } from '../route-data.provider';
 import { GFStudent, GfStudentService } from './gfStudent.service';
 import { PartnerSchoolService } from '../partnerschool/school.service';
 import { PartnerSchool } from '../partnerschool/partner-school';
-import { User, UserService } from '../setup/user.service';
 import { standardList, answerOfMediumList } from '../core/constant.app';
 
 @Component({

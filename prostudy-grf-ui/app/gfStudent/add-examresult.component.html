@@ -6,7 +6,7 @@
             <tr>
                 <td style="padding-right: 10px">
 <md-input-container class="example-full-width">
-    <input md-input name="grfRegNo" placeholder="Enter GRF.Reg. No." [(ngModel)]="data.grfRegNo">
+    <input md-input name="grfRegNo" placeholder="Enter GRF.Reg. No." [(ngModel)]="data.grfRegNo"  ng-required="true">
 </md-input-container>
 </td>
 <td *ngIf="curUser">
@@ -102,8 +102,9 @@
 						<input md-input name="marks" aria-label="Student Marks" type="number"
 							[(ngModel)]="examResult.marks">
 						</md-input-container>
-                        <span><a md-button (click)="downloadCertificate(examResult.id)">
-				Download Certificate </a></span>
+                        <span>
+                            <md-icon (click)="downloadCertificate(examResult.id)"><span mdTooltip="Download Certificate"> print</span></md-icon>
+                        </span>
                         </form>
 
                         <div *ngIf="i>=3">
@@ -119,14 +120,16 @@
 						            <input md-input name="marks" aria-label="Student Marks" type="number"
 							                [(ngModel)]="examResult.marks">
 						        </md-input-container>
-                                <span><a md-button (click)="downloadCertificate(examResult.id)">
-				                    Download Certificate </a></span>
+                                <span>
+                                    <md-icon (click)="downloadCertificate(examResult.id)"><span mdTooltip="Download Certificate"> print</span></md-icon>
+                                </span>
                              </form>   
                         </div>
 					</div>
 					<div layout="row">
-                        <button md-raised-button color="primary" (click)="addMoreStudent(std)"> Add 5 More Students </button>
-                        <button md-raised-button color="primary" (click)="removeStudent(std)"> Remove Last Student Row </button>
+                        <md-icon (click)="addMoreStudent(std)"><span mdTooltip="Add 5 More Students"> add</span></md-icon>
+                        <span style="padding-right: 10px"></span>
+                        <md-icon (click)="removeStudent(std)"><span mdTooltip="Remove Last Student Row"> remove_circle_outline</span></md-icon>
 					</div>
 		</div>
         <div class="example-button-row" layout="row" layout-align="center center" layout-xs="column"

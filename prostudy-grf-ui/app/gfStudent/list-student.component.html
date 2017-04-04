@@ -1,8 +1,13 @@
 <div class="example-full-width">
-	<h4>Student List</h4>
-	<div align="right">
-		<button md-raised-button color="primary" (click)="downloadData()"> Download CSV Data </button>
-	</div>
+	<br>
+	<md-toolbar color="primary">
+		<span>Student List</span>
+		<span class="example-spacer"></span>
+		<md-icon ><span mdTooltip="Upload School CSV Data"> file_upload</span></md-icon>
+		<span style="padding-right: 20px;"></span>
+		<md-icon (click)="downloadData()"><span mdTooltip="Download CSV Data"> file_download</span></md-icon>
+	</md-toolbar>
+	<br>
 	<table class="example-table">
 		<tr>
 			<th> Name </th>
@@ -18,10 +23,9 @@
 	<td> {{student.contact}} </td>
 	<td>
 		<div class="example-button-row">
-			<a md-button (click)="gotoEditStudent(student.id)">
-				Edit </a>
-			<a md-button (click)="downloadcertificate(student.id)">
-				Download Certificate </a>	
+			<md-icon (click)="gotoEditStudent(student.id)"><span mdTooltip="Edit"> edit</span></md-icon>
+			<span style="padding-right: 20px;"></span>
+			<md-icon (click)="downloadcertificate(student.id)"><span mdTooltip="Download Certificate"> print</span></md-icon>	
 		</div>
 	</td>
 </tr>

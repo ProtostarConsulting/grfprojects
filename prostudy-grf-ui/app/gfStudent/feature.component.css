@@ -112,6 +112,10 @@ tr {
   justify-content: space-around;
 }
 
+	.example-spacer {
+  flex: 1 1 auto;
+}
+
 #bookDetailDiv {
   width: 300px;
 }
