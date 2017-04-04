@@ -8,10 +8,11 @@ table, th, td {
 
 <body>
     <div align="left">
-        <button style="padding-right: 10px" md-raised-button color="primary" (click)="gotolist()"> Back</button>
+        <md-icon (click)="gotolist()"><span mdTooltip="Back"> reply</span></md-icon>
 </div>
 <div align="right">
-    <button style="padding-right: 10px" md-raised-button color="primary" (click)="printDiv('gfCourierForm')"> Print</button>
+    <md-icon (click)="printDiv('gfCourierForm')"><span mdTooltip="Print "> print</span></md-icon>
+    <span style="padding-right: 10px"></span>
 </div><br>
 <div id="gfCourierForm" style="border: 1px solid black;">
 <div align="center">
