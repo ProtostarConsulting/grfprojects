@@ -104,3 +104,7 @@ md-sidenav-layout.m2app-dark {
   width: 100%;
   border-collapse: collapse;
 }
+
+	.example-spacer {
+  flex: 1 1 auto;
+}

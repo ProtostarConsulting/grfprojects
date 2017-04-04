@@ -1,4 +1,7 @@
 <div class="app-content">
+        <md-icon (click)="gotolist()"><span mdTooltip="Back"> reply</span></md-icon>
+		<br>
+		<br>
 		<h4 *ngIf="book.id"> Edit Book</h4>
 		<h4 *ngIf="!book.id"> Add Book</h4>
 		<form class="example-form">
