@@ -109,4 +109,16 @@ export class PartnerSchoolService {
     });
     //Second way ??
   }
+
+  public searchSchoolByName(searchSchoolTxt: string): Promise<PartnerSchool[]> {
+    // This is one way of calling async
+    return new Promise(resolve => {
+      // Simulate server latency with 2 second delay      
+      this.googleApiService.getGAPI().client.partnerSchoolService.searchSchoolByName(
+        { 'nameSearchString' : searchSchoolTxt }).execute((data: any) => {
+          resolve(data.items);
+        });
+    });
+    //Second way ??
+  }
 }

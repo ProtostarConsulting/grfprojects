@@ -17,7 +17,6 @@ import { RouteData } from '../route-data.provider';
 
 export class PrintBookDetailsComponent {
 
-    schoolList: PartnerSchool[];
     yearOfExam: string;
     bookStocks: GFBook[];
     school: PartnerSchool = new PartnerSchool();
@@ -33,6 +32,7 @@ export class PrintBookDetailsComponent {
     PaymentDet: PaymentDetail[];
     totalStudents: number;
     totalPaidFees: number;
+    rangeArray: number[];
 
 
     constructor(private route: ActivatedRoute,
@@ -86,6 +86,7 @@ export class PrintBookDetailsComponent {
                 this.bookSummary = this.examList[i].bookSummary;
                 this.BookDetail = this.examList[i].bookSummary.bookDetail;
                 this.PaymentDet = this.examList[i].paymentDetail;
+                this.rangeArray = new Array(25 - this.BookDetail.length).fill(1);
                 this.totalStudents = 0;
                 this.totalPaidFees = 0;
                 if (this.BookDetail != undefined) {

@@ -1,9 +1,10 @@
 <div>
 	<div align="left">
-		<button style="padding-right: 10px" md-raised-button color="primary" (click)="gotoschool(school)"> Back </button>
+		<md-icon (click)="gotoschool(school)"><span mdTooltip="Back"> reply</span></md-icon>
 </div>
 <div align="right">
-	<button style="padding-right: 10px" md-raised-button color="primary" (click)="printBookDetailDiv('bookDetail')"> Print Full Receipt </button>
+	<md-icon (click)="printBookDetailDiv('bookDetail')"><span mdTooltip="Print Full Receipt"> print</span></md-icon>
+	<span style="padding-right: 10px"></span>
 </div>
 </div><br>
 <div id="bookDetail">

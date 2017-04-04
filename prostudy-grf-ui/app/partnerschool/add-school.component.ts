@@ -507,6 +507,10 @@ export class AddSchoolComponent implements OnInit {
         }
     }
 
+    goToSchool() {
+        this.router.navigate(['/school-index/listschool']);
+    }
+
     gotoprintbookdetails(selectedSchool: PartnerSchool, bookStocks: GFBook, yearOfExam: string) {
         this.routeData.params = { 'selectedSchool': selectedSchool, 'bookStocks': bookStocks, 'yearOfExam': yearOfExam };
         this.router.navigate(['/school-index/printbookdetails']);
