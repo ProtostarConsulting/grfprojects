@@ -1,0 +1,36 @@
+<div align="center">
+	<h4>Login with Custom Account</h4>
+	<form class="example-form">
+			<table class="example-full-width" style="width: 40%; min-width: 300px;">
+				<tbody>
+					<tr>
+						<td>
+                            <md-input-container style="width: 50%;">
+		                        <input md-input name="email_id" placeholder="User Email-id" [(ngModel)]="tempUser.email_id">
+	                        </md-input-container>
+                         </td>
+					</tr>
+                    <tr>
+                         <td> 
+                             <md-input-container style="width: 50%;">
+		                        <input md-input type="password" name="password" placeholder="Password" [(ngModel)]="tempUser.password">
+	                        </md-input-container>
+                          </td>
+						<td></td>
+
+					</tr>
+				</tbody>
+			</table>
+            <div>
+	            <button md-raised-button color="primary" (click)="login()"> Login </button>
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            
+            <div>
+				<span style="color: red" id="errmsg">{{errorMsg}}</span>
+			</div>
+            <div>
+				<span style="color: green" id="errmsg">{{sucessfullyMsg}}</span>
+			</div>
+	</form>
+</div>
