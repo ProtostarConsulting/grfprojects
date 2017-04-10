@@ -16,6 +16,6 @@ export class SchoolComponent {
         ) { }
 
      goToAddSchool(){
-        this.router.navigate(['/school-index/addschool', 15]);
+        this.router.navigate(['/school-index/addschool']);
     }   
 }

@@ -122,11 +122,6 @@ export class ListSchoolComponent {
         });
     }
 
-    goToSchool(selectedSchool: PartnerSchool) {
-        this.routeData.params = { 'selectedSchool': selectedSchool, 'isLoggedIn': this.isLoggedIn };
-        this.router.navigate(['/school-index/addschool']);
-    }
-
     grfRegNoChange(grfRegNo: string) {
         this.query.searchTextDone = true;
         this.schoolList = [];
@@ -192,5 +187,15 @@ export class ListSchoolComponent {
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error); // for demo purposes only
         return Promise.reject(error.message || error);
+    }
+
+     goToSchool(selectedSchool: PartnerSchool) {
+        this.routeData.params = { 'selectedSchool': selectedSchool, 'isLoggedIn': this.isLoggedIn };
+        this.router.navigate(['/school-index/addschool']);
+    }
+
+    gotoaddschooluser(selectedPSchool: PartnerSchool){
+        this.routeData.params = { 'selectedPSchool': selectedPSchool };
+        this.router.navigate(['/setup-index/user']);
     }
 }
