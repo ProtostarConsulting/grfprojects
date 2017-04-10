@@ -1,5 +1,5 @@
 <div class="app-content">
-	<h4>List User Componenet</h4>
+	<h4>List User</h4>
 	<table class="example-table">
 		<tr>
 			<th> Sr. No. </th>
@@ -13,8 +13,8 @@
 			<td> {{user.email_id}} </td>
 			<td>
 				<div class="example-button-row">
-					<a md-button (click)="goToUser(user)">
-				Edit</a></div>
+					<md-icon (click)="goToUser(user)"><span mdTooltip="Edit"> edit</span></md-icon>
+				</div>
 			</td>
 		</tr>
 	</table>

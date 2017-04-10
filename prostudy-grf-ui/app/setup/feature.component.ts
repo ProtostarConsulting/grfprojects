@@ -15,6 +15,6 @@ export class SetupComponent {
     ) { }
 
     goToAddUser(): void {
-        this.router.navigate(['/setup-index/user', 15]);
+        this.router.navigate(['/setup-index/user']);
     }
 }

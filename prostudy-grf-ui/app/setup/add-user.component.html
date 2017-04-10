@@ -1,59 +1,78 @@
 <div class="app-content">
-	<h4 *ngIf="user.id"> Edit User Component</h4>
-	<h4 *ngIf="!user.id"> Add User Component</h4>
+	<h4 *ngIf="user.id"> Edit User</h4>
+	<h4 *ngIf="!user.id"> Add User</h4>
 	<form class="example-form">
 		<table class="example-full-width" cellspacing="0">
 			<tr>
-				<td>
+				<td style="padding-right: 10px">
 					<md-input-container class="example-full-width">
 						<input md-input name="fname" placeholder="First Name" [(ngModel)]="user.firstName">
 					</md-input-container>
 				</td>
-				<td>
+				<td style="padding-right: 10px">
 					<md-input-container class="example-full-width">
 						<input md-input name="lname" placeholder="Last Name" [(ngModel)]="user.lastName">
 					</md-input-container>
 				</td>
 			</tr>
-		</table>
-		<p>
-			<md-input-container class="example-full-width">
-				<input md-input name="email" placeholder="Email Address" [(ngModel)]="user.email_id">
-			</md-input-container>
-			<md-input-container class="example-full-width">
-				<textarea md-input placeholder="Address">1600 Amphitheatre Pkwy</textarea>
-			</md-input-container>
-			<md-input-container class="example-full-width">
-				<textarea md-input placeholder="Address 2"></textarea>
-			</md-input-container>
-		</p>
-
-		<table class="example-full-width" cellspacing="0">
 			<tr>
-				<td>
+				<td style="padding-right: 10px">
 					<md-input-container class="example-full-width">
-						<input md-input placeholder="City">
+						<input md-input name="address" placeholder="Address" [(ngModel)]="user.address">
 					</md-input-container>
 				</td>
-				<td>
+				<td style="padding-right: 10px">
 					<md-input-container class="example-full-width">
-						<input md-input placeholder="State">
+						<input md-input name="contact" placeholder="Phone Number" [(ngModel)]="user.contact">
 					</md-input-container>
 				</td>
-				<td>
+			</tr>
+			<tr>
+				<td style="padding-right: 10px">
+					<div>
+						<md-checkbox name="isGoogleUser" type="checkbox" [(ngModel)]= "user.isGoogleUser" (change)="isGoogleUSerClicked()">Is Google User</md-checkbox>
+					</div>
+				</td>
+				<td style="padding-right: 10px">
 					<md-input-container class="example-full-width">
-						<input md-input #postalCode maxlength="5" placeholder="Postal Code" value="94043">
-						<md-hint align="end">{{postalCode.value.length}} / 5</md-hint>
+						<input md-input name="email" placeholder="Email Address" [(ngModel)]="user.email_id">
 					</md-input-container>
+				</td>
+			</tr>
+			<tr *ngIf="!user.isGoogleUser">
+				<td style="padding-right: 10px">
+					<div>
+						<md-input-container class="example-full-width">
+						<input md-input type="password" name="password" placeholder="Enter Password" [(ngModel)]="user.password">
+					</md-input-container>
+					</div>
+				</td>
+				<td style="padding-right: 10px">
+					<md-input-container class="example-full-width">
+						<input md-input type="password" name="confirmpassword" placeholder="Confirm Password" [(ngModel)]="user.password">
+					</md-input-container>
+				</td>
+			</tr>
+			<tr>
+            	<td style="padding-right: 10px">
+					<md-select style="margin-top: 10px; margin-bottom: 15px;" name="role" placeholder="Select Role" [(ngModel)]="user.role">
+						<md-option *ngFor="let role of role" [value]="role">
+    						{{ role }}
+						</md-option>
+					</md-select>
+				</td>
+				<td style="padding-right: 10px">
+					<md-select style="margin-top: 10px; margin-bottom: 15px;" name="standard" placeholder="Standard" [(ngModel)]="user.standard">
+						<md-option *ngFor="let standard of standard" [value]="standard">
+							{{ standard }}
+						</md-option>
+					</md-select>
 				</td>
 			</tr>
 		</table>
 		<div class="button-row">
 			<button md-raised-button color="primary" (click)="saveUser()"> Save </button>
-			<button md-raised-button color="accent" (click)="saveUser()"> Save </button>
-			<button md-raised-button color="warn" (click)="saveUser()"> Save </button>
-			<button md-raised-button> Cancel </button>
-			<md-icon (click)="saveUser()">delete</md-icon>
+			<button md-raised-button (click)="gotouserlist()"> Cancel </button>
 		</div>
 	</form>
 </div>
