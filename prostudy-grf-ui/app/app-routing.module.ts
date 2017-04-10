@@ -11,7 +11,7 @@ import { CouriersComponent } from './couriers/feature.component';
 import { GfStudentComponent } from './gfStudent/feature.component';
 import { ReportsComponent } from './reports/feature.component';
 import { ExamDetailComponent } from './examdetail_withoutlogin/feature.component';
- 
+import { LoginFeatureComponent } from './login/feature.component';
 
 const appRoutes: Routes = [
     { path: 'proerp-index', component: ProERPComponent },
@@ -23,6 +23,7 @@ const appRoutes: Routes = [
     { path: 'student-index', component: GfStudentComponent },
     { path: 'reports-index', component: ReportsComponent },
     { path: 'examdetail-index', component: ExamDetailComponent },
+    { path: 'login-index', component: LoginFeatureComponent},
     { path: '', component: ProStudyComponent, pathMatch: 'full' },
     { path: '**', component: PageNotFoundComponent }
 ];

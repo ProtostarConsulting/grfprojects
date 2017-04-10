@@ -28,6 +28,10 @@
 <input md-input placeholder="Search Here" value=""> </md-input-container>
 <button md-button (click)="isDarkTheme = !isDarkTheme">TOGGLE
 	DARK THEME</button>-->
+	<a routerLink="/login-index" routerLinkActive="active" style="color: red" *ngIf = "!curUser"><span mdTooltip="Login"> Login</span></a>
+	<a routerLink="/prostudy-index" routerLinkActive="active" style="color: green" *ngIf = "curUser">
+	<span style="padding-right: 30px" mdTooltip="curUser.firstName + ' ' + curUser.lastName + ' | ' +
+			curUser.email_id"> Logout</span></a>
 	</md-toolbar>
 
 	<div class="app-content" style="min-height: 100%; min-width: 100%;">
@@ -50,6 +54,6 @@
 
 <span class="app-action" [class.m2app-dark]="isDarkTheme">
 	<button md-fab>
-		<md-icon>check circle</md-icon>
+		<md-icon>keyboard_arrow_up</md-icon>
 	</button>
 </span>
