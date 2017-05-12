@@ -31,8 +31,9 @@
 	<md-content> <!-- Parent tag--> <md-card
 		name="outerMdCard"> <!-- <div layout="column" layout-fill> -->
 
-	<md-content id="topRight" ng-hide="loading"  ng-controller="AppCtrl"> <!-- Top Navigation Pane -->
-	<md-toolbar style="height: 80px; width: 100%">
+	<md-content id="topRight" ng-hide="loading" ng-controller="AppCtrl">
+	<!-- Top Navigation Pane --> <md-toolbar
+		style="height: 80px; width: 100%">
 	<div id="container" class="md-toolbar-tools">
 		<div ng-hide="toggleMainMenuSwitch">
 			<md-button ng-click="toggleMainMenu()" class="md-fab md-mini"
@@ -73,7 +74,8 @@
 			<md-sidenav class="md-sidenav-left md-whiteframe-z2"
 				md-component-id="left" md-is-locked-open="toggleMainMenuSwitch">
 			<md-toolbar class="md-theme-indigo"> <!-- <h1 class="md-toolbar-tools">Apps Module</h1> -->
-			<h1 class="md-toolbar-tools" ng-click="toggleMainMenu()" ng-bind="curUser.instituteObj.name"></h1>
+			<h1 class="md-toolbar-tools" ng-click="toggleMainMenu()"
+				ng-bind="curUser.instituteObj.name"></h1>
 			</md-toolbar> <md-content layout="column"> <md-content
 				ng-if="curUser != null" ng-clock>
 			<div style="padding-top: 1px;"></div>
@@ -247,6 +249,25 @@
 			<div id="studentDiv" ng-if="curUser.role == 'Student'">
 			
 			</div> -->
+			<div class="md-accordion" ng-if="curUser.role == 'Teacher'">
+				<md-toolbar ng-init="data.expanded5 = false"
+					ng-click="data.expanded5 = !data.expanded5">
+				<div class="md-toolbar-tools">
+					<h2>
+						<span>School</span>
+					</h2>
+					<span flex=""></span> <span
+						ng-class="{expandCollapse:true, active:data.expanded5}"></span>
+				</div>
+				</md-toolbar>
+				<div id="teacherDiv" ng-if="curUser.role == 'Teacher'"
+					ng-class="{dataContent:true, activeContent:data.expanded5}">
+					<md-content flex layout="column" layout-xs="column"
+						layout-align="center start"> <md-button flex
+						 ui-sref="partnerSchool.listPartnerSchool" ng-click="close()">School List</md-button>
+					</md-content>
+				</div>
+			</div>
 
 			<div class="md-accordion">
 				<md-toolbar ng-init="data.expanded6 = false"
@@ -259,6 +280,15 @@
 						ng-class="{expandCollapse:true, active:data.expanded6}"></span>
 				</div>
 				</md-toolbar>
+				<div id="teacherDiv" ng-if="curUser.role == 'Teacher'"
+					ng-class="{dataContent:true, activeContent:data.expanded6}">
+					<md-content flex layout="column" layout-xs="column"
+						layout-align="center start"> <md-button flex
+						ui-sref="updatemyprofile" ng-click="close()">Update
+					Profile</md-button>
+					</md-content>
+				</div>
+				
 				<div id="studentDiv" ng-if="curUser.role == 'Student'"
 					ng-class="{dataContent:true, activeContent:data.expanded6}">
 					<md-content flex layout="column" layout-xs="column"
@@ -294,14 +324,16 @@
 				GVSP Exam</menu-link> </md-button> <md-button ui-sref="studentModule.addExamResult"
 					ng-click="close()" class="menu-heading md-primary"
 					aria-label="Add GVSP Exam Results" show-gt-md> <menu-link
-					section="child">Add GVSP Exam Results</menu-link> </md-button> </md-content>
+					section="child">Add GVSP Exam Results</menu-link> </md-button> <md-button
+					ui-sref="partnerSchool.schoolRegisterWithoutLogin" ng-click="close()"
+					class="menu-heading md-primary" aria-label="Register School"
+					show-gt-md> <menu-link section="child">Register School</menu-link> </md-button> </md-content>
 			</div>
 			</md-content> </md-content> </md-sidenav>
 
 			<!-- ng-show="curUser.role == 'Admin' || curUser.role == 'Teacher' || curUser.role == 'Student'" -->
 
-			<md-content flex layout-padding>			
-			<!-- <md-card> -->
+			<md-content flex layout-padding> <!-- <md-card> -->
 			<div layout="column" layout-align="top stretch">
 				<!--<div ng-view></div>-->
 				<div ui-view>
@@ -597,6 +629,7 @@
 	<script src="/app/gfschool/js/partnerSchool_add.ctr.js"></script>
 	<script src="/app/gfschool/js/partnerSchool_list.ctr.js"></script>
 	<script src="/app/gfschool/js/printBookDetail.ctr.js"></script>
+	<script src="/app/gfschool/js/schoolRegister_add.ctr.js"></script>
 	<!-- 	Partner School -->
 
 

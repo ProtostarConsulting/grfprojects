@@ -26,6 +26,15 @@ public class PrintCertificatePdf extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		if (request.getRemoteHost().contains("localhost")
+				|| request.getRemoteHost().contains("127.0.0.1")) {
+			response.addHeader("Access-Control-Allow-Origin", "*");
+			response.addHeader("Access-Control-Allow-Methods",
+					"GET,PUT,POST,DELETE");
+			response.addHeader("Access-Control-Allow-Headers", "Content-Type");
+		}
+		
 		String id = request.getParameter("id");
 		Long studId = (id != null) ? Long.parseLong(id) : 10L;
 

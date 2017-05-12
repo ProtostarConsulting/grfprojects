@@ -1105,6 +1105,13 @@ app
 								controller : 'studentListPageCtr'
 							})
 					.state(
+							'partnerSchool.schoolRegisterWithoutLogin',
+							{
+								url : "/addPartnerSchoolWithoutLogin",
+								templateUrl : '/app/gfschool/school_Registration.html',
+								controller : 'schoolRegisterAddCtr'
+							})		
+					.state(
 							'scheduledExam',
 							{
 								url : "/scheduledExam",

@@ -5,6 +5,13 @@ import java.util.Date;
 public class PaymentDetail {
 
 	
+	private String paymentReciptNo;
+	public String getPaymentReciptNo() {
+		return paymentReciptNo;
+	}
+	public void setPaymentReciptNo(String paymentReciptNo) {
+		this.paymentReciptNo = paymentReciptNo;
+	}
 	private String payReceivedBy;
 	private Date paymentDate;
 	private Integer payAmount;

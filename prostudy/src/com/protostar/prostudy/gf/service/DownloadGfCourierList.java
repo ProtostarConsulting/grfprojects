@@ -41,6 +41,14 @@ public class DownloadGfCourierList extends HttpServlet {
 		// TODO Auto-generated method stub
 
 		//System.out.println("hi i am download servlet");
+		if (request.getRemoteHost().contains("localhost")
+				|| request.getRemoteHost().contains("127.0.0.1")) {
+			response.addHeader("Access-Control-Allow-Origin", "*");
+			response.addHeader("Access-Control-Allow-Methods",
+					"GET,PUT,POST,DELETE");
+			response.addHeader("Access-Control-Allow-Headers", "Content-Type");
+		}
+		
 		Long insId = Long.parseLong(request.getParameter("InstituteId"));
 
 		System.out.println("insid===" + insId);

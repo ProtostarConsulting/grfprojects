@@ -16,7 +16,7 @@
 			md-component-id="right"> <md-toolbar
 			class="md-theme-light">
 		<h1 class="md-toolbar-tools">Sidenav Right</h1>
-		<md-content layout="column"> <md-button
+		<md-content layout="column"> <md-button ng-hide="curUser.role == 'Teacher'"
 			ui-sref="partnerSchool.addPartnerSchool" ng-click="close()"
 			class="md-primary"> Add School </md-button> <md-button
 			ui-sref="partnerSchool.listPartnerSchool" ng-click="close()"

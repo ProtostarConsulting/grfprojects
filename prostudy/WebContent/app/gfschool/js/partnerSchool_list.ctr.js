@@ -135,8 +135,8 @@ angular
 							$scope.query.searchSchoolTxt = "";
 							$scope.query.page = 1;
 							var grfRegNo = (enteredGrfRegNo
-									.startsWith('P-2016-') && enteredGrfRegNo.length >= 12) ? enteredGrfRegNo
-									: 'P-2016-' + enteredGrfRegNo;
+									.startsWith('P-2017-') && enteredGrfRegNo.length >= 12) ? enteredGrfRegNo
+									: 'P-2017-' + enteredGrfRegNo;
 
 							$scope.grfRegNoChange(grfRegNo);
 						} else {
@@ -170,6 +170,12 @@ angular
 
 											$scope.searchTextDone = false;
 										});
+					}
+					
+					$scope.iscurUserRole = function(){
+						$scope.schools = [];
+						$scope.schools.push($scope.curUser.school);
+						$scope.loading = false;
 					}
 
 					$scope.grfRegNoChange = function(grfRegNo) {
@@ -238,7 +244,12 @@ angular
 					$scope.waitForServiceLoad = function() {
 						if (appEndpointSF.is_service_ready) {
 							// $scope.getPartnerSchoolByInstitute();
-							$scope.onpagechange();
+							if($scope.curUser.role == "Admin"){
+								$scope.onpagechange();
+							}
+							if($scope.curUser.role == "Teacher"){
+								$scope.iscurUserRole();
+							}
 
 						} else {
 							$log.debug("Services Not Loaded, watiting...");

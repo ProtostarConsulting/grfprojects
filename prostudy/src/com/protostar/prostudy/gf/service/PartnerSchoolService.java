@@ -135,6 +135,30 @@ public class PartnerSchoolService {
 
 		}
 
+		List<ExamDetail> examDet = partnerSchoolEntity.getExamDetailList();
+		if (examDet != null && examDet.size() > 0) {
+			for (int j = 0; j < examDet.size(); j++) {
+				ExamDetail examEntity = examDet.get(j);
+				List<PaymentDetail> paymentDet = examEntity.getPaymentDetail();
+				if (paymentDet != null && paymentDet.size() > 0) {
+					for (int i = 0; i < paymentDet.size(); i++) {
+						PaymentDetail detail = paymentDet.get(i);
+						if (detail.getPaymentReciptNo() == null || detail.getPaymentReciptNo().isEmpty()) {
+							SequenceGeneratorShardedService sequenceGenerator = new SequenceGeneratorShardedService(
+									EntityUtil.getInstituteEntityRawKey(partnerSchoolEntity
+											.getInstituteID()),
+									Constants.PAYMENT_RECEIPET_NO);
+							Long nextSequenceNumber = sequenceGenerator
+									.getNextSequenceNumber();
+							System.out.println("paymentReceiptNumber**"
+									+ nextSequenceNumber);
+							detail.setPaymentReciptNo(nextSequenceNumber.toString());
+						}
+					}
+				}
+			}
+		}
+
 		partnerSchoolEntity.setLastModifiedDate(new Date());
 		Key<PartnerSchoolEntity> now = ofy().save().entity(partnerSchoolEntity)
 				.now();
@@ -255,6 +279,25 @@ public class PartnerSchoolService {
 		Map<Key<PartnerSchoolEntity>, PartnerSchoolEntity> keys = ofy().load()
 				.keys(schoolKeyList);
 		return keys.values();
+	}
+	
+	@ApiMethod(name = "getSchoolByselfUpdateStatus", path = "getSchoolByselfUpdateStatus")
+	public List<PartnerSchoolEntity> getSchoolByselfUpdateStatus() {
+		List<PartnerSchoolEntity> schoolList = ofy().load()
+				.type(PartnerSchoolEntity.class).filter("schoolSelfUpdate", true).list();
+
+		Set<Long> schoolIds = new HashSet<Long>();
+		List<PartnerSchoolEntity> schoolSelfUpdateList = new ArrayList<PartnerSchoolEntity>();
+		for (PartnerSchoolEntity next : schoolList) {
+			if (!schoolIds.contains(next.getId())) {
+				schoolSelfUpdateList.add(next);
+				schoolIds.add(next.getId());
+			}
+		}
+
+		logger.info("getSchoolByselfUpdateStatus:"
+				+ schoolSelfUpdateList.size());
+		return schoolSelfUpdateList;
 	}
 
 	@ApiMethod(name = "getPartnerByInstitute", path = "getPartnerByInstitute")
@@ -498,7 +541,8 @@ public class PartnerSchoolService {
 					try {
 						studNumbers = Long.parseLong(examDeatilByCurretnYear
 								.getTotal());
-						//next year use below commented code to get correct count.
+						// next year use below commented code to get correct
+						// count.
 						// studNumbers =
 						// calculateTotalStudents(examDeatilByCurretnYear);
 					} catch (Exception ex) {

@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
+
 import com.protostar.prostudy.gf.entity.GFCourierEntity;
 
 /**
@@ -42,13 +43,18 @@ public class DownloadCourierDispatchReport extends HttpServlet {
 		//String courierType=String.valueOf(request.getParameter("CourierType"));
 		
 		int sr_no=0;
+		if (request.getRemoteHost().contains("localhost")
+				|| request.getRemoteHost().contains("127.0.0.1")) {
+			response.addHeader("Access-Control-Allow-Origin", "*");
+			response.addHeader("Access-Control-Allow-Methods",
+					"GET,PUT,POST,DELETE");
+			response.addHeader("Access-Control-Allow-Headers", "Content-Type");
+		}
 		
 		String courierDispatchReportID=request.getParameter("courierDispatchReportByInstituteID");
-		
 		long courierReportInstituteID=Long.parseLong(courierDispatchReportID);
 		
 		String dispatchDate=request.getParameter("dispatchDate");
-		
 		String DATE_FORMAT = "dd-MM-yyyy";
 		
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
@@ -56,13 +62,8 @@ public class DownloadCourierDispatchReport extends HttpServlet {
 		TimeZone timeZone=TimeZone.getTimeZone("IST");
 		sdf.setTimeZone(timeZone);
 		
-		Date courierDispatchDate=new Date(Long.parseLong(dispatchDate));
-		
-		System.out.println("*****courierDispatchDate:"+courierDispatchDate);
-		
+		Date courierDispatchDate=new Date(Long.parseLong(dispatchDate));	
 		String dispachDateToCompare = sdf.format(courierDispatchDate);	
-				
-		System.out.println("dispachDateToCompare: ----"+dispachDateToCompare);
 		
 		GFCourierService gfCourierService = new GFCourierService();
 		List<GFCourierEntity> courierReportList = gfCourierService.getGFCourierByInstitute(courierReportInstituteID);

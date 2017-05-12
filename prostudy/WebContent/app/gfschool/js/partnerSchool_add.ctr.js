@@ -189,7 +189,7 @@ angular
 					$scope.getPrvYears();
 					// ---get curyear ------
 					$scope.getCurYear = function() {
-						var date = new Date(2016, 11, 11);
+						var date = new Date();
 						var curyear = date.getFullYear();
 						curyear = curyear.toString().substr(2, 2);
 						$scope.yearOfExam = date.getFullYear() + "-"
@@ -413,7 +413,7 @@ angular
 					// -----------get Exam by Year------------
 					$scope.getExamByYear = function(year1) {
 						if (year1 == undefined) {
-							var date1 = new Date(2016, 11, 11);
+							var date1 = new Date();
 							var year1 = date1.getFullYear();
 							year1 = year1.toString().substr(2, 2);
 							year1 = date1.getFullYear() + "-"

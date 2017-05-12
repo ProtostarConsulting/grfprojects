@@ -38,11 +38,17 @@ public class DownloadBookStockTransaction extends HttpServlet {
 
 		System.out.println("hi i am download servlet");
 		// TODO Auto-generated method stub
+		if (request.getRemoteHost().contains("localhost")
+				|| request.getRemoteHost().contains("127.0.0.1")) {
+			response.addHeader("Access-Control-Allow-Origin", "*");
+			response.addHeader("Access-Control-Allow-Methods",
+					"GET,PUT,POST,DELETE");
+			response.addHeader("Access-Control-Allow-Headers", "Content-Type");
+		}
+		
 		String bookTransaction = request
 				.getParameter("BookStockTransactionByInstituteId");
 		long InstituteId = Long.parseLong(bookTransaction);
-
-		System.out.println("Courier Type----" + InstituteId);
 
 		GFBookStockService gfBookStockService = new GFBookStockService();
 

@@ -17,6 +17,7 @@ public class Constants {
 	// Counter/Sequence Names
 	public static final String SCHOOL_REGISTRATION_NO_COUNTER = "SCHOOL_REGISTRATION_NO_COUNTER";
 	public static final String STUDENT_REGISTRATION_NO_COUNTER = "STUDENT_REGISTRATION_NO_COUNTER";
+	public static final String PAYMENT_RECEIPET_NO = "PAYMENT_RECEIPET_NO";
 	public static final String INVOICE_NO_COUNTER = "INVOICE_NO_COUNTER";
 	public static final String VOUCHER_NO_COUNTER = "VOUCHER_NO_COUNTER";
 

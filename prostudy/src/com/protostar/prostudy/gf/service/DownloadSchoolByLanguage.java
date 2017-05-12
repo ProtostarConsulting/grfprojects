@@ -32,6 +32,14 @@ public class DownloadSchoolByLanguage extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
+		if (request.getRemoteHost().contains("localhost")
+				|| request.getRemoteHost().contains("127.0.0.1")) {
+			response.addHeader("Access-Control-Allow-Origin", "*");
+			response.addHeader("Access-Control-Allow-Methods",
+					"GET,PUT,POST,DELETE");
+			response.addHeader("Access-Control-Allow-Headers", "Content-Type");
+		}
+		
 		Long insId = Long.parseLong(request.getParameter("InstituteId"));
 
 		int totalStudent = 0;

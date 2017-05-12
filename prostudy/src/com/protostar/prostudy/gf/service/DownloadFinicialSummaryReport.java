@@ -39,11 +39,18 @@ public class DownloadFinicialSummaryReport extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
 		int sr_no = 0;
 		float totalCourierCost = 0.0f;
 		float totalPayAmount = 0;
-
+		System.out.println("request.getRemoteHost(): "
+				+ request.getRemoteHost());
+		if (request.getRemoteHost().contains("localhost")
+				|| request.getRemoteHost().contains("127.0.0.1")) {
+			response.addHeader("Access-Control-Allow-Origin", "*");
+			response.addHeader("Access-Control-Allow-Methods",
+					"GET,PUT,POST,DELETE");
+			response.addHeader("Access-Control-Allow-Headers", "Content-Type");
+		}
 		String summaryReportFilterType1 = request
 				.getParameter("summaryReportFilterType1");
 

@@ -12,7 +12,7 @@
 	</md-button> -->
 
 	</div>
-	<section ng-show="selectedPSchoolId" layout="row"
+	<section ng-hide="curUser.role == 'Teacher'" ng-show="selectedPSchoolId" layout="row"
 		layout-align="end end" flex>
 		<md-button class="md-raised md-primary" id="resetState"
 			ng-click="resetState()">Add New School</md-button>
@@ -641,7 +641,7 @@
 
 
 		</md-content> </md-tab> <md-tab label="Payment Detail" ng-click="setCurrentTab(4)"
-			ng-disabled="enableTillTabNo<4"> <md-content
+			ng-disabled="enableTillTabNo<4 || curUser.role == 'Teacher'"> <md-content
 			class="md-padding">
 		<div class="md-toolbar-tools">
 			<span flex></span>
@@ -830,7 +830,7 @@
 			</table>
 			</md-data-table-container>
 		</div>
-		</md-content> </md-tab> <md-tab label="Notification" ng-disabled="enableTillTabNo<5">
+		</md-content> </md-tab> <md-tab label="Notification" ng-disabled="enableTillTabNo<5 || curUser.role == 'Teacher'">
 		<md-content class="md-padding">
 
 		<div class="md-toolbar-tools">

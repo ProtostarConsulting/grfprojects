@@ -45,6 +45,17 @@ public class PartnerSchoolEntity extends BaseEntity {
 	@Index
 	private Date lastModifiedDate;
 
+	@Index
+	private boolean schoolSelfUpdate = false;
+
+	public boolean isSchoolSelfUpdate() {
+		return schoolSelfUpdate;
+	}
+
+	public void setSchoolSelfUpdate(boolean schoolSelfUpdate) {
+		this.schoolSelfUpdate = schoolSelfUpdate;
+	}
+
 	private List<ExamDetail> examDetailList = new ArrayList<ExamDetail>();
 
 	@OnSave
