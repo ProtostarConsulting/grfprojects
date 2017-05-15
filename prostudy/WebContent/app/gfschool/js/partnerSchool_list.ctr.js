@@ -18,13 +18,14 @@ angular
 						searchByGrfRegNo : '',
 						searchSchoolTxt : '',
 						selectedYearOfExam : '',
-						entityList : null
+						entityList : null,
+						schoolSelfUpdate : false
 					};
 					$scope.pSchoolList = [];
 					$scope.schools = [];
 					$scope.pagingInfoReturned = null;
-					$scope.selectedPSchoolId = $stateParams.selectedPSchoolId?$stateParams.selectedPSchoolId:null;
-
+					$scope.selectedPSchoolId = $stateParams.selectedPSchoolId ? $stateParams.selectedPSchoolId
+							: null;
 					$scope.refreshListPage = function() {
 						// Remove cache and reset everything.
 						var schoolListCacheKey = "fetchSchoolsListByPaging";
@@ -87,7 +88,7 @@ angular
 												if ($scope.pSchoolList.length < pagingInfoReturned.totalEntities) {
 													$scope.pSchoolList = $scope.pSchoolList
 															.concat(pagingInfoReturned.entityList);
-												}else{
+												} else {
 													$scope.pSchoolList = pagingInfoReturned.entityList;
 												}
 												$scope.schools = $scope.pSchoolList;
@@ -106,6 +107,20 @@ angular
 							$log
 									.debug("NOT Need to fetch from server. Just returned...");
 							$scope.loading = false;
+						}
+					}
+
+					$scope.selfUpdateChkClicked = function() {
+						if ($scope.query.schoolSelfUpdate) {
+							$scope.schools = [];
+							var PartnerService = appEndpointSF
+									.getPartnerSchoolService();
+							PartnerService.getSchoolByselfUpdateStatus().then(
+									function(selfUpdateSchoolList) {
+										$scope.schools = selfUpdateSchoolList;
+									});
+						} else {
+							$scope.schools = $scope.pSchoolList;
 						}
 					}
 
@@ -171,8 +186,8 @@ angular
 											$scope.searchTextDone = false;
 										});
 					}
-					
-					$scope.iscurUserRole = function(){
+
+					$scope.iscurUserRole = function() {
 						$scope.schools = [];
 						$scope.schools.push($scope.curUser.school);
 						$scope.loading = false;
@@ -244,10 +259,10 @@ angular
 					$scope.waitForServiceLoad = function() {
 						if (appEndpointSF.is_service_ready) {
 							// $scope.getPartnerSchoolByInstitute();
-							if($scope.curUser.role == "Admin"){
+							if ($scope.curUser.role == "Admin") {
 								$scope.onpagechange();
 							}
-							if($scope.curUser.role == "Teacher"){
+							if ($scope.curUser.role == "Teacher") {
 								$scope.iscurUserRole();
 							}
 
@@ -263,7 +278,7 @@ angular
 						document.location.href = "DownloadPartnerSchools?InstituteId="
 								+ $scope.curUser.instituteID;
 					}
-					
+
 					$scope.downloadDataByLanguage = function() {
 						document.location.href = "DownloadSchoolByLanguage?InstituteId="
 								+ $scope.curUser.instituteID;
@@ -371,10 +386,11 @@ angular
 						};
 
 					}
-					
+
 					// -----------------------Upload School User-----
 					// CSV-------------------
-					$scope.UploadSchoolUserExcel = function(ev, selectedPSchoolId) {
+					$scope.UploadSchoolUserExcel = function(ev,
+							selectedPSchoolId) {
 						var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))
 								&& $scope.customFullscreen;
 						$mdDialog
@@ -401,22 +417,24 @@ angular
 											$scope.status = 'You cancelled the dialog.';
 										});
 					};
-					
-					function DialogController($scope, $mdDialog, curUser,selectedPSchoolId) {
+
+					function DialogController($scope, $mdDialog, curUser,
+							selectedPSchoolId) {
 
 						$scope.csvFile;
 						$scope.uploadProgressMsg = null;
 						$scope.uploadSchoolUserCSV = function() {
 							var csvFile = $scope.csvFile;
 							Upload
-									.upload({
-										url : 'UploadPartnerSchoolUser',
-										data : {
-											file : csvFile,
-											'instituteId' : curUser.instituteID,
-											'partnerSchoolID' : selectedPSchoolId
-										}
-									})
+									.upload(
+											{
+												url : 'UploadPartnerSchoolUser',
+												data : {
+													file : csvFile,
+													'instituteId' : curUser.instituteID,
+													'partnerSchoolID' : selectedPSchoolId
+												}
+											})
 									.then(
 											function(resp) {
 												$log
@@ -473,6 +491,5 @@ angular
 						};
 
 					}
-
 
 				});

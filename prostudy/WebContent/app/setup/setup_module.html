@@ -3,7 +3,7 @@
 
 		<section layout="row">
 			<span hide-xs>
-				<div class="md-toolbar-tools">
+				<div class="md-toolbar-tools" ng-hide="curUser.role == 'Teacher'">
 					<md-content layout="row" layout-align="center start">
 												
 						<md-button ui-sref="setup.addInstituteUser" ng-click="close()" class="md-primary" show-gt-md> Add User </md-button>
@@ -22,7 +22,7 @@
  -->				</div>
 			</span>
 			<!--  <span hide-gt-xs> -->
-			<div class="md-toolbar-tools">
+			<div class="md-toolbar-tools" ng-hide="curUser.role == 'Teacher'">
 				<span flex></span>
 				<md-card>
 				<section layout="row">
@@ -35,7 +35,7 @@
 			<!-- </span> -->
 
 			<md-sidenav class="md-sidenav-right md-whiteframe-z2"
-				md-component-id="right"> <md-toolbar
+				md-component-id="right" ng-hide="curUser.role == 'Teacher'"> <md-toolbar
 				class="md-theme-light">
 			<h1 class="md-toolbar-tools">Sidenav Right</h1>
 			</md-toolbar> 

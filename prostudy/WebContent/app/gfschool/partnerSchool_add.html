@@ -12,8 +12,8 @@
 	</md-button> -->
 
 	</div>
-	<section ng-hide="curUser.role == 'Teacher'" ng-show="selectedPSchoolId" layout="row"
-		layout-align="end end" flex>
+	<section ng-hide="curUser.role == 'Teacher'"
+		ng-show="selectedPSchoolId" layout="row" layout-align="end end" flex>
 		<md-button class="md-raised md-primary" id="resetState"
 			ng-click="resetState()">Add New School</md-button>
 	</section>
@@ -30,6 +30,7 @@
 			:{{partnerSchool.schoolName}})</font>
 	</h3>
 	<form name="partnerSchoolForm">
+		<div ng-init="setForm(partnerSchoolForm);"></div>
 		<md-content> <md-tabs md-dynamic-height=""
 			md-border-bottom="" md-selected="selectedIndex"> <md-tab
 			label="School Detail" ng-click="setCurrentTab(0)"> <md-content
@@ -253,7 +254,7 @@
 		</div>
 
 		<section layout="row" layout-sm="column" layout-align="end end">
-			<md-button class="md-raised md-primary" ng-click="addPartnerSchool()" 
+			<md-button class="md-raised md-primary" ng-click="addPartnerSchool()"
 				ng-disabled="partnerSchoolForm.name.$invalid || partnerSchoolForm.category.$invalid || partnerSchoolForm.formNumber.$invalid 
 				|| partnerSchoolForm.line1.$invalid ||partnerSchoolForm.city.$invalid || partnerSchoolForm.state.$invalid  
 				|| partnerSchoolForm.dist.$invalid || partnerSchoolForm.taluka.$invalid || partnerSchoolForm.pin.$invalid ||!visible">Save
@@ -542,28 +543,36 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="bb in  bookSummary.bookDetail" style="margin: 0; padding-left: 0; padding-right: 5px;">
-						<td><md-input-container flex style="margin: 0; padding-left: 0; padding-right: 5px;"> <md-select
-								focus-on="!selectedPSchoolId && selectedIndex==3"
+					<tr ng-repeat="bb in  bookSummary.bookDetail"
+						style="margin: 0; padding-left: 0; padding-right: 5px;">
+						<td><md-input-container flex
+								style="margin: 0; padding-left: 0; padding-right: 5px;">
+							<md-select focus-on="!selectedPSchoolId && selectedIndex==3"
 								name="standard" aria-label="Select Standard"
 								ng-model="bb.standard"> <md-option
 								ng-value="standard" ng-repeat="standard in standardList"
 								placeholder="standard">{{standard}}</md-option> </md-select> </md-input-container></td>
-						<td><md-input-container flex style="margin: 0; padding-left: 0; padding-right: 5px;"> <md-select
-								ng-model="bb.bookName" placeholder="Select book"
+						<td><md-input-container flex
+								style="margin: 0; padding-left: 0; padding-right: 5px;">
+							<md-select ng-model="bb.bookName" placeholder="Select book"
 								ng-change="setfees(bb.bookName,$index)"> <md-option
 								ng-value="book.id" ng-repeat="book in bookStocks "
 								ng-if="book.standard==bb.standard">{{book.bookName}}({{book.bookMedium}})</md-option>
 							</md-select> </md-input-container></td>
-						<td><md-input-container flex style="margin: 0; padding-left: 0; padding-right: 5px;"> <!-- <input
+						<td><md-input-container flex
+								style="margin: 0; padding-left: 0; padding-right: 5px;">
+							<!-- <input
 							type="number" ng-model="bb.bookPrise"> --> {{bb.bookPrise |
 							number : 2}}</md-input-container></td>
-						<td><md-input-container flex style="margin: 0; padding-left: 0; padding-right: 5px;"> <input
-								type="number" name="totalStud" min="1" ng-model="bb.totalStud"
-								aria-label="totalStud"
+						<td><md-input-container flex
+								style="margin: 0; padding-left: 0; padding-right: 5px;">
+							<input type="number" name="totalStud" min="1"
+								ng-model="bb.totalStud" aria-label="totalStud"
 								ng-change="calculate($index,bb.totalStud)"
 								ng-model-options="{ debounce: 1000 }"> </md-input-container></td>
-						<td><md-input-container flex style="margin: 0; padding-left: 0; padding-right: 5px;"> <!-- <input
+						<td><md-input-container flex
+								style="margin: 0; padding-left: 0; padding-right: 5px;">
+							<!-- <input
 							type="number" name="totalFees" ng-model="bb.totalFees"> -->
 							{{bb.totalFees | number : 2}}</md-input-container></td>
 						<td><md-button class="md-icon-button"
@@ -634,14 +643,15 @@
 		</div>
 
 		<section layout="row" layout-sm="column" layout-align="end end">
-			<md-button ng-disabled="partnerSchoolForm.totalStud.$invalid ||!visible"
+			<md-button
+				ng-disabled="partnerSchoolForm.totalStud.$invalid ||!visible"
 				class="md-raised md-primary" ng-click="addPartnerSchool()">Save
 			</md-button>
 		</section>
 
 
 		</md-content> </md-tab> <md-tab label="Payment Detail" ng-click="setCurrentTab(4)"
-			ng-disabled="enableTillTabNo<4 || curUser.role == 'Teacher'"> <md-content
+			ng-disabled="enableTillTabNo<4"> <md-content
 			class="md-padding">
 		<div class="md-toolbar-tools">
 			<span flex></span>
@@ -739,6 +749,12 @@
 					<md-datepicker name="depositDate"
 						ng-model="PaymentDetail.depositDate" md-placeholder="Select Date"></md-datepicker>
 				</div>
+				<div ng-hide="curUser.role == 'Teacher'" flex>
+					 <md-checkbox name="paymentReceived"
+						ng-model="PaymentDetail.paymentReceived"
+						style="padding-top: 10px" aria-label="Payment is Received">
+					Payment is Received</md-checkbox>
+				</div>
 			</div>
 			<br>
 
@@ -814,6 +830,8 @@
 						<th name="Payment Fees"></th>
 
 						<th name="Pending Fees "></th>
+						<th name="Payment Received Status " ng-hide="curUser.role == 'Teacher'"></th>
+						<th name="Action" ng-hide="curUser.role == 'Teacher'"></th>
 
 					</tr>
 				</thead>
@@ -825,12 +843,17 @@
 						<td>{{pd.nameOfBank}}</td>
 						<td>{{pd.payAmount}}</td>
 						<td>{{pd.pAmount}}</td>
+						<td ng-hide="curUser.role == 'Teacher'">{{pd.paymentReceived}}</td>
+						<td ng-hide="curUser.role == 'Teacher'"><md-button class="md-icon-button" id="reviewPayment"
+									ng-click="enableAddPaymentFlag(pd)">
+								<ng-md-icon icon="pageview" style="fill: md-default" size="24">
+								<md-tooltip>Review Payment</md-tooltip></ng-md-icon></md-button></td>
 					</tr>
 				</tbody>
 			</table>
 			</md-data-table-container>
 		</div>
-		</md-content> </md-tab> <md-tab label="Notification" ng-disabled="enableTillTabNo<5 || curUser.role == 'Teacher'">
+		</md-content> </md-tab> <md-tab label="Notification" ng-disabled="enableTillTabNo<5">
 		<md-content class="md-padding">
 
 		<div class="md-toolbar-tools">

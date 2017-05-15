@@ -1989,6 +1989,17 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 		});
 		return deferred.promise;
 	}
+	
+	PartnerSchoolService.getSchoolByselfUpdateStatus = function() {
+		var deferred = $q.defer();
+		gapi.client.partnerSchoolService.getSchoolByselfUpdateStatus({
+			
+		}).execute(function(resp) {
+			deferred.resolve(resp.items);
+
+		});
+		return deferred.promise;
+	}
 
 	// End of PartnerSchoolService
 

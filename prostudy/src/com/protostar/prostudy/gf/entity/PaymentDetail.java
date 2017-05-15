@@ -24,6 +24,8 @@ public class PaymentDetail {
 	private String transactionNumber;
 	private Date depositDate;
 	
+	private boolean paymentReceived = false;
+	
 		
 	public String getPayReceivedBy() {
 		return payReceivedBy;
@@ -84,5 +86,11 @@ public class PaymentDetail {
 	}
 	public void setDepositDate(Date depositDate) {
 		this.depositDate = depositDate;
+	}
+	public boolean isPaymentReceived() {
+		return paymentReceived;
+	}
+	public void setPaymentReceived(boolean paymentReceived) {
+		this.paymentReceived = paymentReceived;
 	}
 }

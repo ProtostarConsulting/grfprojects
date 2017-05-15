@@ -21,6 +21,11 @@
 			<md-option ng-value="Other" ng-model="other">All</md-option> <md-option
 				ng-value="Year" ng-repeat="Year in Years  | orderBy:Year">{{Year}}</md-option>
 			</md-select> </md-input-container>
+			<md-input-container flex> <md-checkbox
+				ng-model="query.schoolSelfUpdate"
+				ng-change="selfUpdateChkClicked(query.schoolSelfUpdate)"
+				style="padding-top: 10px" aria-label="Show Self Updated School">
+			Show Self Updated School</md-checkbox> </md-input-container>
 		</div>
 		<md-toolbar class="md-table-toolbar md-default">
 		<div class="md-toolbar-tools">

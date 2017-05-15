@@ -154,7 +154,7 @@ angular
 						branchName : "",
 						transactionNumber : "",
 						depositDate : new Date(),
-
+						paymentReceived : false
 					}
 
 					// get last next 3 year to show academic year
@@ -203,6 +203,10 @@ angular
 						// + Number($scope.examDetail.female);
 					}
 
+					$scope.setForm = function(form) {
+						$scope.partnerSchoolForm = form;
+					}
+
 					$scope.selectedPSchoolId = $stateParams.selectedPSchoolId;
 					$log.debug("$scope.selectedPSchoolId :"
 							+ $scope.selectedPSchoolId);
@@ -241,8 +245,9 @@ angular
 							if ($scope.PaymentDetail.nameOfBank == 'Other') {
 								$scope.PaymentDetail.nameOfBank = $scope.tempPaymentData.otherNameOfBank;
 							}
-
-							$scope.PaymentDet.push($scope.PaymentDetail);
+							if(!$scope.partnerSchoolForm.paymentReceived.$dirty){
+								$scope.PaymentDet.push($scope.PaymentDetail);
+							}
 							$scope.examDetail.paymentDetail = $scope.PaymentDet;
 							$scope.PaymentDetail = {
 								payReceivedBy : "",
@@ -250,7 +255,8 @@ angular
 								payAmount : 0,
 								note : "",
 								tPaid : 0,
-								pAmount : 0
+								pAmount : 0,
+								paymentReceived : false
 							}
 						}
 						$scope.examDetail.bookSummary = $scope.bookSummary;
@@ -277,6 +283,11 @@ angular
 						} else {
 							$scope.partnerSchool.address.otherAddressFlag = false;
 						}
+
+						if ($scope.curUser.role == "Teacher" && $scope.partnerSchoolForm.$dirty) {
+							$scope.partnerSchool.schoolSelfUpdate = true;
+						}
+
 						var PartnerSchoolService = appEndpointSF
 								.getPartnerSchoolService();
 
@@ -330,8 +341,11 @@ angular
 						});
 					}
 					$scope.addPaymentFlag = false;
-					$scope.enableAddPaymentFlag = function() {
+					$scope.enableAddPaymentFlag = function(pd) {
 						$scope.addPaymentFlag = true;
+						if(pd != undefined){
+							$scope.PaymentDetail = pd;
+						}
 					}
 
 					if ($scope.selectedPSchoolId
