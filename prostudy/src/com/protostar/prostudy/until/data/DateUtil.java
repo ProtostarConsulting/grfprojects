@@ -2,7 +2,13 @@ package com.protostar.prostudy.until.data;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
+
+import com.protostar.prostudy.entity.InstituteEntity;
+import com.protostar.prostudy.service.InstituteService;
+
+import static com.googlecode.objectify.ObjectifyService.ofy;
 
 public class DateUtil {
 	public static Date removeTime(Date date) {
@@ -33,17 +39,20 @@ public class DateUtil {
 	}
 
 	public static String getCurrentGVSPYear() {
-		Date date = new Date();
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(date);
-		Integer year = cal.get(Calendar.YEAR);
-		return "".concat(year.toString()).concat("-")
-				.concat("" + (year - 1999));
+		String yearofExam = null;
+		
+		List<InstituteEntity> institueList = ofy().load()
+				.type(InstituteEntity.class).list();
+		for (InstituteEntity instituteEntity : institueList) {
+			yearofExam = instituteEntity.getYearofExam();
+		}
+		System.out.println("set year of Exam****"+yearofExam);
+		return yearofExam;
 	}
-	
+
 	public static String getPreviousGVSPYear() {
 		Calendar cal = Calendar.getInstance();
-		//cal.setTime(date);
+		// cal.setTime(date);
 		cal.add(Calendar.YEAR, -1);
 		Integer year = cal.get(Calendar.YEAR);
 		return "".concat(year.toString()).concat("-")

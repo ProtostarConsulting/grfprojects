@@ -824,7 +824,7 @@
 				<thead>
 					<tr>
 
-						<th name="Payment Received Vai"></th>
+						<th name="Payment Received Via"></th>
 						<th name="Date" order-by="paymentDate"></th>
 						<th name="Bank Name"></th>
 						<th name="Payment Fees"></th>
@@ -845,9 +845,9 @@
 						<td>{{pd.pAmount}}</td>
 						<td ng-hide="curUser.role == 'Teacher'">{{pd.paymentReceived}}</td>
 						<td ng-hide="curUser.role == 'Teacher'"><md-button class="md-icon-button" id="reviewPayment"
-									ng-click="enableAddPaymentFlag(pd)">
+									ng-disabled="pd.paymentReceived" ng-click="enableAddPaymentFlag(pd)">
 								<ng-md-icon icon="pageview" style="fill: md-default" size="24">
-								<md-tooltip>Review Payment</md-tooltip></ng-md-icon></md-button></td>
+								<md-tooltip ng-if="pd.paymentReceived">Review Payment</md-tooltip></ng-md-icon></md-button></td>
 					</tr>
 				</tbody>
 			</table>

@@ -188,6 +188,11 @@ app
 						templateUrl : '/app/setup/manage_user_auth.html',
 						controller : 'manageUserAuthCtr'
 					})
+					.state('setup.set_examyear', {
+						url : "/set_examyear",
+						templateUrl : '/app/setup/setup_set_examyear.html',
+						controller : 'setExamYearCtr'
+					})
 					.state('institute.editAUser', {
 						url : "/editAUser/:selectedGFUserID",
 						templateUrl : '/app/institute/institute_editUser.html',

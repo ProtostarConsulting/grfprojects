@@ -21,6 +21,7 @@ public class InstituteEntity extends BaseEntity {
 	private String authorizations;
 
 	private AppSettingEntity settings;
+	private String yearofExam;
 
 	public String getLogBlobKey() {
 		return LogBlobKey;
@@ -121,6 +122,14 @@ public class InstituteEntity extends BaseEntity {
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	public String getYearofExam() {
+		return yearofExam;
+	}
+
+	public void setYearofExam(String yearofExam) {
+		this.yearofExam = yearofExam;
 	}
 
 }

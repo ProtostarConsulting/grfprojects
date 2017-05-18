@@ -238,15 +238,22 @@ angular
 
 						$scope.tabNext();
 						$scope.enableTillTabNo++;
-
-						$scope.waitForServiceLoad2();
+						if (!$scope.partnerSchoolForm.paymentReceived.$dirty) {
+							$scope.waitForServiceLoad2();
+						}
 						if ($scope.PaymentDetail.payReceivedBy != "") {
 
 							if ($scope.PaymentDetail.nameOfBank == 'Other') {
 								$scope.PaymentDetail.nameOfBank = $scope.tempPaymentData.otherNameOfBank;
 							}
-							if(!$scope.partnerSchoolForm.paymentReceived.$dirty){
+							if (!$scope.partnerSchoolForm.paymentReceived.$dirty) {
 								$scope.PaymentDet.push($scope.PaymentDetail);
+							} else {
+								for (var i = 0; i < $scope.PaymentDet.length; i++) {
+									if ($scope.PaymentDet[i].paymentDate == $scope.PaymentDetail.paymentDate) {
+										$scope.PaymentDet[i] = $scope.PaymentDetail;
+									}
+								}
 							}
 							$scope.examDetail.paymentDetail = $scope.PaymentDet;
 							$scope.PaymentDetail = {
@@ -284,7 +291,8 @@ angular
 							$scope.partnerSchool.address.otherAddressFlag = false;
 						}
 
-						if ($scope.curUser.role == "Teacher" && $scope.partnerSchoolForm.$dirty) {
+						if ($scope.curUser.role == "Teacher"
+								&& $scope.partnerSchoolForm.$dirty) {
 							$scope.partnerSchool.schoolSelfUpdate = true;
 						}
 
@@ -343,7 +351,7 @@ angular
 					$scope.addPaymentFlag = false;
 					$scope.enableAddPaymentFlag = function(pd) {
 						$scope.addPaymentFlag = true;
-						if(pd != undefined){
+						if (pd != undefined) {
 							$scope.PaymentDetail = pd;
 						}
 					}
