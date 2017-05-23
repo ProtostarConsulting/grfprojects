@@ -1906,10 +1906,11 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 		return deferred.promise;
 	}
 
-	PartnerSchoolService.fetchSchoolsListByPaging = function(id, pagingInfo) {
+	PartnerSchoolService.fetchSchoolsListByPaging = function(id, yearofExam, pagingInfo) {
 		var deferred = $q.defer();
 		gapi.client.partnerSchoolService.fetchSchoolsListByPaging({
-			'instituteID' : id
+			'instituteID' : id,
+			'yearofExam' : yearofExam
 		}, pagingInfo).execute(function(resp) {
 			deferred.resolve(resp);
 		});

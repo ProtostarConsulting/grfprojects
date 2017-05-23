@@ -28,6 +28,9 @@ public class PartnerSchoolEntity extends BaseEntity {
 
 	@Index
 	private String[] schoolNameIndex;
+	
+	@Index
+	private String[] examDetailIndex;
 
 	private String instName;
 
@@ -61,6 +64,17 @@ public class PartnerSchoolEntity extends BaseEntity {
 	@OnSave
 	public void createSchoolNameIndex() {
 		schoolNameIndex = schoolName.trim().split(" ");
+		examDetailIndex = getExamDetailListIndex();
+	}
+
+	private String[] getExamDetailListIndex() {
+		List<ExamDetail> examDetailList = getExamDetailList();
+		List<String> indexList = new ArrayList<String>();
+		for (ExamDetail examDetail : examDetailList) {
+			indexList.add(examDetail.getYearOfExam());
+		}
+		String[] array = indexList.toArray(new String[0]);
+		return array;
 	}
 
 	public Long getInstituteID() {
@@ -165,6 +179,14 @@ public class PartnerSchoolEntity extends BaseEntity {
 
 	public void setSchoolNameIndex(String[] schoolNameIndex) {
 		this.schoolNameIndex = schoolNameIndex;
+	}
+
+	public String[] getExamDetailIndex() {
+		return examDetailIndex;
+	}
+
+	public void setExamDetailIndex(String[] examDetailIndex) {
+		this.examDetailIndex = examDetailIndex;
 	}
 
 }// end of PartnerSchoolEntity

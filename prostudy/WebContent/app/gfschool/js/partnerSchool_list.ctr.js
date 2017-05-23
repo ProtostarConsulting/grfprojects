@@ -81,6 +81,7 @@ angular
 							PartnerService
 									.fetchSchoolsListByPaging(
 											$scope.curUser.instituteID,
+											$scope.curUser.instituteObj.yearofExam,
 											pagingInfoTemp)
 									.then(
 											function(pagingInfoReturned) {
