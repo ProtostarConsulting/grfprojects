@@ -17,7 +17,7 @@
 				ng-model-options="{ debounce: 1000 }"> </md-input-container>
 			<md-input-container flex> <md-select
 				ng-model="query.selectedYearOfExam" id="selectedYear"
-				ng-change="yearOfExamChanged()" placeholder="--Select Exam Year--">
+				ng-change="yearOfExamChanged(query.selectedYearOfExam)" placeholder="--Select Exam Year--">
 			<md-option ng-value="Other" ng-model="other">All</md-option> <md-option
 				ng-selected = "Year == curUser.instituteObj.yearofExam"
 				ng-value="Year" ng-repeat="Year in Years  | orderBy:Year">{{Year}}</md-option>

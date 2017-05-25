@@ -40,13 +40,11 @@ public class DateUtil {
 
 	public static String getCurrentGVSPYear() {
 		String yearofExam = null;
-		
 		List<InstituteEntity> institueList = ofy().load()
 				.type(InstituteEntity.class).list();
 		for (InstituteEntity instituteEntity : institueList) {
 			yearofExam = instituteEntity.getYearofExam();
 		}
-		System.out.println("set year of Exam****"+yearofExam);
 		return yearofExam;
 	}
 

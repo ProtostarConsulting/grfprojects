@@ -476,18 +476,34 @@ angular
 								amtForInst20per : 0,
 								amtForGRF80per : 0
 							}
-							$scope.examDetail = {
-								totalStudent : "",
-								male : "",
-								female : "",
-								total : "",
-								/* examMedium : [], */
-								yearOfExam : $scope.yearOfExam,
-								bookRequired : 'OffLine',
-								modeOfExam : 'OffLine',
-								bookSummary : $scope.bookSummary,
-								paymentDetail : $scope.PaymentDet,
-							};
+							if(year1 == undefined){
+								$scope.examDetail = {
+										totalStudent : "",
+										male : "",
+										female : "",
+										total : "",
+										/* examMedium : [], */
+										yearOfExam : $scope.yearOfExam,
+										bookRequired : 'OffLine',
+										modeOfExam : 'OffLine',
+										bookSummary : $scope.bookSummary,
+										paymentDetail : $scope.PaymentDet,
+									};
+							}
+							else{
+								$scope.examDetail = {
+										totalStudent : "",
+										male : "",
+										female : "",
+										total : "",
+										/* examMedium : [], */
+										yearOfExam : year1,
+										bookRequired : 'OffLine',
+										modeOfExam : 'OffLine',
+										bookSummary : $scope.bookSummary,
+										paymentDetail : $scope.PaymentDet,
+									};
+							}
 
 							$scope.examlist.push($scope.examDetail);
 							$scope.examDetail = $scope.examlist[$scope.examlist.length - 1];

@@ -248,9 +248,46 @@ angular
 
 					$scope.getPrvYears();
 
-					$scope.yearOfExamChanged = function() {
+					$scope.yearOfExamChanged = function(selectedYearOfExam) {
 						// $scope.query.selectedYearOfExam
 						// At the moment do nothing.
+						var pagingInfoTemp = {
+								entityList : null,
+								startPage : $scope.query.page,
+								limit : $scope.query.limit,
+								totalEntities : 0,
+								webSafeCursorString : null
+							};
+
+							var PartnerService = appEndpointSF
+									.getPartnerSchoolService();
+							PartnerService
+									.fetchSchoolsListByPaging(
+											$scope.curUser.instituteID,
+											selectedYearOfExam,
+											pagingInfoTemp)
+									.then(
+											function(pagingInfoReturned) {
+												$scope.pagingInfoReturned = pagingInfoReturned;
+												if ($scope.pSchoolList.length < pagingInfoReturned.totalEntities) {
+													$scope.pSchoolList = $scope.pSchoolList
+															.concat(pagingInfoReturned.entityList);
+												} else {
+													$scope.pSchoolList = pagingInfoReturned.entityList;
+												}
+												$scope.schools = $scope.pSchoolList;
+												$scope.query.totalSize = pagingInfoReturned.totalEntities;
+												$scope.query.totalSizeBackup = pagingInfoReturned.totalEntities;
+
+												var schoolListCacheKey = "fetchSchoolsListByPaging";
+												$scope.query.entityList = $scope.pSchoolList;
+												ajsCache.put(
+														schoolListCacheKey,
+														$scope.query);
+
+												$scope.loading = false;
+											});
+						
 					}
 
 					$scope.cancel = function() {
