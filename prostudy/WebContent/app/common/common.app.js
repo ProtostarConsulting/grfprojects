@@ -1115,7 +1115,24 @@ app
 								url : "/addPartnerSchoolWithoutLogin",
 								templateUrl : '/app/gfschool/school_Registration.html',
 								controller : 'schoolRegisterAddCtr'
+							})
+					.state(
+							'partnerSchool.addPartnerSchoolInstitue',
+							{
+								url : "/addPartnerSchoolInstitue/:selectedPSchoolInstituteId",
+								templateUrl : '/app/gfschool/partnerSchool_institue_add.html',
+								controller : 'partnerSchool_Institue_AddCtr',
+								params : {
+									selectedPSchoolInstitute : null
+								}
 							})		
+					.state(
+							'partnerSchool.listPartnerSchoolInstitue',
+							{
+								url : "/listPartnerSchoolInstitue",
+								templateUrl : '/app/gfschool/partnerSchool_institue_list.html',
+								controller : 'partnerSchool_Institue_ListCtr'
+							})				
 					.state(
 							'scheduledExam',
 							{

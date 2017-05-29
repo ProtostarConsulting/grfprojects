@@ -40,6 +40,7 @@ import com.protostar.prostudy.gf.entity.GFCourierEntity;
 import com.protostar.prostudy.gf.entity.GFExamResultEntity;
 import com.protostar.prostudy.gf.entity.NotificationData;
 import com.protostar.prostudy.gf.entity.PartnerSchoolEntity;
+import com.protostar.prostudy.gf.entity.PartnerSchoolInstituteEntity;
 import com.protostar.prostudy.gf.entity.PaymentDetail;
 import com.protostar.prostudy.until.data.Constants;
 import com.protostar.prostudy.until.data.DateUtil;
@@ -143,7 +144,8 @@ public class PartnerSchoolService {
 				if (paymentDet != null && paymentDet.size() > 0) {
 					for (int i = 0; i < paymentDet.size(); i++) {
 						PaymentDetail detail = paymentDet.get(i);
-						if (detail.getPaymentReciptNo() == null || detail.getPaymentReciptNo().isEmpty()) {
+						if (detail.getPaymentReciptNo() == null
+								|| detail.getPaymentReciptNo().isEmpty()) {
 							SequenceGeneratorShardedService sequenceGenerator = new SequenceGeneratorShardedService(
 									EntityUtil.getInstituteEntityRawKey(partnerSchoolEntity
 											.getInstituteID()),
@@ -152,7 +154,8 @@ public class PartnerSchoolService {
 									.getNextSequenceNumber();
 							System.out.println("paymentReceiptNumber**"
 									+ nextSequenceNumber);
-							detail.setPaymentReciptNo(nextSequenceNumber.toString());
+							detail.setPaymentReciptNo(nextSequenceNumber
+									.toString());
 						}
 					}
 				}
@@ -165,6 +168,20 @@ public class PartnerSchoolService {
 		partnerSchoolEntity.setId(now.getId());
 
 		return partnerSchoolEntity;
+	}
+
+	@ApiMethod(name = "addPartnerSchoolInstitute", path = "addPartnerSchoolInstitute")
+	public PartnerSchoolInstituteEntity addPartnerSchoolInstitute(
+			PartnerSchoolInstituteEntity partnerSchoolInstitute) {
+		ofy().save().entity(partnerSchoolInstitute).now();
+		return partnerSchoolInstitute;
+	}
+
+	@ApiMethod(name = "getPartnerSchoolInstituteList", path = "getPartnerSchoolInstituteList")
+	public List<PartnerSchoolInstituteEntity> getPartnerSchoolInstituteList() {
+		List<PartnerSchoolInstituteEntity> schoolInstituteList = ofy().load()
+				.type(PartnerSchoolInstituteEntity.class).list();
+		return schoolInstituteList;
 	}
 
 	@ApiMethod(name = "touchAllSchools", path = "touchAllSchools")
@@ -280,11 +297,12 @@ public class PartnerSchoolService {
 				.keys(schoolKeyList);
 		return keys.values();
 	}
-	
+
 	@ApiMethod(name = "getSchoolByselfUpdateStatus", path = "getSchoolByselfUpdateStatus")
 	public List<PartnerSchoolEntity> getSchoolByselfUpdateStatus() {
 		List<PartnerSchoolEntity> schoolList = ofy().load()
-				.type(PartnerSchoolEntity.class).filter("schoolSelfUpdate", true).list();
+				.type(PartnerSchoolEntity.class)
+				.filter("schoolSelfUpdate", true).list();
 
 		Set<Long> schoolIds = new HashSet<Long>();
 		List<PartnerSchoolEntity> schoolSelfUpdateList = new ArrayList<PartnerSchoolEntity>();
@@ -362,8 +380,9 @@ public class PartnerSchoolService {
 
 	@ApiMethod(name = "fetchSchoolsListByPaging", path = "fetchSchoolsListByPaging")
 	public EntityPagingInfo fetchSchoolsListByPaging(
-			@Named("instituteID") Long id, @Named("yearofExam") String yearofExam, EntityPagingInfo pagingInfo) {
-		String [] yearofExamArray = new String [1];
+			@Named("instituteID") Long id,
+			@Named("yearofExam") String yearofExam, EntityPagingInfo pagingInfo) {
+		String[] yearofExamArray = new String[1];
 		yearofExamArray[0] = yearofExam;
 		Query<PartnerSchoolEntity> filterInstituteQuery = ofy().load()
 				.type(PartnerSchoolEntity.class).filter("instituteID", id)

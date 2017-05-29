@@ -107,7 +107,10 @@
 							ui-sref="partnerSchool.addPartnerSchool({selectedPSchoolId:''})"
 							ng-click=close() class="md-primary"> Add School </md-button> <md-button
 							ui-sref="partnerSchool.listPartnerSchool" ng-click=close()
-							class="md-primary"> School List </md-button> </md-content>
+							class="md-primary"> School List </md-button> <md-button
+							ui-sref="partnerSchool.listPartnerSchoolInstitue"
+							ng-click="close()" class="md-primary"> Institue List
+						</md-button> </md-content>
 					</div>
 				</div>
 
@@ -264,8 +267,8 @@
 					ng-class="{dataContent:true, activeContent:data.expanded5}">
 					<md-content flex layout="column" layout-xs="column"
 						layout-align="center start"> <md-button flex
-						 ui-sref="partnerSchool.listPartnerSchool" ng-click="close()">School List</md-button>
-					</md-content>
+						ui-sref="partnerSchool.listPartnerSchool" ng-click="close()">School
+					List</md-button> </md-content>
 				</div>
 			</div>
 
@@ -285,10 +288,9 @@
 					<md-content flex layout="column" layout-xs="column"
 						layout-align="center start"> <md-button flex
 						ui-sref="updatemyprofile" ng-click="close()">Update
-					Profile</md-button>
-					</md-content>
+					Profile</md-button> </md-content>
 				</div>
-				
+
 				<div id="studentDiv" ng-if="curUser.role == 'Student'"
 					ng-class="{dataContent:true, activeContent:data.expanded6}">
 					<md-content flex layout="column" layout-xs="column"
@@ -325,9 +327,10 @@
 					ng-click="close()" class="menu-heading md-primary"
 					aria-label="Add GVSP Exam Results" show-gt-md> <menu-link
 					section="child">Add GVSP Exam Results</menu-link> </md-button> <md-button
-					ui-sref="partnerSchool.schoolRegisterWithoutLogin" ng-click="close()"
-					class="menu-heading md-primary" aria-label="Register School"
-					show-gt-md> <menu-link section="child">Register School</menu-link> </md-button> </md-content>
+					ui-sref="partnerSchool.schoolRegisterWithoutLogin"
+					ng-click="close()" class="menu-heading md-primary"
+					aria-label="Register School" show-gt-md> <menu-link
+					section="child">Register School</menu-link> </md-button> </md-content>
 			</div>
 			</md-content> </md-content> </md-sidenav>
 
@@ -630,6 +633,8 @@
 	<script src="/app/gfschool/js/partnerSchool_list.ctr.js"></script>
 	<script src="/app/gfschool/js/printBookDetail.ctr.js"></script>
 	<script src="/app/gfschool/js/schoolRegister_add.ctr.js"></script>
+	<script src="/app/gfschool/js/partnerSchool_institue_add.ctr.js"></script>
+	<script src="/app/gfschool/js/partnerSchool_institue_list.ctr.js"></script>
 	<!-- 	Partner School -->
 
 

@@ -2001,6 +2001,26 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 		});
 		return deferred.promise;
 	}
+	
+	PartnerSchoolService.addPartnerSchoolInstitute = function(partnerSchoolInstitute) {
+		var deferred = $q.defer();
+		gapi.client.partnerSchoolService.addPartnerSchoolInstitute(partnerSchoolInstitute)
+				.execute(function(resp) {
+					deferred.resolve(resp);
+				});
+		return deferred.promise;
+	}
+	
+	PartnerSchoolService.getPartnerSchoolInstituteList = function() {
+		var deferred = $q.defer();
+		gapi.client.partnerSchoolService.getPartnerSchoolInstituteList({
+			
+		}).execute(function(resp) {
+			deferred.resolve(resp.items);
+
+		});
+		return deferred.promise;
+	}
 
 	// End of PartnerSchoolService
 
