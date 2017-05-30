@@ -7,7 +7,6 @@ angular
 						$stateParams, $q, $mdDialog, $mdMedia, $location,
 						$anchorScroll, Upload, ajsCache, indiaAddressLookupData) {
 
-					console.log("inside institue add ctr***");
 					$scope.curUser = appEndpointSF.getLocalUserService()
 							.getLoggedinUser();
 					$scope.Country = indiaAddressLookupData;
@@ -15,6 +14,7 @@ angular
 					$scope.schoolInstitute = {
 						address : $scope.Address,
 						instituteName : "",
+						instituteID : ""
 					};
 
 					$scope.Address = {
@@ -37,6 +37,7 @@ angular
 
 					$scope.addPartnerSchoolInstitute = function() {
 						$scope.loading = true;
+						$scope.schoolInstitute.instituteID = $scope.curUser.instituteID;
 						var PartnerSchoolService = appEndpointSF
 								.getPartnerSchoolService();
 
@@ -44,14 +45,14 @@ angular
 								.addPartnerSchoolInstitute(
 										$scope.schoolInstitute)
 								.then(
-										function(schoolInstituteId) {
+										function(schoolInstitute) {
 											$scope.loading = false;
-											if (schoolInstituteId.code) {
+											if (schoolInstitute.code) {
 												$scope
 														.showErrorToast("Error occured while saving data. Please try latter on or contact technical support. Error Details:"
 																+ schoolid.message);
 											} else {
-												$scope.schoolInstituteid = schoolInstituteid;
+												$scope.schoolInstitute = schoolInstitute;
 												if ($scope.selectedPSchoolInstituteId != undefined) {
 													$scope.showUpdateToast();
 												} else {

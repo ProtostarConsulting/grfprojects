@@ -6,13 +6,14 @@
 <div ng-if="!loading">
 	<div>
 		<div layout="row" layout-xs="column" flex align="right">
-			<md-button class="md-icon-button" id="uplodeExcel"
+			<md-input-container flex> <md-button
+				class="md-icon-button" id="addInstitue"
 				ui-sref="partnerSchool.addPartnerSchoolInstitue"> <ng-md-icon
-				icon="add_circle" style="fill: md-default" size="24">
-			<md-tooltip>Add Institute</md-tooltip></ng-md-icon></md-button>
-			<md-input-container> <label>Search By
-				Institue name</label> <input ng-model="query.institueName"
-				ng-change="searchByGrfRegNoChange()"
+				icon="add_circle" style="fill: md-default" size="24"> <md-tooltip>Add
+			Institute</md-tooltip></ng-md-icon></md-button></md-input-container>
+			<md-input-container flex> <label>Search
+				By Institue name</label> <input ng-model="query.searchSchoolTxt"
+				ng-change="searchByInstituteName()"
 				ng-model-options="{ debounce: 1000 }"> </md-input-container>
 		</div>
 		<md-toolbar class="md-table-toolbar md-default">

@@ -2017,7 +2017,26 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 			
 		}).execute(function(resp) {
 			deferred.resolve(resp.items);
-
+		});
+		return deferred.promise;
+	}
+	
+	PartnerSchoolService.searchSchoolInstituteByName = function(searchSchoolTxt) {
+		var deferred = $q.defer();
+		gapi.client.partnerSchoolService.searchSchoolInstituteByName({
+			'nameSearchString' : searchSchoolTxt
+		}).execute(function(resp) {
+			deferred.resolve(resp.items);
+		});
+		return deferred.promise;
+	}
+	
+	PartnerSchoolService.fetchSchoolInstituteListByPaging = function(id, pagingInfo) {
+		var deferred = $q.defer();
+		gapi.client.partnerSchoolService.fetchSchoolInstituteListByPaging({
+			'instituteID' : id,
+		}, pagingInfo).execute(function(resp) {
+			deferred.resolve(resp);
 		});
 		return deferred.promise;
 	}
