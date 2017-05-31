@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Index;
@@ -50,6 +51,9 @@ public class PartnerSchoolEntity extends BaseEntity {
 
 	@Index
 	private boolean schoolSelfUpdate = false;
+	
+	@Index
+	private Ref<PartnerSchoolInstituteEntity> schoolInstitute;
 
 	public boolean isSchoolSelfUpdate() {
 		return schoolSelfUpdate;
@@ -187,6 +191,14 @@ public class PartnerSchoolEntity extends BaseEntity {
 
 	public void setExamDetailIndex(String[] examDetailIndex) {
 		this.examDetailIndex = examDetailIndex;
+	}
+
+	public PartnerSchoolInstituteEntity getSchoolInstitute() {
+		return schoolInstitute == null ? null : schoolInstitute.get();
+	}
+
+	public void setSchoolInstitute(PartnerSchoolInstituteEntity schoolInstitute) {
+		this.schoolInstitute = Ref.create(schoolInstitute);
 	}
 
 }// end of PartnerSchoolEntity

@@ -63,9 +63,14 @@
 				</div>
 				</md-input-container>
 
+				<!-- <md-input-container flex> <label>Institute
+					Name </label> <input name="instName" ng-model="partnerSchool.instName"></md-input-container> -->
 				<md-input-container flex> <label>Institute
-					Name </label> <input name="instName" ng-model="partnerSchool.instName"></md-input-container>
-
+					Name</label> <md-select name="schoolInstitute" id="schoolInstitute"
+					ng-model="partnerSchool.schoolInstitute"> <md-option
+					ng-value="tempInstitute" ng-selected = "partnerSchool.schoolInstitute.id == tempInstitute.id"
+					ng-repeat="tempInstitute in tempInstituteList">{{tempInstitute.instituteName}}</md-option>
+				</md-select> </md-input-container>
 			</div>
 
 			<div layout="row" layout-xs="column" flex>
@@ -750,10 +755,10 @@
 						ng-model="PaymentDetail.depositDate" md-placeholder="Select Date"></md-datepicker>
 				</div>
 				<div ng-hide="curUser.role == 'Teacher'" flex>
-					 <md-checkbox name="paymentReceived"
-						ng-model="PaymentDetail.paymentReceived"
-						style="padding-top: 10px" aria-label="Payment is Received">
-					Payment is Received</md-checkbox>
+					<md-checkbox name="paymentReceived"
+						ng-model="PaymentDetail.paymentReceived" style="padding-top: 10px"
+						aria-label="Payment is Received"> Payment is
+					Received</md-checkbox>
 				</div>
 			</div>
 			<br>
@@ -830,7 +835,8 @@
 						<th name="Payment Fees"></th>
 
 						<th name="Pending Fees "></th>
-						<th name="Payment Received Status " ng-hide="curUser.role == 'Teacher'"></th>
+						<th name="Payment Received Status "
+							ng-hide="curUser.role == 'Teacher'"></th>
 						<th name="Action" ng-hide="curUser.role == 'Teacher'"></th>
 
 					</tr>
@@ -844,10 +850,13 @@
 						<td>{{pd.payAmount}}</td>
 						<td>{{pd.pAmount}}</td>
 						<td ng-hide="curUser.role == 'Teacher'">{{pd.paymentReceived}}</td>
-						<td ng-hide="curUser.role == 'Teacher'"><md-button class="md-icon-button" id="reviewPayment"
-									ng-disabled="pd.paymentReceived" ng-click="enableAddPaymentFlag(pd)">
-								<ng-md-icon icon="pageview" style="fill: md-default" size="24">
-								<md-tooltip ng-if="pd.paymentReceived">Review Payment</md-tooltip></ng-md-icon></md-button></td>
+						<td ng-hide="curUser.role == 'Teacher'"><md-button
+								class="md-icon-button" id="reviewPayment"
+								ng-disabled="pd.paymentReceived"
+								ng-click="enableAddPaymentFlag(pd)"> <ng-md-icon
+								icon="pageview" style="fill: md-default" size="24">
+							<md-tooltip ng-if="pd.paymentReceived">Review
+							Payment</md-tooltip></ng-md-icon></md-button></td>
 					</tr>
 				</tbody>
 			</table>

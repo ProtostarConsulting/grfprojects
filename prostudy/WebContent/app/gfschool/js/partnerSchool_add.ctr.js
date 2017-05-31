@@ -42,6 +42,7 @@ angular
 					// -------------language-------
 					$scope.languages = [ "Hindi", "Marathi", "English" ];
 					$scope.selected = [];
+					$scope.tempInstituteList = [];
 					$scope.toggle = function(item, list) {
 						var idx = list.indexOf(item);
 						if (idx > -1) {
@@ -72,7 +73,6 @@ angular
 						govRegisterno : "",
 						instituteID : "",
 						schoolName : "",
-						instName : "",
 						formNumber : "",
 						category : "",
 						primaryContact : ""
@@ -377,6 +377,35 @@ angular
 
 					}
 
+					$scope.getSchoolInstituteList = function() {
+						var partnerSchoolService = appEndpointSF
+								.getPartnerSchoolService();
+						partnerSchoolService.getPartnerSchoolInstituteList()
+								.then(function(list) {
+									$scope.tempInstituteList = list;
+								});
+					}
+					$scope.schoolInstituteQuerySearch = function(query) {
+						return $scope.queryInstituteNameSearch(
+								$scope.tempInstituteList, query);
+					}
+					$scope.queryInstituteNameSearch = function(
+							tempInstituteList, query) {
+						var results = query ? tempInstituteList
+								.filter(createInstituteNameFilterFor(query))
+								: [];
+						return results;
+					}
+
+					function createInstituteNameFilterFor(query) {
+						var lowercaseQuery = angular.lowercase(query);
+						return function filterFn(schoolInstitute) {
+							var a = schoolInstitute.instituteName;
+							return (angular.lowercase(a)
+									.indexOf(lowercaseQuery) >= 0);
+						};
+					}
+
 					function initSchoolLoad(pSchool) {
 						$scope.partnerSchool = pSchool;
 						$scope.partnerSchool.formNumber = parseInt($scope.partnerSchool.formNumber);
@@ -476,33 +505,32 @@ angular
 								amtForInst20per : 0,
 								amtForGRF80per : 0
 							}
-							if(year1 == undefined){
+							if (year1 == undefined) {
 								$scope.examDetail = {
-										totalStudent : "",
-										male : "",
-										female : "",
-										total : "",
-										/* examMedium : [], */
-										yearOfExam : $scope.yearOfExam,
-										bookRequired : 'OffLine',
-										modeOfExam : 'OffLine',
-										bookSummary : $scope.bookSummary,
-										paymentDetail : $scope.PaymentDet,
-									};
-							}
-							else{
+									totalStudent : "",
+									male : "",
+									female : "",
+									total : "",
+									/* examMedium : [], */
+									yearOfExam : $scope.yearOfExam,
+									bookRequired : 'OffLine',
+									modeOfExam : 'OffLine',
+									bookSummary : $scope.bookSummary,
+									paymentDetail : $scope.PaymentDet,
+								};
+							} else {
 								$scope.examDetail = {
-										totalStudent : "",
-										male : "",
-										female : "",
-										total : "",
-										/* examMedium : [], */
-										yearOfExam : year1,
-										bookRequired : 'OffLine',
-										modeOfExam : 'OffLine',
-										bookSummary : $scope.bookSummary,
-										paymentDetail : $scope.PaymentDet,
-									};
+									totalStudent : "",
+									male : "",
+									female : "",
+									total : "",
+									/* examMedium : [], */
+									yearOfExam : year1,
+									bookRequired : 'OffLine',
+									modeOfExam : 'OffLine',
+									bookSummary : $scope.bookSummary,
+									paymentDetail : $scope.PaymentDet,
+								};
 							}
 
 							$scope.examlist.push($scope.examDetail);
@@ -786,7 +814,7 @@ angular
 
 					$scope.stateQuerySearch = function(query) {
 						var results = query ? $scope.Country.states
-								.filter(createFilterFor(query))
+								.filter(createStateFilterFor(query))
 								: $scope.Country.states;
 						$scope.partnerSchool.address.dist = results[0].districts;
 						var deferred = $q.defer();
@@ -798,7 +826,7 @@ angular
 						return deferred.promise;
 					}
 
-					function createFilterFor(query) {
+					function createStateFilterFor(query) {
 						var lowercaseQuery = angular.lowercase(query);
 						return function filterFn(state) {
 							var a = state.name;
@@ -814,7 +842,7 @@ angular
 							} else if ($scope.selectedPSchoolId != undefined) {
 								$scope.getPSchoolByPSID();
 							}
-
+							$scope.getSchoolInstituteList();
 						} else {
 							$log.debug("Services Not Loaded, watiting...");
 							$timeout($scope.waitForServiceLoad, 1000);
