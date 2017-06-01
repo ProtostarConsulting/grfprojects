@@ -22,8 +22,10 @@
 			class="md-primary"> Add School </md-button> <md-button
 			ui-sref="partnerSchool.listPartnerSchool" ng-click="close()"
 			class="md-primary"> School List </md-button> <md-button
+			ng-hide="curUser.role == 'Teacher'"
 			ui-sref="partnerSchool.addPartnerSchoolInstitue" ng-click="close()"
 			class="md-primary"> Add Institute</md-button> <md-button
+			ng-hide="curUser.role == 'Teacher'"
 			ui-sref="partnerSchool.listPartnerSchoolInstitue" ng-click="close()"
 			class="md-primary"> Institute List </md-button> <!-- <md-button
 				ui-sref="partnerSchool.listPartnerSchoolStudent" ng-click="close()"

@@ -251,7 +251,8 @@ angular
 					$scope.yearOfExamChanged = function(selectedYearOfExam) {
 						// $scope.query.selectedYearOfExam
 						// At the moment do nothing.
-						var pagingInfoTemp = {
+						if ($scope.curUser.role == "Admin") {
+							var pagingInfoTemp = {
 								entityList : null,
 								startPage : $scope.query.page,
 								limit : $scope.query.limit,
@@ -264,8 +265,7 @@ angular
 							PartnerService
 									.fetchSchoolsListByPaging(
 											$scope.curUser.instituteID,
-											selectedYearOfExam,
-											pagingInfoTemp)
+											selectedYearOfExam, pagingInfoTemp)
 									.then(
 											function(pagingInfoReturned) {
 												$scope.pagingInfoReturned = pagingInfoReturned;
@@ -287,7 +287,7 @@ angular
 
 												$scope.loading = false;
 											});
-						
+						}
 					}
 
 					$scope.cancel = function() {

@@ -23,8 +23,10 @@ angular
 						isGoogleUser : false,
 					};
 					
-					$scope.tempUser.school= $stateParams.selectedPSchool?$stateParams.selectedPSchool:null;
-						
+					if($stateParams.selectedPSchool != undefined){
+						$scope.tempUser.school= $stateParams.selectedPSchool?$stateParams.selectedPSchool:null;
+					}
+					
 					$scope.addInstituteUsers = function() {
 						var UserService = appEndpointSF.getUserService();
 						$scope.tempUser.instituteID = $scope.curUser.instituteID;
