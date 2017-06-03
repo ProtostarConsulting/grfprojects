@@ -21,7 +21,7 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 
 		return deferred.promise;
 	}
-	
+
 	GFStudentService.addPracticeExamToStudent = function(exam) {
 		var deferred = $q.defer();
 		gapi.client.gfStudentService.addPracticeExamToStudent(exam).execute(
@@ -30,7 +30,7 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 				});
 		return deferred.promise;
 	}
-	
+
 	GFStudentService.addBookToStudent = function(book) {
 		var deferred = $q.defer();
 		gapi.client.gfStudentService.addBookToStudent(book).execute(
@@ -101,7 +101,7 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 		});
 		return deferred.promise;
 	}
-	
+
 	GFStudentService.fetchExamResultPendingByPaging = function(id, pagingInfo) {
 		var deferred = $q.defer();
 		gapi.client.gfStudentService.fetchExamResultPendingByPaging({
@@ -111,7 +111,7 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 		});
 		return deferred.promise;
 	}
-	
+
 	GFStudentService.getExamResultsPendingGRFReview = function(id) {
 		var deferred = $q.defer();
 		gapi.client.gfStudentService.getExamResultsPendingGRFReview({
@@ -178,7 +178,7 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 
 		return deferred.promise;
 	}
-	
+
 	GFCourierService.getCourierByDispatchDate = function(date) {
 		var deferred = $q.defer();
 		gapi.client.gfCourierService.getCourierByDispatchDate({
@@ -189,7 +189,7 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 
 		return deferred.promise;
 	}
-	
+
 	GFCourierService.fetchCourierListByPaging = function(id, pagingInfo) {
 		var deferred = $q.defer();
 		gapi.client.gfCourierService.fetchCourierListByPaging({
@@ -1095,7 +1095,7 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 		});
 		return deferred.promise;
 	}
-	
+
 	PracticeExamService.getResultByUId = function(id) {
 		var deferred = $q.defer();
 		gapi.client.practiceExamService.getResultByUId({
@@ -1906,7 +1906,8 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 		return deferred.promise;
 	}
 
-	PartnerSchoolService.fetchSchoolsListByPaging = function(id, yearofExam, pagingInfo) {
+	PartnerSchoolService.fetchSchoolsListByPaging = function(id, yearofExam,
+			pagingInfo) {
 		var deferred = $q.defer();
 		gapi.client.partnerSchoolService.fetchSchoolsListByPaging({
 			'instituteID' : id,
@@ -1957,7 +1958,7 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 		});
 		return deferred.promise;
 	}
-	
+
 	PartnerSchoolService.getSchoolByBId = function(id) {
 		var deferred = $q.defer();
 		gapi.client.partnerSchoolService.getSchoolByBId({
@@ -1979,48 +1980,49 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 		});
 		return deferred.promise;
 	}
-	
+
 	PartnerSchoolService.getPendingResultSchools = function() {
 		var deferred = $q.defer();
 		gapi.client.partnerSchoolService.getPendingResultSchools({
-			
+
 		}).execute(function(resp) {
 			deferred.resolve(resp.items);
 
 		});
 		return deferred.promise;
 	}
-	
+
 	PartnerSchoolService.getSchoolByselfUpdateStatus = function() {
 		var deferred = $q.defer();
 		gapi.client.partnerSchoolService.getSchoolByselfUpdateStatus({
-			
+
 		}).execute(function(resp) {
 			deferred.resolve(resp.items);
 
 		});
 		return deferred.promise;
 	}
-	
-	PartnerSchoolService.addPartnerSchoolInstitute = function(partnerSchoolInstitute) {
+
+	PartnerSchoolService.addPartnerSchoolInstitute = function(
+			partnerSchoolInstitute) {
 		var deferred = $q.defer();
-		gapi.client.partnerSchoolService.addPartnerSchoolInstitute(partnerSchoolInstitute)
-				.execute(function(resp) {
-					deferred.resolve(resp);
-				});
+		gapi.client.partnerSchoolService.addPartnerSchoolInstitute(
+				partnerSchoolInstitute).execute(function(resp) {
+			deferred.resolve(resp);
+		});
 		return deferred.promise;
 	}
-	
+
 	PartnerSchoolService.getPartnerSchoolInstituteList = function() {
 		var deferred = $q.defer();
 		gapi.client.partnerSchoolService.getPartnerSchoolInstituteList({
-			
+
 		}).execute(function(resp) {
 			deferred.resolve(resp.items);
 		});
 		return deferred.promise;
 	}
-	
+
 	PartnerSchoolService.searchSchoolInstituteByName = function(searchSchoolTxt) {
 		var deferred = $q.defer();
 		gapi.client.partnerSchoolService.searchSchoolInstituteByName({
@@ -2030,13 +2032,24 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 		});
 		return deferred.promise;
 	}
-	
-	PartnerSchoolService.fetchSchoolInstituteListByPaging = function(id, pagingInfo) {
+
+	PartnerSchoolService.fetchSchoolInstituteListByPaging = function(id,
+			pagingInfo) {
 		var deferred = $q.defer();
 		gapi.client.partnerSchoolService.fetchSchoolInstituteListByPaging({
 			'instituteID' : id,
 		}, pagingInfo).execute(function(resp) {
 			deferred.resolve(resp);
+		});
+		return deferred.promise;
+	}
+
+	PartnerSchoolService.getPartnerSchoolListByInstitute = function(schoolInstituteId) {
+		var deferred = $q.defer();
+		gapi.client.partnerSchoolService.getPartnerSchoolListByInstitute({
+			'schoolInstituteId' : schoolInstituteId
+		}).execute(function(resp) {
+			deferred.resolve(resp.items);
 		});
 		return deferred.promise;
 	}

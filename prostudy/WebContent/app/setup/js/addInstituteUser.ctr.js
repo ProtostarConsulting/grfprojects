@@ -27,6 +27,10 @@ angular
 						$scope.tempUser.school= $stateParams.selectedPSchool?$stateParams.selectedPSchool:null;
 					}
 					
+					if($stateParams.selectedPSchoolInstitute != undefined){
+						$scope.tempUser.schoolInstitute= $stateParams.selectedPSchoolInstitute?$stateParams.selectedPSchoolInstitute:null;
+					}
+					
 					$scope.addInstituteUsers = function() {
 						var UserService = appEndpointSF.getUserService();
 						$scope.tempUser.instituteID = $scope.curUser.instituteID;

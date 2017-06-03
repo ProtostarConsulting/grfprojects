@@ -290,6 +290,19 @@ angular
 						}
 					}
 
+					$scope.fetchSchoolByInstitute = function() {
+						$scope.schools = [];
+
+						var PartnerService = appEndpointSF
+								.getPartnerSchoolService();
+						PartnerService.getPartnerSchoolListByInstitute(
+								$scope.curUser.schoolInstitute.id).then(
+								function(list) {
+									$scope.schools = list;
+									$scope.loading = false;
+								});
+					}
+
 					$scope.cancel = function() {
 						$state.go('partnerSchool.listPartnerSchool');
 					}
@@ -300,7 +313,10 @@ angular
 							if ($scope.curUser.role == "Admin") {
 								$scope.onpagechange();
 							}
-							if ($scope.curUser.role == "Teacher") {
+							if ($scope.curUser.role == "Teacher"
+									&& $scope.curUser.schoolInstitute != undefined) {
+								$scope.fetchSchoolByInstitute();
+							} else {
 								$scope.iscurUserRole();
 							}
 

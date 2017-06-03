@@ -160,7 +160,8 @@ app
 						templateUrl : '/app/setup/addInstituteUser.html',
 						controller : 'addInstituteUserCtr',
 						params : {
-							selectedPSchool : null
+							selectedPSchool : null,
+							selectedPSchoolInstitute : null
 						}
 					})
 					.state('setup.editInstitute', {

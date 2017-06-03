@@ -29,8 +29,14 @@
 				</div>
 				</md-input-container>
 
+				<!-- <md-input-container flex> <label>Institute
+					Name </label> <input name="instName" ng-model="partnerSchool.instName"></md-input-container> -->
 				<md-input-container flex> <label>Institute
-					Name </label> <input name="instName" ng-model="partnerSchool.instName"></md-input-container>
+					Name</label> <md-select name="schoolInstitute" id="schoolInstitute"
+					ng-model="partnerSchool.schoolInstitute"> <md-option
+					ng-value="tempInstitute" ng-selected = "partnerSchool.schoolInstitute.id == tempInstitute.id"
+					ng-repeat="tempInstitute in tempInstituteList">{{tempInstitute.instituteName}}</md-option>
+				</md-select> </md-input-container>	
 
 			</div>
 

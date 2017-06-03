@@ -7,6 +7,7 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 import com.protostar.prostudy.gf.entity.PartnerSchoolEntity;
+import com.protostar.prostudy.gf.entity.PartnerSchoolInstituteEntity;
 
 @Entity
 public class UserEntity {
@@ -46,6 +47,9 @@ public class UserEntity {
 	@Index
 	private Ref<PartnerSchoolEntity> school;
 	
+	@Index
+	private Ref<PartnerSchoolInstituteEntity> schoolInstitute;
+	
 	public PartnerSchoolEntity getSchool() {
 		return school == null ? null : school.get();
 	}
@@ -54,6 +58,14 @@ public class UserEntity {
 		this.school = Ref.create(school);
 	}
 	
+	public PartnerSchoolInstituteEntity getSchoolInstitute() {
+		return schoolInstitute == null ? null : schoolInstitute.get();
+	}
+
+	public void setSchoolInstitute(PartnerSchoolInstituteEntity schoolInstitute) {
+		this.schoolInstitute = Ref.create(schoolInstitute);
+	}
+
 	public String getStatus() {
 		return status;
 	}

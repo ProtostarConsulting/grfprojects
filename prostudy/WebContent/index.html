@@ -23,7 +23,8 @@
 			</div>
 			<h3 hide-xs style="margin-left: 12px;">Gandhi Vichar Sanskar
 				Pariksha (GVSP)</h3>
-			<h3 hide-gt-xs>ProERP</h3>
+			<h3 hide-gt-xs>Gandhi Vichar Sanskar
+				Pariksha</h3>
 			<span flex></span>
 			<section layout="row" layout-padding hide-xs>
 				<md-button class="md-accent" ng-click="gotoPart('aboutGVSP')">About
@@ -32,29 +33,27 @@
 				Brouchure</md-button>
 				<md-button class="md-accent" ng-click="gotoPart('contactUs')">Contact
 				Us</md-button>
+				<md-button class="md-accent" ng-click="loginClick()">
+				Login</md-button>
 				<!-- <md-button class="md-accent" ng-click="gotoPart('part3')">Help</md-button>-->
 		</div>
 		<span flex></span>
-		<md-button class="md-accent" ng-click="loginClick()">
-		Login</md-button>
 		<md-button class="md-icon-button" aria-label="More" hide-gt-xs
 			ng-click="toggleRight()" style="margin-top: 8px;"> <md-icon
 			md-svg-icon="img/icons/more_vert.svg"></md-icon> </md-button>
 		</div>
-
-		<md-sidenav class="md-sidenav-right md-whiteframe-z2"
-			md-component-id="right"> <md-toolbar layout-padding>
-		<md-button class="md-accent" ng-click="close()">Sign-up
-		for Trial</md-button> <md-button class="md-accent"
-			ng-click="close();gotoPart('part2');">Pricing</md-button> <md-button
-			class="md-accent" ng-click="close()">Help</md-button> <md-button
-			class="md-accent" ng-click="close()">Contact Us</md-button> </md-toolbar> <md-content
-			layout-padding></md-content> </md-sidenav>
 	</section>
 	<hr>
-	</md-subheader>
+	</md-subheader> <md-sidenav class="md-sidenav-right md-whiteframe-z2"
+		md-component-id="right"> <md-toolbar layout-padding>
+	<md-button class="md-accent" ng-click="gotoPart('aboutGVSP')">About
+	GVSP</md-button> <md-button class="md-accent" ng-click="gotoPart('infoBrouchure')">Information
+	Brouchure</md-button> <md-button class="md-accent" ng-click="gotoPart('contactUs')">Contact
+	Us</md-button> <md-button class="md-accent" ng-click="loginClick()">
+	Login</md-button> </md-toolbar> <md-content layout-padding></md-content> </md-sidenav>
 	<div hide-xs layout-wrap id="tp1">
-		<img ng-src="/img/images/GandhiTeerth1.jpg" height="550px" width="100%" />
+		<img ng-src="/img/images/GandhiTeerth1.jpg" height="550px"
+			width="100%" />
 	</div>
 	<md-content id="aboutGVSP" flex-gt-xs layout="column"
 		style="padding-top: 5%;"> <md-toolbar class="md-hue-2">
@@ -193,13 +192,18 @@
 	<div class="md-toolbar-tools">
 		<h3 class="md-display-1">Information Brouchure</h3>
 	</div>
-	</md-toolbar><br> <div align="center">Click on Icon to Download Information Brouchure <br>
-	 <a target="_self" href="/img/BulkUploadFormats/book21.pdf"
-		download="Information Broucher.pdf"><img ng-src="/img/images/pdflogo.png"
-		class="md-card-image" height="100px" width="100px" ><md-tooltip>Downnload
-		Information Broucher</md-tooltip> </a> </div> </md-content> <md-content id="contactUs"
-		flex-gt-xs layout="column" style="padding-top: 3%;"> <md-toolbar
-		class="md-hue-2">
+	</md-toolbar> <br>
+	<div align="center">
+		Click on Icon to Download Information Brouchure <br> <a
+			target="_self"
+			href="/img/BulkUploadFormats/Gandhi Vichar Sanskar Pariksha CIRCULAR_2017.pdf"
+			download="Information Broucher.pdf"><img
+			ng-src="/img/images/pdflogo.png" class="md-card-image" height="100px"
+			width="100px"> <md-tooltip>Downnload Information
+			Broucher</md-tooltip> </a>
+	</div>
+	</md-content> <md-content id="contactUs" flex-gt-xs layout="column"
+		style="padding-top: 3%;"> <md-toolbar class="md-hue-2">
 	<div class="md-toolbar-tools">
 		<h3 class="md-display-1">Contact Us</h3>
 	</div>
