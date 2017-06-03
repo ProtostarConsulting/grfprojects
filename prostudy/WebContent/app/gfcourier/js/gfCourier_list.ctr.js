@@ -150,6 +150,7 @@ angular
 							gfCourierService
 									.fetchCourierListByPaging(
 											$scope.curUser.instituteID,
+											$scope.curUser.instituteObj.yearofExam,
 											pagingInfoTemp)
 									.then(
 											function(pagingInfoReturned) {
@@ -158,7 +159,7 @@ angular
 													$scope.gfCouriertList = $scope.gfCouriertList
 															.concat(pagingInfoReturned.entityList);
 												} else {
-													$scope.pSchoolList = pagingInfoReturned.entityList;
+													$scope.gfCouriertList = pagingInfoReturned.entityList;
 												}
 												$scope.gfCouriertListBackup = $scope.gfCouriertList;
 												$scope.query.totalSize = pagingInfoReturned.totalEntities;
@@ -188,7 +189,7 @@ angular
 							$scope.query.page = 1;
 							$scope
 									.schoolSerachTxtChange($scope.query.searchSchoolTxt
-											.trim());
+											.trim(), $scope.curUser.instituteObj.yearofExam);
 						} else {
 							// let user type whole 12 chars of GRF No
 							// restore $scope.gfCouriertList if was filtered
@@ -209,8 +210,8 @@ angular
 							$scope.query.pastEightDays = false;
 							$scope.query.page = 1;
 							var grfRegNo = (enteredGrfRegNo
-									.startsWith('P-2016-') && enteredGrfRegNo.length >= 12) ? enteredGrfRegNo
-									: 'P-2016-' + enteredGrfRegNo;
+									.startsWith('P-2017-') && enteredGrfRegNo.length >= 12) ? enteredGrfRegNo
+									: 'P-2017-' + enteredGrfRegNo;
 
 							$scope.grfRegNoChange(grfRegNo);
 						} else {
@@ -224,7 +225,7 @@ angular
 						}
 					}
 
-					$scope.schoolSerachTxtChange = function(searchSchoolTxt) {
+					$scope.schoolSerachTxtChange = function(searchSchoolTxt, yearOfExam) {
 
 						$scope.searchTextDone = true;
 						$scope.gfCouriertList = [];
@@ -233,7 +234,7 @@ angular
 						var gfCourierService = appEndpointSF
 								.getGFCourierService();
 						gfCourierService.searchCourierBySchoolName(
-								searchSchoolTxt).then(function(courierList) {
+								searchSchoolTxt, yearOfExam).then(function(courierList) {
 							if (courierList) {
 								$scope.gfCouriertList = courierList;
 								$scope.query.totalSize = courierList.length;
@@ -251,7 +252,7 @@ angular
 						var gfCourierService = appEndpointSF
 								.getGFCourierService();
 						gfCourierService
-								.getCourierByGRFNo(grfRegNo)
+								.getCourierByGRFNo(grfRegNo, $scope.curUser.instituteObj.yearofExam)
 								.then(
 										function(courierList) {
 											if (courierList) {
@@ -282,7 +283,7 @@ angular
 								.getGFCourierService();
 						gfCourierService
 								.getCourierByCourierType(
-										$scope.query.courierType)
+										$scope.query.courierType, $scope.curUser.instituteObj.yearofExam)
 								.then(
 										function(items) {
 											if (items) {
@@ -316,7 +317,7 @@ angular
 								.getGFCourierService();
 						gfCourierService
 								.getCourierByLogisticsType(
-										$scope.query.logisticsType)
+										$scope.query.logisticsType, $scope.curUser.instituteObj.yearofExam)
 								.then(
 										function(items) {
 											if (items) {

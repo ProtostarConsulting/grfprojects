@@ -60,16 +60,7 @@ public class PartnerSchoolService {
 	private Entity schoolAndStudentCountEntity = new Entity(
 			CURRENT_YEAR_SCHOOL_AND_STUDENT_COUNT_KIND,
 			CURRENT_YEAR_SCHOOL_AND_STUDENT_COUNT_KEY);
-	public static String currentYear;
-	static {
-		currentYear = DateUtil.getCurrentGVSPYear();
-	}
-
-	public static String previousYear;
-	static {
-		previousYear = DateUtil.getPreviousGVSPYear();
-	}
-
+	
 	// private boolean notificationEnabled = false;
 
 	@ApiMethod(name = "addPartnerSchool")
@@ -206,13 +197,13 @@ public class PartnerSchoolService {
 	public static ExamDetail getExamDeatilByCurretnYear(
 			PartnerSchoolEntity partnerSchoolEntity) {
 		ExamDetail currentYearExamDetail = null;
+		String currentYear = DateUtil.getCurrentGVSPYear();
 
 		if (partnerSchoolEntity == null)
 			return null;
 
 		for (ExamDetail exam : partnerSchoolEntity.getExamDetailList()) {
-			if (currentYear.equals(exam.getYearOfExam().trim())
-					|| previousYear.equals(exam.getYearOfExam().trim())) {
+			if (currentYear.equals(exam.getYearOfExam().trim())) {
 				currentYearExamDetail = exam;
 				break;
 			}
@@ -810,10 +801,11 @@ public class PartnerSchoolService {
 
 	@ApiMethod(name = "getFinSummayReportData", path = "getFinSummayReportData")
 	public FinSummayReportData getFinSummayReportData(
-			@Named("instituteID") Long id) {
+			@Named("instituteID") Long id, @Named("yearOfExam") String yearOfExam) {
 
 		MemcacheService memcacheService = MemcacheServiceFactory
 				.getMemcacheService();
+		String currentYear = DateUtil.getCurrentGVSPYear();
 		String memecacheKey = "FinSummayReportData-" + currentYear;
 
 		Object foundCacheObject = memcacheService.get(memecacheKey);
@@ -844,7 +836,7 @@ public class PartnerSchoolService {
 		}
 
 		updatePaymentModesData(finSummayReportData);
-		updateLogisticsData(finSummayReportData);
+		updateLogisticsData(finSummayReportData, yearOfExam);
 		Expiration expirationTenMins = Expiration.byDeltaSeconds(60 * 60);
 		// put in memcache.
 		memcacheService.put(memecacheKey, finSummayReportData,
@@ -853,10 +845,10 @@ public class PartnerSchoolService {
 		return finSummayReportData;
 	}
 
-	private void updateLogisticsData(FinSummayReportData finSummayReportData) {
+	private void updateLogisticsData(FinSummayReportData finSummayReportData, String yearOfExam) {
 		List<GFCourierEntity> courierList = ofy().load()
-				.type(GFCourierEntity.class).list();
-
+				.type(GFCourierEntity.class).filter("yearOfExam", yearOfExam).list();
+		System.out.println("courier list size*****"+courierList.size());
 		for (GFCourierEntity courierEntity : courierList) {
 			/*
 			 * if (courierEntity.getCourierDocketID() == null ||
@@ -872,6 +864,7 @@ public class PartnerSchoolService {
 							.getCourierCost();
 					finSummayReportData.chargesCourierTotal += courierEntity
 							.getCourierCost();
+					System.out.println("logistics type**"+courierEntity.getLogistics()+"charges****"+courierEntity.getCourierCost());
 					continue;
 				}
 			}
@@ -905,6 +898,7 @@ public class PartnerSchoolService {
 				}
 				paymentModeReportObj.noOfPayments++;
 			}
+			System.out.println("Payment is updated**");
 		}
 	}
 }// end of class

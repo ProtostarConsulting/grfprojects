@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -46,8 +47,7 @@ public class DownloadCourierReport extends HttpServlet {
 		String DATE_FORMAT = "dd/MMM/yyyy";
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
 		
-		List<GFCourierEntity> courierReportList = gfCourierService
-				.getCourierByCourierType(courierType);
+		List<GFCourierEntity> courierReportList = new ArrayList();
 		
 		OutputStream out=null;
 		

@@ -67,6 +67,7 @@ angular
 						$scope.newCourierObj.courierTo = $scope.partnerSchool.courierTo;
 						$scope.newCourierObj.courierType = $scope.partnerSchool.courierType;
 						$scope.newCourierObj.logistics = $scope.partnerSchool.logistics;
+						$scope.newCourierObj.yearOfExam = $scope.yearOfExam;
 
 						for (var i = 0; i < $scope.tempPartnerSchool.examDetailList.bookSummary.bookDetail.length; i++) {
 							for (var j = 0; j < $scope.bookStocks.length; j++) {

@@ -41,6 +41,8 @@ public class GFCourierEntity extends BaseEntity {
 	private String courierDispatchNotes;
 	private String courierPhone1;
 	private String courierPhone2;
+	@Index
+	private String yearOfExam;
 
 	public String getNote() {
 		return note;
@@ -220,5 +222,13 @@ public class GFCourierEntity extends BaseEntity {
 
 	public void setCourierPhone2(String courierPhone2) {
 		this.courierPhone2 = courierPhone2;
+	}
+
+	public String getYearOfExam() {
+		return yearOfExam;
+	}
+
+	public void setYearOfExam(String yearOfExam) {
+		this.yearOfExam = yearOfExam;
 	}
 }

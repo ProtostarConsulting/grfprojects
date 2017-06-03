@@ -9,7 +9,7 @@
 				ng-show="setExamYearForm.yearOfExam.$error.required"
 				class="mandatory">*</span>
 			</label> <md-select name="yearOfExam" aria-label="YearOfExam"
-				ng-model="yearOfExam"> <md-option
+				ng-model="yearOfExam"> <md-option ng-selected = "Year == curUser.instituteObj.yearofExam"
 				ng-value="Year" ng-repeat="Year in Years | orderBy:Year">{{Year}}</md-option>
 			</md-select>
 			<div ng-messages="setExamYearForm.yearOfExam.$error"

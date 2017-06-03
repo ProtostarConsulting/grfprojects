@@ -56,6 +56,9 @@ public class DownloadFinicialSummaryReport extends HttpServlet {
 
 		String summaryReportFilterType2 = request
 				.getParameter("summaryReportFilterType2");
+		
+		String yearOfExam = request
+				.getParameter("yearOfExam");
 
 		String DATE_FORMAT = "dd-MM-yyyy";
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
@@ -161,7 +164,7 @@ public class DownloadFinicialSummaryReport extends HttpServlet {
 
 			GFCourierService gfCourierService = new GFCourierService();
 			List<GFCourierEntity> courierReportList = gfCourierService
-					.getCourierByLogisticsType(summaryReportFilterType2);
+					.getCourierByLogisticsType(summaryReportFilterType2, yearOfExam);
 			try {
 
 				response.setContentType("text/csv");

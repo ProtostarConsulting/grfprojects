@@ -19,7 +19,7 @@ angular
 
 						PartnerService
 								.getFinSummayReportData(
-										$scope.curUser.instituteID)
+										$scope.curUser.instituteID, $scope.curUser.instituteObj.yearofExam)
 								.then(
 										function(finSummayReportData) {
 											$scope.finSummayReportData = finSummayReportData;
@@ -69,7 +69,7 @@ angular
 
 					}
 
-					var date1 = new Date(2016, 11, 11);
+					var date1 = new Date();
 					var currentYear = date1.getFullYear();
 					currentYear = currentYear.toString().substr(2, 2);
 					currentYear = date1.getFullYear() + "-"
@@ -147,7 +147,7 @@ angular
 						var gfCourierService = appEndpointSF
 								.getGFCourierService();
 						gfCourierService
-								.getCourierByLogisticsType(courierLogistics)
+								.getCourierByLogisticsType(courierLogistics, $scope.curUser.instituteObj.yearofExam)
 								.then(
 										function(gfCouriertList) {
 											$scope.fitlteredCourierList = gfCouriertList;
@@ -188,7 +188,9 @@ angular
 						document.location.href = "DownloadFinicialSummaryReport?summaryReportFilterType1="
 								+ $scope.otherFilterType
 								+ "&summaryReportFilterType2="
-								+ $scope.filterSubType;
+								+ $scope.filterSubType
+								+ "&yearOfExam="
+								+ $scope.curUser.instituteObj.yearofExam;
 					}
 
 					$scope.getRowStyle = function(even) {
