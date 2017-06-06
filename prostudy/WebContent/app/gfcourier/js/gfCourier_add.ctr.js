@@ -52,6 +52,10 @@ angular
 						$scope.tempCourierObj.instituteID = $scope.curUser.instituteID;
 						if($scope.partnerSchool)
 							$scope.tempCourierObj.schoolName = $scope.partnerSchool
+							
+						if($scope.addNewCourierSchoolGRFNo){
+							$scope.tempCourierObj.yearOfExam = $scope.curUser.instituteObj.yearofExam;
+						}	
 
 						$scope.tempCourierObj.modifiedDate = new Date();
 						$scope.tempCourierObj.modifiedBy = $scope.curUser.email_id;
