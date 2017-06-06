@@ -116,7 +116,7 @@ angular
 							$scope.schools = [];
 							var PartnerService = appEndpointSF
 									.getPartnerSchoolService();
-							PartnerService.getSchoolByselfUpdateStatus().then(
+							PartnerService.getSchoolByselfUpdateStatus($scope.curUser.instituteObj.yearofExam).then(
 									function(selfUpdateSchoolList) {
 										$scope.schools = selfUpdateSchoolList;
 									});

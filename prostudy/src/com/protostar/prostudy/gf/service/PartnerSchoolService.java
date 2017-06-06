@@ -301,9 +301,11 @@ public class PartnerSchoolService {
 	}
 
 	@ApiMethod(name = "getSchoolByselfUpdateStatus", path = "getSchoolByselfUpdateStatus")
-	public List<PartnerSchoolEntity> getSchoolByselfUpdateStatus() {
+	public List<PartnerSchoolEntity> getSchoolByselfUpdateStatus(@Named("yearOfExam") String yearOfExam) {
+		String[] yearofExamArray = new String[1];
+		yearofExamArray[0] = yearOfExam;
 		List<PartnerSchoolEntity> schoolList = ofy().load()
-				.type(PartnerSchoolEntity.class)
+				.type(PartnerSchoolEntity.class).filter("examDetailIndex in", yearofExamArray)
 				.filter("schoolSelfUpdate", true).list();
 
 		Set<Long> schoolIds = new HashSet<Long>();

@@ -2000,10 +2000,10 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 		return deferred.promise;
 	}
 
-	PartnerSchoolService.getSchoolByselfUpdateStatus = function() {
+	PartnerSchoolService.getSchoolByselfUpdateStatus = function(yearOfExam) {
 		var deferred = $q.defer();
 		gapi.client.partnerSchoolService.getSchoolByselfUpdateStatus({
-
+			'yearOfExam' : yearOfExam
 		}).execute(function(resp) {
 			deferred.resolve(resp.items);
 
