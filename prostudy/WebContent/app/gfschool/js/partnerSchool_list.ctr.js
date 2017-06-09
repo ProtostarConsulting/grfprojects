@@ -126,14 +126,14 @@ angular
 					}
 
 					$scope.searchTextDone = false;
-					$scope.searchSchoolTxtChange = function() {
+					$scope.searchSchoolTxtChange = function(yearOfExam) {
 						if ($scope.query.searchSchoolTxt
 								&& $scope.query.searchSchoolTxt.length >= 3) {
 							$scope.query.searchByGrfRegNo = "";
 							$scope.query.page = 1;
 							$scope
 									.schoolSerachTxtChange($scope.query.searchSchoolTxt
-											.trim(), $scope.curUser.instituteObj.yearofExam);
+											.trim(), yearOfExam);
 						} else {
 							// let user type whole 12 chars of GRF No
 							// restore $scope.schools if was filtered
@@ -144,7 +144,7 @@ angular
 							}
 						}
 					}
-					$scope.searchByGrfRegNoChange = function() {
+					$scope.searchByGrfRegNoChange = function(yearOfExam) {
 						var enteredGrfRegNo = $scope.query.searchByGrfRegNo
 								.trim();
 						if (enteredGrfRegNo && enteredGrfRegNo.length >= 5) {
@@ -154,7 +154,7 @@ angular
 									.startsWith('P-2017-') && enteredGrfRegNo.length >= 12) ? enteredGrfRegNo
 									: 'P-2017-' + enteredGrfRegNo;
 
-							$scope.grfRegNoChange(grfRegNo, $scope.curUser.instituteObj.yearofExam);
+							$scope.grfRegNoChange(grfRegNo, yearOfExam);
 						} else {
 							// let user type whole 5 chars of GRF No
 							// restore $scope.schools if was filtered
@@ -270,6 +270,7 @@ angular
 											function(pagingInfoReturned) {
 												$scope.pagingInfoReturned = pagingInfoReturned;
 												if ($scope.pSchoolList.length < pagingInfoReturned.totalEntities) {
+													$scope.pSchoolList = [];
 													$scope.pSchoolList = $scope.pSchoolList
 															.concat(pagingInfoReturned.entityList);
 												} else {

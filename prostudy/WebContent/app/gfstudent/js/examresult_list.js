@@ -123,7 +123,8 @@ angular
 							if ($scope.query.pendingResults) {
 								gfStudentService
 										.fetchExamResultPendingByPaging(
-												$scope.curUser.instituteID)
+												$scope.curUser.instituteID,
+												$scope.curUser.instituteObj.yearofExam)
 										.then(
 												function(pagingInfoReturned) {
 													initpagingInfoReturned(pagingInfoReturned);
@@ -133,6 +134,7 @@ angular
 								gfStudentService
 										.fetchExamResultByPaging(
 												$scope.curUser.instituteID,
+												$scope.curUser.instituteObj.yearofExam,
 												pagingInfoTemp)
 										.then(
 												function(pagingInfoReturned) {
@@ -289,7 +291,7 @@ angular
 								.getGFStudentService();
 						gfStudentService
 								.getExamResultsPendingGRFReview(
-										$scope.curUser.instituteID)
+										$scope.curUser.instituteID,$scope.curUser.instituteObj.yearofExam)
 								.then(
 										function(resultList) {
 											if (resultList) {
@@ -307,7 +309,7 @@ angular
 						var gfStudentService = appEndpointSF
 								.getGFStudentService();
 						gfStudentService.fetchExamResultPendingByPaging(
-								$scope.curUser.instituteID).then(
+								$scope.curUser.instituteID,$scope.curUser.instituteObj.yearofExam).then(
 								function(pagingInfoReturned) {
 									initpagingInfoReturned(pagingInfoReturned);
 									$scope.searchTextDone = false;

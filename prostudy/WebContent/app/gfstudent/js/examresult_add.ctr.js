@@ -41,7 +41,7 @@ angular
 									: 'guest',
 							school : school,
 							institute : school.institute,
-							examYear : $scope.examDetail.yearOfExam,
+							examYear : $scope.curUser.instituteObj.yearofExam,
 							grfReviewed : $scope.curUser ? true : false
 						};
 					}

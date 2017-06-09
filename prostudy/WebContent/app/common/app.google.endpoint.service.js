@@ -92,30 +92,33 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 		return deferred.promise;
 	}
 
-	GFStudentService.fetchExamResultByPaging = function(id, pagingInfo) {
+	GFStudentService.fetchExamResultByPaging = function(id, yearOfExam, pagingInfo) {
 		var deferred = $q.defer();
 		gapi.client.gfStudentService.fetchExamResultByPaging({
-			'instituteID' : id
+			'instituteID' : id,
+			'yearOfExam' : yearOfExam
 		}, pagingInfo).execute(function(resp) {
 			deferred.resolve(resp);
 		});
 		return deferred.promise;
 	}
 
-	GFStudentService.fetchExamResultPendingByPaging = function(id, pagingInfo) {
+	GFStudentService.fetchExamResultPendingByPaging = function(id, yearOfExam, pagingInfo) {
 		var deferred = $q.defer();
 		gapi.client.gfStudentService.fetchExamResultPendingByPaging({
-			'instituteID' : id
+			'instituteID' : id,
+			'yearOfExam' : yearOfExam
 		}, pagingInfo).execute(function(resp) {
 			deferred.resolve(resp);
 		});
 		return deferred.promise;
 	}
 
-	GFStudentService.getExamResultsPendingGRFReview = function(id) {
+	GFStudentService.getExamResultsPendingGRFReview = function(id, yearOfExam) {
 		var deferred = $q.defer();
 		gapi.client.gfStudentService.getExamResultsPendingGRFReview({
-			'instituteID' : id
+			'instituteID' : id,
+			'yearOfExam' : yearOfExam
 		}).execute(function(resp) {
 			deferred.resolve(resp.items);
 		});

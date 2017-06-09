@@ -131,10 +131,10 @@ public class GFStudentService {
 
 	@ApiMethod(name = "fetchExamResultPendingByPaging", path = "fetchExamResultPendingByPaging")
 	public EntityPagingInfo fetchExamResultPendingByPaging(
-			@Named("instituteID") Long instituteID, EntityPagingInfo pagingInfo) {
+			@Named("instituteID") Long instituteID, @Named("yearOfExam") String yearOfExam, EntityPagingInfo pagingInfo) {
 
 		Query<GFExamResultEntity> resultQuery = ofy().load()
-				.type(GFExamResultEntity.class).project("school")
+				.type(GFExamResultEntity.class).filter("examYear",yearOfExam).project("school")
 				.distinct(true);
 		List<GFExamResultEntity> examResultList = resultQuery.list();
 		List<Long> resultSchoolIds = new ArrayList<Long>(examResultList.size());
@@ -178,9 +178,9 @@ public class GFStudentService {
 
 	@ApiMethod(name = "getExamResultsPendingGRFReview", path = "getExamResultsPendingGRFReview")
 	public List<GFExamResultEntity> getExamResultsPendingGRFReview(
-			@Named("instituteID") Long id) {
+			@Named("instituteID") Long id, @Named("yearOfExam") String yearOfExam) {
 		List<GFExamResultEntity> resultList = ofy().load()
-				.type(GFExamResultEntity.class).filter("grfReviewed", false)
+				.type(GFExamResultEntity.class).filter("examYear",yearOfExam).filter("grfReviewed", false)
 				.project("createdDate", "school").distinct(true).list();
 
 		Set<Long> schoolIds = new HashSet<Long>();
@@ -199,7 +199,7 @@ public class GFStudentService {
 
 	@ApiMethod(name = "fetchExamResultByPaging", path = "fetchExamResultByPaging")
 	public EntityPagingInfo fetchExamResultByPaging(
-			@Named("instituteID") Long instituteID, EntityPagingInfo pagingInfo) {
+			@Named("instituteID") Long instituteID, @Named("yearOfExam") String yearOfExam, EntityPagingInfo pagingInfo) {
 
 		/*
 		 * logger.info("instituteID:" + instituteID);
@@ -208,7 +208,7 @@ public class GFStudentService {
 		 */
 
 		Query<GFExamResultEntity> filterInstituteQuery = ofy().load()
-				.type(GFExamResultEntity.class).project("school")
+				.type(GFExamResultEntity.class).filter("examYear",yearOfExam).project("school")
 				.distinct(true);
 
 		int totalCount = filterInstituteQuery.count();

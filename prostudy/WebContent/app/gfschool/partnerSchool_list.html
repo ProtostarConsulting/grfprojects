@@ -9,11 +9,11 @@
 			ng-hide="curUser.role == 'Teacher'">
 			<md-input-container flex> <label>Search
 				By School Name Or City</label> <input ng-model="query.searchSchoolTxt"
-				ng-change="searchSchoolTxtChange()"
+				ng-change="searchSchoolTxtChange(query.selectedYearOfExam)"
 				ng-model-options="{ debounce: 1000 }"> </md-input-container>
 			<md-input-container flex> <label>Search
 				By Grf. Reg. Or Form No.</label> <input ng-model="query.searchByGrfRegNo"
-				ng-change="searchByGrfRegNoChange()"
+				ng-change="searchByGrfRegNoChange(query.selectedYearOfExam)"
 				ng-model-options="{ debounce: 1000 }"> </md-input-container>
 			<md-input-container flex> <md-select
 				ng-model="query.selectedYearOfExam" id="selectedYear"
