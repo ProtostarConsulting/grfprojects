@@ -281,7 +281,7 @@
 				<md-input-container flex="70"> <md-select
 					aria-label="YearOfExam" ng-change="getExamByYear(yearOfExam)"
 					ng-model="yearOfExam" id="selectedYear"> <md-option
-					ng-selected="Year == curUser.instituteObj.yearofExam"
+					ng-selected="Year == yearOfExam"
 					ng-value="Year" ng-repeat="Year in Years | orderBy:Year">{{Year}}</md-option>
 				</md-select> </md-input-container>
 			</div>

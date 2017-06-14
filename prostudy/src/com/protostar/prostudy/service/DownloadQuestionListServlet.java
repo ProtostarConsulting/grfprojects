@@ -13,15 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import jxl.Workbook;
-import jxl.write.Label;
-import jxl.write.WritableSheet;
-import jxl.write.WritableWorkbook;
-
 import com.protostar.prostudy.entity.QuestionEntity;
-import com.protostar.prostudy.gf.entity.GFStudentEntity;
-import com.protostar.prostudy.gf.service.GFStudentService;
-import com.sun.xml.internal.messaging.saaj.packaging.mime.util.QEncoderStream;
 
 /**
  * Servlet implementation class DownloadQuestionListServlet

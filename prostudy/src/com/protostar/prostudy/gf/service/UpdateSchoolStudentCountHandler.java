@@ -42,7 +42,7 @@ public class UpdateSchoolStudentCountHandler extends HttpServlet {
 						+ new Date());
 		System.out
 				.println("getFinSummayReportData: started job: " + new Date());
-		schoolService.getFinSummayReportData(null);
+		//schoolService.getFinSummayReportData(null);
 		System.out.println("getFinSummayReportData: ended job: " + new Date());
 
 	}

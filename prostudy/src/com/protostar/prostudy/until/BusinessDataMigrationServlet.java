@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.googlecode.objectify.cmd.QueryKeys;
+import com.protostar.prostudy.gf.entity.GFBookEntity;
 import com.protostar.prostudy.gf.entity.GFBookStockEntity;
 import com.protostar.prostudy.gf.entity.GFBookTransactionEntity;
+import com.protostar.prostudy.gf.entity.PartnerSchoolEntity;
 
 public class BusinessDataMigrationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -22,24 +24,40 @@ public class BusinessDataMigrationServlet extends HttpServlet {
 		super();
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 
 		String servletMsg = "Migration Done!";
 
-		// Re-set Book Qty to 0
-		List<GFBookStockEntity> list = ofy().load().type(GFBookStockEntity.class).list();
-		for (GFBookStockEntity gfBookStockEntity : list) {
-			gfBookStockEntity.setBookQty(0);
-		}
+		// // Re-set Book Qty to 0
+		// List<GFBookStockEntity> list = ofy().load()
+		// .type(GFBookStockEntity.class).list();
+		// for (GFBookStockEntity gfBookStockEntity : list) {
+		// gfBookStockEntity.setBookQty(0);
+		// }
+		//
+		// ofy().save().entities(list).now();
+		// List<GFBookEntity> list2 =
+		// ofy().load().type(GFBookEntity.class).list();
+		// for (GFBookEntity gfBookEntity : list2) {
+		// gfBookEntity.setBookQty(0);
+		// }
+		//
+		// ofy().save().entities(list2).now();
+		//
+		// // Delete All Old Book Transactions
+		//
+		// QueryKeys<GFBookTransactionEntity> keys = ofy().load()
+		// .type(GFBookTransactionEntity.class).keys();
+		//
+		// ofy().delete().keys(keys).now();
 
-		ofy().save().entities(list).now();
+		// Touch all schools
 
-		// Delete All Old Book Transactions
+		List<PartnerSchoolEntity> list = ofy().load()
+				.type(PartnerSchoolEntity.class).list();
 
-		QueryKeys<GFBookTransactionEntity> keys = ofy().load().type(GFBookTransactionEntity.class).keys();
-
-		ofy().delete().keys(keys).now();
+		ofy().save().entities(list);
 
 		PrintWriter writer = response.getWriter();
 		writer.write(servletMsg);

@@ -19,7 +19,7 @@
 				ng-model="query.selectedYearOfExam" id="selectedYear"
 				ng-change="yearOfExamChanged(query.selectedYearOfExam)" placeholder="--Select Exam Year--">
 			<md-option ng-value="Other" ng-model="other">All</md-option> <md-option
-				ng-selected = "Year == curUser.instituteObj.yearofExam"
+				ng-selected = "Year == query.selectedYearOfExam"
 				ng-value="Year" ng-repeat="Year in Years  | orderBy:Year">{{Year}}</md-option>
 			</md-select> </md-input-container>
 			<md-input-container flex> <md-checkbox

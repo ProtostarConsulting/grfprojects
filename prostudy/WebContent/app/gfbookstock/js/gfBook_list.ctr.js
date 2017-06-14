@@ -207,7 +207,7 @@ angular
 
 					$scope.waitForServiceLoad = function() {
 						if (appEndpointSF.is_service_ready) {
-							$scope.getGFBookByInstituteId();
+							$scope.getGFBookByInstituteId(true);
 						} else {
 							$log.debug("Services Not Loaded, watiting...");
 							$timeout($scope.waitForServiceLoad, 1000);

@@ -189,11 +189,7 @@ angular
 					$scope.getPrvYears();
 					// ---get curyear ------
 					$scope.getCurYear = function() {
-						var date = new Date();
-						var curyear = date.getFullYear();
-						curyear = curyear.toString().substr(2, 2);
-						$scope.yearOfExam = date.getFullYear() + "-"
-								+ (Number(curyear) + 1);
+						$scope.yearOfExam = $scope.curUser.instituteObj.yearofExam;
 					}
 					$scope.getCurYear();
 

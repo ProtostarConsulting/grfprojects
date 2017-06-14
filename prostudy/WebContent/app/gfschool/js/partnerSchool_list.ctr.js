@@ -17,10 +17,12 @@ angular
 						totalSizeBackup : 0,
 						searchByGrfRegNo : '',
 						searchSchoolTxt : '',
-						selectedYearOfExam : '',
+						selectedYearOfExam : $scope.curUser.instituteObj.yearofExam,
 						entityList : null,
 						schoolSelfUpdate : false
 					};
+
+					var schoolListCacheKey = "fetchSchoolsListByPaging";
 					$scope.pSchoolList = [];
 					$scope.schools = [];
 					$scope.pagingInfoReturned = null;
@@ -28,7 +30,7 @@ angular
 							: null;
 					$scope.refreshListPage = function() {
 						// Remove cache and reset everything.
-						var schoolListCacheKey = "fetchSchoolsListByPaging";
+
 						ajsCache.remove(schoolListCacheKey);
 						$scope.query.page = 1;
 						$scope.pagingInfoReturned = null;
@@ -49,7 +51,6 @@ angular
 							return;
 						}
 
-						var schoolListCacheKey = "fetchSchoolsListByPaging";
 						// Note this key has to be unique across application
 						// else it will return unexpected result.
 						if (!angular.isUndefined(ajsCache
@@ -57,7 +58,8 @@ angular
 							$log.debug("Found List in Cache, return it.")
 							$scope.queriedSchoolDataCache = ajsCache
 									.get(schoolListCacheKey);
-							$scope.pSchoolList = $scope.queriedSchoolDataCache.entityList;
+							$scope.pSchoolList = $scope.queriedSchoolDataCache.entityList ? $scope.queriedSchoolDataCache.entityList
+									: [];
 							$scope.schools = $scope.pSchoolList;
 							$scope.query.totalSize = $scope.queriedSchoolDataCache.totalSize;
 							$scope.query.totalSizeBackup = $scope.queriedSchoolDataCache.totalSizeBackup;
@@ -81,7 +83,7 @@ angular
 							PartnerService
 									.fetchSchoolsListByPaging(
 											$scope.curUser.instituteID,
-											$scope.curUser.instituteObj.yearofExam,
+											$scope.query.selectedYearOfExam,
 											pagingInfoTemp)
 									.then(
 											function(pagingInfoReturned) {
@@ -111,13 +113,23 @@ angular
 						}
 					}
 
+					$scope.yearOfExamChanged = function(selectedYearOfExam) {
+						// $scope.query.selectedYearOfExam
+						// At the moment do nothing.
+						if ($scope.curUser.role == "Admin") {
+							$scope.query.selectedYearOfExam = selectedYearOfExam;
+							$scope.refreshListPage();
+						}
+					}
+
 					$scope.selfUpdateChkClicked = function() {
 						if ($scope.query.schoolSelfUpdate) {
 							$scope.schools = [];
 							var PartnerService = appEndpointSF
 									.getPartnerSchoolService();
-							PartnerService.getSchoolByselfUpdateStatus($scope.curUser.instituteObj.yearofExam).then(
-									function(selfUpdateSchoolList) {
+							PartnerService.getSchoolByselfUpdateStatus(
+									$scope.curUser.instituteObj.yearofExam)
+									.then(function(selfUpdateSchoolList) {
 										$scope.schools = selfUpdateSchoolList;
 									});
 						} else {
@@ -131,9 +143,9 @@ angular
 								&& $scope.query.searchSchoolTxt.length >= 3) {
 							$scope.query.searchByGrfRegNo = "";
 							$scope.query.page = 1;
-							$scope
-									.schoolSerachTxtChange($scope.query.searchSchoolTxt
-											.trim(), yearOfExam);
+							$scope.schoolSerachTxtChange(
+									$scope.query.searchSchoolTxt.trim(),
+									yearOfExam);
 						} else {
 							// let user type whole 12 chars of GRF No
 							// restore $scope.schools if was filtered
@@ -151,8 +163,8 @@ angular
 							$scope.query.searchSchoolTxt = "";
 							$scope.query.page = 1;
 							var grfRegNo = (enteredGrfRegNo
-									.startsWith('P-2017-') && enteredGrfRegNo.length >= 12) ? enteredGrfRegNo
-									: 'P-2017-' + enteredGrfRegNo;
+									.startsWith('P-20') && enteredGrfRegNo.length >= 12) ? enteredGrfRegNo
+									: 'P-20' + enteredGrfRegNo;
 
 							$scope.grfRegNoChange(grfRegNo, yearOfExam);
 						} else {
@@ -166,7 +178,8 @@ angular
 						}
 					}
 
-					$scope.schoolSerachTxtChange = function(searchSchoolTxt, yearOfExam) {
+					$scope.schoolSerachTxtChange = function(searchSchoolTxt,
+							yearOfExam) {
 
 						$scope.searchTextDone = true;
 						$scope.schools = [];
@@ -174,18 +187,17 @@ angular
 								+ searchSchoolTxt);
 						var partnerSchoolService = appEndpointSF
 								.getPartnerSchoolService();
-						partnerSchoolService
-								.searchSchoolByName(searchSchoolTxt, yearOfExam)
-								.then(
-										function(resp) {
-											if (resp && resp.length) {
-												$scope.schools = $scope.schools
-														.concat(resp);
-												$scope.query.totalSize = resp.length;
-											}
+						partnerSchoolService.searchSchoolByName(
+								searchSchoolTxt, yearOfExam).then(
+								function(resp) {
+									if (resp && resp.length) {
+										$scope.schools = $scope.schools
+												.concat(resp);
+										$scope.query.totalSize = resp.length;
+									}
 
-											$scope.searchTextDone = false;
-										});
+									$scope.searchTextDone = false;
+								});
 					}
 
 					$scope.iscurUserRole = function() {
@@ -202,7 +214,8 @@ angular
 						var partnerSchoolService = appEndpointSF
 								.getPartnerSchoolService();
 						partnerSchoolService
-								.getSchoolByAutoGeneratedID(grfRegNo, yearOfExam)
+								.getSchoolByAutoGeneratedID(grfRegNo,
+										yearOfExam)
 								.then(
 										function(resp) {
 											if (resp && resp.items) {
@@ -247,49 +260,6 @@ angular
 					}
 
 					$scope.getPrvYears();
-
-					$scope.yearOfExamChanged = function(selectedYearOfExam) {
-						// $scope.query.selectedYearOfExam
-						// At the moment do nothing.
-						if ($scope.curUser.role == "Admin") {
-							var pagingInfoTemp = {
-								entityList : null,
-								startPage : $scope.query.page,
-								limit : $scope.query.limit,
-								totalEntities : 0,
-								webSafeCursorString : null
-							};
-
-							var PartnerService = appEndpointSF
-									.getPartnerSchoolService();
-							PartnerService
-									.fetchSchoolsListByPaging(
-											$scope.curUser.instituteID,
-											selectedYearOfExam, pagingInfoTemp)
-									.then(
-											function(pagingInfoReturned) {
-												$scope.pagingInfoReturned = pagingInfoReturned;
-												if ($scope.pSchoolList.length < pagingInfoReturned.totalEntities) {
-													$scope.pSchoolList = [];
-													$scope.pSchoolList = $scope.pSchoolList
-															.concat(pagingInfoReturned.entityList);
-												} else {
-													$scope.pSchoolList = pagingInfoReturned.entityList;
-												}
-												$scope.schools = $scope.pSchoolList;
-												$scope.query.totalSize = pagingInfoReturned.totalEntities;
-												$scope.query.totalSizeBackup = pagingInfoReturned.totalEntities;
-
-												var schoolListCacheKey = "fetchSchoolsListByPaging";
-												$scope.query.entityList = $scope.pSchoolList;
-												ajsCache.put(
-														schoolListCacheKey,
-														$scope.query);
-
-												$scope.loading = false;
-											});
-						}
-					}
 
 					$scope.fetchSchoolByInstitute = function() {
 						$scope.schools = [];
