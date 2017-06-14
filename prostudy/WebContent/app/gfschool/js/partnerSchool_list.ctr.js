@@ -230,22 +230,10 @@ angular
 										});
 					}
 
-					$scope.getNextYears = function() {
-						var date = new Date();
-
-						for (var i = 0; i < 3; i++) {
-							var year = date.getFullYear();
-							year = year.toString().substr(2, 2);
-
-							$scope.Years.push(date.getFullYear() + "-"
-									+ (Number(year) + 1));
-							date.setYear(date.getFullYear() + 1);
-						}
-					}
+					
 
 					$scope.Years = [];
-					$scope.getNextYears();
-
+					
 					$scope.getPrvYears = function() {
 						var date = new Date();
 
@@ -260,6 +248,10 @@ angular
 					}
 
 					$scope.getPrvYears();
+					$scope.getCurYear = function() {
+						$scope.Years.push($scope.curUser.instituteObj.yearofExam);						
+					}
+					$scope.getCurYear();
 
 					$scope.fetchSchoolByInstitute = function() {
 						$scope.schools = [];

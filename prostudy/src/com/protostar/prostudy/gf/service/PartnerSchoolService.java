@@ -658,20 +658,22 @@ public class PartnerSchoolService {
 						// count.
 						// studNumbers =
 						// calculateTotalStudents(examDeatilByCurretnYear);
+						if (studNumbers > 0) {
+							if (schoolEntity.getCategory().equals(
+									"School & Junior College")) {
+								schoolCount++;
+								schoolStudentcount += studNumbers;
+							} else {
+								collegeCount++;
+								collegeStudentcount += studNumbers;
+							}
+						}
 					} catch (Exception ex) {
 						logger.warning("updateCurrentYearSchoolAndStudentCount: "
 								+ ex.getMessage());
 					}
 				}
 
-				if (schoolEntity.getCategory()
-						.equals("School & Junior College")) {
-					schoolCount++;
-					schoolStudentcount += studNumbers;
-				} else {
-					collegeCount++;
-					collegeStudentcount += studNumbers;
-				}
 			} catch (Exception ex) {
 				logger.warning("ex: " + ex.getMessage());
 				continue;
