@@ -306,4 +306,14 @@
     <servlet-name>PrintCertificatePdf</servlet-name>
     <url-pattern>/PrintCertificatePdf</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>BusinessDataMigrationServlet</display-name>
+    <servlet-name>BusinessDataMigrationServlet</servlet-name>
+    <servlet-class>com.protostar.prostudy.until.BusinessDataMigrationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BusinessDataMigrationServlet</servlet-name>
+    <url-pattern>/BusinessDataMigrationServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
