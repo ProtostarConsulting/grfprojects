@@ -367,7 +367,7 @@ angular
 					$scope.getSchoolInstituteList = function() {
 						var partnerSchoolService = appEndpointSF
 								.getPartnerSchoolService();
-						partnerSchoolService.getPartnerSchoolInstituteList()
+						partnerSchoolService.getPartnerSchoolInstituteList($scope.curUser.instituteID)
 								.then(function(list) {
 									$scope.tempInstituteList = list;
 								});

@@ -11,7 +11,7 @@
 	<threadsafe>true</threadsafe>
 
 	<!-- <instance-class>F1</instance-class> -->
-	<instance-class>F4_1G</instance-class>
+	<instance-class>F4</instance-class>
 
 	<!-- Configure java.util.logging -->
 	<system-properties>

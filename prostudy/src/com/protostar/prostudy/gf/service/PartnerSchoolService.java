@@ -168,13 +168,6 @@ public class PartnerSchoolService {
 		return partnerSchoolInstitute;
 	}
 
-	@ApiMethod(name = "getPartnerSchoolInstituteList", path = "getPartnerSchoolInstituteList")
-	public List<PartnerSchoolInstituteEntity> getPartnerSchoolInstituteList() {
-		List<PartnerSchoolInstituteEntity> schoolInstituteList = ofy().load()
-				.type(PartnerSchoolInstituteEntity.class).list();
-		return schoolInstituteList;
-	}
-
 	@ApiMethod(name = "getPartnerSchoolInstituteById", path = "getPartnerSchoolInstituteById")
 	public PartnerSchoolInstituteEntity getPartnerSchoolInstituteById(
 			@Named("id") Long id) {
@@ -470,6 +463,15 @@ public class PartnerSchoolService {
 		return pagingInfo;
 	}
 
+	@ApiMethod(name = "getPartnerSchoolInstituteList", path = "getPartnerSchoolInstituteList")
+	public List<PartnerSchoolInstituteEntity> getPartnerSchoolInstituteList(
+			@Named("instituteID") Long id) {
+		List<PartnerSchoolInstituteEntity> schoolInstituteList = ofy().load()
+				.type(PartnerSchoolInstituteEntity.class)
+				.filter("instituteID", id).list();
+		return schoolInstituteList;
+	}
+
 	@ApiMethod(name = "fetchSchoolInstituteListByPaging", path = "fetchSchoolInstituteListByPaging")
 	public EntityPagingInfo fetchSchoolInstituteListByPaging(
 			@Named("instituteID") Long id, EntityPagingInfo pagingInfo) {
@@ -496,9 +498,7 @@ public class PartnerSchoolService {
 		Cursor cursor = iterator.getCursor();
 		pagingInfo.setEntityList(schoolInstituteList);
 		pagingInfo.setWebSafeCursorString(cursor.toWebSafeString());
-		pagingInfo.setTotalEntities(ofy().load()
-				.type(PartnerSchoolInstituteEntity.class)
-				.filter("instituteID", id).count());
+		pagingInfo.setTotalEntities(filterInstituteQuery.count());
 
 		return pagingInfo;
 	}
