@@ -1,61 +1,46 @@
 <div ng-show="loading">
 
-<h4 class="md-title">Loading...Please wait...</h4>
+	<h4 class="md-title">Loading...Please wait...</h4>
 
-<md-progress-linear class="md-warn" md-mode="buffer" value="30"
-	md-buffer-value="70" ng-disabled="false"></md-progress-linear>
+	<md-progress-linear class="md-warn" md-mode="buffer" value="30"
+		md-buffer-value="70" ng-disabled="false"></md-progress-linear>
 </div>
 <div ng-show="deleting ">Please wait, user is deleting...</div>
 <div ng-hide="loading">
-
-	<h3 class="md-headline">Directory User List</h3>
-	<p>&nbsp;</p>
-
-	<section layout="row" layout-align="end end" flex>
-		<!-- <md-button ng-show="directoryUserList.length > 0"
-			class="md-raised md-primary" id="downloadExcel"
-			ng-click="downloadUserList()">Download UserList <md-tooltip>
-		Download UserList</md-tooltip> </md-button> -->
-
-		<md-button class="md-raised md-primary" id="uplodeExcel"
-			ng-click="UplodeExcel($event)">Upload UserList<md-tooltip>
-		Upload UserList</md-tooltip> </md-button>
-	</section>
 	<div>
 		<md-input-container flex> <label>Search
 			User By Email</label> <input ng-model="searchEmail"> </md-input-container>
 	</div>
-	<!-- <md-data-table-toolbar class="alternate" ng-show="selected.length">
-	<div>{{selected.length}} {{selected.length > 1 ? 'Users' :
-		'User'}} selected</div>
-	</md-data-table-toolbar> -->
 	<div>
-	<md-toolbar class="md-table-toolbar md-default" ng-hide="selected.length">
-          <div class="md-toolbar-tools">
-            <span>Users List</span>
-            <div flex></div>
-            <md-button class="md-icon-button" ng-click="getDirectoryUserList(true)">
-              <md-icon>refresh</md-icon>
-            </md-button>
-          </div>
-        </md-toolbar>
-        
-        <md-toolbar class="md-table-toolbar alternate" ng-show="selected.length">
-          <div class="md-toolbar-tools">
-            <span>{{selected.length}} {{selected.length > 1 ? 'Users' :
-		'User'}} selected</span>
-          </div>
-        </md-toolbar>
-        
+		<md-toolbar class="md-table-toolbar md-default"
+			ng-hide="selected.length">
+		<div class="md-toolbar-tools">
+			<span>Directory User List</span>
+			<div flex></div>
+		<md-button class="md-icon-button" id="uplodeExcel"
+			ui-sref="gfe.directoryNewUser({currentUserDomain: currentUserDomain})"> <ng-md-icon
+			icon=add_circle style="fill: md-default" size="24"> <md-tooltip>Add Directory New
+		User</md-tooltip></ng-md-icon></md-button>	
+		<md-button class="md-icon-button" id="uplodeExcel"
+			ng-click="UplodeExcel($event)"> <ng-md-icon
+			icon="file_upload" style="fill: md-default" size="24"> <md-tooltip>Upload
+		User List</md-tooltip></ng-md-icon></md-button>
+		<md-button class="md-icon-button" id="refreshIcon"
+			ng-click="getDirectoryUserList(true)"> <ng-md-icon icon="refresh"
+			style="fill: md-default" size="24"> <md-tooltip>Refresh
+		List</md-tooltip></ng-md-icon></md-button>
+		</div>
+		</md-toolbar>
+
 		<md-data-table-container>
-		<table md-data-table class="md-primary" md-row-select="selected"
+		<table md-data-table class="md-primary"
 			md-progress="deferred">
 			<thead md-order="query.order" md-trigger="onorderchange">
 				<tr>
 					<th order-by="name.fullName" name="Users Full Name"></th>
 					<th order-by="primaryEmail" name="Primary Email"></th>
 					<th order-by="isAdmin" name="isAdmin"></th>
-
+					<th name="Action"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -65,6 +50,20 @@
 					<td>{{user.name.fullName}}</td>
 					<td>{{user.primaryEmail}}</td>
 					<td>{{user.isAdmin}}</td>
+					<td><div layout="row" flex>
+							<md-button class="md-icon-button"
+								ui-sref="gfe.directoryViewUser({selectedUserPrimaryEmail: user.primaryEmail})">
+							<ng-md-icon icon="pageview" style="fill: md-default" size="20">
+							<md-tooltip> View User</md-tooltip></ng-md-icon></md-button>
+							<md-button class="md-icon-button"
+								ui-sref="gfe.directoryEditUser({selectedUser: user})">
+							<ng-md-icon icon="edit" style="fill: md-default" size="20">
+							<md-tooltip> Edit User</md-tooltip></ng-md-icon></md-button>
+							<md-button class="md-icon-button"
+								ng-click="deleteUser(user.primaryEmail)"> <ng-md-icon
+								icon="delete" style="fill: md-default" size="20"> <md-tooltip>
+							Delete User</md-tooltip></ng-md-icon></md-button>
+						</div></td>
 				</tr>
 			</tbody>
 		</table>

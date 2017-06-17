@@ -10,7 +10,7 @@ angular
 					$scope.courseState="ACTIVE";
 					$scope.classroomCourses = [];
 					$scope.courseList=[];				
-					$scope.teacherList=[];				
+					$scope.teacherList=[];
 					$scope.tempCourse = {
 							'name' : "",
 							'section' : "",
@@ -65,6 +65,9 @@ angular
 										if(courses.length == tempCount){
 											$scope.$apply(function(){
 												$scope.$parent.teacherListBackup = $scope.teacherList;
+												for (k = 0; k < $scope.$parent.courseListBackup.length; k++) {
+													courses[k].teachers = $scope.getTeacherNamesByCourse(courses[k].id);
+												}
 												$scope.loading = false;
 											});
 										}
@@ -121,6 +124,11 @@ angular
 							return courseTeachers.join();	
 					}
 					
+					$scope.$mdOpenMenu = function(ev){
+						originatorEv = ev;
+						$mdOpenMenu(ev);
+					}
+					
 					$scope.waitForServiceLoad = function() {
 						if (appEndpointSF.is_service_ready) {
 							if($scope.$parent.courseListBackup === null){
@@ -143,7 +151,7 @@ angular
 					$scope.selected = [];
 					$scope.query = {
 						order : 'name',
-						limit : 10,
+						limit : 50,
 						page : 1
 					};
 
@@ -316,23 +324,68 @@ angular
 																	.position("top")
 																	.hideDelay(6000));
 													$scope.courseList=resp.data;
+													$scope.courseTeacherList=[];													
+													for (var m = 0; m < $scope.courseList.length; m++) {
+														$scope.name = {
+																'givenName' : "",
+																'familyName' : "",
+																'fullName' : ""
+															}
+														$scope.profile = {
+
+																'id' : "",
+																'name' : $scope.name,
+																'emailAddress' : "",
+																'photoUrl' : "",
+																'permissions' : []
+
+															}
+														$scope.tempUser = {
+																'courseId' : "",
+																'userId' : "",
+																'profile' : $scope.profile,
+															};
+														$scope.tempUser.userId = $scope.courseList[m].teacherGroupEmail;
+														$scope.courseTeacherList.push($scope.tempUser);
+													}
 								                    console.log('Success '+angular.toJson($scope.courseList));
-								                  			                    
 								                    
-								                    for(var i=0; i< $scope.courseList.length;i++)
+								                    for(var j=0; j< $scope.courseList.length;j++)
 								                    	{
-								                    	   console.log('Success '+angular.toJson($scope.courseList[i]));
-								                    	   $scope.courseList[i].ownerId = 'me';
-								                    	   $scope.courseList[i].courseState = 'ACTIVE';	
+								                    	   $scope.courseList[j].ownerId = 'me';
+								                    	   $scope.courseList[j].courseState = 'ACTIVE';
 								                    	   
 								                    	   var request = gapi.client.classroom.courses
-															.create($scope.courseList[i]);
+															.create($scope.courseList[j]);
 
 															request.execute(function(resp) {
-																console.log('Added Course: ' + angular.toJson(resp));																
+																console.log('Added Course: ' + angular.toJson(resp));
+																if(resp.id){
+																	$scope.createTeacher(resp);
+																}
 															});
 								                    	   // createCourseRef($scope.courseList[i]);
 								                    	}
+								                    
+								                    $scope.createTeacher = function(course){
+								                    	for (var i = 0; i < $scope.courseTeacherList.length; i++) {
+															for (var j = 0; j < $scope.courseList.length; j++) {
+																if($scope.courseList[j].name == course.name
+																		&& $scope.courseTeacherList[i].userId == $scope.courseList[j].teacherGroupEmail){
+																	$scope.courseTeacherList[i].courseId = course.id;
+																	var request = gapi.client.classroom.courses.teachers
+																	.create($scope.courseTeacherList[i]);
+
+																	request.execute(function(resp) {
+																		$log.debug("resp:" + angular.toJson(resp));
+																	});
+																	break;
+																}
+															}
+														}
+								                    }
+								                    	
+								                    
 								                    $mdDialog.hide();			                    
 													$scope.csvFile = null;				
 													

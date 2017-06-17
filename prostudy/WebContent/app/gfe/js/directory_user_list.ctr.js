@@ -7,12 +7,17 @@ angular
 							
 				$scope.loading = true;
 				
-				
+				$scope.curUser = appEndpointSF.getLocalUserService()
+				.getLoggedinUser();
+
+				$scope.currentUserDomain = $scope.curUser.email_id
+				.split("@")[1];
+		
 				$scope.directoryUserList=[];
 				$scope.selected = [];
 				$scope.query = {
 					order : 'name',
-					limit : 10,
+					limit : 50,
 					page : 1
 				};
 				

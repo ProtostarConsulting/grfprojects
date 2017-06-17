@@ -44,6 +44,7 @@ public class UploadCourseListServlet extends HttpServlet {
 		public String description;
 		public String room;
 		public String ownerId;
+		private String teacherGroupEmail;
 		public void setName(String name) {
 			this.name = name;
 		}
@@ -61,6 +62,9 @@ public class UploadCourseListServlet extends HttpServlet {
 		}
 		public void setOwnerId(String ownerId) {
 			this.ownerId = ownerId;
+		}
+		public void setTeacherGroupEmail(String teacherGroupEmail) {
+			this.teacherGroupEmail = teacherGroupEmail;
 		}
       
     }
@@ -131,7 +135,7 @@ public class UploadCourseListServlet extends HttpServlet {
 						for (int row = 1; row < split2.length; row++) {
 
 							String[] split = split2[row].split(",");
-							if (split == null || split.length < 6) {
+							if (split == null || split.length < 7) {
 								continue;
 							}
 													
@@ -143,8 +147,8 @@ public class UploadCourseListServlet extends HttpServlet {
 						nc.setDescriptionHeading(split[2].trim());
 						nc.setDescription(split[3].trim());
 						nc.setRoom(split[4].trim());
-						nc.setOwnerId(split[5].trim());					
-										
+						nc.setOwnerId(split[5].trim());
+						nc.setTeacherGroupEmail(split[6].trim());				
 						courseList.add(nc);					
 				
 						}
