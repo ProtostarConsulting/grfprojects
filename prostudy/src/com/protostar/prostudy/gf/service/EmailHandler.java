@@ -62,8 +62,8 @@ class SendSchoolRegEmailAsyncOperation implements DeferredTask {
 	private static final String EMAIL_REPLY_TO = "gandhiexam@gandhifoundation.net";
 	private static final String EMAIL_FROM_NAME = "GRF-Gandhi Vichar Sanskar Pariksha";
 	private static final String EMAIL_FROM = "ganesh.lawande@protostar.co.in";
-	private static final String SENDGRID_USERNAME = "ganesh.lawande@protostar.co.in";
-	private static final String SENDGRID_PWD = "sangram12";
+	private static final String SENDGRID_USERNAME = "";
+	private static final String SENDGRID_PWD = "";
 	private static final String EMAIL_NEW_SCHOOL_SUBJECT = "Gandhi Vichar Sanskar Pariksha School/College Registration!";
 
 	String coordinatorEmailId;
@@ -135,8 +135,8 @@ class SendUserRegEmailAsyncOperation implements DeferredTask {
 	private static final String EMAIL_REPLY_TO = "gandhiexam@gandhifoundation.net";
 	private static final String EMAIL_FROM_NAME = "GRF-Gandhi Vichar Sanskar Pariksha";
 	private static final String EMAIL_FROM = "ganesh.lawande@protostar.co.in";
-	private static final String SENDGRID_USERNAME = "ganesh.lawande@protostar.co.in";
-	private static final String SENDGRID_PWD = "sangram12";
+	private static final String SENDGRID_USERNAME = "";
+	private static final String SENDGRID_PWD = "";
 	private static final String EMAIL_NEW_USER_SUBJECT = "Welcome to Gandhi Research Foundation!";
 
 	String userEmailId;
