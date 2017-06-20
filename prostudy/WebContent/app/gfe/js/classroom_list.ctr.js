@@ -175,8 +175,13 @@ angular
 						return deferred.promise;
 					};
 
-					$scope.deleteCourse = function(courseId,ev) {							
+					$scope.deleteCourse = function(courses,ev) {							
 						
+						if(courses.length == undefined){
+							var tempCourse = courses;
+							var courses = []; 
+							courses.push(tempCourse);
+						}
 						var confirm = $mdDialog.confirm().title(
 						'Are you sure you want to delete this course?').ariaLabel('Lucky day')
 						.targetEvent(ev).ok('YES').cancel('NO');
@@ -188,19 +193,18 @@ angular
 							$scope.loading = true;
 							$scope.selected = [];
 							$scope.deleting = true;
-							var request = gapi.client.classroom.courses.delete({id:courseId});
+							for (var i = 0; i < courses.length; i++) {
+								var request = gapi.client.classroom.courses.delete({id:courses[i].id});
 
-							request.execute(function(resp) {
-								$log.debug("resp:" + angular.toJson(resp));
-								$scope.showCourseDeletedToast();
-							
-								$scope.deleting = false;
-								$scope.classroomCourses=[];
-								
-								$scope.searchName="";
+								request.execute(function(resp) {
+									$log.debug("resp:" + angular.toJson(resp));								
+									$scope.deleting = false;
+									$scope.classroomCourses=[];
+									
+									$scope.searchName="";
+								});
+							}
 								$scope.listCourses();
-							});
-					
 						}, function() {							
 							
 						});
@@ -236,7 +240,12 @@ angular
 								// Error fn
 							});										
 				
-					}						
+					}
+					
+					$scope.splitUrl = function(courseUrl){
+						$scope.courseCalendarId = courseUrl.split('http://classroom.google.com/c/');
+					    return $scope.courseCalendarId[1];
+					}
 					
 					$scope.showCourseStateChangedToast = function() {
 						$mdToast.show($mdToast.simple().content(
@@ -345,7 +354,9 @@ angular
 																'userId' : "",
 																'profile' : $scope.profile,
 															};
-														$scope.tempUser.userId = $scope.courseList[m].teacherGroupEmail;
+														// $scope.tempUser.userId
+														// =
+														// $scope.courseList[m].teacherGroupEmail;
 														$scope.courseTeacherList.push($scope.tempUser);
 													}
 								                    console.log('Success '+angular.toJson($scope.courseList));
@@ -359,7 +370,7 @@ angular
 															.create($scope.courseList[j]);
 
 															request.execute(function(resp) {
-																console.log('Added Course: ' + angular.toJson(resp));
+																//console.log('Added Course: ' + angular.toJson(resp));
 																if(resp.id){
 																	$scope.createTeacher(resp);
 																}
@@ -368,21 +379,33 @@ angular
 								                    	}
 								                    
 								                    $scope.createTeacher = function(course){
+								                    	$scope.teacherEmail = [];
 								                    	for (var i = 0; i < $scope.courseTeacherList.length; i++) {
 															for (var j = 0; j < $scope.courseList.length; j++) {
-																if($scope.courseList[j].name == course.name
-																		&& $scope.courseTeacherList[i].userId == $scope.courseList[j].teacherGroupEmail){
-																	$scope.courseTeacherList[i].courseId = course.id;
-																	var request = gapi.client.classroom.courses.teachers
-																	.create($scope.courseTeacherList[i]);
+																if($scope.courseList[j].name == course.name){
+																	$scope.teacherEmail = $scope.spiltTeacherEmailId($scope.courseList[j].teacherGroupEmail);
+																	console.log("teacher emails ****"+$scope.spiltTeacherEmailId($scope.courseList[j].teacherGroupEmail));
+																	for (var k = 0; k < $scope.teacherEmail.length; k++) {
+																		$scope.courseTeacherList[i].courseId = course.id;
+																		$scope.courseTeacherList[i].userId = $scope.teacherEmail[k];
+																		var request = gapi.client.classroom.courses.teachers
+																		.create($scope.courseTeacherList[i]);
 
-																	request.execute(function(resp) {
-																		$log.debug("resp:" + angular.toJson(resp));
-																	});
-																	break;
+																		request.execute(function(resp) {
+																			$log.debug("resp:" + angular.toJson(resp));
+																		});
+																	}
 																}
 															}
 														}
+								                    }
+								                    
+								                    $scope.spiltTeacherEmailId = function(teacherGroupEmail){
+								                            var courseTeacherEmails = [];
+									                    	var teacherEmailId = teacherGroupEmail.split(';');
+									                    	courseTeacherEmails.push(teacherEmailId);
+									                    	return teacherEmailId;
+								                    	
 								                    }
 								                    	
 								                    
