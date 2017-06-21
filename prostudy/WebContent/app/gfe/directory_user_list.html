@@ -39,7 +39,7 @@
 				<tr>
 					<th order-by="name.fullName" name="Users Full Name"></th>
 					<th order-by="primaryEmail" name="Primary Email"></th>
-					<th order-by="isAdmin" name="isAdmin"></th>
+					<!-- <th order-by="isAdmin" name="isAdmin"></th> -->
 					<th name="Action"></th>
 				</tr>
 			</thead>
@@ -49,7 +49,7 @@
 
 					<td>{{user.name.fullName}}</td>
 					<td>{{user.primaryEmail}}</td>
-					<td>{{user.isAdmin}}</td>
+					<!-- <td>{{user.isAdmin}}</td> -->
 					<td><div layout="row" flex>
 							<md-button class="md-icon-button"
 								ui-sref="gfe.directoryViewUser({selectedUserPrimaryEmail: user.primaryEmail})">

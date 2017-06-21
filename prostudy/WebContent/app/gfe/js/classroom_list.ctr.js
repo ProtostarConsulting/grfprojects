@@ -333,32 +333,6 @@ angular
 																	.position("top")
 																	.hideDelay(6000));
 													$scope.courseList=resp.data;
-													$scope.courseTeacherList=[];													
-													for (var m = 0; m < $scope.courseList.length; m++) {
-														$scope.name = {
-																'givenName' : "",
-																'familyName' : "",
-																'fullName' : ""
-															}
-														$scope.profile = {
-
-																'id' : "",
-																'name' : $scope.name,
-																'emailAddress' : "",
-																'photoUrl' : "",
-																'permissions' : []
-
-															}
-														$scope.tempUser = {
-																'courseId' : "",
-																'userId' : "",
-																'profile' : $scope.profile,
-															};
-														// $scope.tempUser.userId
-														// =
-														// $scope.courseList[m].teacherGroupEmail;
-														$scope.courseTeacherList.push($scope.tempUser);
-													}
 								                    console.log('Success '+angular.toJson($scope.courseList));
 								                    
 								                    for(var j=0; j< $scope.courseList.length;j++)
@@ -370,42 +344,55 @@ angular
 															.create($scope.courseList[j]);
 
 															request.execute(function(resp) {
-																//console.log('Added Course: ' + angular.toJson(resp));
 																if(resp.id){
 																	$scope.createTeacher(resp);
 																}
 															});
-								                    	   // createCourseRef($scope.courseList[i]);
 								                    	}
 								                    
 								                    $scope.createTeacher = function(course){
 								                    	$scope.teacherEmail = [];
-								                    	for (var i = 0; i < $scope.courseTeacherList.length; i++) {
 															for (var j = 0; j < $scope.courseList.length; j++) {
 																if($scope.courseList[j].name == course.name){
 																	$scope.teacherEmail = $scope.spiltTeacherEmailId($scope.courseList[j].teacherGroupEmail);
-																	console.log("teacher emails ****"+$scope.spiltTeacherEmailId($scope.courseList[j].teacherGroupEmail));
 																	for (var k = 0; k < $scope.teacherEmail.length; k++) {
-																		$scope.courseTeacherList[i].courseId = course.id;
-																		$scope.courseTeacherList[i].userId = $scope.teacherEmail[k];
+																		$scope.name = {
+																				'givenName' : "",
+																				'familyName' : "",
+																				'fullName' : ""
+																			}
+																		$scope.profile = {
+
+																				'id' : "",
+																				'name' : $scope.name,
+																				'emailAddress' : "",
+																				'photoUrl' : "",
+																				'permissions' : []
+
+																			}
+																		$scope.tempUser = {
+																				'courseId' : "",
+																				'userId' : "",
+																				'profile' : $scope.profile,
+																			};
+																		$scope.tempUser.courseId = course.id;
+																		$scope.tempUser.userId = $scope.teacherEmail[k];
 																		var request = gapi.client.classroom.courses.teachers
-																		.create($scope.courseTeacherList[i]);
+																		.create($scope.tempUser);
 
 																		request.execute(function(resp) {
-																			$log.debug("resp:" + angular.toJson(resp));
+																			// console.log("resp:"
+																			// +
+																			// angular.toJson(resp));
 																		});
 																	}
 																}
 															}
-														}
 								                    }
 								                    
 								                    $scope.spiltTeacherEmailId = function(teacherGroupEmail){
-								                            var courseTeacherEmails = [];
-									                    	var teacherEmailId = teacherGroupEmail.split(';');
-									                    	courseTeacherEmails.push(teacherEmailId);
+								                            var teacherEmailId = teacherGroupEmail.split(';');
 									                    	return teacherEmailId;
-								                    	
 								                    }
 								                    	
 								                    
