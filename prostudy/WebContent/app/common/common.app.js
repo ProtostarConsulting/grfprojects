@@ -967,6 +967,11 @@ app
 						templateUrl : '/app/admissionMgmt/applicant_list.html',
 						controller : 'applicantListCtr'
 					})
+					.state('gfeIndex', {
+						url : "/gfeIndex",
+						templateUrl : '/app/gfe/gfe_index.html',
+						controller : 'gfeIndexCtr'
+					})
 					.state('gfe', {
 						url : "/gfe",
 						templateUrl : '/app/gfe/gfe_module.html',

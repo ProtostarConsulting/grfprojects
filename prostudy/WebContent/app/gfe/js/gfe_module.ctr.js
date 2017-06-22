@@ -11,7 +11,7 @@ angular
 						return false;
 					}
 					
-					$scope.authorized = false;
+					//$scope.authorized = false;
 					$scope.loading = false;
 					$scope.classroomAPIReady = false;
 					$scope.curUser = appEndpointSF.getLocalUserService()

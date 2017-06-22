@@ -17,29 +17,28 @@
 		<div class="md-toolbar-tools">
 			<span>Directory User List</span>
 			<div flex></div>
-		<md-button class="md-icon-button" id="uplodeExcel"
-			ui-sref="gfe.directoryNewUser({currentUserDomain: currentUserDomain})"> <ng-md-icon
-			icon=add_circle style="fill: md-default" size="24"> <md-tooltip>Add Directory New
-		User</md-tooltip></ng-md-icon></md-button>	
-		<md-button class="md-icon-button" id="uplodeExcel"
-			ng-click="UplodeExcel($event)"> <ng-md-icon
-			icon="file_upload" style="fill: md-default" size="24"> <md-tooltip>Upload
-		User List</md-tooltip></ng-md-icon></md-button>
-		<md-button class="md-icon-button" id="refreshIcon"
-			ng-click="getDirectoryUserList(true)"> <ng-md-icon icon="refresh"
-			style="fill: md-default" size="24"> <md-tooltip>Refresh
-		List</md-tooltip></ng-md-icon></md-button>
+			<md-button class="md-icon-button" id="uplodeExcel"
+				ui-sref="gfe.directoryNewUser({currentUserDomain: currentUserDomain})">
+			<ng-md-icon icon=add_circle style="fill: md-default" size="24">
+			<md-tooltip>Add Directory New User</md-tooltip></ng-md-icon></md-button>
+			<md-button class="md-icon-button" id="uplodeExcel"
+				ng-click="UplodeExcel($event)"> <ng-md-icon
+				icon="file_upload" style="fill: md-default" size="24">
+			<md-tooltip>Upload User List</md-tooltip></ng-md-icon></md-button>
+			<md-button class="md-icon-button" id="refreshIcon"
+				ng-click="getDirectoryUserList(true)"> <ng-md-icon
+				icon="refresh" style="fill: md-default" size="24"> <md-tooltip>Refresh
+			List</md-tooltip></ng-md-icon></md-button>
 		</div>
 		</md-toolbar>
 
 		<md-data-table-container>
-		<table md-data-table class="md-primary"
-			md-progress="deferred">
+		<table md-data-table class="md-primary" md-progress="deferred">
 			<thead md-order="query.order" md-trigger="onorderchange">
 				<tr>
 					<th order-by="name.fullName" name="Users Full Name"></th>
 					<th order-by="primaryEmail" name="Primary Email"></th>
-					<!-- <th order-by="isAdmin" name="isAdmin"></th> -->
+					<th order-by="Profile Picture" name="Profile Picture"></th>
 					<th name="Action"></th>
 				</tr>
 			</thead>
@@ -49,7 +48,10 @@
 
 					<td>{{user.name.fullName}}</td>
 					<td>{{user.primaryEmail}}</td>
-					<!-- <td>{{user.isAdmin}}</td> -->
+					<td><md-button class="md-fab md-primary md-hue-2"
+							aria-label="Profile"> <img
+							ngf-src="user.etag?user.etag: '/img/icons/ic_people_24px.svg'"
+							class=circular> </md-button></td>
 					<td><div layout="row" flex>
 							<md-button class="md-icon-button"
 								ui-sref="gfe.directoryViewUser({selectedUserPrimaryEmail: user.primaryEmail})">
