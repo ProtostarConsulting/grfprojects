@@ -68,7 +68,8 @@
 				<md-input-container flex> <label>Institute
 					Name</label> <md-select name="schoolInstitute" id="schoolInstitute"
 					ng-model="partnerSchool.schoolInstitute"> <md-option
-					ng-value="tempInstitute" ng-selected = "partnerSchool.schoolInstitute.id == tempInstitute.id"
+					ng-value="tempInstitute"
+					ng-selected="partnerSchool.schoolInstitute.id == tempInstitute.id"
 					ng-repeat="tempInstitute in tempInstituteList">{{tempInstitute.instituteName}}</md-option>
 				</md-select> </md-input-container>
 			</div>
@@ -281,9 +282,8 @@
 				<md-input-container flex="70"> <md-select
 					aria-label="YearOfExam" ng-change="getExamByYear(yearOfExam)"
 					ng-model="yearOfExam" id="selectedYear"> <md-option
-					ng-selected="Year == yearOfExam"
-					ng-value="Year" ng-repeat="Year in Years | orderBy:Year">{{Year}}</md-option>
-				</md-select> </md-input-container>
+					ng-selected="Year == yearOfExam" ng-value="Year"
+					ng-repeat="Year in Years | orderBy:Year">{{Year}}</md-option> </md-select> </md-input-container>
 			</div>
 			<md-input-container flex> <label>Total
 				Number Of Student In School<span style="color: red;">*</span>
@@ -543,9 +543,13 @@
 					<tr>
 						<th width=20% name="Select Standard"></th>
 						<th width=20% name="Select Book Name"></th>
-						<th width=20% name="Fees"></th>
 						<th width=10px name="Total Student"></th>
+						<th width=20% name="Exam Fees"></th>
 						<th width=20% name="Total Fees"></th>
+						<th width=20% name="GRF 80% Fees"></th>
+						<th width=20% name="Book Price"></th>
+						<th width=20% name="Book Amount"></th>
+						<th width=20% name="Remaining Fees"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -567,15 +571,24 @@
 							</md-select> </md-input-container></td>
 						<td><md-input-container flex
 								style="margin: 0; padding-left: 0; padding-right: 5px;">
-							<!-- <input
-							type="number" ng-model="bb.bookPrise"> --> {{bb.bookPrise |
-							number : 2}}</md-input-container></td>
-						<td><md-input-container flex
-								style="margin: 0; padding-left: 0; padding-right: 5px;">
 							<input type="number" name="totalStud" min="1"
 								ng-model="bb.totalStud" aria-label="totalStud"
 								ng-change="calculate($index,bb.totalStud)"
 								ng-model-options="{ debounce: 1000 }"> </md-input-container></td>
+						<td><md-input-container flex
+								style="margin: 0; padding-left: 0; padding-right: 5px;">
+							<!-- <input
+							type="number" ng-model="bb.bookPrise"> --> {{bb.examFees | number
+							: 2}}</md-input-container></td>
+						<td><md-input-container flex
+								style="margin: 0; padding-left: 0; padding-right: 5px;">
+							{{bookSummary.amtForGRF80per | number : 2}}</md-input-container></td>
+						<td><md-input-container flex
+								style="margin: 0; padding-left: 0; padding-right: 5px;">
+							<!-- <input
+							type="number" ng-model="bb.bookPrise"> --> {{bb.bookPrise |
+							number : 2}}</md-input-container></td>
+
 						<td><md-input-container flex
 								style="margin: 0; padding-left: 0; padding-right: 5px;">
 							<!-- <input
@@ -856,8 +869,7 @@
 								ng-disabled="pd.paymentReceived"
 								ng-click="enableAddPaymentFlag(pd)"> <ng-md-icon
 								icon="pageview" style="fill: md-default" size="24">
-							<md-tooltip>Review
-							Payment</md-tooltip></ng-md-icon></md-button></td>
+							<md-tooltip>Review Payment</md-tooltip></ng-md-icon></md-button></td>
 					</tr>
 				</tbody>
 			</table>

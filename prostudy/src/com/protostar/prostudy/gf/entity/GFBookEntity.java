@@ -30,6 +30,7 @@ public class GFBookEntity extends BaseEntity{
 	private Date stockModifiedDate;
 	private int bookThreshold;
 	private String standard;
+	private int examFees;
 	@Ignore
 	private String flag;
 	// Ref<PartnerSchoolEntity> schoolName;
@@ -170,6 +171,16 @@ public class GFBookEntity extends BaseEntity{
 
 	public void setBookPublication(String bookPublication) {
 		this.bookPublication = bookPublication;
+	}
+
+
+	public int getExamFees() {
+		return examFees;
+	}
+
+
+	public void setExamFees(int examFees) {
+		this.examFees = examFees;
 	}
 
 }

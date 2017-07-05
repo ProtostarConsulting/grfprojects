@@ -16,7 +16,8 @@ angular.module("prostudyApp").controller(
 				bookPublication : '',
 				bookThreshold : 0,
 				bookFeedDate : new Date(),
-				standard:''
+				standard:'',
+				examFees: 0
 			}
 
 			$scope.standardList = standardList;
