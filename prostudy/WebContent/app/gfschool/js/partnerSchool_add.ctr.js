@@ -126,11 +126,14 @@ angular
 							bookName : "",
 							bookPrise : 0,
 							totalStud : 0,
-							totalFees : 0
+							totalFees : 0,
+							totalExamFees : 0,
+							examFees : 0,
+							remainingFees : 0,
+							amtForInst20per : 0,
+							amtForGRF80per : 0
 						} ],
-						total : 0,
-						amtForInst20per : 0,
-						amtForGRF80per : 0
+						total : 0
 					}
 
 					// attached the bookdetail to book summery entity
@@ -367,8 +370,9 @@ angular
 					$scope.getSchoolInstituteList = function() {
 						var partnerSchoolService = appEndpointSF
 								.getPartnerSchoolService();
-						partnerSchoolService.getPartnerSchoolInstituteList($scope.curUser.instituteID)
-								.then(function(list) {
+						partnerSchoolService.getPartnerSchoolInstituteList(
+								$scope.curUser.instituteID).then(
+								function(list) {
 									$scope.tempInstituteList = list;
 								});
 					}
@@ -464,7 +468,7 @@ angular
 								$scope.examDetail.total = parseInt($scope.examDetail.total);
 
 								$scope.calculateActualStudTotal();
-								break;	
+								break;
 							}
 
 						}
@@ -476,11 +480,15 @@ angular
 									bookName : "",
 									bookPrise : 0,
 									totalStud : 0,
-									totalFees : 0
+									totalFees : 0,
+									totalFees : 0,
+									totalExamFees : 0,
+									examFees : 0,
+									remainingFees : 0,
+									amtForInst20per : 0,
+									amtForGRF80per : 0
 								} ],
-								total : 0,
-								amtForInst20per : 0,
-								amtForGRF80per : 0
+								total : 0
 							}
 							$scope.examDetail = {
 								totalStudent : "",
@@ -563,7 +571,13 @@ angular
 							bookName : "",
 							bookPrise : 0,
 							totalStud : 0,
-							totalFees : 0
+							totalFees : 0,
+							totalFees : 0,
+							totalExamFees : 0,
+							examFees : 0,
+							remainingFees : 0,
+							amtForInst20per : 0,
+							amtForGRF80per : 0
 						}
 						$scope.bookSummary.bookDetail.push($scope.BookDetail);
 					}
@@ -585,17 +599,27 @@ angular
 						$scope.bookSummary.bookDetail[index].totalFees = $scope.bookSummary.bookDetail[index].totalStud
 								* $scope.bookSummary.bookDetail[index].bookPrise;
 
+						$scope.bookSummary.bookDetail[index].totalExamFees = $scope.bookSummary.bookDetail[index].totalStud
+								* $scope.bookSummary.bookDetail[index].examFees;
+
+						$scope.bookSummary.bookDetail[index].amtForInst20per = Math
+								.round(($scope.bookSummary.bookDetail[index].totalExamFees / 100) * 20);
+						$scope.bookSummary.bookDetail[index].amtForGRF80per = Math
+								.round(($scope.bookSummary.bookDetail[index].totalExamFees / 100) * 80);
+
 						$scope.bookSummary.total = 0;
 						for (count = 0; count < $scope.bookSummary.bookDetail.length; count++) {
-							$scope.bookSummary.total += $scope.bookSummary.bookDetail[count].totalFees;
+							$scope.bookSummary.total += $scope.bookSummary.bookDetail[count].totalExamFees;
 						}
-						$scope.bookSummary.amtForInst20per = Math
-								.round(($scope.bookSummary.total / 100) * 20);
-						$scope.bookSummary.amtForGRF80per = Math
-								.round(($scope.bookSummary.total / 100) * 80);
+
+						$scope.bookSummary.bookDetail[index].remainingFees = $scope.bookSummary.bookDetail[index].amtForGRF80per
+								- $scope.bookSummary.bookDetail[index].totalFees;
 
 						$scope.calculatepaidandpending();
 						$scope.calculateActualStudTotal();
+						$scope.getGrffeestotal();
+						$scope.getTotalbookAmount();
+						$scope.getRemainingTotal();
 					}
 
 					$scope.calculateActualStudTotal = function() {
@@ -603,6 +627,29 @@ angular
 						for (count = 0; count < $scope.bookSummary.bookDetail.length; count++) {
 							$scope.examDetail.total += $scope.bookSummary.bookDetail[count].totalStud;
 						}
+					}
+
+					$scope.getGrffeestotal = function() {
+						var totalGrffees = 0;
+						for (count = 0; count < $scope.bookSummary.bookDetail.length; count++) {
+							totalGrffees += $scope.bookSummary.bookDetail[count].amtForGRF80per;
+						}
+						return totalGrffees;
+					}
+
+					$scope.getTotalbookAmount = function() {
+						var totalBookAmount = 0;
+						for (count = 0; count < $scope.bookSummary.bookDetail.length; count++) {
+							totalBookAmount += $scope.bookSummary.bookDetail[count].totalFees;
+						}
+						return totalBookAmount;
+					}
+					$scope.getRemainingTotal = function() {
+						var remainingTotal = 0;
+						for (count = 0; count < $scope.bookSummary.bookDetail.length; count++) {
+							remainingTotal += $scope.bookSummary.bookDetail[count].remainingFees;
+						}
+						return remainingTotal;
 					}
 
 					// -----------add coordinator--------------
@@ -688,6 +735,7 @@ angular
 						for (i = 0; i < $scope.bookStocks.length; i++) {
 							if ($scope.bookStocks[i].id == id) {
 								$scope.bookSummary.bookDetail[ind].bookPrise = $scope.bookStocks[i].bookPrice;
+								$scope.bookSummary.bookDetail[ind].examFees = $scope.bookStocks[i].examFees;
 							}
 						}
 						$scope.calculate(ind, 0);

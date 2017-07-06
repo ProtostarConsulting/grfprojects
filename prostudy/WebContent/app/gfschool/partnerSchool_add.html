@@ -541,15 +541,16 @@
 			<table md-data-table>
 				<thead>
 					<tr>
-						<th width=20% name="Select Standard"></th>
-						<th width=20% name="Select Book Name"></th>
+						<th width=10px name="Select Standard"></th>
+						<th width=10px name="Select Book Name"></th>
 						<th width=10px name="Total Student"></th>
-						<th width=20% name="Exam Fees"></th>
-						<th width=20% name="Total Fees"></th>
-						<th width=20% name="GRF 80% Fees"></th>
-						<th width=20% name="Book Price"></th>
-						<th width=20% name="Book Amount"></th>
-						<th width=20% name="Remaining Fees"></th>
+						<th width=10px name="Exam Fees"></th>
+						<th width=10px name="Total Fees"></th>
+						<th width=10px name="GRF 80% Fees"></th>
+						<th width=10px name="Book Price"></th>
+						<th width=10px name="Book Amount"></th>
+						<th width=10px name="Remaining Fees"></th>
+						<th width=10px name="Action"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -582,80 +583,59 @@
 							: 2}}</md-input-container></td>
 						<td><md-input-container flex
 								style="margin: 0; padding-left: 0; padding-right: 5px;">
-							{{bookSummary.amtForGRF80per | number : 2}}</md-input-container></td>
+							<!-- <input
+							type="number" name="totalFees" ng-model="bb.totalFees"> -->
+							{{bb.totalExamFees | number : 2}}</md-input-container></td>
+						<td><md-input-container flex
+								style="margin: 0; padding-left: 0; padding-right: 5px;">
+							{{bb.amtForGRF80per | number : 2}}</md-input-container></td>
 						<td><md-input-container flex
 								style="margin: 0; padding-left: 0; padding-right: 5px;">
 							<!-- <input
 							type="number" ng-model="bb.bookPrise"> --> {{bb.bookPrise |
 							number : 2}}</md-input-container></td>
-
 						<td><md-input-container flex
 								style="margin: 0; padding-left: 0; padding-right: 5px;">
 							<!-- <input
-							type="number" name="totalFees" ng-model="bb.totalFees"> -->
-							{{bb.totalFees | number : 2}}</md-input-container></td>
+							type="number" ng-model="bb.bookPrise"> --> {{bb.totalFees |
+							number : 2}}</md-input-container></td>
+						<td><md-input-container flex
+								style="margin: 0; padding-left: 0; padding-right: 5px;">
+							<!-- <input
+							type="number" ng-model="bb.bookPrise"> --> {{bb.remainingFees |
+							number : 2}}</md-input-container></td>
 						<td><md-button class="md-icon-button"
 								ng-click="removeBook($index)" layout-align="end end">
-							<md-tooltip> Remove Book</md-tooltip> <md-icon
-								md-svg-icon="img/icons/ic_remove_circle_outline_black_24px.svg"
-								aria-label="Prev Week"></md-icon> </md-button></td>
+							<ng-md-icon icon="remove_circle_outline" style="fill: md-default"
+								size="22"> <md-tooltip>Remove Book</md-tooltip></ng-md-icon> </md-button></td>
+					</tr>
+					<tr>
+						<td><md-button class="md-icon-button" ng-click="addBook()"
+								layout-align="end end"> <ng-md-icon
+								icon="add_circle_outline" style="fill: md-default" size="22">
+							<md-tooltip>Add Book</md-tooltip></ng-md-icon></md-button></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
 					</tr>
 					<tr>
 						<td></td>
-						<td></td>
-						<td>Total Students:</td>
+						<td><b>Total</b></td>
 						<td>{{examDetail.total}}</td>
 						<td></td>
+						<td>{{bookSummary.total | number : 2}}</td>
+						<td>{{getGrffeestotal() | number : 2}}</td>
+						<td></td>
+						<td>{{getTotalbookAmount() | number : 2}}</td>
+						<td>{{getRemainingTotal() | number : 2}}</td>
 						<td></td>
 					</tr>
-				</tbody>
-			</table>
-			</md-data-table-container>
-		</div>
-		<span flex="10"> <md-button class="md-icon-button"
-				ng-click="addBook()" layout-align="end end"> <md-tooltip>
-			Add Book</md-tooltip> <md-icon md-svg-icon="img/icons/ic_add_black_24px.svg"
-				aria-label="Prev Week"></md-icon> </md-button>
-
-		</span>
-
-		<div>
-			<md-data-table-container>
-			<table md-data-table>
-				<tbody>
-				<thead>
-					<tr>
-						<th width=30%></th>
-						<th width=10%></th>
-						<th width=20% name="Fees (INR)"></th>
-						<th width=10px></th>
-						<th width=20%></th>
-					</tr>
-				</thead>
-				<tr>
-					<td>Total :-</td>
-					<td></td>
-					<td>{{bookSummary.total | number : 2}}</td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>20% Fees for Institute :-</td>
-					<td></td>
-					<td>{{bookSummary.amtForInst20per | number : 2}}</td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>80% Fees for GRF :-</td>
-					<td></td>
-					<td>{{bookSummary.amtForGRF80per | number : 2}}</td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
 				</tbody>
 			</table>
 			</md-data-table-container>
@@ -667,7 +647,6 @@
 				class="md-raised md-primary" ng-click="addPartnerSchool()">Save
 			</md-button>
 		</section>
-
 
 		</md-content> </md-tab> <md-tab label="Payment Detail" ng-click="setCurrentTab(4)"
 			ng-disabled="enableTillTabNo<4"> <md-content
@@ -829,7 +808,7 @@
 
 		<div layout="row" layout-xs="column" flex>
 			<md-input-container flex="20">Total Fees To Be
-			Paid = {{bookSummary.amtForGRF80per }} </md-input-container>
+			Paid = {{bookSummary.total }} </md-input-container>
 			<span flex="10"></span>
 			<md-input-container flex="20">Total Paid Fees =
 			{{PaymentDetail.tPaid }} </md-input-container>

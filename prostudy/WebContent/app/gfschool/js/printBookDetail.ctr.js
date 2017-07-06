@@ -96,12 +96,20 @@ angular
 								$scope.PaymentDet = $scope.examList[i].paymentDetail;
 								$scope.totalStudents = 0;
 								$scope.totalPaidFees = 0;
+								$scope.totalBookFees = 0;
+								$scope.amtForInst20per = 0;
+								$scope.amtForGRF80per = 0;
 								if ($scope.BookDetail != undefined) {
 									for (var k = 0; k < $scope.BookDetail.length; k++) {
 										$scope.totalStudents += $scope.BookDetail[k].totalStud;
+										$scope.totalBookFees += $scope.BookDetail[k].totalFees;
 									}
+									$scope.amtForInst20per = Math
+											.round(($scope.totalBookFees / 100) * 20);
+									$scope.amtForGRF80per = Math
+											.round(($scope.totalBookFees / 100) * 80);
 								}
-								if($scope.PaymentDet != undefined){
+								if ($scope.PaymentDet != undefined) {
 									for (var j = 0; j < $scope.PaymentDet.length; j++) {
 										$scope.totalPaidFees += $scope.PaymentDet[j].payAmount;
 									}
