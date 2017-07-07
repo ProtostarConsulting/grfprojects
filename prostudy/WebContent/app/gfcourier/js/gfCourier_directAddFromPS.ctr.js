@@ -144,8 +144,8 @@ angular
 													}
 												}
 
-												$scope.newCourierObj.totalFees = $scope.tempPartnerSchool.examDetailList.bookSummary.amtForGRF80per;
 												$scope.newCourierObj.totalWeight = 0;
+												$scope.totalBookAmount = 0;
 
 												for (var i = 0; i < $scope.tempPartnerSchool.examDetailList.bookSummary.bookDetail.length; i++) {
 													for (var j = 0; j < $scope.bookStocks.length; j++) {
@@ -154,7 +154,8 @@ angular
 
 															$scope.newCourierObj.totalWeight = ($scope.newCourierObj.totalWeight)
 																	+ ($scope.bookStocks[j].weight * $scope.tempPartnerSchool.examDetailList.bookSummary.bookDetail[i].totalStud);
-
+															
+															$scope.totalBookAmount += $scope.tempPartnerSchool.examDetailList.bookSummary.bookDetail[i].totalFees;
 															/*
 															 * $scope.newCourierObj.totalFees =
 															 * $scope.newCourierObj.totalFees +
@@ -163,6 +164,7 @@ angular
 														}
 													}
 												}
+												$scope.newCourierObj.totalFees = Math.round(($scope.totalBookAmount / 100) * 80);
 											}
 											$scope.loading = false;
 										});

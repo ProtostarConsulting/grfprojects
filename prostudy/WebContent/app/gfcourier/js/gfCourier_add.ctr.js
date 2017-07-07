@@ -259,10 +259,9 @@ angular
 						for (var i = 0; i < $scope.tempCourierObj.bookLineItemList.length; i++) {
 							var line = $scope.tempCourierObj.bookLineItemList[i];
 							$scope.tempCourierObj.totalWeight += (line.bookQty * line.weight);
-
 							$scope.tempCourierObj.totalFees += (line.bookQty * line.bookPrice);
 						}
-
+						$scope.tempCourierObj.totalFees = Math.round(($scope.tempCourierObj.totalFees / 100) * 80);
 						return $scope.tempCourierObj.totalWeight;
 					}
 					$scope.showAlert = function(item, ev) {

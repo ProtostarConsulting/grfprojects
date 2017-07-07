@@ -149,9 +149,22 @@
 				</div>
 				</md-input-container>
 			</div>
-
-			<div ng-show="tempBook.id" layout="row" layout-xs="column" flex>
 			
+			<div ng-show="tempBook.id" layout="row" layout-xs="column" flex>
+				<md-input-container flex> <label>Medium
+					of Answer<span style="color: red"
+					ng-show="gfBookStockForm.bookMedium.$error.required"
+					class="mandatory">*</span>
+				</label> <md-select name="bookMedium" ng-model="tempBook.bookMedium"
+					ng-required="true"> <md-option ng-value="bookMedium"
+					ng-repeat="bookMedium in answerOfMediumList" ng-selected="$first">{{bookMedium}}</md-option>
+				</md-select>
+				<div ng-messages="gfBookStockForm.bookMedium.$error"
+					ng-if="gfBookStockForm.bookMedium.$submitted || gfBookStockForm.bookMedium.$touched">
+					<div ng-message="required">Please Select Medium.</div>
+				</div>
+				</md-input-container>
+				
 				<md-input-container flex>
 				<label>Quantity<span style="color: red"
 					ng-show="gfBookStockForm.bookQty.$error.required" class="mandatory">*</span>
@@ -162,7 +175,9 @@
 					<div ng-message="required">Please Enter Book Quantity.</div>
 				</div>
 				</md-input-container>
+			</div>
 
+			<div ng-show="tempBook.id" layout="row" layout-xs="column" flex>
 				<md-input-container flex="50"> <label>Threshold<span
 					style="color: red"
 					ng-show="gfBookStockForm.bookThreshold.$error.required"
@@ -174,7 +189,6 @@
 					<div ng-message="required">Please Enter Book Quantity.</div>
 				</div>
 				</md-input-container>
-
 			</div>
 		</form>
 	</div>
