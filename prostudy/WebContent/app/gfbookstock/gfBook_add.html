@@ -113,15 +113,13 @@
 					class="mandatory">*</span>
 				</label> <md-select name="bookMedium" ng-model="tempBook.bookMedium"
 					ng-required="true"> <md-option ng-value="bookMedium"
-					ng-repeat="bookMedium in answerOfMediumList" ng-selected="$first">{{bookMedium}}</md-option>
+					ng-repeat="bookMedium in answerOfMediumList">{{bookMedium}}</md-option>
 				</md-select>
 				<div ng-messages="gfBookStockForm.bookMedium.$error"
 					ng-if="gfBookStockForm.bookMedium.$submitted || gfBookStockForm.bookMedium.$touched">
 					<div ng-message="required">Please Select Medium.</div>
 				</div>
 				</md-input-container>
-
-				
 
 			</div>
 
@@ -155,9 +153,9 @@
 					of Answer<span style="color: red"
 					ng-show="gfBookStockForm.bookMedium.$error.required"
 					class="mandatory">*</span>
-				</label> <md-select name="bookMedium" ng-model="tempBook.bookMedium"
-					ng-required="true"> <md-option ng-value="bookMedium"
-					ng-repeat="bookMedium in answerOfMediumList" ng-selected="$first">{{bookMedium}}</md-option>
+				</label> <md-select name="bookMedium" ng-model="tempBook.bookMedium" 
+					ng-required="true"> <md-option ng-value="bookMedium" ng-selected="tempBook.bookMedium == bookMedium"
+					ng-repeat="bookMedium in answerOfMediumList">{{bookMedium}}</md-option>
 				</md-select>
 				<div ng-messages="gfBookStockForm.bookMedium.$error"
 					ng-if="gfBookStockForm.bookMedium.$submitted || gfBookStockForm.bookMedium.$touched">
