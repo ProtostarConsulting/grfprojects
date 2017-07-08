@@ -155,7 +155,7 @@ angular
 															$scope.newCourierObj.totalWeight = ($scope.newCourierObj.totalWeight)
 																	+ ($scope.bookStocks[j].weight * $scope.tempPartnerSchool.examDetailList.bookSummary.bookDetail[i].totalStud);
 															
-															$scope.totalBookAmount += $scope.tempPartnerSchool.examDetailList.bookSummary.bookDetail[i].totalFees;
+															$scope.totalBookAmount += $scope.tempPartnerSchool.examDetailList.bookSummary.bookDetail[i].totalExamFees;
 															/*
 															 * $scope.newCourierObj.totalFees =
 															 * $scope.newCourierObj.totalFees +

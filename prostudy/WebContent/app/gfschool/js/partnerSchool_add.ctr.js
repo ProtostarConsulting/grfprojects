@@ -585,7 +585,9 @@ angular
 					$scope.removeBook = function(index) {
 						$scope.calculate(index, 0);
 						$scope.bookSummary.bookDetail.splice(index, 1);
-
+						$scope.getGrffeestotal();
+						$scope.getTotalbookAmount();
+						$scope.getRemainingTotal();
 					};
 
 					$scope.books = [];
@@ -702,12 +704,12 @@ angular
 
 							}
 							$scope.PaymentDetail.tPaid += $scope.PaymentDetail.payAmount;
-							$scope.PaymentDetail.pAmount = $scope.bookSummary.amtForGRF80per
+							$scope.PaymentDetail.pAmount = $scope.getGrffeestotal()
 									- $scope.PaymentDetail.tPaid;
 						} else {
 
 							$scope.PaymentDetail.tPaid = $scope.PaymentDetail.payAmount;
-							$scope.PaymentDetail.pAmount = $scope.bookSummary.amtForGRF80per
+							$scope.PaymentDetail.pAmount = $scope.getGrffeestotal()
 									- $scope.PaymentDetail.tPaid;
 						}
 

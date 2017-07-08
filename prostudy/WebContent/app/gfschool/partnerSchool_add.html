@@ -627,13 +627,13 @@
 					<tr>
 						<td></td>
 						<td><b>Total</b></td>
-						<td>{{examDetail.total}}</td>
+						<td><b>{{examDetail.total}}</b></td>
 						<td></td>
-						<td>{{bookSummary.total | number : 2}}</td>
-						<td>{{getGrffeestotal() | number : 2}}</td>
+						<td><b>{{bookSummary.total | number : 2}}</b></td>
+						<td><b>{{getGrffeestotal() | number : 2}}</b></td>
 						<td></td>
-						<td>{{getTotalbookAmount() | number : 2}}</td>
-						<td>{{getRemainingTotal() | number : 2}}</td>
+						<td><b>{{getTotalbookAmount() | number : 2}}</b></td>
+						<td><b>{{getRemainingTotal() | number : 2}}</b></td>
 						<td></td>
 					</tr>
 				</tbody>
@@ -808,7 +808,7 @@
 
 		<div layout="row" layout-xs="column" flex>
 			<md-input-container flex="20">Total Fees To Be
-			Paid = {{bookSummary.total }} </md-input-container>
+			Paid = {{getGrffeestotal() }} </md-input-container>
 			<span flex="10"></span>
 			<md-input-container flex="20">Total Paid Fees =
 			{{PaymentDetail.tPaid }} </md-input-container>

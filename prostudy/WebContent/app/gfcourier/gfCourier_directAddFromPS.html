@@ -81,7 +81,7 @@
 						<th name="Sr_No"></th>
 						<th name="Book Name"></th>
 						<th name="Qty"></th>
-						<th name="Fees"></th>
+						<th name="Exam Fees"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -99,9 +99,16 @@
 								ng-model="item.totalStud" type="number" readonly> </md-input-container></td>
 
 						<td><md-input-container flex> <input
-								ng-model="item.totalFees" type="number" readonly> </md-input-container></td>
+								ng-model="item.totalExamFees" type="number" readonly> </md-input-container></td>
 
 						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td><b>Total: Rs. {{ totalBookAmount | number
+								: 2}}</b></td>
 					</tr>
 					<tr>
 						<td></td>
