@@ -236,8 +236,9 @@ public class PartnerSchoolService {
 					List<BookDetail> bookDetail = bookSummary.getBookDetail();
 					if (bookDetail != null && bookDetail.size() > 0) {
 						for (BookDetail book : bookDetail) {
-							if (bookID.trim().equalsIgnoreCase(
-									book.getBookName().trim())) {
+							if (book.getBookName() != null
+									&& bookID.trim().equalsIgnoreCase(
+											book.getBookName().trim())) {
 								filterSchoolList.add(currentSchool);
 							}
 						}
