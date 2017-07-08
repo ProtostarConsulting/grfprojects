@@ -8,7 +8,7 @@ angular
 						appEndpointSF) {
 
 					$scope.selectedGFBookID = $stateParams.selectedGFBookID;
-					$scope.selectedBookQty=[];
+					$scope.selectedBookQty = [];
 					$scope.fetchSchoolByBId = function() {
 						$scope.schoolList = [];
 						$scope.totalBookQty = 0;
@@ -25,22 +25,28 @@ angular
 														if ($scope.selectedGFBookID == schoolList[k].examDetailList[i].bookSummary.bookDetail[j].bookName) {
 															$scope.totalBookQty = $scope.totalBookQty
 																	+ schoolList[k].examDetailList[i].bookSummary.bookDetail[j].totalStud;
-															$scope.selectedBookQty.push(schoolList[k].examDetailList[i].bookSummary.bookDetail[j].totalStud);
+															$scope.selectedBookQty
+																	.push(schoolList[k].examDetailList[i].bookSummary.bookDetail[j].totalStud);
 														}
 													}
 
 												}
 											}
-											console.log("bookQty---"
-													+ $scope.totalBookQty);
-											console.log("schoolList---"
-													+ $scope.schoolList);
-
 										});
+					}
+
+					$scope.getBookById = function(id) {
+						var gfBookStockService = appEndpointSF
+								.getGFBookStockService();
+						gfBookStockService.getGFBookById(id).then(
+								function(resp) {
+									$scope.bookName = resp.bookName;
+								});
 					}
 
 					$scope.waitForServiceLoad = function() {
 						if (appEndpointSF.is_service_ready) {
+							$scope.getBookById($scope.selectedGFBookID);
 							$scope.fetchSchoolByBId();
 						} else {
 							$log.debug("Services Not Loaded, watiting...");
@@ -49,7 +55,7 @@ angular
 					}
 
 					$scope.waitForServiceLoad();
-					
+
 					$scope.getRowStyle = function(even) {
 						if (!even) {
 							return {
@@ -66,7 +72,7 @@ angular
 							};
 						}
 					}
-					
+
 					$scope.getTHStyle = function() {
 						return {
 							'border' : '1px solid black',
