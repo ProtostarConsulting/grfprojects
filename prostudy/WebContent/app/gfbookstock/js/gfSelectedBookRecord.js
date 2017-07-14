@@ -7,46 +7,43 @@ angular
 						tableTestDataFactory, ajsCache, $state, Upload,
 						appEndpointSF) {
 
-					$scope.selectedGFBookID = $stateParams.selectedGFBookID;
+					$scope.curUser = appEndpointSF.getLocalUserService()
+							.getLoggedinUser();
+
+					$scope.selectedGFBook = $stateParams.selectedGFBook;
 					$scope.selectedBookQty = [];
 					$scope.fetchSchoolByBId = function() {
+						$scope.loading = true;
 						$scope.schoolList = [];
 						$scope.totalBookQty = 0;
 						var partnerSchoolService = appEndpointSF
 								.getPartnerSchoolService();
 						partnerSchoolService
-								.getSchoolByBId($scope.selectedGFBookID)
+								.getSchoolByBId($scope.selectedGFBook.id,
+										$scope.curUser.instituteObj.yearofExam)
 								.then(
 										function(schoolList) {
 											$scope.schoolList = schoolList;
 											for (var k = 0; k < schoolList.length; k++) {
 												for (var i = 0; i < schoolList[k].examDetailList.length; i++) {
-													for (j = 0; j < schoolList[k].examDetailList[i].bookSummary.bookDetail.length; j++) {
-														if ($scope.selectedGFBookID == schoolList[k].examDetailList[i].bookSummary.bookDetail[j].bookName) {
-															$scope.totalBookQty = $scope.totalBookQty
-																	+ schoolList[k].examDetailList[i].bookSummary.bookDetail[j].totalStud;
-															$scope.selectedBookQty
-																	.push(schoolList[k].examDetailList[i].bookSummary.bookDetail[j].totalStud);
+													if ($scope.curUser.instituteObj.yearofExam == schoolList[k].examDetailList[i].yearOfExam) {
+														for (j = 0; j < schoolList[k].examDetailList[i].bookSummary.bookDetail.length; j++) {
+															if ($scope.selectedGFBook.id == schoolList[k].examDetailList[i].bookSummary.bookDetail[j].bookName) {
+																$scope.totalBookQty = $scope.totalBookQty
+																		+ schoolList[k].examDetailList[i].bookSummary.bookDetail[j].totalStud;
+																$scope.selectedBookQty
+																		.push(schoolList[k].examDetailList[i].bookSummary.bookDetail[j].totalStud);
+															}
 														}
 													}
-
 												}
 											}
+											$scope.loading = false;
 										});
-					}
-
-					$scope.getBookById = function(id) {
-						var gfBookStockService = appEndpointSF
-								.getGFBookStockService();
-						gfBookStockService.getGFBookById(id).then(
-								function(resp) {
-									$scope.bookName = resp.bookName;
-								});
 					}
 
 					$scope.waitForServiceLoad = function() {
 						if (appEndpointSF.is_service_ready) {
-							$scope.getBookById($scope.selectedGFBookID);
 							$scope.fetchSchoolByBId();
 						} else {
 							$log.debug("Services Not Loaded, watiting...");

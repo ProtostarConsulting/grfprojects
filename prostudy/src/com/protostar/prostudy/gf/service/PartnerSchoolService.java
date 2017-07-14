@@ -220,26 +220,38 @@ public class PartnerSchoolService {
 	}
 
 	@ApiMethod(name = "getSchoolByBId", path = "getSchoolByBId")
-	public List<PartnerSchoolEntity> getSchoolByBId(@Named("id") Long id) {
+	public List<PartnerSchoolEntity> getSchoolByBId(@Named("id") Long id,
+			@Named("yearOfExam") String yearOfExam) {
 
 		String bookID = Long.toString(id).trim();
+		String[] yearofExamArray = new String[1];
+		yearofExamArray[0] = yearOfExam;
+
 		List<PartnerSchoolEntity> schoolList = ofy().load()
-				.type(PartnerSchoolEntity.class).list();
+				.type(PartnerSchoolEntity.class)
+				.filter("examDetailIndex in", yearofExamArray).list();
+
 		List<PartnerSchoolEntity> filterSchoolList = new ArrayList();
 		for (int i = 0; i < schoolList.size(); i++) {
 			PartnerSchoolEntity currentSchool = schoolList.get(i);
 			List<ExamDetail> examDetailList = currentSchool.getExamDetailList();
-			if (examDetailList != null && examDetailList.size() > 0) {
-				BookSummary bookSummary = examDetailList.get(0)
-						.getBookSummary();
-				if (bookSummary != null) {
-					List<BookDetail> bookDetail = bookSummary.getBookDetail();
-					if (bookDetail != null && bookDetail.size() > 0) {
-						for (BookDetail book : bookDetail) {
-							if (book.getBookName() != null
-									&& bookID.trim().equalsIgnoreCase(
-											book.getBookName().trim())) {
-								filterSchoolList.add(currentSchool);
+			for (int j = 0; j < examDetailList.size(); j++) {
+				if (examDetailList != null
+						&& examDetailList.size() > 0
+						&& examDetailList.get(j).getYearOfExam().trim()
+								.equalsIgnoreCase(yearOfExam.trim())) {
+					BookSummary bookSummary = examDetailList.get(j)
+							.getBookSummary();
+					if (bookSummary != null) {
+						List<BookDetail> bookDetail = bookSummary
+								.getBookDetail();
+						if (bookDetail != null && bookDetail.size() > 0) {
+							for (BookDetail book : bookDetail) {
+								if (book.getBookName() != null
+										&& bookID.trim().equalsIgnoreCase(
+												book.getBookName().trim())) {
+									filterSchoolList.add(currentSchool);
+								}
 							}
 						}
 					}

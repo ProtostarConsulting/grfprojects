@@ -1497,9 +1497,12 @@ app
 						controller : 'gfBookStockviewCtr'
 					})
 					.state('bookModule.viewRecord', {
-						url : "/bookModule.selectedBook/:selectedGFBookID",
+						url : "/bookModule.selectedBook",
 						templateUrl : '/app/gfbookstock/gfSelectedBookRecord.html',
-						controller : 'gfSelectedBookRecordCtr'
+						controller : 'gfSelectedBookRecordCtr',
+						params : {
+							selectedGFBook : null
+						}
 					})
 					.state('bookModule.stockAdd', {
 						url : "/bookModule.stockAdd/:selectedGFBookStockID",

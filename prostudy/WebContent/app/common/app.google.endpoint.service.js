@@ -1983,10 +1983,11 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 		return deferred.promise;
 	}
 
-	PartnerSchoolService.getSchoolByBId = function(id) {
+	PartnerSchoolService.getSchoolByBId = function(id, yearOfExam) {
 		var deferred = $q.defer();
 		gapi.client.partnerSchoolService.getSchoolByBId({
-			'id' : id
+			'id' : id,
+			'yearOfExam' : yearOfExam
 		}).execute(function(resp) {
 			deferred.resolve(resp.items);
 
