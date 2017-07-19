@@ -56,8 +56,8 @@ public class DownloadPartnerSchools extends HttpServlet {
 		}
 		
 		Long insId = Long.parseLong(request.getParameter("InstituteId"));
+		String yearofExam = request.getParameter("yearofExam");
 
-		System.out.println("insid===" + insId);
 		PartnerSchoolService patss = new PartnerSchoolService();
 
 		Date date = new Date();
@@ -65,7 +65,7 @@ public class DownloadPartnerSchools extends HttpServlet {
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
 
 		List<PartnerSchoolEntity> schoolList = patss
-				.getPartnerByInstitute(insId);
+				.getPartnerByInstitute(insId, yearofExam);
 
 		OutputStream out = null;
 		try {

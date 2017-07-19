@@ -50,10 +50,8 @@ public class DownloadGfCourierList extends HttpServlet {
 		}
 		
 		Long insId = Long.parseLong(request.getParameter("InstituteId"));
-
-		System.out.println("insid===" + insId);
-		PartnerSchoolService patss = new PartnerSchoolService();
-
+		String yearofExam = request.getParameter("yearofExam");
+		
 		GFCourierService gfCourierService = new GFCourierService();
 
 		Date date = new Date();
@@ -61,7 +59,7 @@ public class DownloadGfCourierList extends HttpServlet {
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
 
 		List<GFCourierEntity> courierList = gfCourierService
-				.getGFCourierByInstitute(insId);
+				.getGFCourierByInstitute(insId, yearofExam);
 
 		OutputStream out = null;
 		try {

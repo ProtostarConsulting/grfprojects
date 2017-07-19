@@ -293,12 +293,12 @@ angular
 
 					$scope.downloadData = function() {
 						document.location.href = "DownloadPartnerSchools?InstituteId="
-								+ $scope.curUser.instituteID;
+								+ $scope.curUser.instituteID+"&yearofExam="+$scope.curUser.instituteObj.yearofExam;
 					}
 
 					$scope.downloadDataByLanguage = function() {
 						document.location.href = "DownloadSchoolByLanguage?InstituteId="
-								+ $scope.curUser.instituteID;
+								+ $scope.curUser.instituteID+"&yearofExam="+$scope.curUser.instituteObj.yearofExam;
 					}
 
 					// ----------------------UPLODE EXCEL

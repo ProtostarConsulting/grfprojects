@@ -41,7 +41,7 @@ public class DownloadSchoolByLanguage extends HttpServlet {
 		}
 		
 		Long insId = Long.parseLong(request.getParameter("InstituteId"));
-
+		String yearofExam = request.getParameter("yearofExam");
 		int totalStudent = 0;
 		String currTotal = null;
 
@@ -52,7 +52,7 @@ public class DownloadSchoolByLanguage extends HttpServlet {
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
 
 		List<PartnerSchoolEntity> schoolList = patss
-				.getPartnerByInstitute(insId);
+				.getPartnerByInstitute(insId, yearofExam);
 
 		try {
 

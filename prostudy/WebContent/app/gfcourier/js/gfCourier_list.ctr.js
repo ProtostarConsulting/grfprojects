@@ -374,7 +374,7 @@ angular
 					}
 					$scope.downloadData = function() {
 						document.location.href = "DownloadGfCourierList?InstituteId="
-								+ $scope.curUser.instituteID;
+								+ $scope.curUser.instituteID+"&yearofExam="+$scope.curUser.instituteObj.yearofExam;
 					}
 
 					$scope.waitForServiceLoad();
