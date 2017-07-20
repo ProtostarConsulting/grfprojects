@@ -190,10 +190,11 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 		return deferred.promise;
 	}
 
-	GFCourierService.getCourierByDispatchDate = function(date) {
+	GFCourierService.getCourierByDispatchDate = function(date,yearOfExam) {
 		var deferred = $q.defer();
 		gapi.client.gfCourierService.getCourierByDispatchDate({
-			"dispatchDate" : date
+			"dispatchDate" : date,
+			"yearOfExam" : yearOfExam
 		}).execute(function(resp) {
 			deferred.resolve(resp.items);
 		});

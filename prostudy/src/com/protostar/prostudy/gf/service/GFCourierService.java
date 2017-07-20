@@ -260,7 +260,7 @@ public class GFCourierService {
 
 	@ApiMethod(name = "getCourierByDispatchDate", path = "getCourierByDispatchDate")
 	public List<GFCourierEntity> getCourierByDispatchDate(
-			@Named("dispatchDate") Long dispatchDate) {
+			@Named("dispatchDate") Long dispatchDate, @Named("yearOfExam") String yearOfExam) {
 
 		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("IST"));
 		cal.setTime(new Date(dispatchDate));
@@ -275,6 +275,7 @@ public class GFCourierService {
 		logger.info("toDate:" + toDate);
 
 		List<GFCourierEntity> list = ofy().load().type(GFCourierEntity.class)
+				.filter("yearOfExam", yearOfExam)
 				.filter("courierDispatchDate >=", fromDate)
 				.filter("courierDispatchDate <", toDate).list();
 		return list;

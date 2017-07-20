@@ -53,7 +53,7 @@ angular
 								.getGFCourierService();
 						gfCourierService
 								.getCourierByDispatchDate(
-										$scope.courierDispatchDate.getTime())
+										$scope.courierDispatchDate.getTime(),$scope.curUser.instituteObj.yearofExam)
 								.then(
 										function(gfCouriertList) {
 											$scope.couriertFilteredList = gfCouriertList;
@@ -68,7 +68,9 @@ angular
 						document.location.href = "DownloadCourierDispatchReport?courierDispatchReportByInstituteID="
 								+ $scope.curUser.instituteID
 								+ "&dispatchDate="
-								+ $scope.courierDispatchDate.getTime();
+								+ $scope.courierDispatchDate.getTime()
+								+ "&yearOfExam="
+								+ $scope.curUser.instituteObj.yearofExam;
 					}
 
 					$scope.waitForServiceLoad = function() {

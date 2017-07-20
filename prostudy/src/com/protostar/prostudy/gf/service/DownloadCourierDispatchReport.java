@@ -38,10 +38,7 @@ public class DownloadCourierDispatchReport extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		System.out.println("hi i am download servlet");
-		//String courierType=String.valueOf(request.getParameter("CourierType"));
-		
+				
 		int sr_no=0;
 		if (request.getRemoteHost().contains("localhost")
 				|| request.getRemoteHost().contains("127.0.0.1")) {
@@ -53,6 +50,7 @@ public class DownloadCourierDispatchReport extends HttpServlet {
 		
 		String courierDispatchReportID=request.getParameter("courierDispatchReportByInstituteID");
 		long courierReportInstituteID=Long.parseLong(courierDispatchReportID);
+		String yearOfExam=request.getParameter("yearOfExam");
 		
 		String dispatchDate=request.getParameter("dispatchDate");
 		String DATE_FORMAT = "dd-MM-yyyy";
@@ -66,7 +64,7 @@ public class DownloadCourierDispatchReport extends HttpServlet {
 		String dispachDateToCompare = sdf.format(courierDispatchDate);	
 		
 		GFCourierService gfCourierService = new GFCourierService();
-		List<GFCourierEntity> courierReportList = gfCourierService.getGFCourierByInstitute(courierReportInstituteID);
+		List<GFCourierEntity> courierReportList = gfCourierService.getGFCourierByInstitute(courierReportInstituteID,yearOfExam);
 		
 		/*Date dispatchDateofCourier = courierReportList.get(0).getCourierDispatchDate();
 		System.out.println("dispatchDateofCourier: ----"+dispatchDateofCourier);*/
