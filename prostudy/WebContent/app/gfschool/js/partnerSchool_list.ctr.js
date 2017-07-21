@@ -162,8 +162,7 @@ angular
 						if (enteredGrfRegNo && enteredGrfRegNo.length >= 5) {
 							$scope.query.searchSchoolTxt = "";
 							$scope.query.page = 1;
-							var grfRegNo = (enteredGrfRegNo
-									.startsWith('P-20') && enteredGrfRegNo.length >= 12) ? enteredGrfRegNo
+							var grfRegNo = (enteredGrfRegNo.startsWith('P-20') && enteredGrfRegNo.length >= 12) ? enteredGrfRegNo
 									: 'P-20' + enteredGrfRegNo;
 
 							$scope.grfRegNoChange(grfRegNo, yearOfExam);
@@ -203,7 +202,9 @@ angular
 					$scope.iscurUserRole = function() {
 						$scope.schools = [];
 						$scope.schools.push($scope.curUser.school);
-						$scope.loading = false;
+						if ($scope.curUser.role == "Teacher") {
+							$scope.loading = false;
+						}
 					}
 
 					$scope.grfRegNoChange = function(grfRegNo, yearOfExam) {
@@ -230,10 +231,8 @@ angular
 										});
 					}
 
-					
-
 					$scope.Years = [];
-					
+
 					$scope.getPrvYears = function() {
 						var date = new Date();
 
@@ -249,7 +248,8 @@ angular
 
 					$scope.getPrvYears();
 					$scope.getCurYear = function() {
-						$scope.Years.push($scope.curUser.instituteObj.yearofExam);						
+						$scope.Years
+								.push($scope.curUser.instituteObj.yearofExam);
 					}
 					$scope.getCurYear();
 
@@ -274,7 +274,7 @@ angular
 						if (appEndpointSF.is_service_ready) {
 							// $scope.getPartnerSchoolByInstitute();
 							if ($scope.curUser.role == "Admin") {
-								$scope.onpagechange();
+								$scope.refreshListPage();
 							}
 							if ($scope.curUser.role == "Teacher"
 									&& $scope.curUser.schoolInstitute != undefined) {
@@ -293,12 +293,16 @@ angular
 
 					$scope.downloadData = function() {
 						document.location.href = "DownloadPartnerSchools?InstituteId="
-								+ $scope.curUser.instituteID+"&yearofExam="+$scope.curUser.instituteObj.yearofExam;
+								+ $scope.curUser.instituteID
+								+ "&yearofExam="
+								+ $scope.curUser.instituteObj.yearofExam;
 					}
 
 					$scope.downloadDataByLanguage = function() {
 						document.location.href = "DownloadSchoolByLanguage?InstituteId="
-								+ $scope.curUser.instituteID+"&yearofExam="+$scope.curUser.instituteObj.yearofExam;
+								+ $scope.curUser.instituteID
+								+ "&yearofExam="
+								+ $scope.curUser.instituteObj.yearofExam;
 					}
 
 					// ----------------------UPLODE EXCEL
