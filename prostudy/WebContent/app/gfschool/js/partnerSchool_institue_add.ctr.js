@@ -33,7 +33,8 @@ angular
 
 					$scope.schoolInstitute = $stateParams.selectedPSchoolInstituteId ? $stateParams.selectedPSchoolInstitute
 							: $scope.schoolInstitute;
-					$scope.schoolInstituteId = $stateParams.selectedPSchoolInstituteId ? $stateParams.selectedPSchoolInstituteId : null;
+					$scope.schoolInstituteId = $stateParams.selectedPSchoolInstituteId ? $stateParams.selectedPSchoolInstituteId
+							: null;
 
 					$scope.addPartnerSchoolInstitute = function() {
 						$scope.loading = true;
@@ -66,20 +67,22 @@ angular
 
 					$scope.initSchoolInstituteLoad = function(schoolInstitute) {
 						$scope.schoolInstitute = schoolInstitute;
-						$scope.Address = $scope.schoolInstitute.address;
-						$scope.schoolInstitute.address.pin = parseInt($scope.schoolInstitute.address.pin);
+						if ($scope.schoolInstitute.address != undefined) {
+							$scope.Address = $scope.schoolInstitute.address;
+							$scope.schoolInstitute.address.pin = parseInt($scope.schoolInstitute.address.pin);
 
-						if ($scope.schoolInstitute.address.state != "Maharashtra") {
-							$scope.schoolInstitute.address.otherAddressFlag = true;
-						}
+							if ($scope.schoolInstitute.address.state != "Maharashtra") {
+								$scope.schoolInstitute.address.otherAddressFlag = true;
+							}
 
-						if ($scope.schoolInstitute.address.otherAddressFlag == false) {
-							$scope.a;
-							$scope.getDistricts($scope.a, $scope.Address.state);
-							if ($scope.temp.tempDistricts)
-								$scope
-										.getTalukas($scope.a,
-												$scope.Address.dist);
+							if ($scope.schoolInstitute.address.otherAddressFlag == false) {
+								$scope.a;
+								$scope.getDistricts($scope.a,
+										$scope.Address.state);
+								if ($scope.temp.tempDistricts)
+									$scope.getTalukas($scope.a,
+											$scope.Address.dist);
+							}
 						}
 					}
 

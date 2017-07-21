@@ -54,7 +54,7 @@ public class DownloadPartnerSchools extends HttpServlet {
 					"GET,PUT,POST,DELETE");
 			response.addHeader("Access-Control-Allow-Headers", "Content-Type");
 		}
-		
+
 		Long insId = Long.parseLong(request.getParameter("InstituteId"));
 		String yearofExam = request.getParameter("yearofExam");
 
@@ -64,8 +64,8 @@ public class DownloadPartnerSchools extends HttpServlet {
 		String DATE_FORMAT = "dd/MMM/yyyy";
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
 
-		List<PartnerSchoolEntity> schoolList = patss
-				.getPartnerByInstitute(insId, yearofExam);
+		List<PartnerSchoolEntity> schoolList = patss.getPartnerByInstitute(
+				insId, yearofExam);
 
 		OutputStream out = null;
 		try {
@@ -176,7 +176,7 @@ public class DownloadPartnerSchools extends HttpServlet {
 							.getSchoolName()));
 					writer.append(',');
 					writer.append(UtilityService.trimForCSV(schoolEntity
-							.getInstName()));
+							.getSchoolInstitute().getInstituteName()));
 					writer.append(',');
 					writer.append(schoolEntity.getFormNumber());
 					writer.append(',');
