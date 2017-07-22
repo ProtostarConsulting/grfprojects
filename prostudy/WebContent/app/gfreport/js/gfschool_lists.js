@@ -99,9 +99,9 @@ angular
 										}
 									}
 								}
-							}else{
+							} else {
 								$scope.filteredSchoolList
-								.push($scope.pSchoolList[i]);
+										.push($scope.pSchoolList[i]);
 							}
 						}
 
@@ -112,7 +112,8 @@ angular
 								.getPartnerSchoolService();
 
 						PartnerService.getPartnerByInstitute(
-								$scope.curUser.instituteID).then(
+								$scope.curUser.instituteID,
+								$scope.curUser.instituteObj.yearofExam).then(
 								function(pSchoolList) {
 									$scope.pSchoolList = pSchoolList;
 									$scope.filteredSchoolList = [];
@@ -122,7 +123,9 @@ angular
 
 					$scope.downloadData = function() {
 						document.location.href = "DownloadPartnerSchools?InstituteId="
-								+ $scope.curUser.instituteID;
+								+ $scope.curUser.instituteID
+								+ "&yearofExam="
+								+ $scope.curUser.instituteObj.yearofExam;
 					}
 
 					$scope.waitForServiceLoad = function() {

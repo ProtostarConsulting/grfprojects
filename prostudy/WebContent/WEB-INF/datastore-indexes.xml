@@ -41,4 +41,9 @@
         <property name="yearOfExam" direction="asc"/>
         <property name="courierDispatchDate" direction="asc"/>
     </datastore-index>
+    <datastore-index kind="GFCourierEntity" ancestor="false" source="manual">
+        <property name="courierDocketID" direction="asc"/>
+        <property name="yearOfExam" direction="asc"/>
+        <property name="courierDispatchDate" direction="asc"/>
+    </datastore-index>
 </datastore-indexes>

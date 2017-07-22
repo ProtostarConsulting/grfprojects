@@ -181,8 +181,7 @@ public class GFCourierService {
 		Cursor cursor = iterator.getCursor();
 		pagingInfo.setEntityList(courierList);
 		pagingInfo.setWebSafeCursorString(cursor.toWebSafeString());
-		pagingInfo.setTotalEntities(ofy().load().type(GFCourierEntity.class)
-				.filter("instituteID", instituteID).count());
+		pagingInfo.setTotalEntities(filterInstituteQuery.count());
 
 		/*
 		 * logger.info("pagingInfo.getStartPage:" + pagingInfo.getStartPage());
@@ -249,11 +248,12 @@ public class GFCourierService {
 
 	@ApiMethod(name = "getPendingPastDate", path = "getPendingPastDate")
 	public List<GFCourierEntity> getPendingPastDate(
-			@Named("sinceDate") Long sinceDate) {
+			@Named("sinceDate") Long sinceDate, @Named("yearOfExam") String yearOfExam) {
 		Date date = new Date(sinceDate);
 		logger.info("date:" + date);
 		List<GFCourierEntity> list = ofy().load().type(GFCourierEntity.class)
 				.filter("courierDocketID", null)
+				.filter("yearOfExam", yearOfExam)
 				.filter("courierDispatchDate <", date).list();
 		return list;
 	}

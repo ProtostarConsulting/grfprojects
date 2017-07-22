@@ -47,17 +47,18 @@ angular
 							$scope.query.searchSchoolTxt = "";
 							$scope.query.logisticsType = $scope.query.optionValueAll;
 							$scope.query.courierType = $scope.query.optionValueAll;
-							
+
 							var todayDate = new Date();
 							var eightDaysBefore = new Date();
 							var numberOfDaysToAdd = -8;
 							eightDaysBefore.setDate(todayDate.getDate()
 									+ numberOfDaysToAdd);
-
+							
 							var gfCourierService = appEndpointSF
 									.getGFCourierService();
-							gfCourierService
-									.getPendingPastDate(eightDaysBefore.getTime())
+							gfCourierService.getPendingPastDate(
+									eightDaysBefore.getTime(),
+									$scope.curUser.instituteObj.yearofExam)
 									.then(function(gfCouriertList) {
 										$scope.gfCouriertList = gfCouriertList;
 										$scope.searchTextDone = false;
@@ -86,7 +87,8 @@ angular
 								.getGFCourierService();
 						gfCourierService
 								.getGFCourierByInstitute(
-										$scope.curUser.instituteID)
+										$scope.curUser.instituteID,
+										$scope.curUser.instituteObj.yearofExam)
 								.then(
 										function(gfCouriertList) {
 											$scope.gfCouriertList = gfCouriertList;
@@ -127,7 +129,8 @@ angular
 							$log.debug("Found List in Cache, return it.")
 							$scope.queriedCourierDataCache = ajsCache
 									.get(courierListCacheKey);
-							$scope.gfCouriertList = $scope.queriedCourierDataCache.entityList;
+							$scope.gfCouriertList = $scope.queriedCourierDataCache.entityList ? $scope.queriedCourierDataCache.entityList
+									: [];
 							$scope.query.totalSize = $scope.queriedCourierDataCache.totalSize;
 							$scope.query.totalSizeBackup = $scope.queriedCourierDataCache.totalSizeBackup;
 
@@ -165,7 +168,7 @@ angular
 												$scope.query.totalSize = pagingInfoReturned.totalEntities;
 												$scope.query.totalSizeBackup = pagingInfoReturned.totalEntities;
 												$scope.query.entityList = $scope.gfCouriertList;
-												
+
 												ajsCache.put(
 														courierListCacheKey,
 														$scope.query);
@@ -187,9 +190,9 @@ angular
 							$scope.query.courierType = $scope.query.optionValueAll;
 							$scope.query.pastEightDays = false;
 							$scope.query.page = 1;
-							$scope
-									.schoolSerachTxtChange($scope.query.searchSchoolTxt
-											.trim(), $scope.curUser.instituteObj.yearofExam);
+							$scope.schoolSerachTxtChange(
+									$scope.query.searchSchoolTxt.trim(),
+									$scope.curUser.instituteObj.yearofExam);
 						} else {
 							// let user type whole 12 chars of GRF No
 							// restore $scope.gfCouriertList if was filtered
@@ -225,7 +228,8 @@ angular
 						}
 					}
 
-					$scope.schoolSerachTxtChange = function(searchSchoolTxt, yearOfExam) {
+					$scope.schoolSerachTxtChange = function(searchSchoolTxt,
+							yearOfExam) {
 
 						$scope.searchTextDone = true;
 						$scope.gfCouriertList = [];
@@ -233,18 +237,21 @@ angular
 								+ searchSchoolTxt);
 						var gfCourierService = appEndpointSF
 								.getGFCourierService();
-						gfCourierService.searchCourierBySchoolName(
-								searchSchoolTxt, yearOfExam).then(function(courierList) {
-							if (courierList) {
-								$scope.gfCouriertList = courierList;
-								$scope.query.totalSize = courierList.length;
-							}
+						gfCourierService
+								.searchCourierBySchoolName(searchSchoolTxt,
+										yearOfExam)
+								.then(
+										function(courierList) {
+											if (courierList) {
+												$scope.gfCouriertList = courierList;
+												$scope.query.totalSize = courierList.length;
+											}
 
-							$scope.searchTextDone = false;
-						});
+											$scope.searchTextDone = false;
+										});
 					}
 
-					$scope.grfRegNoChange = function(grfRegNo) {					
+					$scope.grfRegNoChange = function(grfRegNo) {
 
 						$scope.searchTextDone = true;
 						$scope.gfCouriertList = [];
@@ -252,7 +259,8 @@ angular
 						var gfCourierService = appEndpointSF
 								.getGFCourierService();
 						gfCourierService
-								.getCourierByGRFNo(grfRegNo, $scope.curUser.instituteObj.yearofExam)
+								.getCourierByGRFNo(grfRegNo,
+										$scope.curUser.instituteObj.yearofExam)
 								.then(
 										function(courierList) {
 											if (courierList) {
@@ -283,7 +291,8 @@ angular
 								.getGFCourierService();
 						gfCourierService
 								.getCourierByCourierType(
-										$scope.query.courierType, $scope.curUser.instituteObj.yearofExam)
+										$scope.query.courierType,
+										$scope.curUser.instituteObj.yearofExam)
 								.then(
 										function(items) {
 											if (items) {
@@ -317,7 +326,8 @@ angular
 								.getGFCourierService();
 						gfCourierService
 								.getCourierByLogisticsType(
-										$scope.query.logisticsType, $scope.curUser.instituteObj.yearofExam)
+										$scope.query.logisticsType,
+										$scope.curUser.instituteObj.yearofExam)
 								.then(
 										function(items) {
 											if (items) {
@@ -351,7 +361,8 @@ angular
 								.getGFCourierService();
 						gfCourierService
 								.getGFCourierByInstitute(
-										$scope.curUser.instituteID)
+										$scope.curUser.instituteID,
+										$scope.curUser.instituteObj.yearofExam)
 								.then(
 										function(gfCouriertList) {
 											$scope.gfCouriertList = gfCouriertList;
@@ -374,7 +385,9 @@ angular
 					}
 					$scope.downloadData = function() {
 						document.location.href = "DownloadGfCourierList?InstituteId="
-								+ $scope.curUser.instituteID+"&yearofExam="+$scope.curUser.instituteObj.yearofExam;
+								+ $scope.curUser.instituteID
+								+ "&yearofExam="
+								+ $scope.curUser.instituteObj.yearofExam;
 					}
 
 					$scope.waitForServiceLoad();

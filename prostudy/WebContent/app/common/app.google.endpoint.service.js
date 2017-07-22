@@ -179,10 +179,11 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 		return deferred.promise;
 	}
 
-	GFCourierService.getPendingPastDate = function(sinceDate) {
+	GFCourierService.getPendingPastDate = function(sinceDate, yearOfExam) {
 		var deferred = $q.defer();
 		gapi.client.gfCourierService.getPendingPastDate({
-			"sinceDate" : sinceDate
+			"sinceDate" : sinceDate,
+			"yearOfExam" : yearOfExam
 		}).execute(function(resp) {
 			deferred.resolve(resp.items);
 		});
@@ -225,10 +226,11 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 		return deferred.promise;
 	}
 
-	GFCourierService.getGFCourierByInstitute = function(instituteID) {
+	GFCourierService.getGFCourierByInstitute = function(instituteID, yearOfExam) {
 		var deferred = $q.defer();
 		gapi.client.gfCourierService.getGFCourierByInstitute({
-			'instituteID' : instituteID
+			'instituteID' : instituteID,
+			'yearOfExam' : yearOfExam
 		}).execute(function(resp) {
 			deferred.resolve(resp.items);
 		});
@@ -1917,10 +1919,11 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 				});
 		return deferred.promise;
 	}
-	PartnerSchoolService.getPartnerByInstitute = function(id) {
+	PartnerSchoolService.getPartnerByInstitute = function(id, yearOfExam) {
 		var deferred = $q.defer();
 		gapi.client.partnerSchoolService.getPartnerByInstitute({
-			'instituteID' : id
+			'instituteID' : id,
+			'yearOfExam' : yearOfExam
 		}).execute(function(resp) {
 			deferred.resolve(resp.items);
 
