@@ -6,4 +6,10 @@
 		<schedule>every 60 minutes from 6:00 to 12:00</schedule>
 		<!--This is GMT time, meaning 1:30 AM IST -->
 	</cron>
+	<cron>
+		<url>/grf/cron/SendBookRecorderEmail</url>
+		<description>daily book record count job</description>
+		<schedule>every 24 hours</schedule>
+		<!--This is GMT time, meaning 1:30 AM IST -->
+	</cron>
 </cronentries>

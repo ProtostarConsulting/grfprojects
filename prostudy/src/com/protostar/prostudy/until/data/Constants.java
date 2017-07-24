@@ -20,6 +20,8 @@ public class Constants {
 	public static final String PAYMENT_RECEIPET_NO = "PAYMENT_RECEIPET_NO";
 	public static final String INVOICE_NO_COUNTER = "INVOICE_NO_COUNTER";
 	public static final String VOUCHER_NO_COUNTER = "VOUCHER_NO_COUNTER";
+	public static final String PROTOSTAR_FROM_EMAIL_NAME = "GRF Notification";
+	public static final String PROTOSTAR_FROM_EMAIL_ID = "info@protostar.co.in";
 
 	// Default Authorizations
 	public static final String PROTOSTAR_DEFAULT_AUTHS = "{\"authorizations\":[{\"authName\":\"More Actions\",\"authorizations\":[{\"authName\":\"proadmin\",\"authorizations\":[]},{\"authName\":\"setup\",\"authorizations\":[]},{\"authName\":\"updatemyprofile\",\"authorizations\":[]}]}]}";
@@ -31,4 +33,7 @@ public class Constants {
 	
 	//Misc
 	public static final String DEFAULT_EMP_DEPT = "Default";
+	
+	public static final int DOCUMENT_DEFAULT_MAX_SIZE = 5000000;
+	// MAX Document size is 5 MB
 }

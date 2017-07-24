@@ -316,4 +316,14 @@
     <servlet-name>BusinessDataMigrationServlet</servlet-name>
     <url-pattern>/BusinessDataMigrationServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SendBookRecorderEmail</display-name>
+    <servlet-name>SendBookRecorderEmail</servlet-name>
+    <servlet-class>com.protostar.prostudy.gf.service.SendBookRecorderEmail</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SendBookRecorderEmail</servlet-name>
+    <url-pattern>/grf/cron/SendBookRecorderEmail</url-pattern>
+  </servlet-mapping>
 </web-app>

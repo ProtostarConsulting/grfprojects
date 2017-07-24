@@ -30,18 +30,7 @@
 
 
 		<div layout="row" layout-xs="column" flex>
-<!-- 			<md-input-container flex> <label>Institute
-				Address<span style="color: red"
-				ng-show="editInstituteForm.address.$error.required"
-				class="mandatory">*</span>
-			</label> <input name="address" ng-model="tempInstitute.address"
-				ng-required="true">
-			<div ng-messages="editInstituteForm.address.$error"
-				ng-if="editInstituteForm.address.$submitted || editInstituteForm.address.$touched">
-				<div ng-message="required">Please Enter Institute Address.</div>
-			</div>
-			</md-input-container>
- -->
+
 			<md-input-container flex=50> <label>Contact
 				No<span style="color: red"
 				ng-show="editInstituteForm.phone_no.$error.required"
@@ -127,9 +116,30 @@
 				Name</label> <input name="Plan"
 				ng-model="tempInstitute.accounttype.accountName" ng-disabled="true">
 			</md-input-container>
-
 		</div>
 
+		<span layout="row"><hr flex />
+			<h4>Other Settings</h4>
+			<hr flex /></span>
+		<div layout="row" layout-xs="column">
+			<md-input-container flex> <md-checkbox
+				ng-model="tempInstitute.settings.emailNotificationFlag"
+				aria-label="Email	Notification for Threshold Book">
+			Email Notification for Threshold Book</md-checkbox> </md-input-container>
+		</div>
+
+		<div layout="row" layout-xs="column">
+			<md-input-container flex> <label>Email
+					Notification List(enter comma separated email ids)</label><input
+				name="emailNotificationDL"
+				ng-model="tempInstitute.settings.emailNotificationDL"> </md-input-container>
+		</div>
+
+		<div layout="row" layout-xs="column">
+			<md-input-container flex> <label>Send
+				Grid API Key </label> <input name="name"
+				ng-model="tempInstitute.sendGridApiKey"> </md-input-container>
+		</div>
 
 	</form>
 </div>

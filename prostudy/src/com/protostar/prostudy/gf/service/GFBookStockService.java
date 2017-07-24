@@ -3,6 +3,7 @@ package com.protostar.prostudy.gf.service;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.google.api.server.spi.config.Api;
@@ -11,9 +12,12 @@ import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.config.Named;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
+import com.protostar.prostudy.entity.InstituteEntity;
 import com.protostar.prostudy.gf.entity.GFBookEntity;
 import com.protostar.prostudy.gf.entity.GFBookStockEntity;
 import com.protostar.prostudy.gf.entity.GFBookTransactionEntity;
+import com.protostar.prostudy.service.InstituteService;
+import com.protostar.prostudy.until.data.DateUtil;
 
 @Api(name = "gfBookStockService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.gf.service", ownerName = "com.protostar.prostudy.gf.service", packagePath = ""))
 public class GFBookStockService {
@@ -177,5 +181,35 @@ public class GFBookStockService {
 
 		return book;
 
+	}
+
+	@ApiMethod(name = "sendStockReorderEmail", path = "sendStockReorderEmail")
+	public void sendStockReorderEmail(@Named("id") Long insID) {
+
+		//Date endOfToDate = DateUtil.getEndOfDay(toDate);
+		//List<GFBookEntity> stocksBelowThreshold = getReportByThreshold(insID);
+		InstituteService instituteService = new InstituteService();
+		InstituteEntity instituteEntity = instituteService.getInstituteById(insID);
+		
+		if (instituteEntity.getSettings().getEmailNotificationFlag()) {
+			new EmailHandler().sendStockReorderEmail(instituteEntity);
+		}
+	}
+
+	@ApiMethod(name = "getReportByThreshold", path = "getReportByThreshold")
+	public List<GFBookEntity> getReportByThreshold(@Named("insID") Long insID) {
+		List<GFBookEntity> bookStocks = ofy().load().type(GFBookEntity.class)
+				.list();
+		List<GFBookEntity> filteredThresholdStocks = new ArrayList<GFBookEntity>();
+
+		for (int i = 0; i < bookStocks.size(); i++) {
+			if (bookStocks.get(i).getBookThreshold() > 0
+					&& bookStocks.get(i).getBookQty() <= bookStocks.get(i)
+							.getBookThreshold()) {
+				filteredThresholdStocks.add(bookStocks.get(i));
+			}
+		}
+
+		return filteredThresholdStocks;
 	}
 }

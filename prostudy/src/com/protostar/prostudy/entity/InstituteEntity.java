@@ -22,6 +22,7 @@ public class InstituteEntity extends BaseEntity {
 
 	private AppSettingEntity settings;
 	private String yearofExam;
+	private String sendGridApiKey;
 
 	public String getLogBlobKey() {
 		return LogBlobKey;
@@ -73,7 +74,6 @@ public class InstituteEntity extends BaseEntity {
 		this.theme = theme;
 	}
 
-	
 	public String getName() {
 		return name;
 	}
@@ -89,8 +89,6 @@ public class InstituteEntity extends BaseEntity {
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}
-
-
 
 	public String getPhone_no() {
 		return phone_no;
@@ -130,6 +128,17 @@ public class InstituteEntity extends BaseEntity {
 
 	public void setYearofExam(String yearofExam) {
 		this.yearofExam = yearofExam;
+	}
+
+	public String getSendGridApiKey() {
+		return "SG." + this.sendGridApiKey;
+	}
+
+	public void setSendGridApiKey(String sendGridApiKey) {
+		if (sendGridApiKey.startsWith("SG.")) {
+			sendGridApiKey = sendGridApiKey.substring(3);
+		}
+		this.sendGridApiKey = sendGridApiKey;
 	}
 
 }

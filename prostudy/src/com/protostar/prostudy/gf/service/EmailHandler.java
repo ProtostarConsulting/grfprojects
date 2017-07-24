@@ -2,6 +2,8 @@ package com.protostar.prostudy.gf.service;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -17,7 +19,9 @@ import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.api.taskqueue.TaskOptions;
 import com.google.appengine.labs.repackaged.org.json.JSONException;
+import com.protostar.prostudy.entity.InstituteEntity;
 import com.protostar.prostudy.entity.UserEntity;
+import com.protostar.prostudy.gf.entity.EmailStockReorderTask;
 import com.protostar.prostudy.gf.entity.PartnerSchoolEntity;
 import com.protostar.prostudy.until.EmailValidator;
 import com.protostar.prostudy.until.Sendgrid;
@@ -52,6 +56,19 @@ public class EmailHandler {
 		queue.add(TaskOptions.Builder
 				.withPayload(new SendUserRegEmailAsyncOperation(user
 						.getEmail_id(), messageBody)));
+	}
+	
+	public void sendStockReorderEmail(InstituteEntity stockSettings) {
+
+		String date_format = "MMM/dd/yyyy";
+		SimpleDateFormat sdf = new SimpleDateFormat(date_format);
+
+		String emailSubject = sdf.format(new Date()) + " " + "Book Stock Reorder Level Reminder";
+
+		String messageBody = new EmailTemplateHandlerUtil().stockReorderEmailMsgBody(stockSettings);
+		Queue queue = QueueFactory.getDefaultQueue();
+		queue.add(TaskOptions.Builder.withPayload(new EmailStockReorderTask(stockSettings.getId(),
+				emailSubject, messageBody)));
 	}
 
 }

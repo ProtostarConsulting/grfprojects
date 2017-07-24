@@ -7,8 +7,11 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.protostar.prostudy.entity.Address;
+import com.protostar.prostudy.entity.InstituteEntity;
 import com.protostar.prostudy.entity.UserEntity;
 import com.protostar.prostudy.gf.entity.PartnerSchoolEntity;
+import com.protostar.prostudy.until.data.UtilityService;
 
 import freemarker.core.ParseException;
 import freemarker.template.Configuration;
@@ -40,6 +43,33 @@ public class EmailTemplateHandlerUtil {
 		cfg.setLogTemplateExceptions(false);
 		return cfg;
 
+	}
+	
+	private void addFooterParams(InstituteEntity documentEntity, Map<String, Object> root) {
+		
+		root.put("instituteName", documentEntity.getName());
+		Address address = documentEntity.getAddress();
+		root.put("instituteAdressLine1", address.getLine1());
+		String line2 = address.getLine2();
+		String pin = address.getPin();
+		String country = address.getCountry();
+		if (line2 == null || line2.trim().isEmpty()) {
+			line2 = null;
+		}
+		if (pin == null || pin.trim().isEmpty()) {
+			pin = null;
+		}
+		if (country == null || country.trim().isEmpty()) {
+			country = null;
+		}
+		root.put("businessAdressLine2", line2);
+		root.put("businessAdressCity", address.getCity());
+		root.put("businessAdressPin", pin);
+		root.put("businessAdressState", address.getState());
+		root.put("businessAdressCountry", country);
+
+		String currentAppURL = UtilityService.getCurrentAppURL();
+		root.put("currentAppURL", currentAppURL);
 	}
 
 	public String createNewUserHtmlTemplate(UserEntity user) {
@@ -113,6 +143,35 @@ public class EmailTemplateHandlerUtil {
 			e.printStackTrace();
 		} catch (TemplateException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "";
+	}
+	
+	public String stockReorderEmailMsgBody(InstituteEntity instituteEntity) {
+
+		try {
+
+			Map<String, Object> root = new HashMap<String, Object>();
+
+			addFooterParams(instituteEntity, root);
+			Template temp = getConfiguration().getTemplate("email_templates/stock_reorder_tmpl.ftlh");
+
+			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(500);
+			Writer out = new PrintWriter(byteArrayOutputStream);
+			temp.process(root, out);
+			return byteArrayOutputStream.toString();
+
+		} catch (TemplateNotFoundException e) {
+			e.printStackTrace();
+		} catch (MalformedTemplateNameException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (TemplateException e) {
 			e.printStackTrace();
 		}
 

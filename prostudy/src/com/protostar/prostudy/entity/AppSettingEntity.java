@@ -9,6 +9,7 @@ public class AppSettingEntity {
 	private Integer defaultDisplayTableRowsPerPage = 10;
 	private Boolean smeNotificationFlag = false;
 	private Boolean emailNotificationFlag = false;
+	private String emailNotificationDL;
 	
 	public Long getInstituteID() {
 		return instituteID;
@@ -57,6 +58,14 @@ public class AppSettingEntity {
 
 	public void setInstituteLogoBlobKey(String instituteLogoBlobKey) {
 		this.instituteLogoBlobKey = instituteLogoBlobKey;
+	}
+
+	public String getEmailNotificationDL() {
+		return emailNotificationDL;
+	}
+
+	public void setEmailNotificationDL(String emailNotificationDL) {
+		this.emailNotificationDL = emailNotificationDL;
 	}
 
 }
