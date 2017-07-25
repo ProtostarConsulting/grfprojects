@@ -2010,10 +2010,11 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 		return deferred.promise;
 	}
 
-	PartnerSchoolService.getPendingResultSchools = function() {
+	PartnerSchoolService.getPendingResultSchools = function(instituteID, yearOfExam) {
 		var deferred = $q.defer();
 		gapi.client.partnerSchoolService.getPendingResultSchools({
-
+			'instituteID' : instituteID,
+			'yearOfExam' : yearOfExam
 		}).execute(function(resp) {
 			deferred.resolve(resp.items);
 

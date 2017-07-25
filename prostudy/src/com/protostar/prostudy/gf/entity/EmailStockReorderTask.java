@@ -57,12 +57,12 @@ public class EmailStockReorderTask extends BaseEmailTask {
 
 	public Mail updateEmail(Mail mail) throws IOException {
 
-		GFBookStockService stockManagementService = new GFBookStockService();
-		List<GFBookEntity> stockItemsBelowReorder = stockManagementService.getReportByThreshold(this.bizId);
+		GFBookStockService gfBookService = new GFBookStockService();
+		List<GFBookEntity> bookStockBelowThreshold = gfBookService.getReportByThreshold(this.bizId);
 
-		DownloadGFBooks downloadStockThreshold = new DownloadGFBooks();
+		DownloadGFBooks downloadBookStockThreshold = new DownloadGFBooks();
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream(Constants.DOCUMENT_DEFAULT_MAX_SIZE);
-		downloadStockThreshold.generateCSV(stockItemsBelowReorder, outputStream);
+		downloadBookStockThreshold.generateCSV(bookStockBelowThreshold, outputStream);
 		String base64Content = BaseEncoding.base64().encode(outputStream.toByteArray());
 
 		String date_format = "MMM/dd/yyyy";
@@ -71,7 +71,7 @@ public class EmailStockReorderTask extends BaseEmailTask {
 		Attachments attachments = new Attachments();
 		attachments.setContent(base64Content);
 		attachments.setType("text/csv");
-		attachments.setFilename(sdf.format(new Date()) + "" + " " + "Bookstock Items Reorder Report" + ".csv");
+		attachments.setFilename(sdf.format(new Date()) + "" + " " + "Book Stock Reorder Report" + ".csv");
 		attachments.setDisposition("attachment");
 		mail.addAttachments(attachments);
 		return mail;

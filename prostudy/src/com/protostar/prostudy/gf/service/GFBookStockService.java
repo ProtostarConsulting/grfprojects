@@ -185,12 +185,10 @@ public class GFBookStockService {
 
 	@ApiMethod(name = "sendStockReorderEmail", path = "sendStockReorderEmail")
 	public void sendStockReorderEmail(@Named("id") Long insID) {
-
-		//Date endOfToDate = DateUtil.getEndOfDay(toDate);
-		//List<GFBookEntity> stocksBelowThreshold = getReportByThreshold(insID);
 		InstituteService instituteService = new InstituteService();
-		InstituteEntity instituteEntity = instituteService.getInstituteById(insID);
-		
+		InstituteEntity instituteEntity = instituteService
+				.getInstituteById(insID);
+
 		if (instituteEntity.getSettings().getEmailNotificationFlag()) {
 			new EmailHandler().sendStockReorderEmail(instituteEntity);
 		}
@@ -209,7 +207,6 @@ public class GFBookStockService {
 				filteredThresholdStocks.add(bookStocks.get(i));
 			}
 		}
-
 		return filteredThresholdStocks;
 	}
 }

@@ -58,16 +58,16 @@ public class EmailHandler {
 						.getEmail_id(), messageBody)));
 	}
 	
-	public void sendStockReorderEmail(InstituteEntity stockSettings) {
+	public void sendStockReorderEmail(InstituteEntity instituteEntity) {
 
 		String date_format = "MMM/dd/yyyy";
 		SimpleDateFormat sdf = new SimpleDateFormat(date_format);
 
-		String emailSubject = sdf.format(new Date()) + " " + "Book Stock Reorder Level Reminder";
+		String emailSubject = sdf.format(new Date()) + " " + "Book Stock Reorder Reminder";
 
-		String messageBody = new EmailTemplateHandlerUtil().stockReorderEmailMsgBody(stockSettings);
+		String messageBody = new EmailTemplateHandlerUtil().stockReorderEmailMsgBody(instituteEntity);
 		Queue queue = QueueFactory.getDefaultQueue();
-		queue.add(TaskOptions.Builder.withPayload(new EmailStockReorderTask(stockSettings.getId(),
+		queue.add(TaskOptions.Builder.withPayload(new EmailStockReorderTask(instituteEntity.getId(),
 				emailSubject, messageBody)));
 	}
 

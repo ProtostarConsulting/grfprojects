@@ -29,12 +29,12 @@ public class BaseEmailTask implements DeferredTask {
 	public BaseEmailTask(Long bizID, String emailSubject, String messageBody) {
 
 		InstituteService instituteService = new InstituteService();
-		InstituteEntity insEntity = instituteService.getInstituteById(bizID);
-		if (insEntity == null || !insEntity.getSettings().getEmailNotificationFlag()) {
+		InstituteEntity instituteEntity = instituteService.getInstituteById(bizID);
+		if (instituteEntity == null || !instituteEntity.getSettings().getEmailNotificationFlag()) {
 			this.skipEmail= true;
 			return;
 		}
-		String sendgrid_API_KEY = insEntity.getSendGridApiKey();
+		String sendgrid_API_KEY = instituteEntity.getSendGridApiKey();
 		if (sendgrid_API_KEY == null || sendgrid_API_KEY.isEmpty()) {
 			this.skipEmail= true;
 			return;
@@ -44,7 +44,7 @@ public class BaseEmailTask implements DeferredTask {
 		this.emailSubject = emailSubject;
 		this.messageBody = messageBody;
 		this.toEmail = "support@proerp.in";
-		this.emailDLList = insEntity.getSettings().getEmailNotificationDL();
+		this.emailDLList = instituteEntity.getSettings().getEmailNotificationDL();
 	}
 	
 

@@ -45,10 +45,10 @@ public class EmailTemplateHandlerUtil {
 
 	}
 	
-	private void addFooterParams(InstituteEntity documentEntity, Map<String, Object> root) {
+	private void addFooterParams(InstituteEntity instituteEntity, Map<String, Object> root) {
 		
-		root.put("instituteName", documentEntity.getName());
-		Address address = documentEntity.getAddress();
+		root.put("instituteName", instituteEntity.getName());
+		Address address = instituteEntity.getAddress();
 		root.put("instituteAdressLine1", address.getLine1());
 		String line2 = address.getLine2();
 		String pin = address.getPin();
@@ -62,11 +62,11 @@ public class EmailTemplateHandlerUtil {
 		if (country == null || country.trim().isEmpty()) {
 			country = null;
 		}
-		root.put("businessAdressLine2", line2);
-		root.put("businessAdressCity", address.getCity());
-		root.put("businessAdressPin", pin);
-		root.put("businessAdressState", address.getState());
-		root.put("businessAdressCountry", country);
+		root.put("instituteAdressLine2", line2);
+		root.put("instituteAdressCity", address.getCity());
+		root.put("instituteAdressPin", pin);
+		root.put("instituteAdressState", address.getState());
+		root.put("instituteAdressCountry", country);
 
 		String currentAppURL = UtilityService.getCurrentAppURL();
 		root.put("currentAppURL", currentAppURL);
