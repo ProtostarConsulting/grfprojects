@@ -155,23 +155,15 @@ public class DownloadGFBooks extends HttpServlet {
 
 			OutputStreamWriter writer = new OutputStreamWriter(outputStream);
 
-			writer.append("standard");
+			writer.append("Standard");
 			writer.append(',');
-			writer.append("bookName");
+			writer.append("Book Name");
 			writer.append(',');
-			writer.append("bookAuther");
+			writer.append("Medium");
 			writer.append(',');
-			writer.append("weight");
+			writer.append("Current Qty");
 			writer.append(',');
-			writer.append("bookPrice");
-			writer.append(',');
-			writer.append("bookPublication");
-			writer.append(',');
-			writer.append("bookMedium");
-			writer.append(',');
-			writer.append("bookQty");
-			writer.append(',');
-			writer.append("bookThreshold");
+			writer.append("Re-order Qty");
 			writer.append(',');
 			writer.append(System.lineSeparator());
 
@@ -186,18 +178,6 @@ public class DownloadGFBooks extends HttpServlet {
 						writer.write(stockItemEntity.getStandard());
 						writer.write(',');
 						writer.write(stockItemEntity.getBookName());
-						writer.write(',');
-						writer.write(stockItemEntity.getBookAuther());
-						writer.write(',');
-						String weight = String.valueOf(stockItemEntity
-								.getWeight());
-						writer.write(weight);
-						writer.write(',');
-						String price = String.valueOf(stockItemEntity
-								.getBookPrice());
-						writer.write(price);
-						writer.write(',');
-						writer.write(stockItemEntity.getBookPublication());
 						writer.write(',');
 						writer.write(stockItemEntity.getBookMedium());
 						writer.write(',');

@@ -65,13 +65,13 @@ public class EmailStockReorderTask extends BaseEmailTask {
 		downloadBookStockThreshold.generateCSV(bookStockBelowThreshold, outputStream);
 		String base64Content = BaseEncoding.base64().encode(outputStream.toByteArray());
 
-		String date_format = "MMM/dd/yyyy";
+		String date_format = "MMMM dd";
 		SimpleDateFormat sdf = new SimpleDateFormat(date_format);
 
 		Attachments attachments = new Attachments();
 		attachments.setContent(base64Content);
 		attachments.setType("text/csv");
-		attachments.setFilename(sdf.format(new Date()) + "" + " " + "Book Stock Reorder Report" + ".csv");
+		attachments.setFilename("BookStockRe-orderLevelReport-"+sdf.format(new Date())+ ".csv");
 		attachments.setDisposition("attachment");
 		mail.addAttachments(attachments);
 		return mail;

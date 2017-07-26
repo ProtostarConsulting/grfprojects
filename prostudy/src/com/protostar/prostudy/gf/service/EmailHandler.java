@@ -60,10 +60,10 @@ public class EmailHandler {
 	
 	public void sendStockReorderEmail(InstituteEntity instituteEntity) {
 
-		String date_format = "MMM/dd/yyyy";
+		String date_format = "MMMM dd";
 		SimpleDateFormat sdf = new SimpleDateFormat(date_format);
 
-		String emailSubject = sdf.format(new Date()) + " " + "Book Stock Reorder Reminder";
+		String emailSubject ="Book Stock Re-order Level Report"+ "-"+sdf.format(new Date());
 
 		String messageBody = new EmailTemplateHandlerUtil().stockReorderEmailMsgBody(instituteEntity);
 		Queue queue = QueueFactory.getDefaultQueue();
