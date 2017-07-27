@@ -1208,65 +1208,543 @@ app.constant("indiaAddressLookupData", {
 		}, {
 			name : "Karnataka",
 			districts : [ {
-				name : "Bagalkot"
+				name : "Bagalkot",
+				talukas : [ {
+					name : "Badami"
+				}, {
+					name : "Bagalkot"
+				}, {
+					name : "Bilgi"
+				}, {
+					name : "Hungund"
+				}, {
+					name : "Ilkal"
+				}, {
+					name : "Jamkhandi"
+				}, {
+					name : "Mudhol"
+				} ]
 			}, {
-				name : "Bangalore Rural"
+				name : "Bangalore Rural",
+				talukas : [ {
+					name : "Devanahalli"
+				}, {
+					name : "Doddaballapura"
+				}, {
+					name : "Hoskote"
+				}, {
+					name : "Nelamangala"
+				} ]
 			}, {
-				name : "Bangalore Urban"
+				name : "Bangalore Urban",
+				talukas : [ {
+					name : "Anekal"
+				}, {
+					name : "Yelahanka"
+				}, {
+					name : "Bengaluru North"
+				}, {
+					name : "Bengaluru East"
+				}, {
+					name : "Bengaluru South"
+				} ]
 			}, {
-				name : "Belgaum"
+				name : "Belagavi",
+				talukas : [ {
+					name : "Athni"
+				}, {
+					name : "Bailahongal"
+				}, {
+					name : "Belagavi"
+				}, {
+					name : "Chikodi"
+				}, {
+					name : "Gokak"
+				}, {
+					name : "Hukkeri"
+				}, {
+					name : "Khanapur"
+				}, {
+					name : "Kagawad"
+				}, {
+					name : "Mudalagi"
+				}, {
+					name : "Nippani"
+				}, {
+					name : "Kittur"
+				}, {
+					name : "Raybag"
+				}, {
+					name : "Ramdurg"
+				}, {
+					name : "Saundatti"
+				} ]
 			}, {
-				name : "Bellary"
+				name : "Ballari",
+				talukas : [ {
+					name : "Ballari"
+				}, {
+					name : "Hosapete"
+				}, {
+					name : "Kampli"
+				}, {
+					name : "Hoovina Hadagalli"
+				}, {
+					name : "Kudligi"
+				}, {
+					name : "Kottur"
+				}, {
+					name : "Kurugodu"
+				}, {
+					name : "Sanduru"
+				}, {
+					name : "Siruguppa"
+				} ]
 			}, {
-				name : "Bidar"
+				name : "Bidar",
+				talukas : [ {
+					name : "Bidar"
+				}, {
+					name : "Basavakalyan"
+				}, {
+					name : "Kamalanagar"
+				}, {
+					name : "Hulasuru"
+				}, {
+					name : "Chittiguppa"
+				}, {
+					name : "Bhalki"
+				}, {
+					name : "Homnabad"
+				}, {
+					name : "Aurad"
+				} ]
 			}, {
-				name : "Bijapur"
+				name : "Vijayapura",
+				talukas : [ {
+					name : "Vijayapura"
+				}, {
+					name : "Indi"
+				}, {
+					name : "Muddebihal"
+				}, {
+					name : "Babaleshwar"
+				}, {
+					name : "Nidagundi"
+				}, {
+					name : "Tikoot"
+				}, {
+					name : "Devara Hippargi"
+				}, {
+					name : "Talikote"
+				}, {
+					name : "Chadachan"
+				}, {
+					name : "Kolhar"
+				}, {
+					name : "Sindgi"
+				}, {
+					name : "Basavana Bagevadi"
+				} ]
 			}, {
-				name : "Chamarajanagar"
+				name : "Chamrajnagar",
+				talukas : [ {
+					name : "Chamrajnagar"
+				}, {
+					name : "Gundlupet"
+				}, {
+					name : "Kollegal"
+				}, {
+					name : "Haanur"
+				}, {
+					name : "Yelandur"
+				} ]
 			}, {
-				name : "Chickmagalur"
+				name : "Chikkamagaluru",
+				talukas : [ {
+					name : "Chikkamagaluru"
+				}, {
+					name : "Kadur"
+				}, {
+					name : "Koppa"
+				}, {
+					name : "Mudigere"
+				}, {
+					name : "Narasimharajapura"
+				}, {
+					name : "Sringeri"
+				}, {
+					name : "Ajjampura"
+				}, {
+					name : "Tarikere"
+				} ]
 			}, {
-				name : "Chikballapur"
+				name : "Chikballapur",
+				talukas : [ {
+					name : "Bagepalli"
+				}, {
+					name : "Chikballapur"
+				}, {
+					name : "Chintamani"
+				}, {
+					name : "Gauribidanur"
+				}, {
+					name : "Gudibanda"
+				}, {
+					name : "Sidlaghatta"
+				} ]
 			}, {
-				name : "Chitradurga"
+				name : "Chitradurga",
+				talukas : [ {
+					name : "Challakere"
+				}, {
+					name : "Chitradurga"
+				}, {
+					name : "Hiriyur"
+				}, {
+					name : "Holalkere"
+				}, {
+					name : "Hosadurga"
+				}, {
+					name : "Molakalmuru"
+				} ]
 			}, {
-				name : "Dakshina Kannada"
+				name : "Dakshina Kannada",
+				talukas : [ {
+					name : "Bantwal"
+				}, {
+					name : "Beltangadi"
+				}, {
+					name : "Mangaluru"
+				}, {
+					name : "Moodabidri"
+				}, {
+					name : "Kadaba"
+				}, {
+					name : "Puttur"
+				}, {
+					name : "Sulya"
+				} ]
 			}, {
-				name : "Davangere"
+				name : "Davanagere",
+				talukas : [ {
+					name : "Channagiri"
+				}, {
+					name : "Davanagere"
+				}, {
+					name : "Harihar"
+				}, {
+					name : "Harpanahalli"
+				}, {
+					name : "Honnali"
+				}, {
+					name : "Jagalur"
+				}, {
+					name : "Nyamti"
+				} ]
 			}, {
-				name : "Dharwad"
+				name : "Dharwad",
+				talukas : [ {
+					name : "Annigeri"
+				}, {
+					name : "Alnavara"
+				}, {
+					name : "Dharwad"
+				}, {
+					name : "Hubballi"
+				}, {
+					name : "Hubballi City"
+				}, {
+					name : "Kalghatgi"
+				}, {
+					name : "Kundgol"
+				}, {
+					name : "Navalgund"
+				} ]
 			}, {
-				name : "Gadag"
+				name : "Gadag",
+				talukas : [ {
+					name : "Gadag-Betigeri"
+				}, {
+					name : "Mundargi"
+				}, {
+					name : "Nargund"
+				}, {
+					name : "Gajendragad"
+				}, {
+					name : "Lakshmeshwar"
+				}, {
+					name : "Ron"
+				}, {
+					name : "Shirhatti"
+				} ]
 			}, {
-				name : "Gulbarga"
+				name : "Kalaburagi",
+				talukas : [ {
+					name : "Afzalpur"
+				}, {
+					name : "Aland"
+				}, {
+					name : "Chincholi"
+				}, {
+					name : "Chitapur"
+				}, {
+					name : "Kalaburagi"
+				}, {
+					name : "Kamalapura"
+				}, {
+					name : "Kalagi"
+				}, {
+					name : "Jevargi"
+				}, {
+					name : "Sedam"
+				}, {
+					name : "Shahbad"
+				}, {
+					name : "Yadrami"
+				} ]
 			}, {
-				name : "Hassan"
+				name : "Hassan",
+				talukas : [ {
+					name : "Alur"
+				}, {
+					name : "Arkalgud"
+				}, {
+					name : "Arsikere"
+				}, {
+					name : "Belur"
+				}, {
+					name : "Channarayapattana"
+				}, {
+					name : "Hassan"
+				}, {
+					name : "Holenarsipur"
+				}, {
+					name : "Sakleshpur"
+				} ]
 			}, {
-				name : "Haveri"
+				name : "Haveri",
+				talukas : [ {
+					name : "Byadgi"
+				}, {
+					name : "Hangal"
+				}, {
+					name : "Haveri"
+				}, {
+					name : "Hirekerur"
+				}, {
+					name : "Ranibennur"
+				}, {
+					name : "Rattihalli"
+				}, {
+					name : "Savanur"
+				}, {
+					name : "Shiggaon"
+				} ]
 			}, {
-				name : "Kodagu"
+				name : "Kodagu",
+				talukas : [ {
+					name : "Madikeri"
+				}, {
+					name : "Somvarpet"
+				}, {
+					name : "Virajpet"
+				} ]
 			}, {
-				name : "Kolar"
+				name : "Kolar",
+				talukas : [ {
+					name : "Bangarapet"
+				}, {
+					name : "Kolar"
+				}, {
+					name : "K.G.F"
+				}, {
+					name : "Malur"
+				}, {
+					name : "Mulbagal"
+				}, {
+					name : "Srinivaspur"
+				} ]
 			}, {
-				name : "Koppal"
+				name : "Koppal",
+				talukas : [ {
+					name : "Gangawati"
+				}, {
+					name : "Kanakagiri"
+				}, {
+					name : "Kukanooru"
+				}, {
+					name : "Kartagi"
+				}, {
+					name : "Koppal"
+				}, {
+					name : "Kushtagi"
+				}, {
+					name : "Yelbarga"
+				} ]
 			}, {
-				name : "Mandya"
+				name : "Mandya",
+				talukas : [ {
+					name : "Krishnarajpet"
+				}, {
+					name : "Maddur"
+				}, {
+					name : "Malavalli"
+				}, {
+					name : "Mandya"
+				}, {
+					name : "Nagamangala"
+				}, {
+					name : "Pandavapura"
+				}, {
+					name : "Shrirangapattana"
+				} ]
 			}, {
-				name : "Mysore"
+				name : "Mysuru",
+				talukas : [ {
+					name : "Heggadadevana kote"
+				}, {
+					name : "Hunsur"
+				}, {
+					name : "Krishnarajanagara"
+				}, {
+					name : "Mysuru"
+				}, {
+					name : "Nanjangud"
+				}, {
+					name : "Piriyapatna"
+				}, {
+					name : "Saraguru"
+				}, {
+					name : "T.Narsipur"
+				} ]
 			}, {
-				name : "Raichur"
+				name : "Raichur",
+				talukas : [ {
+					name : "Devadurga"
+				}, {
+					name : "Lingsugur"
+				}, {
+					name : "Manvi"
+				}, {
+					name : "Maski"
+				}, {
+					name : "Raichur"
+				}, {
+					name : "Sindhnur"
+				}, {
+					name : "Sirwar"
+				} ]
 			}, {
-				name : "Ramnagara"
+				name : "Ramnagara",
+				talukas : [ {
+					name : "Channapatna"
+				}, {
+					name : "Kanakapura"
+				}, {
+					name : "Ramanagara"
+				}, {
+					name : "Magadi"
+				} ]
 			}, {
-				name : "Shimoga"
+				name : "Shivamogga",
+				talukas : [ {
+					name : "Bhadravati"
+				}, {
+					name : "Hosanagara"
+				}, {
+					name : "Sagar"
+				}, {
+					name : "Shikaripura"
+				}, {
+					name : "Shivamogga"
+				}, {
+					name : "Sorab"
+				}, {
+					name : "Thirthahalli"
+				} ]
 			}, {
-				name : "Tumkur"
+				name : "Tumkur",
+				talukas : [ {
+					name : "Chiknayakanhalli"
+				}, {
+					name : "Gubbi"
+				}, {
+					name : "Huliyar"
+				}, {
+					name : "Koratagere"
+				}, {
+					name : "Kunigal"
+				}, {
+					name : "Madhugiri"
+				}, {
+					name : "Pavagada"
+				}, {
+					name : "Sira"
+				}, {
+					name : "Tiptur"
+				}, {
+					name : "Tumakuru"
+				}, {
+					name : "Turuvekere"
+				} ]
 			}, {
-				name : "Udupi"
+				name : "Udupi",
+				talukas : [ {
+					name : "Udupi"
+				}, {
+					name : "Brahmavara"
+				}, {
+					name : "Karkal"
+				}, {
+					name : "Kaapu"
+				}, {
+					name : "Kundapura"
+				}, {
+					name : "Byndoor"
+				} ]
 			}, {
-				name : "Uttara Kannada (Karwar)"
+				name : "Uttara Kannada (Karwar)",
+				talukas : [ {
+					name : "Ankola"
+				}, {
+					name : "Bhatkal"
+				}, {
+					name : "Dandeli"
+				}, {
+					name : "Haliyal"
+				}, {
+					name : "Honnavar"
+				}, {
+					name : "Joida"
+				}, {
+					name : "Karwar"
+				}, {
+					name : "Kumta"
+				}, {
+					name : "Mundgod"
+				}, {
+					name : "Siddapur"
+				}, {
+					name : "Sirsi"
+				}, {
+					name : "Yellapur"
+				} ]
 			}, {
-				name : "Yadgir"
+				name : "Yadgir",
+				talukas : [ {
+					name : "Gurumitkal"
+				}, {
+					name : "Hunasagi"
+				}, {
+					name : "Shahpur"
+				}, {
+					name : "Shorapur"
+				}, {
+					name : "Vadagera"
+				}, {
+					name : "Yadgir"
+				} ]
 			} ]
 		}, {
 			name : "Kerala",
