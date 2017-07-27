@@ -20,7 +20,6 @@ public class BaseEmailTask implements DeferredTask {
 	private static final long serialVersionUID = 1L;
 
 	private boolean skipEmail = false;
-	private String toEmail;
 	private String emailSubject;
 	private String messageBody;
 	private String emailDLList;
@@ -43,7 +42,6 @@ public class BaseEmailTask implements DeferredTask {
 		this.sendGridAPIKey = sendgrid_API_KEY;
 		this.emailSubject = emailSubject;
 		this.messageBody = messageBody;
-		this.toEmail = "support@proerp.in";
 		this.emailDLList = instituteEntity.getSettings().getEmailNotificationDL();
 	}
 	
@@ -99,22 +97,17 @@ public class BaseEmailTask implements DeferredTask {
 
 		Personalization personalization = new Personalization();
 
-		Email selfTo = new Email();
-		selfTo.setEmail(this.toEmail);
-		personalization.addTo(selfTo);
-
 		if (this.emailDLList != null && !this.emailDLList.isEmpty()) {
 			String[] emailIds = this.emailDLList.split(",");
 			for (String emailId : emailIds) {
 				// Can't have same email id in to, cc or bcc
 				String trimedTo = emailId.trim();
-				if (this.toEmail.equalsIgnoreCase(trimedTo))
+				if (this.emailDLList.equalsIgnoreCase(trimedTo))
 					continue;
 
-				Email cc = new Email();
-				// to.setName("Example User To1");
-				cc.setEmail(trimedTo);
-				personalization.addCc(cc);
+				Email selfTo = new Email();
+				selfTo.setEmail(trimedTo);
+				personalization.addTo(selfTo);
 			}
 		}
 		
@@ -129,11 +122,6 @@ public class BaseEmailTask implements DeferredTask {
 		content.setValue(this.messageBody);
 		mail.addContent(content);
 		
-		/*Email replyTo = new Email();
-		// replyTo.setName("ProERP Notification");
-		replyTo.setEmail(this.fromEmail);
-		mail.setReplyTo(replyTo);*/
-
 		return mail;
 	}
 
@@ -151,16 +139,6 @@ public class BaseEmailTask implements DeferredTask {
 
 	public void setSkipEmail(boolean skipEmail) {
 		this.skipEmail = skipEmail;
-	}
-
-
-	public String getToEmail() {
-		return toEmail;
-	}
-
-
-	public void setToEmail(String toEmail) {
-		this.toEmail = toEmail;
 	}
 
 }

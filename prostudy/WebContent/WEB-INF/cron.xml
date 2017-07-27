@@ -9,7 +9,7 @@
 	<cron>
 		<url>/grf/cron/SendBookRecorderEmail</url>
 		<description>daily book record count job</description>
-		<schedule>every 24 hours</schedule>
-		<!--This is GMT time, meaning 1:30 AM IST -->
+		<schedule>every day 21:30</schedule>
+		<!--This is GMT time, meaning 3:00 AM IST -->
 	</cron>
 </cronentries>

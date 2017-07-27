@@ -6,6 +6,7 @@ import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -272,6 +273,7 @@ public class DownloadPartnerSchools extends HttpServlet {
 
 							SimpleDateFormat sd = new SimpleDateFormat(
 									"dd/MM/yyyy");
+							sd.setTimeZone(TimeZone.getTimeZone("IST"));
 							String dateStr = sd.format(paymentDetailList.get(0)
 									.getPaymentDate());
 							writer.append(dateStr);
