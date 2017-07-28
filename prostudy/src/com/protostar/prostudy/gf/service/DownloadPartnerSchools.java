@@ -23,6 +23,7 @@ import com.protostar.prostudy.gf.entity.BookDetail;
 import com.protostar.prostudy.gf.entity.BookSummary;
 import com.protostar.prostudy.gf.entity.ExamDetail;
 import com.protostar.prostudy.gf.entity.PartnerSchoolEntity;
+import com.protostar.prostudy.gf.entity.PartnerSchoolInstituteEntity;
 import com.protostar.prostudy.gf.entity.PaymentDetail;
 import com.protostar.prostudy.until.data.UtilityService;
 
@@ -176,9 +177,14 @@ public class DownloadPartnerSchools extends HttpServlet {
 					writer.append(UtilityService.trimForCSV(schoolEntity
 							.getSchoolName()));
 					writer.append(',');
-					writer.append(UtilityService.trimForCSV(schoolEntity
-							.getSchoolInstitute().getInstituteName()));
+					String schoolInstitue = "";
+					PartnerSchoolInstituteEntity schoolInstitute = schoolEntity.getSchoolInstitute();
+					if(schoolInstitute != null){
+						schoolInstitue = schoolInstitute.getInstituteName();
+					}
+					writer.append(UtilityService.trimForCSV(schoolInstitue));
 					writer.append(',');
+					
 					writer.append(schoolEntity.getFormNumber());
 					writer.append(',');
 					writer.append(schoolEntity.getCategory());
