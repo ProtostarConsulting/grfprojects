@@ -1953,10 +1953,12 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 		return deferred.promise;
 	}
 
-	PartnerSchoolService.getSchoolByPaymentMode = function(payMode) {
+	PartnerSchoolService.getSchoolByPaymentMode = function(payMode, id, yearOfExam) {
 		var deferred = $q.defer();
 		gapi.client.partnerSchoolService.getSchoolByPaymentMode({
-			'payReceivedBy' : payMode
+			'payReceivedBy' : payMode,
+			'instituteID' : id,
+			'yearOfExam' : yearOfExam
 		}).execute(function(resp) {
 			deferred.resolve(resp.items);
 		});

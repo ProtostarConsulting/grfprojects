@@ -59,7 +59,7 @@ public class DownloadFinicialSummaryReport extends HttpServlet {
 		
 		String yearOfExam = request
 				.getParameter("yearOfExam");
-
+		Long instituteID = Long.parseLong(request.getParameter("instituteID"));
 		String DATE_FORMAT = "dd-MM-yyyy";
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
 
@@ -70,7 +70,7 @@ public class DownloadFinicialSummaryReport extends HttpServlet {
 
 			PartnerSchoolService partnerService = new PartnerSchoolService();
 			List<PartnerSchoolEntity> schoolList = partnerService
-					.getSchoolByPaymentMode(summaryReportFilterType2);
+					.getSchoolByPaymentMode(summaryReportFilterType2,instituteID,yearOfExam);
 			try {
 
 				response.setContentType("text/csv");

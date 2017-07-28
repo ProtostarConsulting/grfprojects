@@ -535,13 +535,11 @@ public class PartnerSchoolService {
 
 	@ApiMethod(name = "getSchoolByPaymentMode", path = "getSchoolByPaymentMode")
 	public List<PartnerSchoolEntity> getSchoolByPaymentMode(
-			@Named("payReceivedBy") String payReceivedBy) {
+			@Named("payReceivedBy") String payReceivedBy,@Named("instituteID") Long instituteID, @Named("yearOfExam") String yearOfExam) {
 
-		List<PartnerSchoolEntity> schoolList = ofy().load()
-				.type(PartnerSchoolEntity.class).list();
+		List<PartnerSchoolEntity> schoolList = getPartnerByInstitute(instituteID, yearOfExam);
 
 		List<PartnerSchoolEntity> fileredSchoolList = new ArrayList<PartnerSchoolEntity>();
-
 		for (PartnerSchoolEntity currentSchool : schoolList) {
 			ExamDetail examDeatil = getExamDeatilByCurretnYear(currentSchool);
 			if (examDeatil == null) {
@@ -879,7 +877,7 @@ public class PartnerSchoolService {
 					string));
 		}
 
-		updatePaymentModesData(finSummayReportData);
+		updatePaymentModesData(finSummayReportData, id, yearOfExam);
 		updateLogisticsData(finSummayReportData, yearOfExam);
 		Expiration expirationTenMins = Expiration.byDeltaSeconds(60 * 60);
 		// put in memcache.
@@ -894,7 +892,7 @@ public class PartnerSchoolService {
 		List<GFCourierEntity> courierList = ofy().load()
 				.type(GFCourierEntity.class).filter("yearOfExam", yearOfExam)
 				.list();
-		System.out.println("courier list size*****" + courierList.size());
+		
 		for (GFCourierEntity courierEntity : courierList) {
 			/*
 			 * if (courierEntity.getCourierDocketID() == null ||
@@ -910,19 +908,16 @@ public class PartnerSchoolService {
 							.getCourierCost();
 					finSummayReportData.chargesCourierTotal += courierEntity
 							.getCourierCost();
-					System.out.println("logistics type**"
-							+ courierEntity.getLogistics() + "charges****"
-							+ courierEntity.getCourierCost());
 					continue;
 				}
 			}
 		}
 	}
 
-	private void updatePaymentModesData(FinSummayReportData finSummayReportData) {
+	private void updatePaymentModesData(FinSummayReportData finSummayReportData, Long id, String yearOfExam) {
 		for (PaymentModeWiseData paymentModeReportObj : finSummayReportData.paymentModesData) {
 			List<PartnerSchoolEntity> schoolList = getSchoolByPaymentMode(paymentModeReportObj.paymentMode
-					.trim());
+					.trim(), id, yearOfExam);
 			for (PartnerSchoolEntity partnerSchoolEntity : schoolList) {
 				ExamDetail examDeatil = getExamDeatilByCurretnYear(partnerSchoolEntity);
 				if (examDeatil == null) {
@@ -946,7 +941,6 @@ public class PartnerSchoolService {
 				}
 				paymentModeReportObj.noOfPayments++;
 			}
-			System.out.println("Payment is updated**");
 		}
 	}
 }// end of class

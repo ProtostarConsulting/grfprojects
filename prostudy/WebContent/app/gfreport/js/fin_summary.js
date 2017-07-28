@@ -19,7 +19,8 @@ angular
 
 						PartnerService
 								.getFinSummayReportData(
-										$scope.curUser.instituteID, $scope.curUser.instituteObj.yearofExam)
+										$scope.curUser.instituteID,
+										$scope.curUser.instituteObj.yearofExam)
 								.then(
 										function(finSummayReportData) {
 											$scope.finSummayReportData = finSummayReportData;
@@ -70,10 +71,10 @@ angular
 					}
 
 					var date1 = new Date();
-					var currentYear = date1.getFullYear();
-					currentYear = currentYear.toString().substr(2, 2);
+					var currentYear = $scope.curUser.instituteObj.yearofExam;
+					/*currentYear = currentYear.toString().substr(2, 2);
 					currentYear = date1.getFullYear() + "-"
-							+ (Number(currentYear) + 1);
+							+ (Number(currentYear) + 1);*/
 
 					$scope.getPaymentTotalCurrentYear = function(school) {
 
@@ -120,7 +121,9 @@ angular
 								.getPartnerSchoolService();
 
 						PartnerService
-								.getSchoolByPaymentMode(paymentType)
+								.getSchoolByPaymentMode(paymentType,
+										$scope.curUser.instituteID,
+										$scope.curUser.instituteObj.yearofExam)
 								.then(
 										function(list) {
 											$scope.fitlteredSchoolList = list;
@@ -147,7 +150,8 @@ angular
 						var gfCourierService = appEndpointSF
 								.getGFCourierService();
 						gfCourierService
-								.getCourierByLogisticsType(courierLogistics, $scope.curUser.instituteObj.yearofExam)
+								.getCourierByLogisticsType(courierLogistics,
+										$scope.curUser.instituteObj.yearofExam)
 								.then(
 										function(gfCouriertList) {
 											$scope.fitlteredCourierList = gfCouriertList;
@@ -190,7 +194,8 @@ angular
 								+ "&summaryReportFilterType2="
 								+ $scope.filterSubType
 								+ "&yearOfExam="
-								+ $scope.curUser.instituteObj.yearofExam;
+								+ $scope.curUser.instituteObj.yearofExam
+								+ "&instituteID=" + $scope.curUser.instituteID;
 					}
 
 					$scope.getRowStyle = function(even) {
