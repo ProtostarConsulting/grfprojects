@@ -27,6 +27,7 @@ import com.protostar.prostudy.gf.entity.GFBookEntity;
 import com.protostar.prostudy.gf.entity.GFBookTransactionEntity;
 import com.protostar.prostudy.gf.entity.GFCourierEntity;
 import com.protostar.prostudy.gf.entity.PartnerSchoolEntity;
+import com.protostar.prostudy.gf.entity.SMSRecord;
 import com.protostar.prostudy.until.data.DateUtil;
 import com.protostar.prostudy.until.data.EntityPagingInfo;
 
@@ -98,6 +99,7 @@ public class GFCourierService {
 		ExamDetail examDeatil = PartnerSchoolService
 				.getExamDeatilByCurretnYear(partnerSchoolEntity);
 		if (PartnerSchoolService.notificationEnabled && examDeatil != null
+				&& !examDeatil.getSmsRecordList().isEmpty()
 				&& examDeatil.getNotificationData().getCurrierSmsSent() == 0
 				&& gfCourierEntity.getCourierName() != null
 				&& !gfCourierEntity.getCourierName().isEmpty()
@@ -129,6 +131,12 @@ public class GFCourierService {
 			TextLocalSMSHandler.sendSms(smsMsg, cordinatorMobileNumber);
 			// examDeatil.getNotificationData().setRegistrationEmailSent(1);
 			examDeatil.getNotificationData().setCurrierSmsSent(1);
+			SMSRecord smsRecord = new SMSRecord();
+			smsRecord.setMobileno(cordinatorMobileNumber);
+			smsRecord.setSmsmessage(smsMsg);
+			smsRecord.setSmsdate(new Date());
+			List<SMSRecord> smsList = examDeatil.getSmsRecordList();
+			smsList.add(smsRecord);
 			ofy().save().entity(partnerSchoolEntity).now();
 		}
 

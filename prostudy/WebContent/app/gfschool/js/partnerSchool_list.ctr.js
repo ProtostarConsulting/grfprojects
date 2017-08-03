@@ -248,6 +248,11 @@ angular
 
 					$scope.getPrvYears();
 					$scope.getCurYear = function() {
+						for (var i = 0; i < $scope.Years.length; i++) {
+							if ($scope.Years[i] == $scope.curUser.instituteObj.yearofExam) {
+								$scope.Years.splice($scope.Years[i], 1);
+							}
+						}
 						$scope.Years
 								.push($scope.curUser.instituteObj.yearofExam);
 					}

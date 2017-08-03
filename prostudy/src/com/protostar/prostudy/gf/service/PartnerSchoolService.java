@@ -42,6 +42,7 @@ import com.protostar.prostudy.gf.entity.NotificationData;
 import com.protostar.prostudy.gf.entity.PartnerSchoolEntity;
 import com.protostar.prostudy.gf.entity.PartnerSchoolInstituteEntity;
 import com.protostar.prostudy.gf.entity.PaymentDetail;
+import com.protostar.prostudy.gf.entity.SMSRecord;
 import com.protostar.prostudy.until.data.Constants;
 import com.protostar.prostudy.until.data.DateUtil;
 import com.protostar.prostudy.until.data.EntityPagingInfo;
@@ -93,6 +94,8 @@ public class PartnerSchoolService {
 		ExamDetail examDeatil = getExamDeatilByCurretnYear(partnerSchoolEntity);
 		if (notificationEnabled
 				&& examDeatil != null
+				&& examDeatil.getSmsRecordList().isEmpty()
+				&& examDeatil.getSmsRecordList().size() == 0
 				&& examDeatil.getNotificationData().getRegistrationSmsSent() == 0
 				&& partnerSchoolEntity.getExamDetailList() != null
 				&& partnerSchoolEntity.getExamDetailList().size() > 0
@@ -124,7 +127,13 @@ public class PartnerSchoolService {
 			TextLocalSMSHandler.sendSms(smsMsg, cordinatorMobileNumber);
 			examDeatil.getNotificationData().setRegistrationEmailSent(1);
 			examDeatil.getNotificationData().setRegistrationSmsSent(1);
-
+			SMSRecord smsRecord = new SMSRecord();
+			smsRecord.setMobileno(cordinatorMobileNumber);
+			smsRecord.setSmsmessage(smsMsg);
+			smsRecord.setSmsdate(new Date());
+			List<SMSRecord> smsList = new ArrayList();
+			smsList.add(smsRecord);
+			examDeatil.setSmsRecordList(smsList);
 		}
 
 		List<ExamDetail> examDet = partnerSchoolEntity.getExamDetailList();
@@ -535,9 +544,12 @@ public class PartnerSchoolService {
 
 	@ApiMethod(name = "getSchoolByPaymentMode", path = "getSchoolByPaymentMode")
 	public List<PartnerSchoolEntity> getSchoolByPaymentMode(
-			@Named("payReceivedBy") String payReceivedBy,@Named("instituteID") Long instituteID, @Named("yearOfExam") String yearOfExam) {
+			@Named("payReceivedBy") String payReceivedBy,
+			@Named("instituteID") Long instituteID,
+			@Named("yearOfExam") String yearOfExam) {
 
-		List<PartnerSchoolEntity> schoolList = getPartnerByInstitute(instituteID, yearOfExam);
+		List<PartnerSchoolEntity> schoolList = getPartnerByInstitute(
+				instituteID, yearOfExam);
 
 		List<PartnerSchoolEntity> fileredSchoolList = new ArrayList<PartnerSchoolEntity>();
 		for (PartnerSchoolEntity currentSchool : schoolList) {
@@ -564,7 +576,8 @@ public class PartnerSchoolService {
 	}
 
 	@ApiMethod(name = "getPendingResultSchools", path = "getPendingResultSchools")
-	public List<PartnerSchoolEntity> getPendingResultSchools(@Named("instituteID") Long instituteID,
+	public List<PartnerSchoolEntity> getPendingResultSchools(
+			@Named("instituteID") Long instituteID,
 			@Named("yearOfExam") String yearOfExam) {
 
 		String[] yearofExamArray = new String[1];
@@ -892,7 +905,7 @@ public class PartnerSchoolService {
 		List<GFCourierEntity> courierList = ofy().load()
 				.type(GFCourierEntity.class).filter("yearOfExam", yearOfExam)
 				.list();
-		
+
 		for (GFCourierEntity courierEntity : courierList) {
 			/*
 			 * if (courierEntity.getCourierDocketID() == null ||
@@ -914,10 +927,11 @@ public class PartnerSchoolService {
 		}
 	}
 
-	private void updatePaymentModesData(FinSummayReportData finSummayReportData, Long id, String yearOfExam) {
+	private void updatePaymentModesData(
+			FinSummayReportData finSummayReportData, Long id, String yearOfExam) {
 		for (PaymentModeWiseData paymentModeReportObj : finSummayReportData.paymentModesData) {
-			List<PartnerSchoolEntity> schoolList = getSchoolByPaymentMode(paymentModeReportObj.paymentMode
-					.trim(), id, yearOfExam);
+			List<PartnerSchoolEntity> schoolList = getSchoolByPaymentMode(
+					paymentModeReportObj.paymentMode.trim(), id, yearOfExam);
 			for (PartnerSchoolEntity partnerSchoolEntity : schoolList) {
 				ExamDetail examDeatil = getExamDeatilByCurretnYear(partnerSchoolEntity);
 				if (examDeatil == null) {

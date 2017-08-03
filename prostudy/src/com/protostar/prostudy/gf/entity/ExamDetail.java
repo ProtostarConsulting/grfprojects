@@ -1,5 +1,6 @@
 package com.protostar.prostudy.gf.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExamDetail {
@@ -17,6 +18,7 @@ public class ExamDetail {
 	private List<PaymentDetail> paymentDetail;
 	private BookSummary bookSummary;
 	private Integer numberOfCoordinators = 1;
+	private List<SMSRecord> smsRecordList = new ArrayList<SMSRecord>();
 
 	public Integer getNumberOfCoordinators() {
 		return numberOfCoordinators;
@@ -114,6 +116,14 @@ public class ExamDetail {
 
 	public void setNotificationData(NotificationData notificationData) {
 		this.notificationData = notificationData;
+	}
+	
+	public List<SMSRecord> getSmsRecordList() {
+		return smsRecordList;
+	}
+
+	public void setSmsRecordList(List<SMSRecord> smsRecordList) {
+		this.smsRecordList = smsRecordList;
 	}
 
 }

@@ -178,6 +178,11 @@ angular
 					$scope.getPrvYears();
 					// ---get curyear ------
 					$scope.getCurYear = function() {
+						for (var i = 0; i < $scope.Years.length; i++) {
+							if ($scope.Years[i] == $scope.curUser.instituteObj.yearofExam) {
+								$scope.Years.splice($scope.Years[i], 1);
+							}
+						}
 						$scope.Years
 								.push($scope.curUser.instituteObj.yearofExam);
 						$scope.yearOfExam = $scope.curUser.instituteObj.yearofExam;
@@ -191,7 +196,7 @@ angular
 					}
 					$scope.examlist = [];
 					$scope.PaymentDet = [];
-
+					$scope.smsRecordList = [];
 					$scope.setForm = function(form) {
 						$scope.partnerSchoolForm = form;
 					}
@@ -419,7 +424,8 @@ angular
 						 * $scope.Address.dist);
 						 */
 
-						if ($scope.partnerSchool.address.state != "Maharashtra") {
+						if ($scope.partnerSchool.address.state != "Maharashtra"
+								&& $scope.partnerSchool.address.state != "Karnataka") {
 							$scope.partnerSchool.address.otherAddressFlag = true;
 						}
 
@@ -462,12 +468,14 @@ angular
 								if ($scope.examlist[q].paymentDetail != undefined) {
 									$scope.PaymentDet = $scope.examlist[q].paymentDetail;
 								}
+								$scope.smsRecordList = $scope.examDetail.smsRecordList;
 								$scope.examDetail.totalStudent = parseInt($scope.examDetail.totalStudent);
 								$scope.examDetail.male = parseInt($scope.examDetail.male);
 								$scope.examDetail.female = parseInt($scope.examDetail.female);
 								$scope.examDetail.total = parseInt($scope.examDetail.total);
 
 								$scope.calculateActualStudTotal();
+								$scope.calculatepaidandpending();
 								break;
 							}
 
@@ -704,12 +712,14 @@ angular
 
 							}
 							$scope.PaymentDetail.tPaid += $scope.PaymentDetail.payAmount;
-							$scope.PaymentDetail.pAmount = $scope.getGrffeestotal()
+							$scope.PaymentDetail.pAmount = $scope
+									.getGrffeestotal()
 									- $scope.PaymentDetail.tPaid;
 						} else {
 
 							$scope.PaymentDetail.tPaid = $scope.PaymentDetail.payAmount;
-							$scope.PaymentDetail.pAmount = $scope.getGrffeestotal()
+							$scope.PaymentDetail.pAmount = $scope
+									.getGrffeestotal()
 									- $scope.PaymentDetail.tPaid;
 						}
 

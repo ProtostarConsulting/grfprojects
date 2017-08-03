@@ -1,0 +1,43 @@
+<md-content>
+<div layout="row" layout-xs="column" flex>
+	<md-input-container flex="50"
+		style="padding-left: 20px; text-align: left;"> <label style="padding-left: 20px;">Search
+		Address</label> <input ng-model="searchText"
+		ng-change="searchByAddress(searchText)"
+		ng-model-options="{ debounce: 1000 }"> </md-input-container>
+	<span flex></span>
+	<md-button class="md-icon-button" ng-click="cancel()"> <ng-md-icon
+		icon="close" style="fill: md-default" size="22"> <md-tooltip>Close
+	</md-tooltip></ng-md-icon></md-button>
+</div>
+<p style="font-size: 9pt; padding-left: 20px;">
+	<strong>Note: Please click on row to select address.</strong>
+</p>
+<div ng-if="loading">
+	<md-progress-circular md-diameter="40" md-mode="indeterminate"></md-progress-circular>
+</div>
+<div ng-if="!loading">
+	<md-data-table-container>
+	<table md-data-table class="md-primary" md-progress="deferred">
+		<thead md-order="query.order" md-trigger="onorderchange">
+			<tr>
+				<th width="18%" order-by="Address" name="Address"></th>
+				<th width="45%" order-by="City" name="City"></th>
+				<th order-by="State" name="State"></th>
+				<th order-by="Pincode" name="Pincode"></th>
+				<!-- <th name="Action"></th> -->
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="address in Address | orderBy: query.order | limitTo: query.limit: (query.page - 1) * query.limit"
+				ng-click="selectAddress(address)">
+				<td>{{address.Address}}</td>
+				<td>{{address.City}}</td>
+				<td>{{address.State}}</td>
+				<td>{{address.Pincode}}</td>
+			</tr>
+		</tbody>
+	</table>
+	</md-data-table-container>
+</div>
+</md-content>

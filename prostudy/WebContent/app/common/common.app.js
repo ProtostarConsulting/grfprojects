@@ -1138,7 +1138,14 @@ app
 								url : "/listPartnerSchoolInstitue",
 								templateUrl : '/app/gfschool/partnerSchool_institue_list.html',
 								controller : 'partnerSchool_Institue_ListCtr'
-							})				
+							})
+					.state(
+							'partnerSchool.addressApi',
+							{
+								url : "/schoolAddress",
+								templateUrl : '/app/demo/address_api.html',
+								controller : 'addressApiCtr'
+							})		
 					.state(
 							'scheduledExam',
 							{
@@ -1621,7 +1628,7 @@ app.filter('formatDate', function($filter) {
 });
 app.filter('formatFullDate', function($filter) {
 	return function(inputDate) {
-		return $filter('date')(inputDate, 'dd-MM-yyyy HH:MM a');
+		return $filter('date')(inputDate, 'dd-MM-yyyy hh:mm a');
 	};
 });
 app.filter('trim', function() {
