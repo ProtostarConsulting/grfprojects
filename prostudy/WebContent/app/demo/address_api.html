@@ -1,20 +1,16 @@
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMkE8GLrbOTlfMEsxDvBSwrcSLwtgc1Yk&libraries=places&callback=initAutocomplete"
-        async defer></script>
 <md-content>
+<h3 class="md-subhead">Address</h3>
 <div layout="row" layout-xs="column" flex>
-	<!-- <h3 class="md-subhead" flex>Address</h3> -->
-	<!-- <md-autocomplete flex
-				md-input-name="autocompleteField" md-input-minlength="1"
-				md-input-maxlength="25" md-no-cache=true
-				md-selected-item="address.line1" md-search-text="searchText"
-				md-items="item in searchAddressByPin(searchText)" md-item-text="item.formatted_address"
-				md-floating-label="Search Address">
-			<md-item-template> <span
-				md-highlight-text="searchText">{{item.formatted_address}}</span> </md-item-template></md-autocomplete> -->
-	<md-input-container flex="50"> <label>Search
-		Address By Pin</label> <input ng-model="searchByPin"
-		ng-change="searchAddressByPin(searchByPin)"
-		ng-model-options="{ debounce: 1000 }"> </md-input-container>
+	<md-input-container flex> <label>Search
+		Address</label> <input ng-model="searchText"
+		ng-change="autoCompleteAddress(searchText)"
+		ng-model-options="{ debounce: 1000 }"> <span style="font-size: 9pt;" flex>Use
+		this text box to search and auto-complete the address</span> </md-input-container>
+	<div flex>
+		<div ng-if="searchingAddress" style="padding: 20px 10px 10px 10px;">
+			<md-progress-circular md-diameter="30" md-mode="indeterminate"></md-progress-circular>
+		</div>
+	</div>
 	<!-- <md-button class="md-icon-button" ng-click="searchDialog($event)">
 	<ng-md-icon icon="search" style="fill: md-default" size="22">
 	<md-tooltip>Address Lookup </md-tooltip></ng-md-icon></md-button> -->
