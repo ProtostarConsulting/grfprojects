@@ -78,7 +78,7 @@ public class GFBookStockService {
 	public List<GFBookEntity> getGFBookByInstituteId(
 			@Named("instituteID") long instituteID) {
 
-		List<GFBookEntity> list = ofy().load().type(GFBookEntity.class).list();
+		List<GFBookEntity> list = ofy().load().type(GFBookEntity.class).filter("instituteID", instituteID).list();
 
 		return list;
 
@@ -89,7 +89,7 @@ public class GFBookStockService {
 			@Named("instituteID") long instituteID) {
 
 		List<GFBookTransactionEntity> list = ofy().load()
-				.type(GFBookTransactionEntity.class).list();
+				.type(GFBookTransactionEntity.class).filter("instituteID", instituteID).list();
 		List<GFBookTransactionEntity> fitleredList = new ArrayList<GFBookTransactionEntity>();
 		// Filter only Cr List
 		for (GFBookTransactionEntity bookTxnRecord : list) {
@@ -167,7 +167,7 @@ public class GFBookStockService {
 			@Named("instituteID") long instituteID) {
 
 		List<GFBookStockEntity> list = ofy().load()
-				.type(GFBookStockEntity.class).list();
+				.type(GFBookStockEntity.class).filter("instituteID", instituteID).list();
 
 		return list;
 
@@ -196,8 +196,7 @@ public class GFBookStockService {
 
 	@ApiMethod(name = "getReportByThreshold", path = "getReportByThreshold")
 	public List<GFBookEntity> getReportByThreshold(@Named("insID") Long insID) {
-		List<GFBookEntity> bookStocks = ofy().load().type(GFBookEntity.class)
-				.list();
+		List<GFBookEntity> bookStocks = getGFBookByInstituteId(insID);
 		List<GFBookEntity> filteredThresholdStocks = new ArrayList<GFBookEntity>();
 
 		for (int i = 0; i < bookStocks.size(); i++) {

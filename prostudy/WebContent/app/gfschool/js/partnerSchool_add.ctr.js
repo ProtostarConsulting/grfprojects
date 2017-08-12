@@ -262,6 +262,7 @@ angular
 						}
 						$scope.examDetail.bookSummary = $scope.bookSummary;
 						$scope.partnerSchool.instituteID = $scope.curUser.instituteID;
+						$scope.partnerSchool.institute = $scope.curUser.instituteObj;
 						$scope.partnerSchool.contactDetail = $scope.contactDetail;
 
 						if ($scope.schoolid != undefined
@@ -723,6 +724,13 @@ angular
 									- $scope.PaymentDetail.tPaid;
 						}
 
+					}
+					
+					$scope.downloadBookDetails = function(){
+						document.location.href = "DownloadBookDetailsReport?schoolId="
+							+ $scope.partnerSchool.id
+							+ "&yearOfExam="
+							+ $scope.curUser.instituteObj.yearofExam;
 					}
 
 					$scope.PaymentDetailArray = [];

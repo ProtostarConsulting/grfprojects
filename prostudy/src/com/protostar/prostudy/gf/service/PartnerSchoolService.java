@@ -148,9 +148,9 @@ public class PartnerSchoolService {
 								|| detail.getPaymentReciptNo().isEmpty()) {
 							SequenceGeneratorShardedService sequenceGenerator = new SequenceGeneratorShardedService(
 									EntityUtil.getInstituteEntityRawKey(partnerSchoolEntity
-											.getInstituteID()),
+											.getInstitute()),
 									Constants.PAYMENT_RECEIPET_NO);
-							Long nextSequenceNumber = sequenceGenerator
+							Integer nextSequenceNumber = sequenceGenerator
 									.getNextSequenceNumber();
 							detail.setPaymentReciptNo(nextSequenceNumber
 									.toString());

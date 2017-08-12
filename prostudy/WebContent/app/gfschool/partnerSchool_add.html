@@ -463,7 +463,12 @@
 		</md-tab> --> <md-tab label="Book Detail" ng-click="setCurrentTab(3)"
 			ng-disabled="enableTillTabNo<3"> <md-content
 			class="md-padding">
-
+		<div align="right">
+			<span class="md-subhead">Download Book Details</span>
+			<md-button class="md-icon-button" ng-click="downloadBookDetails()" layout-align="end end">
+			<ng-md-icon icon="file_download" style="fill: md-default" size="22">
+			<md-tooltip>Download Book Details</md-tooltip></ng-md-icon></md-button>
+		</div>
 		<div>
 			<md-data-table-container>
 			<table md-data-table>
@@ -783,9 +788,9 @@
 			</md-data-table-container>
 		</div>
 		</md-content> </md-tab> <md-tab label="Notification" ng-disabled="enableTillTabNo<5">
-		<h3 class="md-subhead text-primary" style="text-align: center;">SMS Records</h3>
-		<md-content class="md-padding">
-			<!-- <table
+		<h3 class="md-subhead text-primary" style="text-align: center;">SMS
+			Records</h3>
+		<md-content class="md-padding"> <!-- <table
 				style="font-family: arial, sans-serif; border-collapse: collapse; border: 1px solid black; width: 80%; margin-left: 20px;">
 				<tr
 					style="border: 1px solid #8cced4; text-align: left; padding: 8px; background-color: #44acb6;">
@@ -802,27 +807,23 @@
 					<td>Courier SMS Count</td>
 					<td ng-bind="examDetail.notificationData.currierSmsSent"></td>
 				</tr>
-			</table> -->
-			<!-- <h3 class="md-subhead">SMS Records</h3> -->
-			<md-data-table-container>
-			<table md-data-table class="md-primary" md-progress="deferred">
-				<thead md-order="query.order" md-trigger="onorderchange">
-					<tr>
-						<th width="18%" order-by="smsdate" name="Date And Time"></th>
-						<th width="18%" order-by="mobileno" name="Mobile no."></th>
-						<th width="45%" order-by="smsmessage" name="SMS Message"></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr
-						ng-repeat="smsRecord in smsRecordList | orderBy: query.order">
-						<td>{{smsRecord.smsdate | formatFullDate}}</td>
-						<td>{{smsRecord.mobileno}}</td>
-						<td>{{smsRecord.smsmessage}}</td>
-					</tr>
-				</tbody>
-			</table>
-			</md-data-table-container>
-		</md-content> </md-tab> </md-tabs> </md-content>
+			</table> --> <!-- <h3 class="md-subhead">SMS Records</h3> --> <md-data-table-container>
+		<table md-data-table class="md-primary" md-progress="deferred">
+			<thead md-order="query.order" md-trigger="onorderchange">
+				<tr>
+					<th width="18%" order-by="smsdate" name="Date And Time"></th>
+					<th width="18%" order-by="mobileno" name="Mobile no."></th>
+					<th width="45%" order-by="smsmessage" name="SMS Message"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="smsRecord in smsRecordList | orderBy: query.order">
+					<td>{{smsRecord.smsdate | formatFullDate}}</td>
+					<td>{{smsRecord.mobileno}}</td>
+					<td>{{smsRecord.smsmessage}}</td>
+				</tr>
+			</tbody>
+		</table>
+		</md-data-table-container> </md-content> </md-tab> </md-tabs> </md-content>
 	</form>
 </div>

@@ -44,6 +44,7 @@ angular
 									$scope.tempStudent.school = $scope.pSchoolList[i];
 							}
 						}
+						$scope.tempStudent.institute = $scope.curUser.instituteObj;
 						gfStudentService.addGFStudent($scope.tempStudent).then(
 								function(resp) {
 									$scope.gfStudentForm.$setPristine();
@@ -85,7 +86,7 @@ angular
 						var PartnerSchoolService = appEndpointSF
 								.getPartnerSchoolService();
 						PartnerSchoolService.getPartnerByInstitute(
-								$scope.curUser.instituteID).then(
+								$scope.curUser.instituteID,$scope.curUser.instituteObj.yearofExam).then(
 								function(pSchoolList) {
 									$scope.pSchoolList = pSchoolList;
 

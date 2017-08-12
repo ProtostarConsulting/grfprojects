@@ -1,22 +1,26 @@
 package com.protostar.prostudy.until.data;
 
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.EntityNotFoundException;
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
-import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Transaction;
-import com.google.appengine.api.memcache.Expiration;
-import com.google.appengine.api.memcache.MemcacheService;
-import com.google.appengine.api.memcache.MemcacheService.SetPolicy;
-import com.google.appengine.api.memcache.MemcacheServiceFactory;
+import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.util.ConcurrentModificationException;
+import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.google.appengine.api.memcache.Expiration;
+import com.google.appengine.api.memcache.MemcacheService;
+import com.google.appengine.api.memcache.MemcacheService.IdentifiableValue;
+import com.google.appengine.api.memcache.MemcacheService.SetPolicy;
+import com.google.appengine.api.memcache.MemcacheServiceFactory;
+import com.googlecode.objectify.Key;
+import com.googlecode.objectify.Work;
+import com.googlecode.objectify.annotation.Cache;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Ignore;
+import com.googlecode.objectify.annotation.Parent;
+import com.protostar.prostudy.entity.InstituteEntity;
 
 /**
  * A counter which can be incremented rapidly.
@@ -34,46 +38,113 @@ public class SequenceGeneratorShardedService {
 	 * counter. The counter name provided in the constructor is used as the
 	 * entity key.
 	 */
-	private static final class Counter {
-		/**
-		 * Entity kind representing a named sharded counter.
-		 */
-		private static final String KIND = "Counter";
+	@Cache
+	@Entity
+	public static final class CounterEntity {
+		@Id
+		private String counterName;
 
-		/**
-		 * Property to store the number of shards in a given {@value #KIND}
-		 * named sharded counter.
+		@Parent
+		private Key<InstituteEntity> institute;
+		private int shardCount;
+
+		@Ignore
+		private int tempDSCounterValue;
+		@Ignore
+		private int tempMCCounterValue;
+
+		public CounterEntity() {
+
+		}
+
+		public CounterEntity(Key<InstituteEntity> institute) {
+			// this.setBusiness(business);
+			this.institute = institute;
+		}
+
+		public String getCounterName() {
+			return counterName;
+		}
+
+		public void setCounterName(String counterName) {
+			this.counterName = counterName;
+		}
+
+		public int getShardCount() {
+			return shardCount;
+		}
+
+		public void setShardCount(int shardCount) {
+			this.shardCount = shardCount;
+		}
+
+		public int getTempDSCounterValue() {
+			return tempDSCounterValue;
+		}
+
+		public void setTempDSCounterValue(int tempDSCounterValue) {
+			this.tempDSCounterValue = tempDSCounterValue;
+		}
+
+		public int getTempMCCounterValue() {
+			return tempMCCounterValue;
+		}
+
+		public void setTempMCCounterValue(int tempMCCounterValue) {
+			this.tempMCCounterValue = tempMCCounterValue;
+		}
+
+		/*
+		 * public Key<BusinessEntity> getBusiness() { return business; }
+		 * 
+		 * public void setBusiness(Key<BusinessEntity> business) { this.business
+		 * = business; }
 		 */
-		private static final String SHARD_COUNT = "shard_count";
 	}
 
 	/**
 	 * Convenience class which contains constants related to the counter shards.
 	 * The shard number (as a String) is used as the entity key.
 	 */
-	private static final class CounterShard {
-		/**
-		 * Entity kind prefix, which is concatenated with the counter name to
-		 * form the final entity kind, which represents counter shards.
-		 */
-		private static final String KIND_PREFIX = "CounterShard_";
+	@Cache
+	@Entity
+	public static final class CounterShard {
+		@Parent
+		private Key<CounterEntity> counter;
+		@Id
+		private long shardNumber;
+		private int count;
 
-		/**
-		 * Property to store the current count within a counter shard.
-		 */
-		private static final String COUNT = "count";
+		public int getCount() {
+			return count;
+		}
+
+		public void setCount(int count) {
+			this.count = count;
+		}
+
+		public Key<CounterEntity> getCounter() {
+			return counter;
+		}
+
+		public void setCounter(Key<CounterEntity> counter) {
+			this.counter = counter;
+		}
+
+		public long getShardNumber() {
+			return shardNumber;
+		}
+
+		public void setShardNumber(long shardNumber) {
+			this.shardNumber = shardNumber;
+		}
+
 	}
-
-	/**
-	 * DatastoreService object for Datastore access.
-	 */
-	private static final DatastoreService DS = DatastoreServiceFactory
-			.getDatastoreService();
 
 	/**
 	 * Default number of shards.
 	 */
-	private static final int INITIAL_SHARDS = 5;
+	private static final int INITIAL_SHARDS = 20;
 
 	/**
 	 * Cache duration for memcache.
@@ -83,9 +154,9 @@ public class SequenceGeneratorShardedService {
 	/**
 	 * The name of this counter.
 	 */
-	private final String counterName;
-
-	private final Key parent;
+	private String counterName;
+	private Key<CounterEntity> counterKey;
+	private Key<InstituteEntity> institueKey;
 
 	/**
 	 * A random number generating, for distributing writes across shards.
@@ -93,21 +164,14 @@ public class SequenceGeneratorShardedService {
 	private final Random generator = new Random();
 
 	/**
-	 * The counter shard kind for this counter.
-	 */
-	private String kind;
-
-	/**
 	 * Memcache service object for Memcache access.
 	 */
-	private final MemcacheService mc = MemcacheServiceFactory
-			.getMemcacheService();
+	private final MemcacheService mc = MemcacheServiceFactory.getMemcacheService();
 
 	/**
 	 * A logger object.
 	 */
-	private static final Logger LOG = Logger
-			.getLogger(SequenceGeneratorShardedService.class.getName());
+	private static final Logger logger = Logger.getLogger(SequenceGeneratorShardedService.class.getName());
 
 	/**
 	 * Constructor which creates a sharded counter using the provided counter
@@ -116,10 +180,10 @@ public class SequenceGeneratorShardedService {
 	 * @param name
 	 *            name of the sharded counter
 	 */
-	public SequenceGeneratorShardedService(Key parent, final String name) {
-		this.parent = parent;
-		counterName = name;
-		kind = this.parent.getId() + CounterShard.KIND_PREFIX + counterName;
+	public SequenceGeneratorShardedService(Key<InstituteEntity> institueKey, final String counterName) {
+		this.institueKey = institueKey;
+		this.counterName = counterName;
+		this.counterKey = Key.create(institueKey, CounterEntity.class, counterName);
 	}
 
 	/**
@@ -130,9 +194,58 @@ public class SequenceGeneratorShardedService {
 	 *            Number of new shards to build and store
 	 */
 	public final void addShards(final int count) {
-		Key counterKey = KeyFactory.createKey(Counter.KIND, counterName);
-		incrementPropertyTx(counterKey, Counter.SHARD_COUNT, count,
-				INITIAL_SHARDS + count);
+		// Add the new number of shards to existing count.
+		// To implement
+	}
+
+	public int getTempMCValue() {
+		Object object = mc.get(this.counterKey);
+		if (object == null) {
+			return 0;
+		} else {
+			return (Integer) object;
+		}
+	}
+
+	public final int getCounterCount() {
+		Integer value = null;
+		final int RETRYCOUNT = 5;
+		boolean success = false;
+
+		for (int i = 0; i < RETRYCOUNT; i++) {
+			IdentifiableValue identifiable = mc.getIdentifiable(this.counterKey);
+			if (identifiable != null) {
+				value = (Integer) identifiable.getValue();
+			}
+			if (identifiable == null) {
+				int sum = 0;
+				List<CounterShard> counterShardList = ofy().transactionless().load().type(CounterShard.class)
+						.ancestor(this.counterKey).list();
+				for (CounterShard shard : counterShardList) {
+					sum += shard.getCount();
+				}
+				mc.put(this.counterKey, sum, Expiration.byDeltaSeconds(CACHE_PERIOD),
+						SetPolicy.ADD_ONLY_IF_NOT_PRESENT);
+				continue;
+			}
+			if (value != null) {
+				success = mc.putIfUntouched(this.counterKey, identifiable, new Integer(value + 1));
+				if (success) {
+					break;
+				}
+				{
+					continue;
+				}
+			}
+		}
+
+		if (!success) {
+			RuntimeException runtimeException = new RuntimeException(
+					"Could not generate unique counter from Memcache for kind: " + this.counterKey.getName()
+							+ " . There is lot of load on this counder. Please try latter on.");
+			throw runtimeException;
+		}
+		return value;
 	}
 
 	/**
@@ -140,51 +253,65 @@ public class SequenceGeneratorShardedService {
 	 *
 	 * @return Summed total of all shards' counts
 	 */
-	public final long getNextSequenceNumber() {
-		Long value = (Long) mc.get(kind);
-		if (value == null) {
-			long sum = 0;
-			Query query = new Query(kind);
-			for (Entity shard : DS.prepare(query).asIterable()) {
-				sum += (Long) shard.getProperty(CounterShard.COUNT);
-			}
-			mc.put(kind, sum, Expiration.byDeltaSeconds(CACHE_PERIOD),
-					SetPolicy.ADD_ONLY_IF_NOT_PRESENT);
-			value = sum;
+	public final int getNextSequenceNumber() {
+		// Increment in DB first. That mostly fails.
+		if (increment()) {
+			return getCounterCount();
 		}
-		increment();
-		return value+1;
+		return -1;
+	}
+
+	public boolean init() {
+		int numShards = getShardCount();
+
+		// Choose the shard randomly from the available shards.
+		int shardNum = generator.nextInt(numShards) + 1;
+
+		Key<CounterShard> shardKey = Key.create(this.counterKey, CounterShard.class, shardNum);
+		return incrementShardCountTx(shardKey, 0, 0);
 	}
 
 	/**
 	 * Increment the value of this sharded counter.
 	 */
-	private final void increment() {
+	private final boolean increment() {
 		// Find how many shards are in this counter.
 		int numShards = getShardCount();
 
 		// Choose the shard randomly from the available shards.
-		long shardNum = generator.nextInt(numShards);
+		int shardNum = generator.nextInt(numShards) + 1;
 
-		Key shardKey = KeyFactory.createKey(kind, Long.toString(shardNum));
-		incrementPropertyTx(shardKey, CounterShard.COUNT, 1, 1);
-		mc.increment(kind, 1);
+		Key<CounterShard> shardKey = Key.create(this.counterKey, CounterShard.class, shardNum);
+		return incrementShardCountTx(shardKey, 1, 1);
 	}
 
+	/**
+	 * Increment the value of this sharded counter to new start value.
+	 */
+	public final boolean incrementBy(int increamentValue) {
+		// Find how many shards are in this counter.
+		int numShards = getShardCount();
+
+		// Choose the shard randomly from the available shards.
+		int shardNum = generator.nextInt(numShards) + 1;
+
+		Key<CounterShard> shardKey = Key.create(this.counterKey, CounterShard.class, shardNum);
+		return incrementShardCountTx(shardKey, increamentValue, increamentValue);
+	}
 	/**
 	 * Get the number of shards in this counter.
 	 *
 	 * @return shard count
 	 */
 	private int getShardCount() {
-		try {
-			Key counterKey = KeyFactory.createKey(Counter.KIND, counterName);
-			Entity counter = DS.get(counterKey);
-			Long shardCount = (Long) counter.getProperty(Counter.SHARD_COUNT);
-			return shardCount.intValue();
-		} catch (EntityNotFoundException ignore) {
-			return INITIAL_SHARDS;
+		CounterEntity counterEntity = ofy().load().key(this.counterKey).now();
+		if (counterEntity == null) {
+			counterEntity = new CounterEntity(this.institueKey);
+			counterEntity.setCounterName(this.counterName);
+			counterEntity.setShardCount(INITIAL_SHARDS);
+			ofy().transactionless().save().entity(counterEntity).now();
 		}
+		return counterEntity.getShardCount();
 	}
 
 	/**
@@ -201,32 +328,50 @@ public class SequenceGeneratorShardedService {
 	 * @param initialValue
 	 *            the value to use if the entity does not exist
 	 */
-	private void incrementPropertyTx(final Key key, final String prop,
-			final long increment, final long initialValue) {
-		Transaction tx = DS.beginTransaction();
-		Entity thing;
-		long value;
+	private boolean incrementShardCountTx(final Key<CounterShard> shardKey, final int increment,
+			final int initialValue) {
 		try {
-			try {
-				thing = DS.get(tx, key);
-				value = (Long) thing.getProperty(prop) + increment;
-			} catch (EntityNotFoundException e) {
-				thing = new Entity(key);
-				value = initialValue;
-			}
-			thing.setUnindexedProperty(prop, value);
-			DS.put(tx, thing);
-			tx.commit();
+			ofy().transactNew(1, new Work<Key<CounterShard>>() {
+				private Key<CounterShard> shardKey;
+				private Key<CounterEntity> counterKey;
+
+				private Work<Key<CounterShard>> init(Key<CounterShard> shardKey, Key<CounterEntity> counterKey) {
+					this.shardKey = shardKey;
+					this.counterKey = counterKey;
+					return this;
+				}
+
+				public Key<CounterShard> run() {
+					CounterShard shardEntity;
+					int value;
+
+					shardEntity = ofy().load().key(shardKey).now();
+					if (shardEntity == null) {
+						shardEntity = new CounterShard();
+						shardEntity.setCounter(this.counterKey);
+						shardEntity.setShardNumber(shardKey.getId());
+						shardEntity.setCount(initialValue);
+						value = initialValue;
+					} else {
+						value = shardEntity.getCount() + increment;
+					}
+
+					shardEntity.setCount(value);
+					ofy().save().entity(shardEntity).now();
+
+					return shardKey;
+				}
+			}.init(shardKey, this.counterKey));
 		} catch (ConcurrentModificationException e) {
-			LOG.log(Level.WARNING,
-					"You may need more shards. Consider adding more shards.");
-			LOG.log(Level.WARNING, e.toString(), e);
+			logger.log(Level.WARNING, "You may need more shards. Consider adding more shards.");
+			logger.log(Level.WARNING, e.toString(), e);
+			throw new RuntimeException(
+					"There is load on this counter: " + this.counterName + ". Consider increasing shard count.", e);
 		} catch (Exception e) {
-			LOG.log(Level.WARNING, e.toString(), e);
-		} finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
+			logger.log(Level.WARNING, e.toString(), e);
+			throw new RuntimeException("There is error while executing incrementShardCountTx() method.", e);
 		}
+
+		return true;
 	}
 }

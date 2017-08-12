@@ -326,4 +326,14 @@
     <servlet-name>SendBookRecorderEmail</servlet-name>
     <url-pattern>/grf/cron/SendBookRecorderEmail</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DownloadBookDetailsReport</display-name>
+    <servlet-name>DownloadBookDetailsReport</servlet-name>
+    <servlet-class>com.protostar.prostudy.gf.service.DownloadBookDetailsReport</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DownloadBookDetailsReport</servlet-name>
+    <url-pattern>/DownloadBookDetailsReport</url-pattern>
+  </servlet-mapping>
 </web-app>

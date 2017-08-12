@@ -35,8 +35,8 @@ public class EntityUtil {
 		return entityObj;
 	}
 
-	public static com.google.appengine.api.datastore.Key getInstituteEntityRawKey(InstituteEntity entityObj) {
-		return Key.create(InstituteEntity.class, entityObj.getId()).getRaw();
+	public static Key<InstituteEntity> getInstituteEntityRawKey(InstituteEntity entityObj) {
+		return Key.create(InstituteEntity.class, entityObj.getId());
 	}
 	public static com.google.appengine.api.datastore.Key getInstituteEntityRawKey(Long instituteId) {
 		return Key.create(InstituteEntity.class, instituteId).getRaw();

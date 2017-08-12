@@ -45,10 +45,9 @@ public class GFStudentService {
 		if (gfStudentEntity.getPrn() == null
 				|| gfStudentEntity.getPrn().isEmpty()) {
 			SequenceGeneratorShardedService sequenceGenerator = new SequenceGeneratorShardedService(
-					EntityUtil.getInstituteEntityRawKey(gfStudentEntity
-							.getInstituteID()),
+					EntityUtil.getInstituteEntityRawKey(gfStudentEntity.getInstitute()),
 					Constants.STUDENT_REGISTRATION_NO_COUNTER);
-			Long nextSequenceNumber = sequenceGenerator.getNextSequenceNumber();
+			Integer nextSequenceNumber = sequenceGenerator.getNextSequenceNumber();
 			gfStudentEntity.setPrn(nextSequenceNumber.toString());
 			gfStudentEntity.setCreatedDate(new Date());
 		}
