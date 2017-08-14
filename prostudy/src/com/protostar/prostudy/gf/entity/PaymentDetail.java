@@ -23,6 +23,9 @@ public class PaymentDetail {
 	private String branchName;
 	private String transactionNumber;
 	private Date depositDate;
+	private String ddBankName;
+	private String ddBranchName;
+	private Date ddCreatedDate;
 	
 	private boolean paymentReceived = false;
 	
@@ -92,5 +95,23 @@ public class PaymentDetail {
 	}
 	public void setPaymentReceived(boolean paymentReceived) {
 		this.paymentReceived = paymentReceived;
+	}
+	public String getDdBankName() {
+		return ddBankName;
+	}
+	public void setDdBankName(String ddBankName) {
+		this.ddBankName = ddBankName;
+	}
+	public String getDdBranchName() {
+		return ddBranchName;
+	}
+	public void setDdBranchName(String ddBranchName) {
+		this.ddBranchName = ddBranchName;
+	}
+	public Date getDdCreatedDate() {
+		return ddCreatedDate;
+	}
+	public void setDdCreatedDate(Date ddCreatedDate) {
+		this.ddCreatedDate = ddCreatedDate;
 	}
 }

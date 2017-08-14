@@ -3,6 +3,7 @@ package com.protostar.prostudy.gf.service;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import com.protostar.prostudy.gf.entity.BookSummary;
 import com.protostar.prostudy.gf.entity.ExamDetail;
 import com.protostar.prostudy.gf.entity.GFBookEntity;
 import com.protostar.prostudy.gf.entity.PartnerSchoolEntity;
+import com.protostar.prostudy.gf.entity.PaymentDetail;
 
 public class DownloadBookDetailsReport extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -40,15 +42,16 @@ public class DownloadBookDetailsReport extends HttpServlet {
 
 		Long schoolId = Long.parseLong(request.getParameter("schoolId"));
 		String yearOfExam = request.getParameter("yearOfExam");
-		Integer totalStudent = 0, totalBookAmount = 0, totalGRFFees = 0, bookAmt20per = 0, bookAmt80per = 0, examAmt20per = 0, examAmt80per = 0;
-
+		int totalStudent = 0, tempBookAmt = 0, tempGRFAmt = 0;
+		float totalBookAmount = 0.0f, totalGRFFees = 0.0f, bookAmt20per = 0.0f, bookAmt80per = 0.0f, examAmt20per = 0.0f, examAmt80per = 0.0f;
 		Date date = new Date();
-		String DATE_FORMAT = "dd/MMM/yyyy";
+		String DATE_FORMAT = "dd/MM/yyyy";
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
 
 		PartnerSchoolService pschoolService = new PartnerSchoolService();
 		PartnerSchoolEntity schoolEntity = pschoolService
 				.getPSchoolByPSID(schoolId);
+		List<PaymentDetail> paymentDetailList = new ArrayList<PaymentDetail>();
 
 		try {
 
@@ -61,6 +64,17 @@ public class DownloadBookDetailsReport extends HttpServlet {
 			
 			ServletOutputStream outputStream = response.getOutputStream();
 			OutputStreamWriter writer = new OutputStreamWriter(outputStream);
+			
+			writer.append(",");
+			writer.append("Gandhi Research Foundation");
+			writer.append(",");
+			writer.append(System.lineSeparator());
+			
+			writer.append(",");
+			writer.append("Gandhi Vichar Sanskar Pariksha "+yearOfExam);
+			writer.append(',');
+			writer.append(',');
+			writer.append(System.lineSeparator());
 			
 			writer.append("Reg. No.");
 			writer.append(',');
@@ -107,6 +121,7 @@ public class DownloadBookDetailsReport extends HttpServlet {
 					
 					BookSummary bookSummary = examDetailList.get(j)
 							.getBookSummary();
+					paymentDetailList = examDetailList.get(j).getPaymentDetail();
 					if (bookSummary != null) {
 						
 						List<BookDetail> bookDetail = bookSummary
@@ -132,13 +147,15 @@ public class DownloadBookDetailsReport extends HttpServlet {
 									writer.append(book.getBookPrise()
 											.toString());
 									writer.append(',');
-									totalBookAmount += book.getTotalFees();
+									tempBookAmt += book.getTotalFees();
+									totalBookAmount = (float)tempBookAmt;
 									writer.append(book.getTotalFees()
 											.toString());
 									writer.append(',');
 									writer.append(book.getExamFees().toString());
 									writer.append(',');
-									totalGRFFees += book.getTotalExamFees();
+									tempGRFAmt += book.getTotalExamFees();
+									totalGRFFees = (float)tempGRFAmt;
 									writer.append(book.getTotalExamFees()
 											.toString());
 									writer.append(',');
@@ -149,45 +166,35 @@ public class DownloadBookDetailsReport extends HttpServlet {
 					}
 				}
 			}
-
-			bookAmt20per += ((totalBookAmount / 100) * 20);
-			bookAmt80per += ((totalBookAmount / 100) * 80);
 			
-			examAmt20per += ((totalGRFFees / 100) * 20);
-			examAmt80per += ((totalGRFFees / 100) * 80);
+			bookAmt20per += Math.round(((totalBookAmount / 100) * 20));
+			bookAmt80per += Math.round(((totalBookAmount / 100) * 80));
+			
+			examAmt20per += Math.round(((totalGRFFees / 100) * 20));
+			examAmt80per += Math.round(((totalGRFFees / 100) * 80));
 
 			writer.append(',');
 			writer.append("Total A");
 			writer.append(',');
-			writer.append(totalStudent.toString());
+			writer.append(Integer.toString(totalStudent));
 			writer.append(',');
 			writer.append(',');
-			writer.append(totalBookAmount.toString());
+			writer.append(String.valueOf(totalBookAmount));
 			writer.append(',');
 			writer.append(',');
-			writer.append(totalGRFFees.toString());
-			writer.append(',');
-			writer.append(System.lineSeparator());
-
-			writer.append(',');
-			writer.append(',');
-			writer.append(',');
-			writer.append(',');
-			writer.append(totalBookAmount.toString());
-			writer.append(',');
-			writer.append(',');
+			writer.append(String.valueOf(totalGRFFees));
 			writer.append(',');
 			writer.append(System.lineSeparator());
-
+			
 			writer.append(',');
 			writer.append("20% Expensess");
 			writer.append(',');
 			writer.append(',');
 			writer.append(',');
-			writer.append(bookAmt20per.toString());
+			writer.append(String.valueOf(bookAmt20per));
 			writer.append(',');
 			writer.append(',');
-			writer.append(examAmt20per.toString());
+			writer.append(String.valueOf(examAmt20per));
 			writer.append(System.lineSeparator());
 
 			writer.append(',');
@@ -195,11 +202,71 @@ public class DownloadBookDetailsReport extends HttpServlet {
 			writer.append(',');
 			writer.append(',');
 			writer.append(',');
-			writer.append(bookAmt80per.toString());
+			writer.append(String.valueOf(bookAmt80per));
 			writer.append(',');
 			writer.append(',');
-			writer.append(examAmt80per.toString());
+			writer.append(String.valueOf(examAmt80per));
 			writer.append(System.lineSeparator());
+			
+			if (paymentDetailList != null && paymentDetailList.size() > 0){
+				for (PaymentDetail payment : paymentDetailList) {
+					if(payment.getPayReceivedBy().trim().equalsIgnoreCase("D.D")){
+						writer.append("D.D No.");
+						writer.append(',');
+						String ddNo = payment.getTransactionNumber();
+						writer.append(ddNo);
+						writer.append(',');
+						writer.append(System.lineSeparator());
+						
+						writer.append("Bank Name");
+						writer.append(',');
+						writer.append(payment.getDdBankName());
+						writer.append(',');
+						writer.append(System.lineSeparator());
+						
+						writer.append("Branch");
+						writer.append(',');
+						writer.append(payment.getDdBranchName());
+						writer.append(',');
+						writer.append(System.lineSeparator());
+						
+						writer.append("D.D No.");
+						writer.append(',');
+						Date tempDDDate = payment.getDdCreatedDate();
+						String ddDate = sdf.format(tempDDDate);
+						writer.append(ddDate);
+						writer.append(',');
+						writer.append(System.lineSeparator());
+					}
+					writer.append("Deposit in");
+					writer.append(',');
+					String bankName = payment.getNameOfBank();
+					writer.append(bankName);
+					writer.append(',');
+					writer.append(System.lineSeparator());
+					
+					writer.append("Branch");
+					writer.append(',');
+					String branch = payment.getBranchName();
+					writer.append(branch);
+					writer.append(',');
+					writer.append(System.lineSeparator());
+					
+					writer.append("Amt. Rs.");
+					writer.append(',');
+					String payAmount = String.valueOf(payment.getPayAmount());
+					writer.append(payAmount);
+					writer.append(',');
+					writer.append(System.lineSeparator());
+					
+					writer.append("Deposit in");
+					writer.append(',');
+					Date tempDepositDate = payment.getDepositDate();
+					String depositDate = sdf.format(tempDepositDate);
+					writer.append(depositDate);
+					writer.append(',');
+				}
+			}
 
 			writer.close();
 

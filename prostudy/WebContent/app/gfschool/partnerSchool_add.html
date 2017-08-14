@@ -465,8 +465,10 @@
 			class="md-padding">
 		<div align="right">
 			<span class="md-subhead">Download Book Details</span>
-			<md-button class="md-icon-button" ng-click="downloadBookDetails()" layout-align="end end">
-			<ng-md-icon icon="file_download" style="fill: md-default" size="22">
+			<md-button class="md-icon-button" ng-click="downloadBookDetails()"
+				layout-align="end end"
+				ng-disabled="!bookSummary.bookDetail[0].standard"> <ng-md-icon
+				icon="file_download" style="fill: md-default" size="22">
 			<md-tooltip>Download Book Details</md-tooltip></ng-md-icon></md-button>
 		</div>
 		<div>
@@ -685,6 +687,20 @@
 						ng-model="PaymentDetail.paymentReceived" style="padding-top: 10px"
 						aria-label="Payment is Received"> Payment is
 					Received</md-checkbox>
+				</div>
+			</div>
+			<div layout="row" layout-xs="column" flex>
+				<md-input-container flex> <label>Enter
+					DD Bank Name </label> <input type="text" name="ddBankName"
+					ng-model="PaymentDetail.ddBankName"></md-input-container>
+				<md-input-container flex> <label>Enter
+					DD Branch Name </label> <input type="text" name="ddBranchName"
+					ng-model="PaymentDetail.ddBranchName"></md-input-container>
+				<div flex>
+					<md-input-container>DD Date:- </md-input-container>
+					<md-datepicker name="ddCreatedDate"
+						ng-model="PaymentDetail.ddCreatedDate"
+						md-placeholder="Select Date"></md-datepicker>
 				</div>
 			</div>
 			<br>

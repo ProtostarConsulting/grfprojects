@@ -157,7 +157,10 @@ angular
 						branchName : "",
 						transactionNumber : "",
 						depositDate : new Date(),
-						paymentReceived : false
+						paymentReceived : false,
+						ddBankName : "",
+						ddBranchName : "",
+						ddCreatedDate : new Date()
 					}
 
 					$scope.Years = [];
