@@ -42,6 +42,8 @@ public class DownloadBookDetailsReport extends HttpServlet {
 
 		Long schoolId = Long.parseLong(request.getParameter("schoolId"));
 		String yearOfExam = request.getParameter("yearOfExam");
+		String paymentType = request.getParameter("paymentType");
+		
 		int totalStudent = 0, tempBookAmt = 0, tempGRFAmt = 0;
 		float totalBookAmount = 0.0f, totalGRFFees = 0.0f, bookAmt20per = 0.0f, bookAmt80per = 0.0f, examAmt20per = 0.0f, examAmt80per = 0.0f;
 		Date date = new Date();
@@ -71,7 +73,7 @@ public class DownloadBookDetailsReport extends HttpServlet {
 			writer.append(System.lineSeparator());
 			
 			writer.append(",");
-			writer.append("Gandhi Vichar Sanskar Pariksha "+yearOfExam);
+			writer.append("Gandhi Vichar Sanskar Pariksha "+yearOfExam+" "+paymentType+" "+"Format");
 			writer.append(',');
 			writer.append(',');
 			writer.append(System.lineSeparator());
@@ -230,7 +232,7 @@ public class DownloadBookDetailsReport extends HttpServlet {
 						writer.append(',');
 						writer.append(System.lineSeparator());
 						
-						writer.append("D.D No.");
+						writer.append("D.D Date");
 						writer.append(',');
 						Date tempDDDate = payment.getDdCreatedDate();
 						String ddDate = sdf.format(tempDDDate);
@@ -259,7 +261,7 @@ public class DownloadBookDetailsReport extends HttpServlet {
 					writer.append(',');
 					writer.append(System.lineSeparator());
 					
-					writer.append("Deposit in");
+					writer.append("Deposit Date");
 					writer.append(',');
 					Date tempDepositDate = payment.getDepositDate();
 					String depositDate = sdf.format(tempDepositDate);

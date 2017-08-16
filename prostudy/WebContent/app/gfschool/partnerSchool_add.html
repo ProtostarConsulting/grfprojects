@@ -469,7 +469,11 @@
 				layout-align="end end"
 				ng-disabled="!bookSummary.bookDetail[0].standard"> <ng-md-icon
 				icon="file_download" style="fill: md-default" size="22">
-			<md-tooltip>Download Book Details</md-tooltip></ng-md-icon></md-button>
+			<md-tooltip>Download in CSV</md-tooltip></ng-md-icon></md-button>
+			<md-button class="md-icon-button" ng-click="downloadBookDetailsPDF()"
+				layout-align="end end" ng-disabled="!bookSummary.bookDetail[0].standard"> <ng-md-icon
+				icon="print" style="fill: md-default" size="22">
+			<md-tooltip>Download in PDF</md-tooltip></ng-md-icon></md-button>
 		</div>
 		<div>
 			<md-data-table-container>

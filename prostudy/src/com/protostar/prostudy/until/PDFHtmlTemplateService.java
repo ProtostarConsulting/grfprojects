@@ -27,7 +27,7 @@ public class PDFHtmlTemplateService {
 			Font.NORMAL, GrayColor.BLACK);
 	static Configuration cfg = null;
 
-	public Configuration getConfiguration() {
+	public static Configuration getConfiguration() {
 
 		if (cfg != null) {
 			return cfg;
@@ -35,7 +35,7 @@ public class PDFHtmlTemplateService {
 
 		Configuration cfg = new Configuration(Configuration.VERSION_2_3_22);
 
-		cfg.setClassForTemplateLoading(this.getClass(), "/");
+		cfg.setClassForTemplateLoading(cfg.getClass(), "/");
 
 		cfg.setDefaultEncoding("UTF-8");
 		cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);

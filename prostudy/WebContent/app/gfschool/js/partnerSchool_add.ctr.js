@@ -21,7 +21,7 @@ angular
 					$scope.tempPaymentData = {
 						otherNameOfBank : null
 					};
-
+					$scope.paymentType = "";
 					// ----------tab control-------
 					$scope.maxTabNo = 5;
 					$scope.visible = true;
@@ -471,13 +471,14 @@ angular
 								$scope.bookSummary = $scope.examlist[q].bookSummary;
 								if ($scope.examlist[q].paymentDetail != undefined) {
 									$scope.PaymentDet = $scope.examlist[q].paymentDetail;
+									$scope.paymentType = $scope.PaymentDet[0].payReceivedBy;
 								}
 								$scope.smsRecordList = $scope.examDetail.smsRecordList;
 								$scope.examDetail.totalStudent = parseInt($scope.examDetail.totalStudent);
 								$scope.examDetail.male = parseInt($scope.examDetail.male);
 								$scope.examDetail.female = parseInt($scope.examDetail.female);
 								$scope.examDetail.total = parseInt($scope.examDetail.total);
-
+								
 								$scope.calculateActualStudTotal();
 								$scope.calculatepaidandpending();
 								break;
@@ -733,7 +734,16 @@ angular
 						document.location.href = "DownloadBookDetailsReport?schoolId="
 							+ $scope.partnerSchool.id
 							+ "&yearOfExam="
-							+ $scope.curUser.instituteObj.yearofExam;
+							+ $scope.curUser.instituteObj.yearofExam
+							+ "&paymentType="
+							+ $scope.paymentType;
+					}
+					
+					$scope.downloadBookDetailsPDF = function(){
+						window.open("PrintBookDetailPdf?schoolId="
+								+ $scope.partnerSchool.id
+								+ "&yearOfExam="
+								+ $scope.curUser.instituteObj.yearofExam);
 					}
 
 					$scope.PaymentDetailArray = [];

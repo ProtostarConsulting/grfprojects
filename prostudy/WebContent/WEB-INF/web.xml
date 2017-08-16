@@ -336,4 +336,14 @@
     <servlet-name>DownloadBookDetailsReport</servlet-name>
     <url-pattern>/DownloadBookDetailsReport</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PrintBookDetailPdf</display-name>
+    <servlet-name>PrintBookDetailPdf</servlet-name>
+    <servlet-class>com.protostar.prostudy.gf.service.PrintBookDetailPdf</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PrintBookDetailPdf</servlet-name>
+    <url-pattern>/PrintBookDetailPdf</url-pattern>
+  </servlet-mapping>
 </web-app>
