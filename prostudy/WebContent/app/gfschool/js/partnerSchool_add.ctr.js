@@ -5,7 +5,7 @@ angular
 				function($scope, $window, $mdToast, $timeout, $mdSidenav,
 						$mdUtil, $log, $q, tableTestDataFactory, $state,
 						$stateParams, $location, $anchorScroll, appEndpointSF,
-						partnerSchoolLevels, standardList,
+						partnerSchoolLevels, standardList, $filter,
 						indiaAddressLookupData) {
 
 					console.log("Inside partnerSchoolAddCtr");
@@ -382,7 +382,9 @@ angular
 						partnerSchoolService.getPartnerSchoolInstituteList(
 								$scope.curUser.instituteID).then(
 								function(list) {
-									$scope.tempInstituteList = list;
+									$scope.tempInstituteList = $filter(
+											'proOrderObjectByTextField')(list,
+											"instituteName");
 								});
 					}
 					$scope.schoolInstituteQuerySearch = function(query) {
@@ -478,7 +480,7 @@ angular
 								$scope.examDetail.male = parseInt($scope.examDetail.male);
 								$scope.examDetail.female = parseInt($scope.examDetail.female);
 								$scope.examDetail.total = parseInt($scope.examDetail.total);
-								
+
 								$scope.calculateActualStudTotal();
 								$scope.calculatepaidandpending();
 								break;
@@ -729,20 +731,18 @@ angular
 						}
 
 					}
-					
-					$scope.downloadBookDetails = function(){
+
+					$scope.downloadBookDetails = function() {
 						document.location.href = "DownloadBookDetailsReport?schoolId="
-							+ $scope.partnerSchool.id
-							+ "&yearOfExam="
-							+ $scope.curUser.instituteObj.yearofExam
-							+ "&paymentType="
-							+ $scope.paymentType;
-					}
-					
-					$scope.downloadBookDetailsPDF = function(){
-						window.open("PrintBookDetailPdf?schoolId="
 								+ $scope.partnerSchool.id
 								+ "&yearOfExam="
+								+ $scope.curUser.instituteObj.yearofExam
+								+ "&paymentType=" + $scope.paymentType;
+					}
+
+					$scope.downloadBookDetailsPDF = function() {
+						window.open("PrintBookDetailPdf?schoolId="
+								+ $scope.partnerSchool.id + "&yearOfExam="
 								+ $scope.curUser.instituteObj.yearofExam);
 					}
 

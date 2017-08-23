@@ -1482,6 +1482,13 @@ app
 								controller : 'gfExamResultListReportCtr'
 							})
 					.state(
+							'gfreport.accountingReport',
+							{
+								url : "/accountingReport",
+								templateUrl : '/app/gfreport/accounting_report.html',
+								controller : 'accountingReportCtr'
+							})		
+					.state(
 							'bookModule',
 							{
 								url : "/bookModule",
@@ -1670,6 +1677,27 @@ app.filter('orderObjectBy', function() {
 			a = parseFloat(a[attribute]);
 			b = parseFloat(b[attribute]);
 			return (a - b) * (reverseOrder ? -1 : 1);
+		});
+		return array;
+	}
+});
+
+app.filter('proOrderObjectByTextField', function() {
+	return function(input, attribute) {
+		if (!angular.isObject(input))
+			return input;
+		var reverseOrder = attribute.startsWith("-");
+		if (reverseOrder)
+			attribute = attribute.split("-")[1];
+		var array = [];
+		for ( var objectKey in input) {
+			array.push(input[objectKey]);
+		}
+
+		array.sort(function(a, b) {
+			a = String(a[attribute]);
+			b = String(b[attribute]);
+			return a.localeCompare(b)
 		});
 		return array;
 	}
