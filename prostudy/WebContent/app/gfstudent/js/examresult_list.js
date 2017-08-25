@@ -99,7 +99,8 @@ angular
 							$log.debug("Found List in Cache, return it.")
 							$scope.queriedExamResultDataCache = ajsCache
 									.get(examResultListCacheKey);
-							$scope.examResultList = $scope.queriedExamResultDataCache.entityList;
+							$scope.examResultList = $scope.queriedExamResultDataCache.entityList ? $scope.queriedExamResultDataCache.entityList
+									: [];
 							$scope.query.totalSize = $scope.queriedExamResultDataCache.totalSize;
 							$scope.query.totalSizeBackup = $scope.queriedExamResultDataCache.totalSizeBackup;
 

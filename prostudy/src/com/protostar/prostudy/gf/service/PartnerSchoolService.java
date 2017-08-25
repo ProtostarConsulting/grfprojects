@@ -197,13 +197,13 @@ public class PartnerSchoolService {
 	public static ExamDetail getExamDeatilByCurretnYear(
 			PartnerSchoolEntity partnerSchoolEntity) {
 		ExamDetail currentYearExamDetail = null;
-		String currentYear = DateUtil.getCurrentGVSPYear();
+		String currentYear = DateUtil.getCurrentGVSPYear(partnerSchoolEntity.getInstituteID());
 
 		if (partnerSchoolEntity == null)
 			return null;
 
 		for (ExamDetail exam : partnerSchoolEntity.getExamDetailList()) {
-			if (currentYear.equals(exam.getYearOfExam().trim())) {
+			if (currentYear.trim().equalsIgnoreCase(exam.getYearOfExam().trim())) {
 				currentYearExamDetail = exam;
 				break;
 			}
@@ -894,7 +894,7 @@ public class PartnerSchoolService {
 
 		MemcacheService memcacheService = MemcacheServiceFactory
 				.getMemcacheService();
-		String currentYear = DateUtil.getCurrentGVSPYear();
+		String currentYear = DateUtil.getCurrentGVSPYear(id);
 		String memecacheKey = "FinSummayReportData-" + currentYear;
 
 		Object foundCacheObject = memcacheService.get(memecacheKey);

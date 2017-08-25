@@ -16,6 +16,7 @@ import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.protostar.prostudy.gf.entity.GFExamResultEntity;
 import com.protostar.prostudy.gf.entity.GFStudentEntity;
+import com.protostar.prostudy.gf.entity.PartnerSchoolEntity;
 import com.protostar.prostudy.until.data.DateUtil;
 
 import freemarker.template.Configuration;
@@ -58,8 +59,8 @@ public class PDFHtmlTemplateService {
 			GFExamResultEntity examResultEntity,
 			ServletOutputStream outputStream) {
 		try {
-			String studName = null, schoolName = null, std = null, file = null;
-			String year = DateUtil.getCurrentGVSPYear();
+			String studName = "", schoolName = "", std = "", file = "";
+			String year = "";
 			String[] standardList = { "5th", "6th", "7th", "8th", "9th",
 					"10th", "11th", "12th", "FY", "SY", "TY", "Fr. Y",
 					"PG/D. & B. Ed-1", "PG/D. & B. Ed-2" };
@@ -71,6 +72,7 @@ public class PDFHtmlTemplateService {
 				schoolName = studEntity.getSchool().getSchoolName()
 						.toUpperCase();
 				std = studEntity.getStandard().toUpperCase();
+				year = DateUtil.getCurrentGVSPYear(studEntity.getInstituteID());
 			}
 
 			if (examResultEntity != null) {
@@ -78,6 +80,10 @@ public class PDFHtmlTemplateService {
 				schoolName = examResultEntity.getSchool().getSchoolName()
 						.toUpperCase();
 				std = examResultEntity.getStandard().toUpperCase();
+				PartnerSchoolEntity schoolEntity = examResultEntity.getSchool();
+				if(schoolEntity != null){
+					year = DateUtil.getCurrentGVSPYear(schoolEntity.getInstituteID());
+				}
 			}
 
 			Document document = new Document(PageSize.A4);

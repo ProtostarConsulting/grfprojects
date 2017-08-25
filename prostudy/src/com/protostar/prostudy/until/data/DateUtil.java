@@ -38,12 +38,12 @@ public class DateUtil {
 		return cal.getTime();
 	}
 
-	public static String getCurrentGVSPYear() {
+	public static String getCurrentGVSPYear(Long insID) {
 		String yearofExam = null;
-		List<InstituteEntity> institueList = ofy().load()
-				.type(InstituteEntity.class).list();
-		for (InstituteEntity instituteEntity : institueList) {
-			yearofExam = instituteEntity.getYearofExam();
+		InstituteEntity institue = ofy().load().type(InstituteEntity.class)
+				.id(insID).now();
+		if (institue != null) {
+			yearofExam = institue.getYearofExam();
 		}
 		return yearofExam;
 	}
