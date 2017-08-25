@@ -708,9 +708,10 @@ public class PartnerSchoolService {
 		long collegeCount = 0;
 		long schoolStudentcount = 0;
 		long collegeStudentcount = 0;
-
-		List<PartnerSchoolEntity> list = ofy().load()
-				.type(PartnerSchoolEntity.class).list();
+		Long grfInstiuteId = 5682617542246400L;
+		//Long grfInstiuteId = 5910974510923776L;
+		String yearOfExam = DateUtil.getCurrentGVSPYear(grfInstiuteId);
+		List<PartnerSchoolEntity> list = getPartnerByInstitute(grfInstiuteId, yearOfExam);
 		// schoolCount = ofy().load().type(PartnerSchoolEntity.class).count();
 		logger.info("list: " + list);
 		logger.info("list.size(): " + (list == null ? "null" : list.size()));
