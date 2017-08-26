@@ -133,7 +133,7 @@ public class DownloadFinicialSummaryReport extends HttpServlet {
 					writer.append(',');
 					writer.append(System.lineSeparator());
 					totalPayAmount = totalPayAmount + payAmount;
-					String totalCost = "" + totalPayAmount;
+					String totalCost = String.valueOf(totalPayAmount);
 
 					if (j == schoolList.size() - 1) {
 						writer.append(',');

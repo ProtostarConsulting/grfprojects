@@ -42,8 +42,7 @@ angular
 						 * console.log("response ------" + response); });
 						 */
 
-						var response = window
-								.open("PrintBookDetailPdf?yearOfExam="
+						window.open("PrintBookDetailPdf?yearOfExam="
 										+ $scope.curUser.instituteObj.yearofExam
 										+ "&fromGRfRegNo=" + fromGRfRegNo
 										+ "&toGRfRegNo=" + toGRfRegNo);

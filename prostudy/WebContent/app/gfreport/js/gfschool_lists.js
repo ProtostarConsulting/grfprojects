@@ -24,6 +24,7 @@ angular
 					$scope.Country.states.unshift({
 						name : "All"
 					});
+					$scope.loading = false;
 
 					$scope.gfSchoolList = [];
 					$scope.schoolListsDate == null;
@@ -108,6 +109,7 @@ angular
 					}
 
 					$scope.getPartnerSchoolByInstitute = function() {
+						$scope.loading = true;
 						var PartnerService = appEndpointSF
 								.getPartnerSchoolService();
 
@@ -117,6 +119,7 @@ angular
 								function(pSchoolList) {
 									$scope.pSchoolList = pSchoolList;
 									$scope.filteredSchoolList = [];
+									$scope.loading = false;
 								});
 
 					}

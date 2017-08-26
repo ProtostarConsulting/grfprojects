@@ -17,38 +17,33 @@ angular
 						limit : 60,
 						page : 1
 					};
-
+					$scope.loading = false;
 
 					$scope.getGFBookStockTransactionByInstituteId = function() {
-
-						var gfBookStockService = appEndpointSF.getGFBookStockService();
-						gfBookStockService.getGFBookStockTransactionByInstituteId($scope.curUser.instituteID)
-								.then(function(tempBooks) {
-									
-									$scope.bookStocks = tempBooks;
-								
-								});
+						$scope.loading = true;
+						var gfBookStockService = appEndpointSF
+								.getGFBookStockService();
+						gfBookStockService
+								.getGFBookStockTransactionByInstituteId(
+										$scope.curUser.instituteID).then(
+										function(tempBooks) {
+											$scope.bookStocks = tempBooks;
+											$scope.loading = false;
+										});
 					}
-					
-					$scope.downloadBookTranscation = function(){
-						
-						document.location.href="DownloadBookStockTransaction?BookStockTransactionByInstituteId="+$scope.curUser.instituteID;
+
+					$scope.downloadBookTranscation = function() {
+						document.location.href = "DownloadBookStockTransaction?BookStockTransactionByInstituteId="
+								+ $scope.curUser.instituteID;
 					}
 
 					$scope.waitForServiceLoad = function() {
 						if (appEndpointSF.is_service_ready) {
-
 							$scope.getGFBookStockTransactionByInstituteId();
-								
-							
-							
 						} else {
 							$log.debug("Services Not Loaded, watiting...");
 							$timeout($scope.waitForServiceLoad, 1000);
 						}
 					}
-
 					$scope.waitForServiceLoad();
-
-				
 				});

@@ -1,4 +1,9 @@
-<div id="studentListDiv">
+<div ng-if="loading">
+	<div layout="row" layout-sm="column" layout-align="space-around">
+		<md-progress-circular md-diameter="100" md-mode="indeterminate"></md-progress-circular>
+	</div>
+</div>
+<div id="studentListDiv" ng-if="!loading">
 	<div layout="row" layout-xs="column">
 		<md-input-container flex> <label>Search
 			By Name</label> <input ng-model="searchByName"> </md-input-container>

@@ -112,8 +112,7 @@ public class PrintBookDetailPdf extends HttpServlet {
 				float totalBookAmount = 0.0f, totalGRFFees = 0.0f, bookAmt20per = 0.0f, bookAmt80per = 0.0f, examAmt20per = 0.0f, examAmt80per = 0.0f;
 				SchoolDataTotal overallTotals = new SchoolDataTotal();
 
-				root.put("instituteName", schoolList.get(i).getInstitute()
-						.getName());
+				root.put("instituteName", "Gandhi Research Foundation");
 				String gvspName = "Gandhi Vichar Sanskar Pariksha "
 						+ yearOfExam;
 				root.put("gvspName", gvspName);
