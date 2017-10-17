@@ -106,8 +106,7 @@ angular
 
 						}
 
-						if ($scope.examResultList.length < ($scope.query.limit * $scope.query.page)
-								&& ($scope.query.totalSize == 0 || $scope.examResultList.length < $scope.query.totalSize)) {
+						if ($scope.examResultList.length < ($scope.query.limit * $scope.query.page)) {
 							$log
 									.debug("Need to fetch this page data from server....");
 							var pagingInfoTemp = {

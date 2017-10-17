@@ -548,7 +548,7 @@ public class PartnerSchoolService {
 			@Named("fromGRfRegNo") String fromGRfRegNo,
 			@Named("toGRfRegNo") String toGRfRegNo) {
 
-		Collection<PartnerSchoolEntity> userCollection = new HashSet<PartnerSchoolEntity>();
+		Collection<PartnerSchoolEntity> userCollection;
 		List<PartnerSchoolEntity> fileredSchoolList = new ArrayList<PartnerSchoolEntity>();
 		
 		if (toGRfRegNo.trim().equalsIgnoreCase("P-2017-")) {

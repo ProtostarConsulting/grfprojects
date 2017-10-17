@@ -62,7 +62,7 @@ public class GFStudentService {
 	public List<GFStudentEntity> getGFStudentsByInstitute(
 			@Named("instituteID") long instituteID) {
 
-		List<GFStudentEntity> list = ofy().load().type(GFStudentEntity.class)
+		List<GFStudentEntity> list = ofy().load().type(GFStudentEntity.class).filter("instituteID", instituteID)
 				.list();
 
 		return list;

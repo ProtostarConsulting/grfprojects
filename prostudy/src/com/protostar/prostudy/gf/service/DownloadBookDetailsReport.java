@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -49,6 +50,7 @@ public class DownloadBookDetailsReport extends HttpServlet {
 		Date date = new Date();
 		String DATE_FORMAT = "dd/MM/yyyy";
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+		sdf.setTimeZone(TimeZone.getTimeZone("IST"));
 
 		PartnerSchoolService pschoolService = new PartnerSchoolService();
 		PartnerSchoolEntity schoolEntity = pschoolService
