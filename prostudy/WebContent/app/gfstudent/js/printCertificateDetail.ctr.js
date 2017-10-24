@@ -9,22 +9,18 @@ angular
 					$scope.loading = true;
 					// $scope.selectedPSchoolId = $stateParams.PSchoolId;
 					$scope.selectedSchoolObj = $stateParams.selectedSchoolObj;
-					// $scope.bookStocks = $stateParams.bookStocks;
-					// $scope.yearOfExam = $stateParams.yearOfExam;
-					
+										
 					$scope.getCurYear = function() {
-						var date = new Date(2016, 11, 11);
+						var date = new Date();
 						var curyear = date.getFullYear();
 						curyear = curyear.toString().substr(2, 2);
 						$scope.yearOfExam = date.getFullYear() + "-"
 								+ (Number(curyear) + 1);
 					}
-					$scope.getCurYear();
+					//$scope.getCurYear();
 					
 					$scope.date = new Date();
 					$scope.receiptNumber = 0;
-
-					$log.debug("$scope.yearOfExam=" + $scope.yearOfExam);
 
 					$scope.curUser = appEndpointSF.getLocalUserService()
 							.getLoggedinUser();
@@ -79,7 +75,7 @@ angular
 					$scope.getPrintDetail = function() {
 
 						for (i = 0; i < $scope.examList.length; i++) {
-							if ($scope.examList[i].yearOfExam == $scope.yearOfExam) {
+							if ($scope.examList[i].yearOfExam == $scope.curUser.instituteObj.yearofExam) {
 								$scope.examDetail = $scope.examList[i];
 								$scope.bookSummary = $scope.examList[i].bookSummary;
 								$scope.BookDetail = $scope.examList[i].bookSummary.bookDetail;

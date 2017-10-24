@@ -83,13 +83,11 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 		return deferred.promise;
 	}
 
-	GFStudentService.serachExamResultEntitiesBySchool = function(schoolEntity,
-			yearOfExam) {
+	GFStudentService.serachExamResultEntitiesBySchool = function(yearOfExam, schoolEntity) {
 		var deferred = $q.defer();
-		gapi.client.gfStudentService.serachExamResultEntitiesBySchool(
-				schoolEntity, {
+		gapi.client.gfStudentService.serachExamResultEntitiesBySchool({
 					'yearOfExam' : yearOfExam
-				}).execute(function(resp) {
+				},schoolEntity).execute(function(resp) {
 			deferred.resolve(resp);
 		});
 		return deferred.promise;

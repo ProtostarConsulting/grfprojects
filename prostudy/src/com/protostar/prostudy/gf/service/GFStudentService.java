@@ -334,7 +334,7 @@ public class GFStudentService {
 
 	@ApiMethod(name = "serachExamResultEntitiesBySchool", path = "serachExamResultEntitiesBySchool")
 	public List<GFExamResultEntity> serachExamResultEntitiesBySchool(
-			PartnerSchoolEntity schoolEntity,@Named("yearOfExam") String yearOfExam) {
+			@Named("yearOfExam") String yearOfExam, PartnerSchoolEntity schoolEntity) {
 		logger.info("schoolEntity.schoolName:" + schoolEntity.getSchoolName());
 		List<GFExamResultEntity> resultList = ofy().load()
 				.type(GFExamResultEntity.class).filter("examYear", yearOfExam).filter("school", schoolEntity)

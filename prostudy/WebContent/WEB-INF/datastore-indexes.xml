@@ -51,4 +51,15 @@
         <property name="school" direction="asc"/>
         <property name="createdDate" direction="desc"/>
     </datastore-index>
+     <datastore-index kind="GFExamResultEntity" ancestor="false" source="manual">
+        <property name="grfReviewed" direction="asc"/>
+        <property name="school" direction="asc"/>
+        <property name="createdDate" direction="desc"/>
+    </datastore-index>
+    <datastore-index kind="GFExamResultEntity" ancestor="false" source="manual">
+        <property name="examYear" direction="asc"/>
+        <property name="grfReviewed" direction="asc"/>
+        <property name="createdDate" direction="asc"/>
+        <property name="school" direction="asc"/>
+    </datastore-index>
 </datastore-indexes>

@@ -141,7 +141,7 @@ angular
 												// entered.
 												gfStudentService
 														.serachExamResultEntitiesBySchool(
-																$scope.foundSchool,$scope.curUser.instituteObj.yearofExam)
+																$scope.curUser.instituteObj.yearofExam,$scope.foundSchool)
 														.then(
 																function(resp) {
 																	angular
