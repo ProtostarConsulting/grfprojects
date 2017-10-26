@@ -135,6 +135,7 @@ angular
 						} else {
 							$scope.schools = $scope.pSchoolList;
 						}
+						$scope.query.totalSize = $scope.schools.length;
 					}
 
 					$scope.searchTextDone = false;

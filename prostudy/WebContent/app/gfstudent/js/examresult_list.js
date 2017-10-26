@@ -101,6 +101,7 @@ angular
 									.get(examResultListCacheKey);
 							$scope.examResultList = $scope.queriedExamResultDataCache.entityList ? $scope.queriedExamResultDataCache.entityList
 									: [];
+							$scope.examResultListBackup = $scope.examResultList;
 							$scope.query.totalSize = $scope.queriedExamResultDataCache.totalSize;
 							$scope.query.totalSizeBackup = $scope.queriedExamResultDataCache.totalSizeBackup;
 

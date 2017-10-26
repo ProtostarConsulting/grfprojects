@@ -61,10 +61,12 @@ angular
 									$scope.curUser.instituteObj.yearofExam)
 									.then(function(gfCouriertList) {
 										$scope.gfCouriertList = gfCouriertList;
+										$scope.query.totalSize = gfCouriertList.length;
 										$scope.searchTextDone = false;
 									});
 						} else {
 							$scope.gfCouriertList = $scope.gfCouriertListBackup;
+							$scope.query.totalSize = $scope.gfCouriertList.length;
 						}
 					}
 
@@ -131,6 +133,7 @@ angular
 									.get(courierListCacheKey);
 							$scope.gfCouriertList = $scope.queriedCourierDataCache.entityList ? $scope.queriedCourierDataCache.entityList
 									: [];
+							$scope.gfCouriertListBackup = $scope.gfCouriertList;
 							$scope.query.totalSize = $scope.queriedCourierDataCache.totalSize;
 							$scope.query.totalSizeBackup = $scope.queriedCourierDataCache.totalSizeBackup;
 
@@ -245,6 +248,8 @@ angular
 											if (courierList) {
 												$scope.gfCouriertList = courierList;
 												$scope.query.totalSize = courierList.length;
+											}else {
+												$scope.query.totalSize = 0;
 											}
 
 											$scope.searchTextDone = false;
@@ -266,6 +271,8 @@ angular
 											if (courierList) {
 												$scope.gfCouriertList = courierList;
 												$scope.query.totalSize = courierList.length;
+											}else {
+												$scope.query.totalSize = 0;
 											}
 
 											$scope.searchTextDone = false;

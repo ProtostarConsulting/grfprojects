@@ -2165,6 +2165,26 @@ function googleEndpointSF($log, $q, $localStorage, $timeout) {
 		});
 		return deferred.promise;
 	}
+	
+	protostarAdminService.addCommonSettingsEntity = function(settingsObj) {
+		var deferred = $q.defer();
+		gapi.client.protostarAdminService.addCommonSettingsEntity(settingsObj)
+				.execute(function() {
+					deferred.resolve({
+						"msg" : "Settings Added Successfully."
+					});
+				});
+		return deferred.promise;
+	}
+
+	protostarAdminService.getCommonSettingsEntity = function() {
+		var deferred = $q.defer();
+		gapi.client.protostarAdminService.getCommonSettingsEntity().execute(
+				function(resp) {
+					deferred.resolve(resp);
+				});
+		return deferred.promise;
+	}
 	// End of protostarAdminService
 
 	/*------------------------------------------------------------------------------------------------------*/

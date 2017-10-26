@@ -15,6 +15,7 @@ import com.google.api.server.spi.config.Named;
 import com.protostar.prostudy.entity.Address;
 import com.protostar.prostudy.entity.InstituteEntity;
 import com.protostar.prostudy.entity.UserEntity;
+import com.protostar.prostudy.proadmin.entities.CommonSettingsEntity;
 import com.protostar.prostudy.proadmin.entities.PaymentPlanType;
 
 @Api(name = "protostarAdminService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.proadmin.services", ownerName = "com.protostar.prostudy.proadmin.services", packagePath = ""))
@@ -170,6 +171,22 @@ public class ProtostarAdminService {
 	@ApiMethod(name = "getAllemp")
 	public List<UserEntity> getAllemp() {
 		return ofy().load().type(UserEntity.class).list();
+	}
+	
+	@ApiMethod(name = "addCommonSettingsEntity", path = "addCommonSettingsEntity")
+	public CommonSettingsEntity addCommonSettingsEntity(CommonSettingsEntity settingsEntity) {
+		
+		ofy().save().entity(settingsEntity).now();
+		
+		return settingsEntity;
+
+	}
+
+	@ApiMethod(name = "getCommonSettingsEntity", path = "getCommonSettingsEntity")
+	public CommonSettingsEntity getCommonSettingsEntity() {
+		
+		CommonSettingsEntity settingsEntity = ofy().load().type(CommonSettingsEntity.class).first().now();
+		return settingsEntity;
 	}
 
 }// end of InternetService

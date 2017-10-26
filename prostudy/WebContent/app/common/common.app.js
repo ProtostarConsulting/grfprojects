@@ -1335,6 +1335,13 @@ app
 								templateUrl : '/app/proadmin/manage_institute_auth.html',
 								controller : 'proAdminManageInstituteAuth'
 							})
+					.state(
+							'proadmin.commonsetting',
+							{
+								url : "/commonSetting",
+								templateUrl : '/app/proadmin/common_setting.html',
+								controller : 'commonSettingsCtr'
+							})		
 
 					.state(
 							'gandhifoundation',

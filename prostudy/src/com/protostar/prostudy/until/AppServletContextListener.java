@@ -41,6 +41,7 @@ import com.protostar.prostudy.gf.entity.GFExamResultEntity;
 import com.protostar.prostudy.gf.entity.GFStudentEntity;
 import com.protostar.prostudy.gf.entity.PartnerSchoolEntity;
 import com.protostar.prostudy.gf.entity.PartnerSchoolInstituteEntity;
+import com.protostar.prostudy.proadmin.entities.CommonSettingsEntity;
 import com.protostar.prostudy.proadmin.entities.PaymentPlanType;
 import com.protostar.prostudy.until.data.SequenceGeneratorShardedService.CounterEntity;
 import com.protostar.prostudy.until.data.SequenceGeneratorShardedService.CounterShard;
@@ -103,7 +104,7 @@ public class AppServletContextListener implements ServletContextListener {
 		  ObjectifyService.register(PartnerSchoolInstituteEntity.class);
 		  ObjectifyService.register(CounterEntity.class);
 		  ObjectifyService.register(CounterShard.class);
-		  
+		  ObjectifyService.register(CommonSettingsEntity.class);
 
 
 	}
