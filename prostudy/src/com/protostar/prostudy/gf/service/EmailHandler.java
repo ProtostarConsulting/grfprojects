@@ -18,7 +18,6 @@ import com.google.appengine.api.taskqueue.DeferredTask;
 import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.api.taskqueue.TaskOptions;
-import com.google.appengine.labs.repackaged.org.json.JSONException;
 import com.protostar.prostudy.entity.InstituteEntity;
 import com.protostar.prostudy.entity.UserEntity;
 import com.protostar.prostudy.gf.entity.EmailStockReorderTask;
@@ -96,7 +95,7 @@ class SendSchoolRegEmailAsyncOperation implements DeferredTask {
 	public void run() {
 		// expensive operation to be backgrounded goes here
 
-		try {
+		/*try {
 			System.out.println("Sending Email Asysc");
 
 			if (!EmailValidator.validate(coordinatorEmailId)) {
@@ -141,7 +140,7 @@ class SendSchoolRegEmailAsyncOperation implements DeferredTask {
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
-		}
+		}*/
 
 	}
 }
@@ -168,7 +167,7 @@ class SendUserRegEmailAsyncOperation implements DeferredTask {
 	public void run() {
 		// expensive operation to be backgrounded goes here
 
-		try {
+		/*try {
 			System.out.println("Sending Email Asysc");
 
 			if (!EmailValidator.validate(userEmailId)) {
@@ -180,11 +179,11 @@ class SendUserRegEmailAsyncOperation implements DeferredTask {
 
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(EMAIL_FROM, EMAIL_FROM_NAME));
-			/*
+			
 			 * if (EmailValidator.validate(headMasterEmailId)) {
 			 * message.addRecipient(Message.RecipientType.TO, new
 			 * InternetAddress(headMasterEmailId)); }
-			 */
+			 
 
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(
 					userEmailId));
@@ -217,7 +216,7 @@ class SendUserRegEmailAsyncOperation implements DeferredTask {
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
-		}
+		}*/
 
 	}
 }
