@@ -229,12 +229,14 @@ angular
 					}
 
 					$scope.getSchoolInstituteList = function() {
+						$scope.loading = true;
 						var partnerSchoolService = appEndpointSF
 								.getPartnerSchoolService();
 						partnerSchoolService.getPartnerSchoolInstituteList(
 								$scope.commonSettingsObj.grfInstituteId).then(
 								function(list) {
 									$scope.tempInstituteList = list;
+									$scope.loading = false; 
 								});
 					}
 

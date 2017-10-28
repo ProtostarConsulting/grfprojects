@@ -1,59 +1,37 @@
-<md-content layout-padding>
-<section layout="row" layout-xs="column">
-	<md-subheader class="md-primary">
-	<h4 class="md-title">Common Settings</h4>
-	</md-subheader>
-	<span flex></span>
-</section>
-<form name="documentForm" layout="column">
-	<div layout="column">
-		<md-input-container flex="80" flex> <label>Institute
-			ID</label> <input type="text"
-			ng-model="settingsObj.grfInstituteId">
-		</md-input-container>
-		<md-input-container flex="80" flex> <label>Year of 
-			Exam</label> <input type="text"	ng-model="settingsObj.currYearofExam">
-		</md-input-container>
-		
-		<md-input-container flex="80" flex> <label>SENDGRID
-			API KEY</label> <input type="text" ng-model="settingsObj.sendGridAPIKey" />
-		</md-input-container>
-		<md-input-container flex="80" layout="row" flex>
-		<label>TEXTLOCAL API KEY</label> <input type="text"
-			ng-model="settingsObj.textLocalAPIKey" /> </md-input-container>
-		<section layout="row" layout-sm="column">
-			<md-button class="md-raised md-primary"
-				ng-disabled="documentForm.$invalid" ng-click="addSettings()">Save Changes</md-button>
-		</section>
+<div ng-if="loading">
+	<div layout="row" layout-sm="column" layout-align="space-around">
+		<md-progress-circular md-diameter="100" md-mode="indeterminate"></md-progress-circular>
 	</div>
-	<!--<md-card layout="column" ng-init="basicSettingCardExpand = true"
-		layout-padding>
-	 <h4 ng-click="basicSettingCardExpand = !basicSettingCardExpand"
-		style="outline: 0; outline: none;" layout="row">
-		Basic Settings <span flex></span>
-		<md-button class="md-icon-button" ng-show="basicSettingCardExpand">
-		<ng-md-icon icon="keyboard_arrow_up" style="fill: md-default"
-			size="24"> <md-tooltip> Collapse</md-tooltip></ng-md-icon></md-button>
-		<md-button class="md-icon-button" ng-show="!basicSettingCardExpand">
-		<ng-md-icon icon="keyboard_arrow_down" style="fill: md-default"
-			size="24"> <md-tooltip>Expand </md-tooltip></ng-md-icon></md-button>
-	</h4> 
-	</md-card>-->
-	<!-- <md-card layout="column" ng-init="x1CardExpand = false" layout-padding>
-	<h4 ng-click="x1CardExpand = !x1CardExpand"
-		style="outline: 0; outline: none;">X Thing Settings</h4>
-	<div layout="column" ng-if="x1CardExpand">
-		<md-input-container flex="80" flex> <label>SENDGRID
-			API KEY</label> <input type="text" ng-model="settingsObj.sendGridAPIKey" />
-		</md-input-container>
-		<md-input-container flex="80" flex> <label>TEXTLOCAL
-			API KEY</label> <input type="text" ng-model="settingsObj.textLocalAPIKey" />
-		</md-input-container>
-		<section layout="row" layout-sm="column">
-			<md-button class="md-raised md-primary"
-				ng-disabled="actionProcessing.saving" ng-click="addSettings()">Save	Changes</md-button>
-		</section>
-	</div>
-	</md-card> -->
-</form>
-</md-content>
+</div>
+<div ng-if="!loading">
+	<md-content layout-padding>
+	<section layout="row" layout-xs="column">
+		<md-subheader class="md-primary">
+		<h4 class="md-title">Common Settings</h4>
+		</md-subheader>
+		<span flex></span>
+	</section>
+	<form name="documentForm" layout="column">
+		<div layout="column">
+			<md-input-container flex="80" flex> <label>Institute
+				ID</label> <input type="text" ng-model="settingsObj.grfInstituteId">
+			</md-input-container>
+			<md-input-container flex="80" flex> <label>Year
+				of Exam</label> <input type="text" ng-model="settingsObj.currYearofExam">
+			</md-input-container>
+
+			<md-input-container flex="80" flex> <label>SENDGRID
+				API KEY</label> <input type="text" ng-model="settingsObj.sendGridAPIKey" />
+			</md-input-container>
+			<md-input-container flex="80" layout="row" flex>
+			<label>TEXTLOCAL API KEY</label> <input type="text"
+				ng-model="settingsObj.textLocalAPIKey" /> </md-input-container>
+			<section layout="row" layout-sm="column">
+				<md-button class="md-raised md-primary"
+					ng-disabled="documentForm.$invalid" ng-click="addSettings()">Save
+				Changes</md-button>
+			</section>
+		</div>
+	</form>
+	</md-content>
+</div>

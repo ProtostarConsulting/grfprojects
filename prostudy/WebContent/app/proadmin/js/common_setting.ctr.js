@@ -8,15 +8,6 @@ angular
 
 					$scope.curUser = appEndpointSF.getLocalUserService()
 							.getLoggedinUser();
-
-					function defaultActionProcessing() {
-						return {
-							saving : false,
-							saveButtonText : "Save Changes",
-							savingButtonText : "Saving..."
-						};
-					}
-
 					$scope.settingsObj = {}
 
 					$scope.addSettings = function() {
@@ -31,6 +22,7 @@ angular
 					}
 
 					$scope.getSettings = function() {
+						$scope.loading = true;
 						var proadminService = appEndpointSF
 								.getProtostarAdminService();
 						proadminService
@@ -40,6 +32,7 @@ angular
 											if (settingsOutput.result)
 												$scope.settingsObj = settingsOutput.result;
 												$scope.settingsObj.currYearofExam = $scope.curUser.instituteObj.yearofExam;
+												$scope.loading = false;
 										});
 					}
 					$scope.waitForServiceLoad = function() {
