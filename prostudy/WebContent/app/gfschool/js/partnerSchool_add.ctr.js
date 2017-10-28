@@ -279,14 +279,17 @@ angular
 						 * } else { $scope.partnerSchool.examDetailList[0] =
 						 * $scope.examDetail; }
 						 */
-
-						if ($scope.partnerSchool.address.state == "Other") {
-							$scope.partnerSchool.address.state = $scope.partnerSchool.address.otherState;
-							$scope.partnerSchool.address.dist = $scope.partnerSchool.address.otherDist;
-							$scope.partnerSchool.address.tal = $scope.partnerSchool.address.otherTaluka;
-							$scope.partnerSchool.address.otherAddressFlag = true;
+						if ($scope.partnerSchool.address != undefined) {
+							if ($scope.partnerSchool.address.state == "Other") {
+								$scope.partnerSchool.address.state = $scope.partnerSchool.address.otherState;
+								$scope.partnerSchool.address.dist = $scope.partnerSchool.address.otherDist;
+								$scope.partnerSchool.address.tal = $scope.partnerSchool.address.otherTaluka;
+								$scope.partnerSchool.address.otherAddressFlag = true;
+							} else {
+								$scope.partnerSchool.address.otherAddressFlag = false;
+							}
 						} else {
-							$scope.partnerSchool.address.otherAddressFlag = false;
+							$scope.partnerSchool.address = $scope.Address;
 						}
 
 						if ($scope.curUser.role == "Teacher"

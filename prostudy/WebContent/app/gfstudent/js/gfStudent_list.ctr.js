@@ -49,6 +49,7 @@ angular
 					}
 
 					$scope.getPartnerByInstitute = function() {
+						$scope.loading = true;
 						var PartnerSchoolService = appEndpointSF
 								.getPartnerSchoolService();
 
@@ -57,6 +58,7 @@ angular
 								$scope.curUser.instituteObj.yearofExam).then(
 								function(pSchoolList) {
 									$scope.pSchoolList = pSchoolList;
+									$scope.loading = false;
 								});
 					}
 
