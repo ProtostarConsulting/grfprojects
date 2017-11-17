@@ -3,10 +3,10 @@ package com.protostar.prostudy.gf.service;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -16,98 +16,134 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.protostar.prostudy.gf.entity.GFExamResultEntity;
 import com.protostar.prostudy.gf.entity.PartnerSchoolEntity;
+import com.protostar.prostudy.until.data.EntityPagingInfo;
 
 /**
  * Servlet implementation class DownloadExamResultReport
  */
 public class DownloadExamResultReport extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DownloadExamResultReport() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public DownloadExamResultReport() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		String standard=request.getParameter("examResultByStandard");
-				
-		String district=request.getParameter("examResultByDistrict");
-		
+
+		String InstituteId = request.getParameter("InstituteId");
+		Long insId = Long.parseLong(InstituteId);
+		String yearofExam = request.getParameter("yearofExam");
+		String resultFlag = request.getParameter("pendingResult");
+		boolean pendingResult = Boolean.parseBoolean(resultFlag) ? Boolean.parseBoolean(resultFlag) : false;
+
 		String DATE_FORMAT = "dd-MM-yyyy";
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
-		
-		
-		GFStudentService gfStudentServices=new GFStudentService();
-		
-		List<GFExamResultEntity> gfExamResultData = gfStudentServices.filterExamResults(standard,district);
-		
-		
+		sdf.setTimeZone(TimeZone.getTimeZone("IST"));
+
+		GFStudentService gfStudentServices = new GFStudentService();
+
+		EntityPagingInfo paginInfo = new EntityPagingInfo();
+		List<GFExamResultEntity> gfExamResultData = new ArrayList<GFExamResultEntity>();
+
+		if (!pendingResult) {
+			paginInfo = gfStudentServices.fetchExamResultByPaging(insId, yearofExam, paginInfo);
+		} else {
+			paginInfo = gfStudentServices.fetchExamResultPendingByPaging(insId, yearofExam, paginInfo);
+		}
+
+		if (paginInfo.getEntityList() != null) {
+			gfExamResultData = paginInfo.getEntityList();
+		}
+		/*
+		 * List<GFExamResultEntity> gfExamResultData =
+		 * ofy().load().type(GFExamResultEntity.class) .filter("examYear",
+		 * yearofExam).project("school").distinct(true).list();
+		 */
+
 		try {
-			
+
 			response.setContentType("text/csv");
-			response.setHeader("Content-Disposition",
-					"attachment; filename=ExamResultCSVData_"+sdf.format(new Date())+".csv");
-			
+			if (!pendingResult) {
+				response.setHeader("Content-Disposition",
+						"attachment; filename=ExamResultCSVData_" + sdf.format(new Date()) + ".csv");
+			} else {
+				response.setHeader("Content-Disposition",
+						"attachment; filename=PendingExamResultCSV_Data_" + sdf.format(new Date()) + ".csv");
+			}
+
 			ServletOutputStream outputStream = response.getOutputStream();
 			OutputStreamWriter writer = new OutputStreamWriter(outputStream);
-			
-			writer.append("Standard");
-			writer.append(',');
-			writer.append("Marks");
-			writer.append(',');
-			writer.append("Student Name");
-			writer.append(',');
+
 			writer.append("GRF.Reg.no");
 			writer.append(',');
 			writer.append("School Name");
 			writer.append(',');
+			writer.append("City");
+			writer.append(',');
 			writer.append("District");
 			writer.append(',');
-			
+			writer.append("State");
+			writer.append(',');
+			writer.append("Coordinator Name");
+			writer.append(',');
+			writer.append("Coordinator Number");
+			writer.append(',');
+
 			writer.append(System.lineSeparator());
-			
+
 			for (int i = 0; i < gfExamResultData.size(); i++) {
-								
+
 				GFExamResultEntity examResultEntity = gfExamResultData.get(i);
-				String Standard = examResultEntity.getStandard();
-				writer.append(Standard);
-				writer.append(',');
-				float studMarks = examResultEntity.getMarks();
-				String marks = Float.toString(studMarks);
-				writer.append(marks);
-				writer.append(',');
-				String studName = examResultEntity.getStudName();
-				writer.append(studName);
-				writer.append(',');
-				String grfRegNo=examResultEntity.getSchool().getAutoGenerated();
+				PartnerSchoolEntity school = examResultEntity.getSchool();
+
+				String grfRegNo = school.getAutoGenerated();
 				writer.append(grfRegNo);
 				writer.append(',');
-				String schoolName=examResultEntity.getSchool().getSchoolName();
+				String schoolName = school.getSchoolName();
 				writer.append(schoolName);
 				writer.append(',');
-				String studdistrict=examResultEntity.getSchool().getAddress().getDist();
-				writer.append(studdistrict);
+				String city = school.getAddress().getCity();
+				writer.append(city);
 				writer.append(',');
-				
+				String district = school.getAddress().getDist();
+				writer.append(district);
+				writer.append(',');
+				String state = school.getAddress().getState();
+				writer.append(state);
+				writer.append(',');
+
+				if (school.getContactDetail().getCoordinatorDetail() != null) {
+					String coordinatorName = school.getContactDetail().getCoordinatorDetail().get(0)
+							.getCoordinatorName();
+					writer.append(coordinatorName);
+					writer.append(',');
+					String coordinatorNumber = school.getContactDetail().getCoordinatorDetail().get(0)
+							.getCoordinatorMobileNum();
+					writer.append(coordinatorNumber);
+					writer.append(',');
+				}
+
 				writer.append(System.lineSeparator());
-				
+
 			}
-			
+
 			writer.close();
-							
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			throw new ServletException("Exception in Excel Sample Servlet", e);
 		}
-		
+
 	}
 
-}	
+}

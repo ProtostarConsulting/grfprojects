@@ -316,6 +316,15 @@ angular
 									$scope.searchTextDone = false;
 								});
 					}
+					
+					$scope.downloadData = function(pendingResult) {
+						document.location.href = "DownloadExamResultReport?InstituteId="
+							+ $scope.curUser.instituteID
+							+ "&yearofExam="
+							+ $scope.curUser.instituteObj.yearofExam
+							+ "&pendingResult="
+							+ pendingResult;
+					}
 
 					$scope.cancel = function() {
 						$state.go('gandhifoundation');
