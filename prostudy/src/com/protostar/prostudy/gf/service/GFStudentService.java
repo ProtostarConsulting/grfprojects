@@ -36,14 +36,12 @@ import com.protostar.prostudy.until.data.SequenceGeneratorShardedService;
 @Api(name = "gfStudentService", version = "v0.1", namespace = @ApiNamespace(ownerDomain = "com.protostar.prostudy.gf.service", ownerName = "com.protostar.prostudy.gf.service", packagePath = ""))
 public class GFStudentService {
 
-	private final Logger logger = Logger.getLogger(GFStudentService.class
-			.getName());
+	private final Logger logger = Logger.getLogger(GFStudentService.class.getName());
 
 	@ApiMethod(name = "addGFStudent", path = "addGFStudent")
 	public GFStudentEntity addGFStudent(GFStudentEntity gfStudentEntity) {
 
-		if (gfStudentEntity.getPrn() == null
-				|| gfStudentEntity.getPrn().isEmpty()) {
+		if (gfStudentEntity.getPrn() == null || gfStudentEntity.getPrn().isEmpty()) {
 			SequenceGeneratorShardedService sequenceGenerator = new SequenceGeneratorShardedService(
 					EntityUtil.getInstituteEntityRawKey(gfStudentEntity.getInstitute()),
 					Constants.STUDENT_REGISTRATION_NO_COUNTER);
@@ -59,11 +57,9 @@ public class GFStudentService {
 	}
 
 	@ApiMethod(name = "getGFStudentsByInstitute", path = "getGFStudentsByInstitute")
-	public List<GFStudentEntity> getGFStudentsByInstitute(
-			@Named("instituteID") long instituteID) {
+	public List<GFStudentEntity> getGFStudentsByInstitute(@Named("instituteID") long instituteID) {
 
-		List<GFStudentEntity> list = ofy().load().type(GFStudentEntity.class).filter("instituteID", instituteID)
-				.list();
+		List<GFStudentEntity> list = ofy().load().type(GFStudentEntity.class).filter("instituteID", instituteID).list();
 
 		return list;
 
@@ -71,17 +67,15 @@ public class GFStudentService {
 
 	@ApiMethod(name = "getGFStudentById", path = "getGFStudentById")
 	public GFStudentEntity getGFStudentById(@Named("id") long studID) {
-		GFStudentEntity stud = ofy().load().type(GFStudentEntity.class)
-				.id(studID).now();
+		GFStudentEntity stud = ofy().load().type(GFStudentEntity.class).id(studID).now();
 
 		return stud;
 
 	}
 
 	@ApiMethod(name = "addExamResults")
-	public GFExamResultEntityList addExamResults(
-			GFExamResultEntityList resultList) throws MessagingException,
-			IOException {
+	public GFExamResultEntityList addExamResults(GFExamResultEntityList resultList)
+			throws MessagingException, IOException {
 
 		ofy().save().entities(resultList.getList()).now();
 		logger.info("Saved list using entities method");
@@ -93,10 +87,8 @@ public class GFStudentService {
 	}
 
 	@ApiMethod(name = "getExamResultEntities", path = "getExamResultEntities")
-	public List<GFExamResultEntity> getExamResultEntities(
-			@Named("instituteID") Long id) {
-		List<GFExamResultEntity> resultList = ofy().load()
-				.type(GFExamResultEntity.class).project("school")
+	public List<GFExamResultEntity> getExamResultEntities(@Named("instituteID") Long id) {
+		List<GFExamResultEntity> resultList = ofy().load().type(GFExamResultEntity.class).project("school")
 				.distinct(true).list();
 		logger.info("getExamResultEntities:resultList:" + resultList.size());
 		return resultList;
@@ -105,15 +97,13 @@ public class GFStudentService {
 	@ApiMethod(name = "getPendingResultSchools", path = "getPendingResultSchools")
 	public List<PartnerSchoolEntity> getPendingResultSchools() {
 
-		List<PartnerSchoolEntity> schoolList = ofy().load()
-				.type(PartnerSchoolEntity.class).list();
+		List<PartnerSchoolEntity> schoolList = ofy().load().type(PartnerSchoolEntity.class).list();
 		List<PartnerSchoolEntity> pendingSchoolList = new ArrayList();
 		/*
 		 * List<GFExamResultEntity> examResultList = ofy().load()
 		 * .type(GFExamResultEntity.class).list();
 		 */
-		List<GFExamResultEntity> examResultList = ofy().load()
-				.type(GFExamResultEntity.class).project("school")
+		List<GFExamResultEntity> examResultList = ofy().load().type(GFExamResultEntity.class).project("school")
 				.distinct(true).list();
 		List<Long> resultSchoolIds = new ArrayList<Long>(examResultList.size());
 		for (GFExamResultEntity result : examResultList) {
@@ -129,30 +119,29 @@ public class GFStudentService {
 	}
 
 	@ApiMethod(name = "fetchExamResultPendingByPaging", path = "fetchExamResultPendingByPaging")
-	public EntityPagingInfo fetchExamResultPendingByPaging(
-			@Named("instituteID") Long instituteID, @Named("yearOfExam") String yearOfExam, EntityPagingInfo pagingInfo) {
+	public EntityPagingInfo fetchExamResultPendingByPaging(@Named("instituteID") Long instituteID,
+			@Named("yearOfExam") String yearOfExam, EntityPagingInfo pagingInfo) {
 
-		Query<GFExamResultEntity> resultQuery = ofy().load()
-				.type(GFExamResultEntity.class).filter("examYear",yearOfExam).project("school")
-				.distinct(true);
+		Query<GFExamResultEntity> resultQuery = ofy().load().type(GFExamResultEntity.class)
+				.filter("examYear", yearOfExam).project("school").distinct(true);
 		List<GFExamResultEntity> examResultList = resultQuery.list();
 		List<Long> resultSchoolIds = new ArrayList<Long>(examResultList.size());
 		for (GFExamResultEntity result : examResultList) {
 			resultSchoolIds.add(result.getSchool().getId());
 		}
 
-		Query<PartnerSchoolEntity> totalSchoolsQuery = ofy().load().type(
-				PartnerSchoolEntity.class);
-
+		String[] yearofExamArray = new String[1];
+		yearofExamArray[0] = yearOfExam;
+		Query<PartnerSchoolEntity> totalSchoolsQuery = ofy().load().type(PartnerSchoolEntity.class)
+				.filter("examDetailIndex in", yearofExamArray);
 		int totalCount = totalSchoolsQuery.count() - resultQuery.count();
 
 		if (pagingInfo.getWebSafeCursorString() != null)
-			totalSchoolsQuery = totalSchoolsQuery.startAt(Cursor
-					.fromWebSafeString(pagingInfo.getWebSafeCursorString()));
+			totalSchoolsQuery = totalSchoolsQuery
+					.startAt(Cursor.fromWebSafeString(pagingInfo.getWebSafeCursorString()));
 
 		List<GFExamResultEntity> examResultListToReturn = new ArrayList<GFExamResultEntity>();
-		QueryResultIterator<PartnerSchoolEntity> iterator = totalSchoolsQuery
-				.iterator();
+		QueryResultIterator<PartnerSchoolEntity> iterator = totalSchoolsQuery.iterator();
 		while (iterator.hasNext()) {
 			PartnerSchoolEntity currentSchool = iterator.next();
 			if (!resultSchoolIds.contains(currentSchool.getId())) {
@@ -175,12 +164,42 @@ public class GFStudentService {
 		return pagingInfo;
 	}
 
+	public List<GFExamResultEntity> getPendingExamResultList(@Named("instituteID") Long instituteID,
+			@Named("yearOfExam") String yearOfExam, @Named("pendingResult") boolean pendingResult) {
+
+		List<GFExamResultEntity> examResultList = ofy().load().type(GFExamResultEntity.class)
+				.filter("examYear", yearOfExam).project("school").distinct(true).list();
+		List<Long> resultSchoolIds = new ArrayList<Long>(examResultList.size());
+		for (GFExamResultEntity result : examResultList) {
+			resultSchoolIds.add(result.getSchool().getId());
+		}
+
+		if (pendingResult) {
+			examResultList = new ArrayList<GFExamResultEntity>();
+			String[] yearofExamArray = new String[1];
+			yearofExamArray[0] = yearOfExam;
+			List<PartnerSchoolEntity> schoolEntity = ofy().load().type(PartnerSchoolEntity.class)
+					.filter("instituteID", instituteID).filter("examDetailIndex in", yearofExamArray)
+					.order("-autoGenerated").list();
+
+			for (PartnerSchoolEntity partnerSchoolEntity : schoolEntity) {
+				if (!resultSchoolIds.contains(partnerSchoolEntity.getId())) {
+					GFExamResultEntity e = new GFExamResultEntity();
+					e.setSchool(partnerSchoolEntity);
+					examResultList.add(e);
+				}
+			}
+
+		}
+		return examResultList;
+
+	}
+
 	@ApiMethod(name = "getExamResultsPendingGRFReview", path = "getExamResultsPendingGRFReview")
-	public List<GFExamResultEntity> getExamResultsPendingGRFReview(
-			@Named("instituteID") Long id, @Named("yearOfExam") String yearOfExam) {
-		List<GFExamResultEntity> resultList = ofy().load()
-				.type(GFExamResultEntity.class).filter("examYear",yearOfExam).filter("grfReviewed", false)
-				.project("createdDate", "school").distinct(true).list();
+	public List<GFExamResultEntity> getExamResultsPendingGRFReview(@Named("instituteID") Long id,
+			@Named("yearOfExam") String yearOfExam) {
+		List<GFExamResultEntity> resultList = ofy().load().type(GFExamResultEntity.class).filter("examYear", yearOfExam)
+				.filter("grfReviewed", false).project("createdDate", "school").distinct(true).list();
 
 		Set<Long> schoolIds = new HashSet<Long>();
 		List<GFExamResultEntity> examResultList = new ArrayList<GFExamResultEntity>();
@@ -191,14 +210,13 @@ public class GFStudentService {
 			}
 		}
 
-		logger.info("getExamResultsPendingGRFReview:examResultList:"
-				+ examResultList.size());
+		logger.info("getExamResultsPendingGRFReview:examResultList:" + examResultList.size());
 		return examResultList;
 	}
 
 	@ApiMethod(name = "fetchExamResultByPaging", path = "fetchExamResultByPaging")
-	public EntityPagingInfo fetchExamResultByPaging(
-			@Named("instituteID") Long instituteID, @Named("yearOfExam") String yearOfExam, EntityPagingInfo pagingInfo) {
+	public EntityPagingInfo fetchExamResultByPaging(@Named("instituteID") Long instituteID,
+			@Named("yearOfExam") String yearOfExam, EntityPagingInfo pagingInfo) {
 
 		/*
 		 * logger.info("instituteID:" + instituteID);
@@ -206,18 +224,16 @@ public class GFStudentService {
 		 * pagingInfo.getWebSafeCursorString());
 		 */
 
-		Query<GFExamResultEntity> filterInstituteQuery = ofy().load()
-				.type(GFExamResultEntity.class).filter("examYear",yearOfExam).project("school")
-				.distinct(true);
+		Query<GFExamResultEntity> filterInstituteQuery = ofy().load().type(GFExamResultEntity.class)
+				.filter("examYear", yearOfExam).project("school").distinct(true);
 
 		int totalCount = filterInstituteQuery.count();
 
 		if (pagingInfo.getWebSafeCursorString() != null)
-			filterInstituteQuery = filterInstituteQuery.startAt(Cursor
-					.fromWebSafeString(pagingInfo.getWebSafeCursorString()));
+			filterInstituteQuery = filterInstituteQuery
+					.startAt(Cursor.fromWebSafeString(pagingInfo.getWebSafeCursorString()));
 
-		QueryResultIterator<GFExamResultEntity> iterator = filterInstituteQuery
-				.order("school").order("-createdDate")
+		QueryResultIterator<GFExamResultEntity> iterator = filterInstituteQuery.order("school").order("-createdDate")
 				.limit(pagingInfo.getLimit()).iterator();
 
 		List<Long> toFetchList = new ArrayList<Long>();
@@ -231,10 +247,8 @@ public class GFStudentService {
 			toFetchList.add(next.getId());
 		}
 		// this is projected, need whole object
-		Collection<GFExamResultEntity> values = ofy().load()
-				.type(GFExamResultEntity.class).ids(toFetchList).values();
-		List<GFExamResultEntity> examResultList = new ArrayList<GFExamResultEntity>(
-				values);
+		Collection<GFExamResultEntity> values = ofy().load().type(GFExamResultEntity.class).ids(toFetchList).values();
+		List<GFExamResultEntity> examResultList = new ArrayList<GFExamResultEntity>(values);
 
 		Cursor cursor = iterator.getCursor();
 		pagingInfo.setEntityList(examResultList);
@@ -245,16 +259,16 @@ public class GFStudentService {
 	}
 
 	@ApiMethod(name = "getExamResultByGRFNo", path = "getExamResultByGRFNo")
-	public Collection<GFExamResultEntity> getExamResultByGRFNo(
-			@Named("autoGenerated") String autoGenerated, @Named("yearOfExam") String yearOfExam) {
+	public Collection<GFExamResultEntity> getExamResultByGRFNo(@Named("autoGenerated") String autoGenerated,
+			@Named("yearOfExam") String yearOfExam) {
 		ArrayList<GFExamResultEntity> resultList = new ArrayList<GFExamResultEntity>();
-		List<Key<PartnerSchoolEntity>> schoolKeyList = PartnerSchoolService
-				.getSchoolKyesByRegOrFormNo(autoGenerated, yearOfExam);
+		List<Key<PartnerSchoolEntity>> schoolKeyList = PartnerSchoolService.getSchoolKyesByRegOrFormNo(autoGenerated,
+				yearOfExam);
 		if (schoolKeyList == null || schoolKeyList.size() == 0) {
 			return resultList;
 		}
-		GFExamResultEntity now = ofy().load().type(GFExamResultEntity.class)
-				.filter("school in", schoolKeyList).first().now();
+		GFExamResultEntity now = ofy().load().type(GFExamResultEntity.class).filter("school in", schoolKeyList).first()
+				.now();
 		if (now != null) {
 			resultList.add(now);
 		}
@@ -262,17 +276,17 @@ public class GFStudentService {
 	}
 
 	@ApiMethod(name = "searchExamResultBySchoolName", path = "searchExamResultBySchoolName")
-	public List<GFExamResultEntity> searchExamResultBySchoolName(
-			@Named("nameSearchString") String nameSearchString, @Named("yearOfExam") String yearOfExam) {
+	public List<GFExamResultEntity> searchExamResultBySchoolName(@Named("nameSearchString") String nameSearchString,
+			@Named("yearOfExam") String yearOfExam) {
 		ArrayList<GFExamResultEntity> resultList = new ArrayList<GFExamResultEntity>();
-		List<Key<PartnerSchoolEntity>> schoolKeyList = PartnerSchoolService
-				.searchSchoolKeysByName(nameSearchString, yearOfExam);
+		List<Key<PartnerSchoolEntity>> schoolKeyList = PartnerSchoolService.searchSchoolKeysByName(nameSearchString,
+				yearOfExam);
 
 		if (schoolKeyList == null || schoolKeyList.size() == 0) {
 			return resultList;
 		}
-		GFExamResultEntity now = ofy().load().type(GFExamResultEntity.class)
-				.filter("school in", schoolKeyList).first().now();
+		GFExamResultEntity now = ofy().load().type(GFExamResultEntity.class).filter("school in", schoolKeyList).first()
+				.now();
 		if (now != null) {
 			resultList.add(now);
 		}
@@ -281,8 +295,7 @@ public class GFStudentService {
 
 	@ApiMethod(name = "touchAllEntities", path = "touchAllEntities")
 	public void touchAllEntities() {
-		List<GFExamResultEntity> courierList = ofy().load()
-				.type(GFExamResultEntity.class).list();
+		List<GFExamResultEntity> courierList = ofy().load().type(GFExamResultEntity.class).list();
 		for (GFExamResultEntity entity : courierList) {
 			entity.setModifiedDate(new Date());
 		}
@@ -290,14 +303,12 @@ public class GFStudentService {
 	}
 
 	@ApiMethod(name = "filterExamResults", path = "filterExamResults")
-	public List<GFExamResultEntity> filterExamResults(
-			@Named("standard") String standardFilter,
+	public List<GFExamResultEntity> filterExamResults(@Named("standard") String standardFilter,
 			@Named("dist") String distFilter) {
 
 		standardFilter = standardFilter == null ? "" : standardFilter.trim();
 		distFilter = distFilter == null ? "" : distFilter.trim();
-		List<GFExamResultEntity> resultList = ofy().load()
-				.type(GFExamResultEntity.class).order("-marks").list();
+		List<GFExamResultEntity> resultList = ofy().load().type(GFExamResultEntity.class).order("-marks").list();
 		// logger.info("filterExamResults:resultList:" + resultList.size());
 
 		List<GFExamResultEntity> filterResultList = new ArrayList<GFExamResultEntity>();
@@ -306,12 +317,10 @@ public class GFStudentService {
 
 			GFExamResultEntity filterExamResultData = resultList.get(i);
 			String currentRecordStandard = filterExamResultData.getStandard();
-			String currentRecordDistrict = filterExamResultData.getSchool()
-					.getAddress().getDist();
+			String currentRecordDistrict = filterExamResultData.getSchool().getAddress().getDist();
 
 			if (!standardFilter.isEmpty()) {
-				if (!currentRecordStandard.trim().equalsIgnoreCase(
-						standardFilter)) {
+				if (!currentRecordStandard.trim().equalsIgnoreCase(standardFilter)) {
 					continue;
 				}
 			}
@@ -333,14 +342,12 @@ public class GFStudentService {
 	}
 
 	@ApiMethod(name = "serachExamResultEntitiesBySchool", path = "serachExamResultEntitiesBySchool")
-	public List<GFExamResultEntity> serachExamResultEntitiesBySchool(
-			@Named("yearOfExam") String yearOfExam, PartnerSchoolEntity schoolEntity) {
+	public List<GFExamResultEntity> serachExamResultEntitiesBySchool(@Named("yearOfExam") String yearOfExam,
+			PartnerSchoolEntity schoolEntity) {
 		logger.info("schoolEntity.schoolName:" + schoolEntity.getSchoolName());
-		List<GFExamResultEntity> resultList = ofy().load()
-				.type(GFExamResultEntity.class).filter("examYear", yearOfExam).filter("school", schoolEntity)
-				.list();
-		logger.info("serachExamResultEntitiesBySchool:resultList:"
-				+ resultList.size());
+		List<GFExamResultEntity> resultList = ofy().load().type(GFExamResultEntity.class).filter("examYear", yearOfExam)
+				.filter("school", schoolEntity).list();
+		logger.info("serachExamResultEntitiesBySchool:resultList:" + resultList.size());
 		return resultList;
 	}
 
@@ -348,8 +355,7 @@ public class GFStudentService {
 	public void addPracticeExamToStudent(PracticeExamEntity exam) {
 
 		String standard = exam.getStandard();
-		List<GFStudentEntity> studentList = ofy().load()
-				.type(GFStudentEntity.class).filter("standard", standard)
+		List<GFStudentEntity> studentList = ofy().load().type(GFStudentEntity.class).filter("standard", standard)
 				.list();
 
 		List<UserEntity> userListToUpdate = new ArrayList<UserEntity>();
@@ -387,8 +393,7 @@ public class GFStudentService {
 
 		String standard = book.getStandard();
 
-		List<GFStudentEntity> studentList = ofy().load()
-				.type(GFStudentEntity.class).filter("standard", standard)
+		List<GFStudentEntity> studentList = ofy().load().type(GFStudentEntity.class).filter("standard", standard)
 				.list();
 
 		List<UserEntity> userListToUpdate = new ArrayList<UserEntity>();

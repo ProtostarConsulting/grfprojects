@@ -12,8 +12,10 @@ angular
 							.getLoggedinUser();
 					var gfStudentService = appEndpointSF.getGFStudentService();
 					$scope.commonSettingsObj = null;
-					$scope.instituteID = null;
-					$scope.yearofExam = null;
+					$scope.instituteID = $scope.curUser ? $scope.curUser.instituteID
+							: null;
+					$scope.yearofExam = $scope.curUser ? $scope.curUser.instituteObj.yearofExam
+							: null;
 
 					$scope.reviewByGrfRegNo = $stateParams.reviewByGrfRegNo;
 
@@ -42,7 +44,8 @@ angular
 									: 'guest',
 							school : school,
 							institute : school.institute,
-							examYear : $scope.yearofExam,
+							examYear : $scope.curUser ? $scope.curUser.instituteObj.yearofExam
+									: $scope.yearofExam,
 							grfReviewed : $scope.curUser ? true : false
 						};
 					}
@@ -57,7 +60,7 @@ angular
 						}
 						$scope.bookDetailList = [];
 						for (q = 0; q < school.examDetailList.length; q++) {
-							if (school.examDetailList[q].yearOfExam == year1) {
+							if (school.examDetailList[q].yearOfExam == $scope.yearofExam) {
 								if (school.examDetailList[q].bookSummary) {
 									$scope.bookDetailList = school.examDetailList[q].bookSummary.bookDetail;
 									$scope.examDetail = school.examDetailList[q];
@@ -298,7 +301,7 @@ angular
 						return foundBook;
 					}
 
-					$scope.getInstituteId = function() {
+					$scope.getInstituteCommonSetting = function() {
 						var proadminService = appEndpointSF
 								.getProtostarAdminService();
 						proadminService
@@ -312,7 +315,8 @@ angular
 											$scope
 													.getGFBookStockByInstituteId();
 											if ($scope.reviewByGrfRegNo) {
-												$scope.grfRegNoChange($scope.reviewByGrfRegNo);
+												$scope
+														.grfRegNoChange($scope.reviewByGrfRegNo);
 											} else {
 												$scope.loading = false;
 											}
@@ -325,7 +329,17 @@ angular
 
 					$scope.waitForServiceLoad = function() {
 						if (appEndpointSF.is_service_ready) {
-							$scope.getInstituteId();
+							if ($scope.curUser == null) {
+								$scope.getInstituteCommonSetting();
+							} else {
+								if ($scope.reviewByGrfRegNo) {
+									$scope
+											.grfRegNoChange($scope.reviewByGrfRegNo);
+								} else {
+									$scope.loading = false;
+								}
+							}
+							// $scope.getInstituteCommonSetting();
 						} else {
 							$log.debug("Services Not Loaded, watiting...");
 							$timeout($scope.waitForServiceLoad, 1000);
