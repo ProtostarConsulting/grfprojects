@@ -244,7 +244,7 @@ angular
 										function(resultList) {
 											if (resultList) {
 												$scope.examResultList = resultList;
-												$scope.query.totalSize = resultList.length;
+												$scope.query.totalSize = $scope.examResultList.length;
 											}
 
 											$scope.searchTextDone = false;
