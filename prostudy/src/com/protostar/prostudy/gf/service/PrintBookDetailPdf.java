@@ -196,15 +196,16 @@ public class PrintBookDetailPdf extends HttpServlet {
 						for (PaymentDetail paymentDetail : paymentDetailList) {
 
 							paymentType.add(paymentDetail.getPayReceivedBy());
-							
-							Date tempDD_Date = paymentDetail.getDdCreatedDate();
-							String ddDate = sdfDate.format(tempDD_Date);
-							Date tempDepositeDate = paymentDetail
-									.getDepositDate();
-							String depositDate = sdfDate
-									.format(tempDepositeDate);
-							root.put("ddDate", ddDate);
-							root.put("depositDate", depositDate);
+							if(paymentDetail.getPayReceivedBy().trim().equalsIgnoreCase("D.D")) {
+								Date tempDD_Date = paymentDetail.getDdCreatedDate();
+								String ddDate = sdfDate.format(tempDD_Date);
+								Date tempDepositeDate = paymentDetail
+										.getDepositDate();
+								String depositDate = sdfDate
+										.format(tempDepositeDate);
+								root.put("ddDate", ddDate);
+								root.put("depositDate", depositDate);
+							}
 						}
 					}
 				}

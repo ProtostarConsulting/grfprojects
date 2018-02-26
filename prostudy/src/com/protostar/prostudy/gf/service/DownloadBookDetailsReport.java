@@ -109,7 +109,7 @@ public class DownloadBookDetailsReport extends HttpServlet {
 			writer.append(',');
 			writer.append("Book Amount");
 			writer.append(',');
-			writer.append("Exam Fees");
+			writer.append("Total Offer");
 			writer.append(',');
 			writer.append("GRF Total");
 			writer.append(',');

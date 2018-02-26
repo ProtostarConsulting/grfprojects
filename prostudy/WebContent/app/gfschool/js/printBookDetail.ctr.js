@@ -102,7 +102,7 @@ angular
 								if ($scope.BookDetail != undefined) {
 									for (var k = 0; k < $scope.BookDetail.length; k++) {
 										$scope.totalStudents += $scope.BookDetail[k].totalStud;
-										$scope.totalExamFees += $scope.BookDetail[k].totalExamFees;
+										$scope.totalExamFees += $scope.BookDetail[k].totalFees;
 									}
 									$scope.amtForInst20per = Math
 											.round(($scope.totalExamFees / 100) * 20);
@@ -111,6 +111,7 @@ angular
 								}
 								if ($scope.PaymentDet != undefined) {
 									for (var j = 0; j < $scope.PaymentDet.length; j++) {
+										$scope.receiptDate = $scope.PaymentDet[j].paymentDate;
 										$scope.totalPaidFees += $scope.PaymentDet[j].payAmount;
 									}
 								}

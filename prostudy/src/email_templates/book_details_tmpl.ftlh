@@ -53,10 +53,10 @@ td {
 		<tr>
 			<th>Standard </th>
 			<th>Book Name</th>
-			<th>Qty.</th>
+			<th>No of Student</th>
 			<th>Book Price</th>
 			<th>Book Amount</th>
-			<th>Exam Fees</th>
+			<th>Total Offer</th>
 			<th>GRF Total</th>
 		</tr>
 		<#list examList.bookSummary.bookDetail as bookDetails>
@@ -110,14 +110,14 @@ td {
 			<#if paymentDetail.payReceivedBy == 'D.D '>	
 			<p style="font-size:11px; text-align: left;"><b>D.D No.:</b> ${paymentDetail.transactionNumber}</p>
   			<p style="font-size:11px; text-align: left;"><b>Bank Name:</b> ${paymentDetail.ddBankName}</p>
-  			<p style="font-size:11px; text-align: left;"><b>Branch:</b> ${paymentDetail.ddBranchName}</p>
-  			<p style="font-size:11px; text-align: left;"><b>D.D Date:</b> ${ddDate}</p>			
+  			<p style="font-size:11px; text-align: left;"><b>Branch:</b><#if paymentDetail.ddBranchName??> ${paymentDetail.ddBranchName}</#if></p>
+  			<p style="font-size:11px; text-align: left;"><b>D.D Date:</b><#if ddDate??> ${ddDate}</#if></p>			
 			</#if>
 			
 			<p style="font-size:11px; text-align: left;"><b>Deposit in:</b> ${paymentDetail.nameOfBank}</p>
-  			<p style="font-size:11px; text-align: left;"><b>Branch:</b> ${paymentDetail.branchName}</p>
+  			<p style="font-size:11px; text-align: left;"><b>Branch:</b><#if paymentDetail.branchName??> ${paymentDetail.branchName}</#if></p>
   			<p style="font-size:11px; text-align: left;"><b>Amt. Rs.</b> ${paymentDetail.payAmount}</p>
-  			<p style="font-size:11px; text-align: left;"><b>Deposit Date:</b> ${depositDate}</p>
+  			<p style="font-size:11px; text-align: left;"><b>Deposit Date:</b><#if depositDate??> ${depositDate}</#if></p>
   			
 		</#list>
 		</#if>
