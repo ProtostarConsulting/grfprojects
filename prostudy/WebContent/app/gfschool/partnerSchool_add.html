@@ -488,7 +488,7 @@
 						<th width=10px name="Total Offer"></th>
 						<th width=10px name="Total"></th>
 						<th width=10px name="Amount Received"></th>						
-						<th width=10px name="Remaining Fees"></th>
+						<th width=10px name="Remaining Price"></th>
 						<th width=10px name="Action"></th>
 					</tr>
 				</thead>
@@ -711,7 +711,7 @@
 
 			<div layout="row" layout-xs="column" flex>
 				<md-input-container flex="30"> <label>Paid
-					Fees<span style="color: red"
+					Price<span style="color: red"
 					ng-show="partnerSchoolForm.payAmount.$error.required"
 					class="mandatory">*</span>
 				</label> <input type="number" name="payAmount"
@@ -760,13 +760,13 @@
 		</section>
 
 		<div layout="row" layout-xs="column" flex>
-			<md-input-container flex="20">Total Fees To Be
+			<md-input-container flex="20">Total Price To Be
 			Paid = {{getGrffeestotal() }} </md-input-container>
 			<span flex="10"></span>
-			<md-input-container flex="20">Total Paid Fees =
+			<md-input-container flex="20">Total Paid Price =
 			{{PaymentDetail.tPaid }} </md-input-container>
 			<span flex="10"></span>
-			<md-input-container flex="20">Pending Fees =
+			<md-input-container flex="20">Pending Price =
 			{{PaymentDetail.pAmount}} </md-input-container>
 		</div>
 		<div>
@@ -778,9 +778,8 @@
 						<th name="Payment Received Via"></th>
 						<th name="Date" order-by="paymentDate"></th>
 						<th name="Bank Name"></th>
-						<th name="Payment Fees"></th>
-
-						<th name="Pending Fees "></th>
+						<th name="Payment Price"></th>
+						<th name="Pending Price"></th>
 						<th name="Payment Received Status "
 							ng-hide="curUser.role == 'Teacher'"></th>
 						<th name="Action" ng-hide="curUser.role == 'Teacher'"></th>
