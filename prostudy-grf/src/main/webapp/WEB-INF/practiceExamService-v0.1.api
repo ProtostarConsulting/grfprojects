@@ -1,0 +1,1094 @@
+{
+  "extends" : "thirdParty.api",
+  "abstract" : false,
+  "root" : "https://grf-prod.appspot.com/_ah/api",
+  "name" : "practiceExamService",
+  "version" : "v0.1",
+  "defaultVersion" : false,
+  "discovery" : [ "PUBLIC" ],
+  "adapter" : {
+    "bns" : "https://grf-prod.appspot.com/_ah/spi",
+    "deadline" : 65.0,
+    "type" : "lily"
+  },
+  "auth" : {
+    "allowCookieAuth" : false
+  },
+  "frontendLimits" : {
+    "unregisteredUserQps" : -1,
+    "unregisteredQps" : -1,
+    "unregisteredDaily" : -1,
+    "rules" : [ ]
+  },
+  "cacheControl" : {
+    "type" : "no-cache",
+    "maxAge" : 0
+  },
+  "ownerDomain" : "com.protostar.prostudy.service",
+  "ownerName" : "com.protostar.prostudy.service",
+  "methods" : {
+    "practiceExamService.addPracticeExam" : {
+      "path" : "addPracticeExam",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.service.PracticeExamService.addPracticeExam",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "practiceExamService.getPracticeExams" : {
+      "path" : "practiceexamentitycollection",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.service.PracticeExamService.getPracticeExams",
+      "request" : {
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "practiceExamService.getPracticeExamById" : {
+      "path" : "practiceexamentity/{examId}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.service.PracticeExamService.getPracticeExamById",
+      "request" : {
+        "parameters" : {
+          "examId" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "practiceExamService.updatePracticeExam" : {
+      "path" : "void",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.service.PracticeExamService.updatePracticeExam",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
+    "practiceExamService.getPracticeExamByInstitute" : {
+      "path" : "practiceexamentitycollection/{instituteID}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.service.PracticeExamService.getPracticeExamByInstitute",
+      "request" : {
+        "parameters" : {
+          "instituteID" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "practiceExamService.getResultByUId" : {
+      "path" : "getResultByUId",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.service.PracticeExamResultService.getResultByUId",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "practiceExamService.getPracticeExamResultbyEmail" : {
+      "path" : "practiceexamresultentitycollection/{email_id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.service.PracticeExamResultService.getPracticeExamResultbyEmail",
+      "request" : {
+        "parameters" : {
+          "email_id" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "practiceExamService.getPracticeExamResult" : {
+      "path" : "practiceexamresultentitycollection",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.service.PracticeExamResultService.getPracticeExamResult",
+      "request" : {
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "practiceExamService.getPracticeExamResultbyID" : {
+      "path" : "practiceexamresultentity/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.service.PracticeExamResultService.getPracticeExamResultbyID",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "practiceExamService.addPracticeExamResult" : {
+      "path" : "addPracticeExamResult",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.service.PracticeExamResultService.addPracticeExamResult",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "practiceExamService.getExamResultbyID" : {
+      "path" : "gfexamresultentity/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.service.PracticeExamResultService.getGFExamResultDetailsbyID",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    }
+  },
+  "descriptor" : {
+    "schemas" : {
+      "PracticeExamEntity" : {
+        "id" : "PracticeExamEntity",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "examtitle" : {
+            "type" : "string"
+          },
+          "instituteID" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "board" : {
+            "type" : "string"
+          },
+          "standard" : {
+            "type" : "string"
+          },
+          "division" : {
+            "type" : "string"
+          },
+          "category" : {
+            "type" : "string"
+          },
+          "subject" : {
+            "type" : "string"
+          },
+          "instructions" : {
+            "type" : "string"
+          },
+          "questions" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "QuestionEntity"
+            }
+          },
+          "date" : {
+            "type" : "string"
+          },
+          "likes" : {
+            "type" : "integer"
+          },
+          "dislikes" : {
+            "type" : "integer"
+          }
+        }
+      },
+      "QuestionEntity" : {
+        "id" : "QuestionEntity",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "instituteID" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "board" : {
+            "type" : "string"
+          },
+          "standard" : {
+            "type" : "string"
+          },
+          "division" : {
+            "type" : "string"
+          },
+          "subject" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "note" : {
+            "type" : "string"
+          },
+          "category" : {
+            "type" : "string"
+          },
+          "option1" : {
+            "type" : "string"
+          },
+          "option2" : {
+            "type" : "string"
+          },
+          "option3" : {
+            "type" : "string"
+          },
+          "option4" : {
+            "type" : "string"
+          },
+          "correctAns" : {
+            "type" : "string"
+          }
+        }
+      },
+      "PracticeExamEntityCollection" : {
+        "id" : "PracticeExamEntityCollection",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "PracticeExamEntity"
+            }
+          }
+        }
+      },
+      "PracticeExamResultEntity" : {
+        "id" : "PracticeExamResultEntity",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "institute" : {
+            "$ref" : "InstituteEntity"
+          },
+          "createdDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "modifiedDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "modifiedBy" : {
+            "type" : "string"
+          },
+          "note" : {
+            "type" : "string"
+          },
+          "tags" : {
+            "type" : "string"
+          },
+          "examTitle" : {
+            "type" : "string"
+          },
+          "userId" : {
+            "type" : "string"
+          },
+          "email_id" : {
+            "type" : "string"
+          },
+          "firstName" : {
+            "type" : "string"
+          },
+          "lastName" : {
+            "type" : "string"
+          },
+          "startTime" : {
+            "type" : "string"
+          },
+          "endTime" : {
+            "type" : "string"
+          },
+          "score" : {
+            "type" : "string"
+          },
+          "testID" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "userAns" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "UserAnsEntity"
+            }
+          },
+          "test" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "QuestionEntity"
+            }
+          }
+        }
+      },
+      "InstituteEntity" : {
+        "id" : "InstituteEntity",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "institute" : {
+            "$ref" : "InstituteEntity"
+          },
+          "createdDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "modifiedDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "modifiedBy" : {
+            "type" : "string"
+          },
+          "note" : {
+            "type" : "string"
+          },
+          "tags" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "desc" : {
+            "type" : "string"
+          },
+          "address" : {
+            "$ref" : "Address"
+          },
+          "phone_no" : {
+            "type" : "string"
+          },
+          "theme" : {
+            "type" : "string"
+          },
+          "registerDate" : {
+            "type" : "string"
+          },
+          "totalUser" : {
+            "type" : "integer"
+          },
+          "status" : {
+            "type" : "string"
+          },
+          "authorizations" : {
+            "type" : "string"
+          },
+          "settings" : {
+            "$ref" : "AppSettingEntity"
+          },
+          "yearofExam" : {
+            "type" : "string"
+          },
+          "sendGridApiKey" : {
+            "type" : "string"
+          },
+          "accounttype" : {
+            "$ref" : "PaymentPlanType"
+          },
+          "logBlobKey" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Address" : {
+        "id" : "Address",
+        "type" : "object",
+        "properties" : {
+          "addressType" : {
+            "type" : "string"
+          },
+          "line1" : {
+            "type" : "string"
+          },
+          "line2" : {
+            "type" : "string"
+          },
+          "city" : {
+            "type" : "string"
+          },
+          "tal" : {
+            "type" : "string"
+          },
+          "state" : {
+            "type" : "string"
+          },
+          "country" : {
+            "type" : "string"
+          },
+          "dist" : {
+            "type" : "string"
+          },
+          "pin" : {
+            "type" : "string"
+          },
+          "otherAddressFlag" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "AppSettingEntity" : {
+        "id" : "AppSettingEntity",
+        "type" : "object",
+        "properties" : {
+          "instituteID" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "angularMaterialTheme" : {
+            "type" : "string"
+          },
+          "instituteLogoBlobKey" : {
+            "type" : "string"
+          },
+          "defaultDisplayTableRowsPerPage" : {
+            "type" : "integer"
+          },
+          "smeNotificationFlag" : {
+            "type" : "boolean"
+          },
+          "emailNotificationFlag" : {
+            "type" : "boolean"
+          },
+          "emailNotificationDL" : {
+            "type" : "string"
+          }
+        }
+      },
+      "PaymentPlanType" : {
+        "id" : "PaymentPlanType",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "accountName" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "maxuser" : {
+            "type" : "string"
+          },
+          "paymentDesc" : {
+            "type" : "string"
+          }
+        }
+      },
+      "UserAnsEntity" : {
+        "id" : "UserAnsEntity",
+        "type" : "object",
+        "properties" : {
+          "qID" : {
+            "type" : "string"
+          },
+          "userOption" : {
+            "type" : "string"
+          }
+        }
+      },
+      "PracticeExamResultEntityCollection" : {
+        "id" : "PracticeExamResultEntityCollection",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "PracticeExamResultEntity"
+            }
+          }
+        }
+      },
+      "GFExamResultEntity" : {
+        "id" : "GFExamResultEntity",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "institute" : {
+            "$ref" : "InstituteEntity"
+          },
+          "createdDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "modifiedDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "modifiedBy" : {
+            "type" : "string"
+          },
+          "note" : {
+            "type" : "string"
+          },
+          "tags" : {
+            "type" : "string"
+          },
+          "studName" : {
+            "type" : "string"
+          },
+          "examYear" : {
+            "type" : "string"
+          },
+          "standard" : {
+            "type" : "string"
+          },
+          "mediumOfAnswer" : {
+            "type" : "string"
+          },
+          "marks" : {
+            "type" : "number",
+            "format" : "float"
+          },
+          "grfReviewed" : {
+            "type" : "boolean"
+          },
+          "school" : {
+            "$ref" : "PartnerSchoolEntity"
+          },
+          "examResult" : {
+            "$ref" : "PracticeExamResultEntity"
+          }
+        }
+      },
+      "PartnerSchoolEntity" : {
+        "id" : "PartnerSchoolEntity",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "institute" : {
+            "$ref" : "InstituteEntity"
+          },
+          "createdDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "modifiedDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "modifiedBy" : {
+            "type" : "string"
+          },
+          "note" : {
+            "type" : "string"
+          },
+          "tags" : {
+            "type" : "string"
+          },
+          "contactDetail" : {
+            "$ref" : "ContactDetail"
+          },
+          "address" : {
+            "$ref" : "Address"
+          },
+          "instituteID" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "schoolName" : {
+            "type" : "string"
+          },
+          "schoolNameIndex" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "examDetailIndex" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "instName" : {
+            "type" : "string"
+          },
+          "formNumber" : {
+            "type" : "string"
+          },
+          "category" : {
+            "type" : "string"
+          },
+          "primaryContact" : {
+            "type" : "string"
+          },
+          "autoGenerated" : {
+            "type" : "string"
+          },
+          "govRegisterno" : {
+            "type" : "string"
+          },
+          "lastModifiedDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "schoolSelfUpdate" : {
+            "type" : "boolean"
+          },
+          "schoolInstitute" : {
+            "$ref" : "PartnerSchoolInstituteEntity"
+          },
+          "examDetailList" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "ExamDetail"
+            }
+          }
+        }
+      },
+      "ContactDetail" : {
+        "id" : "ContactDetail",
+        "type" : "object",
+        "properties" : {
+          "headMasterName" : {
+            "type" : "string"
+          },
+          "headMasterMobile" : {
+            "type" : "string"
+          },
+          "headMasterPhone" : {
+            "type" : "string"
+          },
+          "headMasterEmailId" : {
+            "type" : "string"
+          },
+          "coordinatorDetail" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "CoordinatorDetail"
+            }
+          }
+        }
+      },
+      "CoordinatorDetail" : {
+        "id" : "CoordinatorDetail",
+        "type" : "object",
+        "properties" : {
+          "srno" : {
+            "type" : "integer"
+          },
+          "coordinatorName" : {
+            "type" : "string"
+          },
+          "coordinatorPhoneNum" : {
+            "type" : "string"
+          },
+          "coordinatorEmailId" : {
+            "type" : "string"
+          },
+          "coordinatorMobileNum" : {
+            "type" : "string"
+          }
+        }
+      },
+      "PartnerSchoolInstituteEntity" : {
+        "id" : "PartnerSchoolInstituteEntity",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "institute" : {
+            "$ref" : "InstituteEntity"
+          },
+          "createdDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "modifiedDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "modifiedBy" : {
+            "type" : "string"
+          },
+          "note" : {
+            "type" : "string"
+          },
+          "tags" : {
+            "type" : "string"
+          },
+          "instituteName" : {
+            "type" : "string"
+          },
+          "address" : {
+            "$ref" : "Address"
+          },
+          "instituteID" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "schoolInstituteNameIndex" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "ExamDetail" : {
+        "id" : "ExamDetail",
+        "type" : "object",
+        "properties" : {
+          "totalStudent" : {
+            "type" : "string"
+          },
+          "male" : {
+            "type" : "string"
+          },
+          "female" : {
+            "type" : "string"
+          },
+          "total" : {
+            "type" : "string"
+          },
+          "yearOfExam" : {
+            "type" : "string"
+          },
+          "bookRequired" : {
+            "type" : "string"
+          },
+          "modeOfExam" : {
+            "type" : "string"
+          },
+          "notificationData" : {
+            "$ref" : "NotificationData"
+          },
+          "paymentDetail" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "PaymentDetail"
+            }
+          },
+          "bookSummary" : {
+            "$ref" : "BookSummary"
+          },
+          "numberOfCoordinators" : {
+            "type" : "integer"
+          },
+          "smsRecordList" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "SMSRecord"
+            }
+          }
+        }
+      },
+      "NotificationData" : {
+        "id" : "NotificationData",
+        "type" : "object",
+        "properties" : {
+          "registrationSmsSent" : {
+            "type" : "integer"
+          },
+          "currierSmsSent" : {
+            "type" : "integer"
+          },
+          "registrationEmailSent" : {
+            "type" : "integer"
+          },
+          "currierEmailSent" : {
+            "type" : "integer"
+          }
+        }
+      },
+      "PaymentDetail" : {
+        "id" : "PaymentDetail",
+        "type" : "object",
+        "properties" : {
+          "paymentReciptNo" : {
+            "type" : "string"
+          },
+          "payReceivedBy" : {
+            "type" : "string"
+          },
+          "paymentDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "payAmount" : {
+            "type" : "integer"
+          },
+          "tPaid" : {
+            "type" : "integer"
+          },
+          "pAmount" : {
+            "type" : "integer"
+          },
+          "note" : {
+            "type" : "string"
+          },
+          "nameOfBank" : {
+            "type" : "string"
+          },
+          "branchName" : {
+            "type" : "string"
+          },
+          "transactionNumber" : {
+            "type" : "string"
+          },
+          "depositDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "ddBankName" : {
+            "type" : "string"
+          },
+          "ddBranchName" : {
+            "type" : "string"
+          },
+          "ddCreatedDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "paymentReceived" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "BookSummary" : {
+        "id" : "BookSummary",
+        "type" : "object",
+        "properties" : {
+          "bookDetail" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "BookDetail"
+            }
+          },
+          "total" : {
+            "type" : "integer"
+          },
+          "appearedSchoolTotalStud" : {
+            "type" : "integer"
+          }
+        }
+      },
+      "BookDetail" : {
+        "id" : "BookDetail",
+        "type" : "object",
+        "properties" : {
+          "bookName" : {
+            "type" : "string"
+          },
+          "bookPrise" : {
+            "type" : "integer"
+          },
+          "standard" : {
+            "type" : "string"
+          },
+          "totalStud" : {
+            "type" : "integer"
+          },
+          "appearedTotalStud" : {
+            "type" : "integer"
+          },
+          "totalFees" : {
+            "type" : "integer"
+          },
+          "totalExamFees" : {
+            "type" : "integer"
+          },
+          "examFees" : {
+            "type" : "integer"
+          },
+          "remainingFees" : {
+            "type" : "integer"
+          },
+          "amtForInst20per" : {
+            "type" : "integer"
+          },
+          "amtForGRF80per" : {
+            "type" : "integer"
+          }
+        }
+      },
+      "SMSRecord" : {
+        "id" : "SMSRecord",
+        "type" : "object",
+        "properties" : {
+          "smsdate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "mobileno" : {
+            "type" : "string"
+          },
+          "smsmessage" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "methods" : {
+      "com.protostar.prostudy.service.PracticeExamService.addPracticeExam" : {
+        "request" : {
+          "$ref" : "PracticeExamEntity"
+        },
+        "response" : {
+          "$ref" : "PracticeExamEntity"
+        }
+      },
+      "com.protostar.prostudy.service.PracticeExamService.getPracticeExams" : {
+        "response" : {
+          "$ref" : "PracticeExamEntityCollection"
+        }
+      },
+      "com.protostar.prostudy.service.PracticeExamService.getPracticeExamById" : {
+        "response" : {
+          "$ref" : "PracticeExamEntity"
+        }
+      },
+      "com.protostar.prostudy.service.PracticeExamService.updatePracticeExam" : {
+        "request" : {
+          "$ref" : "PracticeExamEntity"
+        }
+      },
+      "com.protostar.prostudy.service.PracticeExamService.getPracticeExamByInstitute" : {
+        "response" : {
+          "$ref" : "PracticeExamEntityCollection"
+        }
+      },
+      "com.protostar.prostudy.service.PracticeExamResultService.getResultByUId" : {
+        "response" : {
+          "$ref" : "PracticeExamResultEntityCollection"
+        }
+      },
+      "com.protostar.prostudy.service.PracticeExamResultService.getPracticeExamResultbyEmail" : {
+        "response" : {
+          "$ref" : "PracticeExamResultEntityCollection"
+        }
+      },
+      "com.protostar.prostudy.service.PracticeExamResultService.getPracticeExamResult" : {
+        "response" : {
+          "$ref" : "PracticeExamResultEntityCollection"
+        }
+      },
+      "com.protostar.prostudy.service.PracticeExamResultService.getPracticeExamResultbyID" : {
+        "response" : {
+          "$ref" : "PracticeExamResultEntity"
+        }
+      },
+      "com.protostar.prostudy.service.PracticeExamResultService.addPracticeExamResult" : {
+        "request" : {
+          "$ref" : "PracticeExamResultEntity"
+        },
+        "response" : {
+          "$ref" : "PracticeExamResultEntity"
+        }
+      },
+      "com.protostar.prostudy.service.PracticeExamResultService.getGFExamResultDetailsbyID" : {
+        "response" : {
+          "$ref" : "GFExamResultEntity"
+        }
+      }
+    }
+  }
+}

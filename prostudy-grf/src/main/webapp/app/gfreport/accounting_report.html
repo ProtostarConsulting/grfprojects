@@ -1,0 +1,34 @@
+<h3 class="md-headline">Accounting Report</h3>
+<p>&nbsp;</p>
+<div layout="row" layout-xs="column">
+	<span>Enter Last Five Digit GRF No.
+	<md-input-container> <label>GRF
+		No.</label> <input name="grfNo" ng-model="grfNo"> </md-input-container></span>
+	<div layout="row" layout-align="center start" layout-xs="column">
+		<md-button class="md-icon-button"
+			ng-click="printGRfAccountReport(grfNo)"> <ng-md-icon
+			icon="print" style="fill: md-default" size="22"> <md-tooltip>Print
+		Report</md-tooltip></ng-md-icon></md-button>
+	</div>
+</div>
+<div ng-if="isError">
+<span style="color: red;">{{errorMsg}}</span>
+</div>
+Or
+<p>&nbsp;</p>
+<p>Enter Range</p>
+<div layout="row" layout-xs="column">
+	<span>From:</span>
+	<md-input-container> <label>Enter GRF
+		No.</label> <input name="fromGrfNo" ng-model="fromGrfNo"> </md-input-container>
+
+	<span>To:</span>
+	<md-input-container> <label>Enter GRF
+		No.</label> <input name="toGrfNo" ng-model="toGrfNo"> </md-input-container>
+	<div layout="row" layout-align="center start" layout-xs="column">
+		<md-button class="md-icon-button"
+			ng-click="printGRfAccountReport(fromGrfNo,toGrfNo)"> <ng-md-icon
+			icon="print" style="fill: md-default" size="22"> <md-tooltip>Print
+		Report</md-tooltip></ng-md-icon></md-button>
+	</div>	
+</div>

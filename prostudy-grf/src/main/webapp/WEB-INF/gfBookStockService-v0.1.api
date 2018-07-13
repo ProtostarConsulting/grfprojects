@@ -1,0 +1,630 @@
+{
+  "extends" : "thirdParty.api",
+  "abstract" : false,
+  "root" : "https://grf-prod.appspot.com/_ah/api",
+  "name" : "gfBookStockService",
+  "version" : "v0.1",
+  "defaultVersion" : false,
+  "discovery" : [ "PUBLIC" ],
+  "adapter" : {
+    "bns" : "https://grf-prod.appspot.com/_ah/spi",
+    "deadline" : 65.0,
+    "type" : "lily"
+  },
+  "auth" : {
+    "allowCookieAuth" : false
+  },
+  "frontendLimits" : {
+    "unregisteredUserQps" : -1,
+    "unregisteredQps" : -1,
+    "unregisteredDaily" : -1,
+    "rules" : [ ]
+  },
+  "cacheControl" : {
+    "type" : "no-cache",
+    "maxAge" : 0
+  },
+  "ownerDomain" : "com.protostar.prostudy.gf.service",
+  "ownerName" : "com.protostar.prostudy.gf.service",
+  "methods" : {
+    "gfBookStockService.getGFBookStockByInstituteId" : {
+      "path" : "getGFBookStockByInstituteId",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.gf.service.GFBookStockService.getGFBookStockByInstituteId",
+      "request" : {
+        "parameters" : {
+          "instituteID" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "gfBookStockService.sendStockReorderEmail" : {
+      "path" : "sendStockReorderEmail",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.gf.service.GFBookStockService.sendStockReorderEmail",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
+    "gfBookStockService.addTranAfterAddBook" : {
+      "path" : "addTranAfterAddBook",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.gf.service.GFBookStockService.addTranAfterAddBook",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
+    "gfBookStockService.getGFBookStockById" : {
+      "path" : "getGFBookStockById",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.gf.service.GFBookStockService.getGFBookStockById",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "gfBookStockService.getGFBookByInstituteId" : {
+      "path" : "getGFBookByInstituteId",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.gf.service.GFBookStockService.getGFBookByInstituteId",
+      "request" : {
+        "parameters" : {
+          "instituteID" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "gfBookStockService.getReportByThreshold" : {
+      "path" : "getReportByThreshold",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.gf.service.GFBookStockService.getReportByThreshold",
+      "request" : {
+        "parameters" : {
+          "insID" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "gfBookStockService.getGFBookStockTransactionByInstituteId" : {
+      "path" : "getGFBookStockTransactionByInstituteId",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.gf.service.GFBookStockService.getGFBookStockTransactionByInstituteId",
+      "request" : {
+        "parameters" : {
+          "instituteID" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "gfBookStockService.addGFBook" : {
+      "path" : "addGFBook",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.gf.service.GFBookStockService.addGFBook",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "gfBookStockService.getGFBookById" : {
+      "path" : "getGFBookById",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.gf.service.GFBookStockService.getGFBookById",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "gfBookStockService.addGFBookStock" : {
+      "path" : "addGFBookStock",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.gf.service.GFBookStockService.addGFBookStock",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    }
+  },
+  "descriptor" : {
+    "schemas" : {
+      "GFBookStockEntity" : {
+        "id" : "GFBookStockEntity",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "bookQty" : {
+            "type" : "integer"
+          },
+          "feedStockDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "instituteID" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "book" : {
+            "$ref" : "GFBookEntity"
+          }
+        }
+      },
+      "GFBookEntity" : {
+        "id" : "GFBookEntity",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "institute" : {
+            "$ref" : "InstituteEntity"
+          },
+          "createdDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "modifiedDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "modifiedBy" : {
+            "type" : "string"
+          },
+          "note" : {
+            "type" : "string"
+          },
+          "tags" : {
+            "type" : "string"
+          },
+          "bookName" : {
+            "type" : "string"
+          },
+          "bookAuther" : {
+            "type" : "string"
+          },
+          "weight" : {
+            "type" : "number"
+          },
+          "bookPrice" : {
+            "type" : "integer"
+          },
+          "bookQty" : {
+            "type" : "integer"
+          },
+          "bookPublication" : {
+            "type" : "string"
+          },
+          "bookFeedDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "instituteID" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "bookMedium" : {
+            "type" : "string"
+          },
+          "stockFeedDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "stockModifiedDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "bookThreshold" : {
+            "type" : "integer"
+          },
+          "standard" : {
+            "type" : "string"
+          },
+          "examFees" : {
+            "type" : "integer"
+          },
+          "flag" : {
+            "type" : "string"
+          }
+        }
+      },
+      "InstituteEntity" : {
+        "id" : "InstituteEntity",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "institute" : {
+            "$ref" : "InstituteEntity"
+          },
+          "createdDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "modifiedDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "modifiedBy" : {
+            "type" : "string"
+          },
+          "note" : {
+            "type" : "string"
+          },
+          "tags" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "desc" : {
+            "type" : "string"
+          },
+          "address" : {
+            "$ref" : "Address"
+          },
+          "phone_no" : {
+            "type" : "string"
+          },
+          "theme" : {
+            "type" : "string"
+          },
+          "registerDate" : {
+            "type" : "string"
+          },
+          "totalUser" : {
+            "type" : "integer"
+          },
+          "status" : {
+            "type" : "string"
+          },
+          "authorizations" : {
+            "type" : "string"
+          },
+          "settings" : {
+            "$ref" : "AppSettingEntity"
+          },
+          "yearofExam" : {
+            "type" : "string"
+          },
+          "sendGridApiKey" : {
+            "type" : "string"
+          },
+          "accounttype" : {
+            "$ref" : "PaymentPlanType"
+          },
+          "logBlobKey" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Address" : {
+        "id" : "Address",
+        "type" : "object",
+        "properties" : {
+          "addressType" : {
+            "type" : "string"
+          },
+          "line1" : {
+            "type" : "string"
+          },
+          "line2" : {
+            "type" : "string"
+          },
+          "city" : {
+            "type" : "string"
+          },
+          "tal" : {
+            "type" : "string"
+          },
+          "state" : {
+            "type" : "string"
+          },
+          "country" : {
+            "type" : "string"
+          },
+          "dist" : {
+            "type" : "string"
+          },
+          "pin" : {
+            "type" : "string"
+          },
+          "otherAddressFlag" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "AppSettingEntity" : {
+        "id" : "AppSettingEntity",
+        "type" : "object",
+        "properties" : {
+          "instituteID" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "angularMaterialTheme" : {
+            "type" : "string"
+          },
+          "instituteLogoBlobKey" : {
+            "type" : "string"
+          },
+          "defaultDisplayTableRowsPerPage" : {
+            "type" : "integer"
+          },
+          "smeNotificationFlag" : {
+            "type" : "boolean"
+          },
+          "emailNotificationFlag" : {
+            "type" : "boolean"
+          },
+          "emailNotificationDL" : {
+            "type" : "string"
+          }
+        }
+      },
+      "PaymentPlanType" : {
+        "id" : "PaymentPlanType",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "accountName" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "maxuser" : {
+            "type" : "string"
+          },
+          "paymentDesc" : {
+            "type" : "string"
+          }
+        }
+      },
+      "GFBookStockEntityCollection" : {
+        "id" : "GFBookStockEntityCollection",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "GFBookStockEntity"
+            }
+          }
+        }
+      },
+      "GFBookEntityCollection" : {
+        "id" : "GFBookEntityCollection",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "GFBookEntity"
+            }
+          }
+        }
+      },
+      "GFBookTransactionEntity" : {
+        "id" : "GFBookTransactionEntity",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "institute" : {
+            "$ref" : "InstituteEntity"
+          },
+          "createdDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "modifiedDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "modifiedBy" : {
+            "type" : "string"
+          },
+          "note" : {
+            "type" : "string"
+          },
+          "tags" : {
+            "type" : "string"
+          },
+          "transactionType" : {
+            "type" : "string"
+          },
+          "transactionDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "instituteID" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "bookQty" : {
+            "type" : "integer"
+          },
+          "book" : {
+            "$ref" : "GFBookEntity"
+          },
+          "totalFees" : {
+            "type" : "number",
+            "format" : "float"
+          }
+        }
+      },
+      "GFBookTransactionEntityCollection" : {
+        "id" : "GFBookTransactionEntityCollection",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "GFBookTransactionEntity"
+            }
+          }
+        }
+      }
+    },
+    "methods" : {
+      "com.protostar.prostudy.gf.service.GFBookStockService.getGFBookStockByInstituteId" : {
+        "response" : {
+          "$ref" : "GFBookStockEntityCollection"
+        }
+      },
+      "com.protostar.prostudy.gf.service.GFBookStockService.sendStockReorderEmail" : {
+      },
+      "com.protostar.prostudy.gf.service.GFBookStockService.addTranAfterAddBook" : {
+        "request" : {
+          "$ref" : "GFBookEntity"
+        }
+      },
+      "com.protostar.prostudy.gf.service.GFBookStockService.getGFBookStockById" : {
+        "response" : {
+          "$ref" : "GFBookStockEntity"
+        }
+      },
+      "com.protostar.prostudy.gf.service.GFBookStockService.getGFBookByInstituteId" : {
+        "response" : {
+          "$ref" : "GFBookEntityCollection"
+        }
+      },
+      "com.protostar.prostudy.gf.service.GFBookStockService.getReportByThreshold" : {
+        "response" : {
+          "$ref" : "GFBookEntityCollection"
+        }
+      },
+      "com.protostar.prostudy.gf.service.GFBookStockService.getGFBookStockTransactionByInstituteId" : {
+        "response" : {
+          "$ref" : "GFBookTransactionEntityCollection"
+        }
+      },
+      "com.protostar.prostudy.gf.service.GFBookStockService.addGFBook" : {
+        "request" : {
+          "$ref" : "GFBookEntity"
+        },
+        "response" : {
+          "$ref" : "GFBookEntity"
+        }
+      },
+      "com.protostar.prostudy.gf.service.GFBookStockService.getGFBookById" : {
+        "response" : {
+          "$ref" : "GFBookEntity"
+        }
+      },
+      "com.protostar.prostudy.gf.service.GFBookStockService.addGFBookStock" : {
+        "request" : {
+          "$ref" : "GFBookStockEntity"
+        }
+      }
+    }
+  }
+}

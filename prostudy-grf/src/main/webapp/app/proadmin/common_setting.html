@@ -1,0 +1,37 @@
+<div ng-if="loading">
+	<div layout="row" layout-sm="column" layout-align="space-around">
+		<md-progress-circular md-diameter="100" md-mode="indeterminate"></md-progress-circular>
+	</div>
+</div>
+<div ng-if="!loading">
+	<md-content layout-padding>
+	<section layout="row" layout-xs="column">
+		<md-subheader class="md-primary">
+		<h4 class="md-title">Common Settings</h4>
+		</md-subheader>
+		<span flex></span>
+	</section>
+	<form name="documentForm" layout="column">
+		<div layout="column">
+			<md-input-container flex="80" flex> <label>Institute
+				ID</label> <input type="text" ng-model="settingsObj.grfInstituteId">
+			</md-input-container>
+			<md-input-container flex="80" flex> <label>Year
+				of Exam</label> <input type="text" ng-model="settingsObj.currYearofExam">
+			</md-input-container>
+
+			<md-input-container flex="80" flex> <label>SENDGRID
+				API KEY</label> <input type="text" ng-model="settingsObj.sendGridAPIKey" />
+			</md-input-container>
+			<md-input-container flex="80" layout="row" flex>
+			<label>TEXTLOCAL API KEY</label> <input type="text"
+				ng-model="settingsObj.textLocalAPIKey" /> </md-input-container>
+			<section layout="row" layout-sm="column">
+				<md-button class="md-raised md-primary"
+					ng-disabled="documentForm.$invalid" ng-click="addSettings()">Save
+				Changes</md-button>
+			</section>
+		</div>
+	</form>
+	</md-content>
+</div>

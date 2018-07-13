@@ -1,0 +1,232 @@
+{
+  "extends" : "thirdParty.api",
+  "abstract" : false,
+  "root" : "https://grf-prod.appspot.com/_ah/api",
+  "name" : "uploadPathService",
+  "version" : "v0.1",
+  "defaultVersion" : false,
+  "discovery" : [ "PUBLIC" ],
+  "adapter" : {
+    "bns" : "https://grf-prod.appspot.com/_ah/spi",
+    "deadline" : 65.0,
+    "type" : "lily"
+  },
+  "auth" : {
+    "allowCookieAuth" : false
+  },
+  "frontendLimits" : {
+    "unregisteredUserQps" : -1,
+    "unregisteredQps" : -1,
+    "unregisteredDaily" : -1,
+    "rules" : [ ]
+  },
+  "cacheControl" : {
+    "type" : "no-cache",
+    "maxAge" : 0
+  },
+  "ownerDomain" : "com.protostar.prostudy.proadmin.services",
+  "ownerName" : "com.protostar.prostudy.proadmin.services",
+  "methods" : {
+    "uploadPathService.getBookPDFUrl" : {
+      "path" : "getBookPDFUrl",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.proadmin.services.UploadURLService.getBookPDFUrl",
+      "request" : {
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "uploadPathService.getLogUploadURL" : {
+      "path" : "getLogUploadURL",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.proadmin.services.UploadURLService.getLogUploadURL",
+      "request" : {
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "uploadPathService.getPartnerSchoolsUploadURL" : {
+      "path" : "getPartnerSchoolsUploadURL",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.proadmin.services.UploadURLService.getPartnerSchoolsUploadURL",
+      "request" : {
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "uploadPathService.getBulkGFStudentUploadURL" : {
+      "path" : "getBulkGFStudentUploadURL",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.proadmin.services.UploadURLService.getBulkGFStudentUploadURL",
+      "request" : {
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "uploadPathService.getGFBooksURLForDownload" : {
+      "path" : "getGFBooksURLForDownload",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.proadmin.services.UploadURLService.getGFBooksURLForDownload",
+      "request" : {
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "uploadPathService.getScheduledQuestionsUploadURL" : {
+      "path" : "getScheduledQuestionsUploadURL",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.proadmin.services.UploadURLService.getScheduledQuestionsUploadURL",
+      "request" : {
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "uploadPathService.getBulkBookUploadURL" : {
+      "path" : "getBulkBookUploadURL",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.proadmin.services.UploadURLService.getBulkBookUploadURL",
+      "request" : {
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "uploadPathService.getGFStudentsURLForDownload" : {
+      "path" : "getGFStudentsURLForDownload",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.proadmin.services.UploadURLService.getGFStudentsURLForDownload",
+      "request" : {
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "uploadPathService.getPartnerSchoolsUploadURLForDownload" : {
+      "path" : "getPartnerSchoolsUploadURLForDownload",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.proadmin.services.UploadURLService.getPartnerSchoolsUploadURLForDownload",
+      "request" : {
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    }
+  },
+  "descriptor" : {
+    "schemas" : {
+      "ServerMsg" : {
+        "id" : "ServerMsg",
+        "type" : "object",
+        "properties" : {
+          "msg" : {
+            "type" : "string"
+          },
+          "bool" : {
+            "type" : "boolean"
+          },
+          "token" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "methods" : {
+      "com.protostar.prostudy.proadmin.services.UploadURLService.getBookPDFUrl" : {
+        "response" : {
+          "$ref" : "ServerMsg"
+        }
+      },
+      "com.protostar.prostudy.proadmin.services.UploadURLService.getLogUploadURL" : {
+        "response" : {
+          "$ref" : "ServerMsg"
+        }
+      },
+      "com.protostar.prostudy.proadmin.services.UploadURLService.getPartnerSchoolsUploadURL" : {
+        "response" : {
+          "$ref" : "ServerMsg"
+        }
+      },
+      "com.protostar.prostudy.proadmin.services.UploadURLService.getBulkGFStudentUploadURL" : {
+        "response" : {
+          "$ref" : "ServerMsg"
+        }
+      },
+      "com.protostar.prostudy.proadmin.services.UploadURLService.getGFBooksURLForDownload" : {
+        "response" : {
+          "$ref" : "ServerMsg"
+        }
+      },
+      "com.protostar.prostudy.proadmin.services.UploadURLService.getScheduledQuestionsUploadURL" : {
+        "response" : {
+          "$ref" : "ServerMsg"
+        }
+      },
+      "com.protostar.prostudy.proadmin.services.UploadURLService.getBulkBookUploadURL" : {
+        "response" : {
+          "$ref" : "ServerMsg"
+        }
+      },
+      "com.protostar.prostudy.proadmin.services.UploadURLService.getGFStudentsURLForDownload" : {
+        "response" : {
+          "$ref" : "ServerMsg"
+        }
+      },
+      "com.protostar.prostudy.proadmin.services.UploadURLService.getPartnerSchoolsUploadURLForDownload" : {
+        "response" : {
+          "$ref" : "ServerMsg"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,106 @@
+<div ng-if="loading">
+	<div layout="row" layout-sm="column" layout-align="space-around">
+		<md-progress-circular md-diameter="100" md-mode="indeterminate"></md-progress-circular>
+	</div>
+</div>
+<div ng-if="!loading">
+	<h3 class="md-headline" ng-hide="schoolInstituteId">Add Institute</h3>
+	<h3 class="md-headline" ng-show="schoolInstituteId">Edit Institute</h3>
+	<form name="instituteForm">
+		<md-content class="md-padding">
+		<div layout="column" layout-xs="column">
+
+			<div layout="row" layout-xs="column" flex>
+				<md-input-container flex> <label>Institute
+					Name<span style="color: red"
+					ng-show="instituteForm.name.$error.required" class="mandatory">*</span>
+				</label> <input name="name" ng-model="schoolInstitute.instituteName"
+					ng-required="true">
+				<div ng-messages="instituteForm.name.$error"
+					ng-if="instituteForm.name.$submitted || instituteForm.name.$touched">
+					<div ng-message="required">Please Enter Institute Name.</div>
+				</div>
+				</md-input-container>
+			</div>
+
+			<div layout="row" layout-xs="column" flex>
+				<!-- <span flex="10"></span> -->
+				<h3 class="md-subhead">Address</h3>
+			</div>
+			<div layout="row" layout-xs="column">
+				<md-input-container flex> <label>Line1
+				</label> <input name="line1" id="line1"
+					ng-model="schoolInstitute.address.line1"> </md-input-container>
+				<md-input-container flex> <label>Line2
+				</label> <input name="line2" id="line2"
+					ng-model="schoolInstitute.address.line2"></md-input-container>
+			</div>
+
+			<div layout="row" layout-xs="column">
+				<md-input-container flex> <label>At
+					Post/City</label> <input name="city" id="city"
+					ng-model="schoolInstitute.address.city"> </md-input-container>
+
+				<md-input-container flex> <label>State</label>
+				<md-select name="state" ng-model="schoolInstitute.address.state"
+					ng-change="getDistricts($index, schoolInstitute.address.state)">
+				<md-option ng-value="states.name"
+					ng-repeat="states in Country.states |  orderBy : states.name">{{states.name}}</md-option>
+				</md-select> </md-input-container>
+			</div>
+
+			<div layout="row" layout-xs="column"
+				ng-if="schoolInstitute.address.state == 'Other'">
+				<md-input-container flex> <label>State
+				</label> <input name="otherState" id="otherState"
+					ng-model="schoolInstitute.address.otherState"> </md-input-container>
+
+				<md-input-container flex> <label>District
+				</label> <input name="otherDist" id="otherDist"
+					ng-model="schoolInstitute.address.otherDist"> </md-input-container>
+			</div>
+			<div layout="row" layout-xs="column"
+				ng-if="schoolInstitute.address.state == 'Other'">
+				<md-input-container flex> <label>Taluka
+				</label> <input name="otherTaluka" id="otherTaluka"
+					ng-model="schoolInstitute.address.otherTaluka"> </md-input-container>
+				<md-input-container flex="50"> <label>Pin
+				</label> <input type="number" name="pin" id="pin"
+					ng-model="schoolInstitute.address.pin"> </md-input-container>
+			</div>
+			<div layout="row" layout-xs="column"
+				ng-if="schoolInstitute.address.state != 'Other'">
+				<md-input-container flex> <label>District</label>
+				<md-select name="district" ng-model="schoolInstitute.address.dist"
+					ng-change="getTalukas($index, schoolInstitute.address.dist)">
+				<md-option ng-value="district.name"
+					ng-repeat="district in temp.tempDistricts">{{district.name
+				}}</md-option> </md-select> </md-input-container>
+
+				<md-input-container flex> <label>Taluka</label>
+				<md-select name="taluka" ng-model="schoolInstitute.address.tal"
+					ng-change="getVillages($Index, schoolInstitute.address.tal)">
+				<md-option ng-value="taluka.name"
+					ng-repeat="taluka in temp.tempTalukas">{{taluka.name }}</md-option>
+				</md-select> </md-input-container>
+			</div>
+
+
+			<div layout="row" layout-xs="column">
+				<md-input-container flex="50"
+					ng-if="schoolInstitute.address.state != 'Other'">
+				<label>Pin </label> <input type="number" name="pin" id="pin"
+					ng-model="schoolInstitute.address.pin"> </md-input-container>
+			</div>
+		</div>
+
+		<section layout="row" layout-sm="column" layout-align="center center">
+			<md-button class="md-raised md-primary"
+				ng-click="addPartnerSchoolInstitute()"
+				ng-disabled="instituteForm.$invalid">Save </md-button>
+
+		</section>
+
+		</md-content>
+	</form>
+</div>

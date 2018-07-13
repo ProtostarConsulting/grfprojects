@@ -1,0 +1,292 @@
+{
+  "extends" : "thirdParty.api",
+  "abstract" : false,
+  "root" : "https://grf-prod.appspot.com/_ah/api",
+  "name" : "scheduledExamResultService",
+  "version" : "v0.1",
+  "defaultVersion" : false,
+  "discovery" : [ "PUBLIC" ],
+  "adapter" : {
+    "bns" : "https://grf-prod.appspot.com/_ah/spi",
+    "deadline" : 65.0,
+    "type" : "lily"
+  },
+  "auth" : {
+    "allowCookieAuth" : false
+  },
+  "frontendLimits" : {
+    "unregisteredUserQps" : -1,
+    "unregisteredQps" : -1,
+    "unregisteredDaily" : -1,
+    "rules" : [ ]
+  },
+  "cacheControl" : {
+    "type" : "no-cache",
+    "maxAge" : 0
+  },
+  "ownerDomain" : "com.protostar.prostudy.service",
+  "ownerName" : "com.protostar.prostudy.service",
+  "methods" : {
+    "scheduledExamResultService.addScheduledExamResult" : {
+      "path" : "addScheduledExamResult",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.service.ScheduledExamResultService.addScheduledExamResult",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "scheduledExamResultService.updateScheduledExamResult" : {
+      "path" : "scheduledexamresultentity",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.service.ScheduledExamResultService.updateScheduledExamResult",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "scheduledExamResultService.getScheduledExamResultbyEmail" : {
+      "path" : "getScheduledExamResultbyEmail",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.service.ScheduledExamResultService.getScheduledExamResultbyEmail",
+      "request" : {
+        "parameters" : {
+          "email_id" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "scheduledExamResultService.getScheduledExamResultbyID" : {
+      "path" : "scheduledexamresultentity/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.service.ScheduledExamResultService.getScheduledExamResultbyID",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "scheduledExamResultService.getScheduledExamResult" : {
+      "path" : "scheduledexamresultentitycollection",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.service.ScheduledExamResultService.getScheduledExamResult",
+      "request" : {
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "scheduledExamResultService.getScheduledExamResultListByExamId" : {
+      "path" : "getScheduledExamResultListByExamId",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.protostar.prostudy.service.ScheduledExamResultService.getScheduledExamResultListByExamId",
+      "request" : {
+        "parameters" : {
+          "testID" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    }
+  },
+  "descriptor" : {
+    "schemas" : {
+      "ScheduledExamResultEntity" : {
+        "id" : "ScheduledExamResultEntity",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "examTitle" : {
+            "type" : "string"
+          },
+          "userId" : {
+            "type" : "string"
+          },
+          "email_id" : {
+            "type" : "string"
+          },
+          "firstName" : {
+            "type" : "string"
+          },
+          "lastName" : {
+            "type" : "string"
+          },
+          "startTime" : {
+            "type" : "string"
+          },
+          "endTime" : {
+            "type" : "string"
+          },
+          "score" : {
+            "type" : "string"
+          },
+          "testID" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "userAns" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "UserAnsEntity"
+            }
+          },
+          "test" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "ScheduledQuestionEntity"
+            }
+          }
+        }
+      },
+      "UserAnsEntity" : {
+        "id" : "UserAnsEntity",
+        "type" : "object",
+        "properties" : {
+          "qID" : {
+            "type" : "string"
+          },
+          "userOption" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ScheduledQuestionEntity" : {
+        "id" : "ScheduledQuestionEntity",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "instituteID" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "category" : {
+            "type" : "string"
+          },
+          "option1" : {
+            "type" : "string"
+          },
+          "option2" : {
+            "type" : "string"
+          },
+          "option3" : {
+            "type" : "string"
+          },
+          "option4" : {
+            "type" : "string"
+          },
+          "correctAns" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ScheduledExamResultEntityCollection" : {
+        "id" : "ScheduledExamResultEntityCollection",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "ScheduledExamResultEntity"
+            }
+          }
+        }
+      }
+    },
+    "methods" : {
+      "com.protostar.prostudy.service.ScheduledExamResultService.addScheduledExamResult" : {
+        "request" : {
+          "$ref" : "ScheduledExamResultEntity"
+        },
+        "response" : {
+          "$ref" : "ScheduledExamResultEntity"
+        }
+      },
+      "com.protostar.prostudy.service.ScheduledExamResultService.updateScheduledExamResult" : {
+        "request" : {
+          "$ref" : "ScheduledExamResultEntity"
+        },
+        "response" : {
+          "$ref" : "ScheduledExamResultEntity"
+        }
+      },
+      "com.protostar.prostudy.service.ScheduledExamResultService.getScheduledExamResultbyEmail" : {
+        "response" : {
+          "$ref" : "ScheduledExamResultEntityCollection"
+        }
+      },
+      "com.protostar.prostudy.service.ScheduledExamResultService.getScheduledExamResultbyID" : {
+        "response" : {
+          "$ref" : "ScheduledExamResultEntity"
+        }
+      },
+      "com.protostar.prostudy.service.ScheduledExamResultService.getScheduledExamResult" : {
+        "response" : {
+          "$ref" : "ScheduledExamResultEntityCollection"
+        }
+      },
+      "com.protostar.prostudy.service.ScheduledExamResultService.getScheduledExamResultListByExamId" : {
+        "response" : {
+          "$ref" : "ScheduledExamResultEntityCollection"
+        }
+      }
+    }
+  }
+}
