@@ -7,6 +7,7 @@ public class BookDetail {
 	private Integer bookPrise;
 	private String standard;
 	private Integer totalStud;
+	private Integer freeStudCount;
 	private Integer appearedTotalStud = 0;
 	private Integer totalFees;
 	private Integer totalExamFees;
@@ -81,6 +82,12 @@ public class BookDetail {
 	}
 	public void setAmtForInst20per(Integer amtForInst20per) {
 		this.amtForInst20per = amtForInst20per;
+	}
+	public Integer getFreeStudCount() {
+		return freeStudCount;
+	}
+	public void setFreeStudCount(Integer freeStudCount) {
+		this.freeStudCount = freeStudCount;
 	}
 	
 

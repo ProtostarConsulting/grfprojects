@@ -612,6 +612,17 @@ angular
 
 					// -----------------calculate book detail---------------
 
+					$scope.bookStudCount = function(index, paidCount, freeCount) {
+						var totalStud = 0;
+						if(paidCount)
+							totalStud += paidCount;
+						if(freeCount)
+							totalStud += freeCount;
+						
+						$scope.bookSummary.bookDetail[index].totalStud = totalStud;
+						$scope.calculate(index, totalStud);
+					};
+					
 					$scope.calculate = function(index, val) {
 
 						$scope.bookSummary.bookDetail[index].totalStud = val;

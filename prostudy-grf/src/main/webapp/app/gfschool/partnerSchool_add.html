@@ -482,7 +482,8 @@
 					<tr>
 						<th width=10px name="Select Standard"></th>
 						<th width=10px name="Select Book Name"></th>
-						<th width=10px name="Total Student"></th>
+						<th width=10px name="Paid Student"></th>
+						<th width=10px name="Free Student"></th>
 						<th width=10px name="Book Price"></th>
 						<th width=10px name="Book Amount"></th>
 						<th width=10px name="Total Offer"></th>
@@ -511,10 +512,15 @@
 							</md-select> </md-input-container></td>
 						<td><md-input-container flex
 								style="margin: 0; padding-left: 0; padding-right: 5px;">
-							<input type="number" name="totalStud" min="1"
+							<input type="number" name="totalStud" min="0"
 								ng-model="bb.totalStud" aria-label="totalStud"
 								ng-change="calculate($index,bb.totalStud)"
 								ng-model-options="{ debounce: 1000 }"> </md-input-container></td>
+						<td><md-input-container flex
+								style="margin: 0; padding-left: 0; padding-right: 5px;">
+							<input type="number" name="freeStudCount" min="0"
+								ng-model="bb.freeStudCount" aria-label="freeStudCount"
+								ng-model-options="{ debounce: 1000 }"> </md-input-container></td>		
 						<td style="text-align: right;"><md-input-container flex
 								style="margin: 0; padding-left: 0; padding-right: 5px;">
 							<!-- <input
@@ -562,11 +568,13 @@
 						<td></td>
 						<td></td>
 						<td></td>
+						<td></td>
 					</tr>
 					<tr>
 						<td></td>
 						<td><b>Total</b></td>
 						<td><b>{{examDetail.total}}</b></td>
+						<td></td>
 						<td></td>
 						<td style="text-align: right;"><b>{{getTotalbookAmount() | number : 2}}</b></td>
 						<td></td>
