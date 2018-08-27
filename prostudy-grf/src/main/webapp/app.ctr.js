@@ -359,8 +359,6 @@ angular
 					}
 
 					$scope.signOut = function() {
-
-
 						var hostBaseUrl = '//' + window.location.host
 								+ '/index.html';
 
@@ -374,25 +372,35 @@ angular
 							return;
 						}
 						var auth2 = gapi.auth2.getAuthInstance();
-						// try logout 3 times.
-						for (var i = 1; i <= 3; i++) {
-							auth2
-									.signOut()
-									.then(
-											function() {
-												// also remove login details
-												// from chrome
-												// browser
+						if (auth2) {
+							// try logout 3 times.
+							for (var i = 1; i <= 3; i++) {
+								auth2
+										.signOut()
+										.then(
+												function() {
+													// also remove login details
+													// from chrome
+													// browser
 
-												$scope.googleUser = null;
-												$scope.curUser = null;
-												$scope.curUser = appEndpointSF
-														.getLocalUserService()
-														.logout();
+													$scope.googleUser = null;
+													$scope.curUser = null;
+													$scope.curUser = appEndpointSF
+															.getLocalUserService()
+															.logout();
 
-												// $state.go("home");
-												$window.location.href = hostBaseUrl;
-											});
+													// $state.go("home");
+													$window.location.href = hostBaseUrl;
+												});
+							}
+						} else {
+							$scope.curUser = null;
+							$scope.curUser = appEndpointSF
+									.getLocalUserService().logout();
+
+							// $state.go("home");
+							$window.location.href = hostBaseUrl;
+							return;
 						}
 					}
 
@@ -548,7 +556,7 @@ angular
 					$scope.close = function() {
 						if (!$mdMedia('gt-md'))
 							$scope.toggleMainMenu();
-					}					
+					}
 
 					$scope.menu = '';
 					$scope.toggleMenu = function(menu) {

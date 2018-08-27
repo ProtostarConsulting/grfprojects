@@ -197,8 +197,8 @@ angular
 							$scope.query.grfReviewed = false;
 							$scope.query.page = 1;
 							var grfRegNo = (enteredGrfRegNo
-									.startsWith('P-2017-') && enteredGrfRegNo.length >= 12) ? enteredGrfRegNo
-									: 'P-2017-' + enteredGrfRegNo;
+									.startsWith('P-2018-') && enteredGrfRegNo.length >= 12) ? enteredGrfRegNo
+									: 'P-2018-' + enteredGrfRegNo;
 
 							$scope.grfRegNoChange(grfRegNo,$scope.curUser.instituteObj.yearofExam);
 						} else {

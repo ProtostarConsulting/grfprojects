@@ -88,8 +88,8 @@ angular
 
 						$scope.loading = true;
 
-						var grfRegNo = (enteredGrfRegNo.startsWith('P-2017-') && enteredGrfRegNo.length >= 12) ? enteredGrfRegNo
-								: 'P-2017-' + enteredGrfRegNo;
+						var grfRegNo = (enteredGrfRegNo.startsWith('P-2018-') && enteredGrfRegNo.length >= 12) ? enteredGrfRegNo
+								: 'P-2018-' + enteredGrfRegNo;
 
 						$scope.examResultList = [];
 						$scope.currentSchoolStandardList = [];

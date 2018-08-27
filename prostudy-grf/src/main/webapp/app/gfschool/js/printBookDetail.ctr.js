@@ -97,12 +97,15 @@ angular
 								$scope.totalStudents = 0;
 								$scope.totalPaidFees = 0;
 								$scope.totalExamFees = 0;
+								$scope.freeStudTotalFees = 0;
 								$scope.amtForInst20per = 0;
 								$scope.amtForGRF80per = 0;
 								if ($scope.BookDetail != undefined) {
 									for (var k = 0; k < $scope.BookDetail.length; k++) {
 										$scope.totalStudents += $scope.BookDetail[k].totalStud;
 										$scope.totalExamFees += $scope.BookDetail[k].totalFees;
+										if ($scope.BookDetail[k].freeStudCount)
+											$scope.freeStudTotalFees += ($scope.BookDetail[k].freeStudCount * $scope.BookDetail[k].bookPrise);
 									}
 									$scope.amtForInst20per = Math
 											.round(($scope.totalExamFees / 100) * 20);
