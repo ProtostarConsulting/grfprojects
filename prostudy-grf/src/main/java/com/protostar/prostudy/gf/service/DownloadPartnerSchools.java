@@ -32,7 +32,7 @@ import com.protostar.prostudy.until.data.UtilityService;
  */
 public class DownloadPartnerSchools extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -327,7 +327,7 @@ public class DownloadPartnerSchools extends HttpServlet {
 						BookSummary bookSummary = examDeatil.getBookSummary();
 						List<BookDetail> bookDetailList = bookSummary
 								.getBookDetail();
-
+						
 						for (String std : standardList) {
 							writer.append(Integer
 									.toString(getStudentsByStandard(std,
@@ -336,12 +336,25 @@ public class DownloadPartnerSchools extends HttpServlet {
 						}
 						// Part-4
 						writer.append(',');
+						int freeStudCnt=0;
 						for (String std : standardList) {
+							int freeStudentsByStandard = getFreeStudentsByStandard(std,
+									bookDetailList);
+							freeStudCnt += freeStudentsByStandard;
+							
 							writer.append(Integer
-									.toString(getFreeStudentsByStandard(std,
-											bookDetailList)));
+									.toString(freeStudentsByStandard));
 							writer.append(',');
 						}
+						writer.append(freeStudCnt+"");
+						writer.append(',');
+						double freeStudTotalFees = 0;
+						for(BookDetail book : bookDetailList){
+							freeStudTotalFees +=book.getFreeStudCount()*book.getBookPrise();
+						}
+						writer.append(freeStudTotalFees+"");
+						writer.append(',');
+						
 					}
 					writer.append(System.lineSeparator());
 
@@ -384,7 +397,7 @@ public class DownloadPartnerSchools extends HttpServlet {
 		for (BookDetail bookDetail : bookDetailList) {
 			if (std.equalsIgnoreCase(bookDetail.getStandard()))
 				noOfStudents += bookDetail.getFreeStudCount();
-		}
+		}		
 		return noOfStudents;
 	}
 }
