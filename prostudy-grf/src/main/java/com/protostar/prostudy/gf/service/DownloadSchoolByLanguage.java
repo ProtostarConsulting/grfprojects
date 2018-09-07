@@ -117,8 +117,7 @@ public class DownloadSchoolByLanguage extends HttpServlet {
 					List<BookDetail> bookDetailList = bookSummaryTotal
 							.getBookDetail();
 					for (BookDetail bookDetail : bookDetailList) {
-						if (bookDetail.getTotalStud() != null
-								&& bookDetail.getTotalStud() > 0) {
+						if (bookDetail.getTotalStud() > 0) {
 							int currentStudTotal = bookDetail.getTotalStud();
 							totalStudent = totalStudent + currentStudTotal;
 						}

@@ -145,23 +145,19 @@ public class DownloadBookDetailsReport extends HttpServlet {
 											.concat(bookName));
 									writer.append(',');
 									totalStudent += book.getTotalStud();
-									writer.append(book.getTotalStud()
-											.toString());
+									writer.append(book.getTotalStud()+"");
 									writer.append(',');
-									writer.append(book.getBookPrise()
-											.toString());
+									writer.append(book.getBookPrise()+"");
 									writer.append(',');
 									tempBookAmt += book.getTotalFees();
 									totalBookAmount = (float)tempBookAmt;
-									writer.append(book.getTotalFees()
-											.toString());
+									writer.append(book.getTotalFees()+"");
 									writer.append(',');
-									writer.append(book.getExamFees().toString());
+									writer.append(book.getExamFees()+"");
 									writer.append(',');
 									tempGRFAmt += book.getTotalExamFees();
 									totalGRFFees = (float)tempGRFAmt;
-									writer.append(book.getTotalExamFees()
-											.toString());
+									writer.append(book.getTotalExamFees()+"");
 									writer.append(',');
 									writer.append(System.lineSeparator());
 								}

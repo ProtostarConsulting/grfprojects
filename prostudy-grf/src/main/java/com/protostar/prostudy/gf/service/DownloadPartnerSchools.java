@@ -7,17 +7,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import jxl.Workbook;
-import jxl.write.Label;
-import jxl.write.WritableSheet;
-import jxl.write.WritableWorkbook;
 
 import com.protostar.prostudy.gf.entity.BookDetail;
 import com.protostar.prostudy.gf.entity.BookSummary;
@@ -32,6 +28,8 @@ import com.protostar.prostudy.until.data.UtilityService;
  */
 public class DownloadPartnerSchools extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final Logger log = Logger
+			.getLogger(DownloadPartnerSchools.class.getName());
 	
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -350,7 +348,7 @@ public class DownloadPartnerSchools extends HttpServlet {
 						writer.append(',');
 						double freeStudTotalFees = 0;
 						for(BookDetail book : bookDetailList){
-							freeStudTotalFees +=book.getFreeStudCount()*book.getBookPrise();
+							freeStudTotalFees += book.getFreeStudCount()*book.getBookPrise();
 						}
 						writer.append(freeStudTotalFees+"");
 						writer.append(',');
@@ -359,6 +357,8 @@ public class DownloadPartnerSchools extends HttpServlet {
 					writer.append(System.lineSeparator());
 
 				} catch (Exception ex) {
+					log.warning(ex.getMessage());
+					ex.printStackTrace();
 					writer.append(System.lineSeparator());
 				}
 
