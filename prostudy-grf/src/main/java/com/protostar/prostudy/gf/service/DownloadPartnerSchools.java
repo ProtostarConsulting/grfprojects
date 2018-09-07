@@ -160,7 +160,17 @@ public class DownloadPartnerSchools extends HttpServlet {
 				writer.append(std);
 				writer.append(',');
 			}
-
+			// Part-4
+			writer.append("Free Student Data");
+			writer.append(',');
+			for (String std : standardList) {
+				writer.append(std);
+				writer.append(',');
+			}
+			writer.append("Free Student Total");
+			writer.append(',');
+			writer.append("Free Student Fees");
+			writer.append(',');
 			writer.append(System.lineSeparator());
 
 			for (int i = 0; i < schoolList.size(); i++) {
@@ -324,6 +334,14 @@ public class DownloadPartnerSchools extends HttpServlet {
 											bookDetailList)));
 							writer.append(',');
 						}
+						// Part-4
+						writer.append(',');
+						for (String std : standardList) {
+							writer.append(Integer
+									.toString(getFreeStudentsByStandard(std,
+											bookDetailList)));
+							writer.append(',');
+						}
 					}
 					writer.append(System.lineSeparator());
 
@@ -353,6 +371,19 @@ public class DownloadPartnerSchools extends HttpServlet {
 		for (BookDetail bookDetail : bookDetailList) {
 			if (std.equalsIgnoreCase(bookDetail.getStandard()))
 				noOfStudents += bookDetail.getTotalStud();
+		}
+		return noOfStudents;
+	}
+	
+	private int getFreeStudentsByStandard(String std,
+			List<BookDetail> bookDetailList) {
+		int noOfStudents = 0;
+		if (bookDetailList == null || bookDetailList.isEmpty())
+			return noOfStudents;
+
+		for (BookDetail bookDetail : bookDetailList) {
+			if (std.equalsIgnoreCase(bookDetail.getStandard()))
+				noOfStudents += bookDetail.getFreeStudCount();
 		}
 		return noOfStudents;
 	}

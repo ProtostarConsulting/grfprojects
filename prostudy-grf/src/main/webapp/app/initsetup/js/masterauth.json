@@ -23,10 +23,10 @@
 	"authDisplayName": "Register Your Institute for GVSP 2017-18",
 	"uiStateName": "partnerSchool.addPartnerSchool",
 	"orderNumber": "1"
-	},
+	},	
 	{
-	"authName": "bookModule",
-	"authDisplayName": "Books",
+	"authName": "grfbooks",
+	"authDisplayName": "GRF Books",
 	"uiStateName": "bookModule",
 	"orderNumber": "3"
 	},
@@ -44,7 +44,7 @@
 	},	
 	{
 	"authName": "book",
-	"authDisplayName": "Books",
+	"authDisplayName": "Online Books",
 	"uiStateName": "book",
 	"orderNumber": "4"
 	},

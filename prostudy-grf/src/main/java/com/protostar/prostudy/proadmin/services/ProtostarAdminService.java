@@ -69,7 +69,7 @@ public class ProtostarAdminService {
 			instituteEntity.setName("Protostar");
 			instituteEntity.setAccounttype(filteredaccount);
 			instituteEntity.setRegisterDate(sdf.format(date));
-			String authorizations = "	{\"authorizations\":[{\"authName\":\"proadmin\",\"authorizations\":[]},{\"authName\":\"setup\",\"authorizations\":[]}]}";
+			String authorizations = "	{\"authorizations\":[{\"authName\":\"proadmin\",\"authorizations\":[]},{\"authName\":\"setup\",\"authorizations\":[]},{\"authName\":\"grfbooks\",\"authorizations\":[]}]}";
 			instituteEntity.setAuthorizations(authorizations);
 			Address address = new Address();
 			address.setLine1("E101, MG Apts, Kasarwadi, Pune");
