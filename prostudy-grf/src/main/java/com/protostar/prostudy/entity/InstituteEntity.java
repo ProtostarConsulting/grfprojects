@@ -1,10 +1,11 @@
 package com.protostar.prostudy.entity;
 
 import com.googlecode.objectify.Ref;
+import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Index;
 import com.protostar.prostudy.proadmin.entities.PaymentPlanType;
-
+@Cache
 @Entity
 public class InstituteEntity extends BaseEntity {
 

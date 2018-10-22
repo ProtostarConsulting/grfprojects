@@ -11,11 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.googlecode.objectify.cmd.QueryKeys;
-import com.protostar.prostudy.gf.entity.GFBookEntity;
-import com.protostar.prostudy.gf.entity.GFBookStockEntity;
-import com.protostar.prostudy.gf.entity.GFBookTransactionEntity;
+import com.protostar.prostudy.gf.entity.BookDetail;
+import com.protostar.prostudy.gf.entity.ExamDetail;
 import com.protostar.prostudy.gf.entity.PartnerSchoolEntity;
+import com.protostar.prostudy.gf.service.PartnerSchoolService;
+import com.protostar.prostudy.until.data.DateUtil;
 
 public class BusinessDataMigrationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -24,41 +24,41 @@ public class BusinessDataMigrationServlet extends HttpServlet {
 		super();
 	}
 
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		String servletMsg = "Migration Done!";
+		Long grfInstiuteId = 5682617542246400L;
+		if (request.getParameter("iid") != null) {
+			grfInstiuteId = Long.parseLong(request.getParameter("iid"));
+		}
+		String yearOfExam = DateUtil.getCurrentGVSPYear(grfInstiuteId);
 
-		// // Re-set Book Qty to 0
-		// List<GFBookStockEntity> list = ofy().load()
-		// .type(GFBookStockEntity.class).list();
-		// for (GFBookStockEntity gfBookStockEntity : list) {
-		// gfBookStockEntity.setBookQty(0);
-		// }
-		//
-		// ofy().save().entities(list).now();
-		// List<GFBookEntity> list2 =
-		// ofy().load().type(GFBookEntity.class).list();
-		// for (GFBookEntity gfBookEntity : list2) {
-		// gfBookEntity.setBookQty(0);
-		// }
-		//
-		// ofy().save().entities(list2).now();
-		//
-		// // Delete All Old Book Transactions
-		//
-		// QueryKeys<GFBookTransactionEntity> keys = ofy().load()
-		// .type(GFBookTransactionEntity.class).keys();
-		//
-		// ofy().delete().keys(keys).now();
+		PartnerSchoolService ps = new PartnerSchoolService();
+		List<PartnerSchoolEntity> list = ps.getPartnerByInstitute(grfInstiuteId, yearOfExam);
+		try {
+			for (PartnerSchoolEntity sc : list) {
+				ExamDetail examDetail = null;
+				for (ExamDetail exam : sc.getExamDetailList()) {
+					if (yearOfExam.trim().equalsIgnoreCase(exam.getYearOfExam().trim())) {
+						examDetail = exam;
+						break;
+					}
+				}
+				if (examDetail != null) {
+					int freeCount = 0;
+					List<BookDetail> bookDetail = examDetail.getBookSummary().getBookDetail();
 
-		// Touch all schools
-
-		List<PartnerSchoolEntity> list = ofy().load()
-				.type(PartnerSchoolEntity.class).list();
-
-		ofy().save().entities(list);
-
+					for (BookDetail bd : bookDetail) {
+						freeCount += bd.getFreeStudCount();
+					}
+					examDetail.setTotalFreeStudCount(String.valueOf(freeCount));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		ofy().save().entities(list).now();
 		PrintWriter writer = response.getWriter();
 		writer.write(servletMsg);
 		writer.flush();

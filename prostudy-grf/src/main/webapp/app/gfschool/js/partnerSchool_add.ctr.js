@@ -589,6 +589,7 @@ angular
 							bookName : "",
 							bookPrise : 0,
 							totalStud : 0,
+							freeStudCount : 0,
 							totalFees : 0,
 							totalFees : 0,
 							totalExamFees : 0,
@@ -614,15 +615,15 @@ angular
 
 					$scope.bookStudCount = function(index, paidCount, freeCount) {
 						var totalStud = 0;
-						if(paidCount)
+						if (paidCount)
 							totalStud += paidCount;
-						if(freeCount)
+						if (freeCount)
 							totalStud += freeCount;
-						
+
 						$scope.bookSummary.bookDetail[index].totalStud = totalStud;
 						$scope.calculate(index, totalStud);
 					};
-					
+
 					$scope.calculate = function(index, val) {
 
 						$scope.bookSummary.bookDetail[index].totalStud = val;
@@ -651,6 +652,13 @@ angular
 						$scope.getGrffeestotal();
 						$scope.getTotalbookAmount();
 						$scope.getRemainingTotal();
+					}
+
+					$scope.calculateFreeStudTotal = function() {
+						$scope.examDetail.totalFreeStudCount = 0;
+						for (count = 0; count < $scope.bookSummary.bookDetail.length; count++) {
+							$scope.examDetail.totalFreeStudCount += $scope.bookSummary.bookDetail[count].freeStudCount;
+						}
 					}
 
 					$scope.calculateActualStudTotal = function() {

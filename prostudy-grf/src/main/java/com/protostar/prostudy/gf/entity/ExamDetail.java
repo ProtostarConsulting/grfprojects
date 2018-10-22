@@ -6,6 +6,7 @@ import java.util.List;
 public class ExamDetail {
 
 	private String totalStudent;
+	private String totalFreeStudCount;	
 	private String male;
 	private String female;
 	private String total;
@@ -124,6 +125,14 @@ public class ExamDetail {
 
 	public void setSmsRecordList(List<SMSRecord> smsRecordList) {
 		this.smsRecordList = smsRecordList;
+	}
+
+	public String getTotalFreeStudCount() {
+		return totalFreeStudCount;
+	}
+
+	public void setTotalFreeStudCount(String totalFreeStudCount) {
+		this.totalFreeStudCount = totalFreeStudCount;
 	}
 
 }

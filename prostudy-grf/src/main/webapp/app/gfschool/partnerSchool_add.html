@@ -471,9 +471,10 @@
 				icon="file_download" style="fill: md-default" size="22">
 			<md-tooltip>Download in CSV</md-tooltip></ng-md-icon></md-button>
 			<md-button class="md-icon-button" ng-click="downloadBookDetailsPDF()"
-				layout-align="end end" ng-disabled="!bookSummary.bookDetail[0].standard"> <ng-md-icon
-				icon="print" style="fill: md-default" size="22">
-			<md-tooltip>Download in PDF</md-tooltip></ng-md-icon></md-button>
+				layout-align="end end"
+				ng-disabled="!bookSummary.bookDetail[0].standard"> <ng-md-icon
+				icon="print" style="fill: md-default" size="22"> <md-tooltip>Download
+			in PDF</md-tooltip></ng-md-icon></md-button>
 		</div>
 		<div>
 			<md-data-table-container>
@@ -488,7 +489,7 @@
 						<th width=10px name="Book Amount"></th>
 						<th width=10px name="Total Offer"></th>
 						<th width=10px name="Total"></th>
-						<th width=10px name="Amount Received"></th>						
+						<th width=10px name="Amount Received"></th>
 						<th width=10px name="Remaining Price"></th>
 						<th width=10px name="Action"></th>
 					</tr>
@@ -520,7 +521,8 @@
 								style="margin: 0; padding-left: 0; padding-right: 5px;">
 							<input type="number" name="freeStudCount" min="0"
 								ng-model="bb.freeStudCount" aria-label="freeStudCount"
-								ng-model-options="{ debounce: 1000 }"> </md-input-container></td>		
+								ng-change="calculateFreeStudTotal()"
+								ng-model-options="{ debounce: 1000 }"> </md-input-container></td>
 						<td style="text-align: right;"><md-input-container flex
 								style="margin: 0; padding-left: 0; padding-right: 5px;">
 							<!-- <input
@@ -530,7 +532,7 @@
 								style="margin: 0; padding-left: 0; padding-right: 5px;">
 							<!-- <input
 							type="number" ng-model="bb.bookPrise"> --> {{bb.totalFees |
-							number : 2}}</md-input-container></td>		
+							number : 2}}</md-input-container></td>
 						<td style="text-align: right;"><md-input-container flex
 								style="margin: 0; padding-left: 0; padding-right: 5px;">
 							<!-- <input
@@ -574,13 +576,17 @@
 						<td></td>
 						<td><b>Total</b></td>
 						<td><b>{{examDetail.total}}</b></td>
+						<td>{{examDetail.totalFreeStudCount}}</td>
 						<td></td>
+						<td style="text-align: right;"><b>{{getTotalbookAmount()
+								| number : 2}}</b></td>
 						<td></td>
-						<td style="text-align: right;"><b>{{getTotalbookAmount() | number : 2}}</b></td>
-						<td></td>
-						<td style="text-align: right;"><b>{{bookSummary.total | number : 2}}</b></td>
-						<td style="text-align: right;"><b>{{getGrffeestotal() | number : 2}}</b></td>
-						<td style="text-align: right;"><b>{{getRemainingTotal() | number : 2}}</b></td>
+						<td style="text-align: right;"><b>{{bookSummary.total |
+								number : 2}}</b></td>
+						<td style="text-align: right;"><b>{{getGrffeestotal() |
+								number : 2}}</b></td>
+						<td style="text-align: right;"><b>{{getRemainingTotal() |
+								number : 2}}</b></td>
 						<td></td>
 					</tr>
 				</tbody>
