@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import javax.mail.MessagingException;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
@@ -626,9 +627,9 @@ public class PartnerSchoolService {
 				ExamDetail examDeatilByCurretnYear = getExamDeatilByCurretnYear(schoolEntity);
 				if (examDeatilByCurretnYear != null) {
 					try {
-						if (StringUtils.isNotBlank(examDeatilByCurretnYear.getTotal()))
+						if (NumberUtils.isParsable(examDeatilByCurretnYear.getTotal()))
 							studNumbers = Long.parseLong(examDeatilByCurretnYear.getTotal());
-						if (StringUtils.isNotBlank(examDeatilByCurretnYear.getTotalFreeStudCount()))
+						if (NumberUtils.isParsable(examDeatilByCurretnYear.getTotalFreeStudCount()))
 							studNumbers += Long.parseLong(examDeatilByCurretnYear.getTotalFreeStudCount());
 						// next year use below commented code to get correct
 						// count.

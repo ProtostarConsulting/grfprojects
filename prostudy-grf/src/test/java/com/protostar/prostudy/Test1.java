@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.math.NumberUtils;
+
 import com.google.common.base.CaseFormat;
 
 public class Test1 {
@@ -61,10 +63,16 @@ public class Test1 {
 		String string = CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, "this is a string token");
 		System.out.println("string:" + string);
 		
+		System.out.println("NumberUtils.isParsable(null): " + NumberUtils.isParsable(null));
+		System.out.println("NumberUtils.isParsable(\"\"): " + NumberUtils.isParsable(""));
+		System.out.println("NumberUtils.isParsable(\" \"): " + NumberUtils.isParsable(" "));
+		System.out.println("NumberUtils.isParsable(\"null\"): " + NumberUtils.isParsable("null"));
+		System.out.println("NumberUtils.isParsable(\"45\"): " + NumberUtils.isParsable("45"));
+		System.out.println("NumberUtils.isParsable(\"45.78\"): " + NumberUtils.isParsable("45.78"));
+		
 	}
 
-	public static Map<String, List> getEmptyAuthorizationEntry(String authName,
-			List<String> subAuths) {
+	public static Map<String, List> getEmptyAuthorizationEntry(String authName, List<String> subAuths) {
 		Map<String, List> authorization = new HashMap<String, List>();
 		List<Map<String, List>> subAuthorizations = new ArrayList<Map<String, List>>();
 

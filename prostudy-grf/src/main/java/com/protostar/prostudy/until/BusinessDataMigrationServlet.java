@@ -46,12 +46,15 @@ public class BusinessDataMigrationServlet extends HttpServlet {
 					}
 				}
 				if (examDetail != null) {
-					int freeCount = 0;
+					long totalCount = 0;
+					long freeCount = 0;
 					List<BookDetail> bookDetail = examDetail.getBookSummary().getBookDetail();
 
 					for (BookDetail bd : bookDetail) {
+						totalCount += bd.getTotalStud();
 						freeCount += bd.getFreeStudCount();
 					}
+					examDetail.setTotal(String.valueOf(totalCount));
 					examDetail.setTotalFreeStudCount(String.valueOf(freeCount));
 				}
 			}

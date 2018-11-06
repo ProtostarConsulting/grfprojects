@@ -5,11 +5,12 @@ import java.util.List;
 
 public class ExamDetail {
 
-	private String totalStudent;
-	private String totalFreeStudCount;	
+	private String total;
+	private String totalFreeStudCount;
+	// below three fields are just for information. Not used in any calculation.
 	private String male;
 	private String female;
-	private String total;
+	private String totalStudent;
 	/* private List<String> examMedium; */
 	private String yearOfExam;
 	private String bookRequired;
@@ -118,7 +119,7 @@ public class ExamDetail {
 	public void setNotificationData(NotificationData notificationData) {
 		this.notificationData = notificationData;
 	}
-	
+
 	public List<SMSRecord> getSmsRecordList() {
 		return smsRecordList;
 	}
