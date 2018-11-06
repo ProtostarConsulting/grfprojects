@@ -20,10 +20,6 @@
 	<p>
 	<p class="md-body-3"></p>
 
-	<p class="md-body-3">Last year 1604 schools & colleges with 258754
-		students have participated in "Gandhi Vichar Sanskar Pariksha 2015-16.
-	</p>
-
 	<p class="md-body-3">
 		<br> <br>
 	<div class="md-toolbar-tools">
@@ -38,23 +34,23 @@
 			<tr
 				style="border: 1px solid #dddddd; text-align: left; padding: 8px; background-color: #8cced4;">
 				<td>Schools</td>
-				<td ng-bind="schoolStudCount.schoolCount"></td>
+				<td style="text-align: right; padding-right: 20px;" ng-bind="schoolStudCount.schoolCount | number"></td>
 				<td>Students</td>
-				<td ng-bind="schoolStudCount.schoolStudentcount"></td>
+				<td style="text-align: right; padding-right: 20px;" ng-bind="schoolStudCount.schoolStudentcount | number"></td>
 			</tr>
 			<tr
 				style="border: 1px solid #dddddd; text-align: left; padding: 8px;">
 				<td>Colleges</td>
-				<td ng-bind="schoolStudCount.collegeCount"></td>
+				<td style="text-align: right; padding-right: 20px;" ng-bind="schoolStudCount.collegeCount | number"></td>
 				<td>Students</td>
-				<td ng-bind="schoolStudCount.collegeStudentcount"></td>
+				<td style="text-align: right; padding-right: 20px;" ng-bind="schoolStudCount.collegeStudentcount | number"></td>
 			</tr>
 			<tr
 				style="border: 1px solid #dddddd; text-align: left; padding: 8px; background-color: #8cced4;">
 				<td>Total</td>
-				<td ng-bind="schoolStudCount.totalSchoolColleges"></td>
+				<td style="text-align: right; padding-right: 20px;" ng-bind="schoolStudCount.totalSchoolColleges | number"></td>
 				<td></td>
-				<td ng-bind="schoolStudCount.totalStudents"></td>
+				<td style="text-align: right; padding-right: 20px;" ng-bind="schoolStudCount.totalStudents | number"></td>
 			</tr>			
 		</table>
 	</div>
