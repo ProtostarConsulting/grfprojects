@@ -609,52 +609,69 @@ public class PartnerSchoolService {
 	@ApiMethod(name = "updateCurrentYearSchoolAndStudentCount", path = "updateCurrentYearSchoolAndStudentCount")
 	public void updateCurrentYearSchoolAndStudentCount() {
 
+		String standardList[] = { "5th", "6th", "7th", "8th", "9th", "10th", "11th", "12th", "FY", "SY", "TY", "Fr. Y",
+				"PG/D. & B. Ed-1", "PG/D. & B. Ed-2", "Teacher" };
+
 		long schoolCount = 0;
 		long collegeCount = 0;
 		long schoolStudentcount = 0;
 		long collegeStudentcount = 0;
+
 		Long grfInstiuteId = 5682617542246400L;
 		// Long grfInstiuteId = 5910974510923776L;
+
 		String yearOfExam = DateUtil.getCurrentGVSPYear(grfInstiuteId);
 		List<PartnerSchoolEntity> list = getPartnerByInstitute(grfInstiuteId, yearOfExam);
 		// schoolCount = ofy().load().type(PartnerSchoolEntity.class).count();
 		logger.info("list: " + list);
 		logger.info("list.size(): " + (list == null ? "null" : list.size()));
 		for (PartnerSchoolEntity schoolEntity : list) {
-			long studNumbers = 0;
+			// long studNumbers = 0;
 			try {
-				ExamDetail examDeatilByCurretnYear = getExamDeatilByCurretnYear(schoolEntity);
-				if (examDeatilByCurretnYear != null) {
+				ExamDetail examDeatil = getExamDeatilByCurretnYear(schoolEntity);
+				if (examDeatil != null) {
 					try {
-						if (NumberUtils.isParsable(examDeatilByCurretnYear.getTotal()))
-							studNumbers = Long.parseLong(examDeatilByCurretnYear.getTotal());
-						if (NumberUtils.isParsable(examDeatilByCurretnYear.getTotalFreeStudCount()))
-							studNumbers += Long.parseLong(examDeatilByCurretnYear.getTotalFreeStudCount());
-						// next year use below commented code to get correct
-						// count.
-						// studNumbers =
-						// calculateTotalStudents(examDeatilByCurretnYear);
-						if (studNumbers > 0) {
+						// if (NumberUtils.isParsable(examDeatil.getTotal()))
+						// studNumbers = Long.parseLong(examDeatil.getTotal());
+						// if (NumberUtils.isParsable(examDeatil.getTotalFreeStudCount()))
+						// studNumbers += Long.parseLong(examDeatil.getTotalFreeStudCount());
+
+						BookSummary bookSummary = examDeatil.getBookSummary();
+						List<BookDetail> bookDetailList = bookSummary.getBookDetail();
+						int paidStudTotal = 0;
+						for (String std : standardList) {
+							int studentsByStandard = getStudentsByStandard(std, bookDetailList);
+							paidStudTotal += studentsByStandard;
+						}
+						int freeStudTotal = 0;
+						for (String std : standardList) {
+							int freeStudentsByStandard = getFreeStudentsByStandard(std, bookDetailList);
+							freeStudTotal += freeStudentsByStandard;
+						}
+						int paidPlusFreeTotal = paidStudTotal + freeStudTotal;
+
+						if (paidPlusFreeTotal > 0) {
 							if (schoolEntity.getCategory().equals("School & Junior College")) {
 								schoolCount++;
-								schoolStudentcount += studNumbers;
+								schoolStudentcount += paidPlusFreeTotal;
 							} else {
 								collegeCount++;
-								collegeStudentcount += studNumbers;
+								collegeStudentcount += paidPlusFreeTotal;
 							}
 						}
 					} catch (Exception ex) {
-						logger.warning("updateCurrentYearSchoolAndStudentCount: " + ex.getMessage());
+						logger.warning("updateCurrentYearSchoolAndStudentCount 1: " + ex.getMessage());
 					}
 				}
-
 			} catch (Exception ex) {
-				logger.warning("ex: " + ex.getMessage());
+				logger.warning("updateCurrentYearSchoolAndStudentCount 2: " + ex.getMessage());
 				continue;
 			}
 		}
-		logger.info("schoolCount: " + schoolCount);
-		logger.info("schoolStudentcount: " + schoolStudentcount);
+		logger.warning("schoolCount: " + schoolCount);
+		logger.warning("schoolStudentcount: " + schoolStudentcount);
+		logger.warning("collegeCount: " + collegeCount);
+		logger.warning("collegeStudentcount: " + collegeStudentcount);
 
 		SchoolAndStudentCount schoolAndStudentCount = new SchoolAndStudentCount();
 
@@ -678,14 +695,28 @@ public class PartnerSchoolService {
 		datastore.put(schoolAndStudentCountEntity);
 	}
 
-	private int calculateTotalStudents(ExamDetail examDeatilByCurretnYear) {
-		List<BookDetail> bookDetailList = examDeatilByCurretnYear.getBookSummary().getBookDetail();
-		int total = 0;
+	private int getStudentsByStandard(String std, List<BookDetail> bookDetailList) {
+		int noOfStudents = 0;
+		if (bookDetailList == null || bookDetailList.isEmpty())
+			return noOfStudents;
+
 		for (BookDetail bookDetail : bookDetailList) {
-			System.out.println("bookDetail.getTotalStud():" + bookDetail.getTotalStud());
-			total += bookDetail.getTotalStud();
+			if (std.equalsIgnoreCase(bookDetail.getStandard()))
+				noOfStudents += bookDetail.getTotalStud();
 		}
-		return total;
+		return noOfStudents;
+	}
+
+	private int getFreeStudentsByStandard(String std, List<BookDetail> bookDetailList) {
+		int noOfStudents = 0;
+		if (bookDetailList == null || bookDetailList.isEmpty())
+			return noOfStudents;
+
+		for (BookDetail bookDetail : bookDetailList) {
+			if (std.equalsIgnoreCase(bookDetail.getStandard()))
+				noOfStudents += bookDetail.getFreeStudCount();
+		}
+		return noOfStudents;
 	}
 
 	static class SchoolAndStudentCount implements Serializable {
