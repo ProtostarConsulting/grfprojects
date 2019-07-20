@@ -26,7 +26,7 @@ public class PartnerSchoolEntity extends BaseEntity {
 	private Long instituteID;
 
 	private String schoolName;
-
+    private boolean freeSchoolReg = false;
 	@Index
 	private String[] schoolNameIndex;
 	
@@ -199,6 +199,14 @@ public class PartnerSchoolEntity extends BaseEntity {
 
 	public void setSchoolInstitute(PartnerSchoolInstituteEntity schoolInstitute) {
 		this.schoolInstitute = Ref.create(schoolInstitute);
+	}
+
+	public boolean isFreeSchoolReg() {
+		return freeSchoolReg;
+	}
+
+	public void setFreeSchoolReg(boolean freeSchoolReg) {
+		this.freeSchoolReg = freeSchoolReg;
 	}
 
 }// end of PartnerSchoolEntity

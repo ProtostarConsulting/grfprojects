@@ -52,7 +52,7 @@
 					focus-on="!selectedPSchoolId && selectedIndex==0"> </md-input-container>
 			</div>
 			<div layout="row" layout-xs="column" flex>
-				<md-input-container flex> <label>School/College
+				<md-input-container flex=50> <label>School/College
 					Name<span style="color: red"
 					ng-show="partnerSchoolForm.name.$error.required" class="mandatory">*</span>
 				</label> <input name="name" ng-model="partnerSchool.schoolName"
@@ -62,33 +62,9 @@
 					<div ng-message="required">Please Enter Institute Name.</div>
 				</div>
 				</md-input-container>
-
-				<!-- <md-input-container flex> <label>Institute
-					Name </label> <input name="instName" ng-model="partnerSchool.instName"></md-input-container> -->
-				<md-input-container flex> <label>Institute
-					Name</label> <md-select name="schoolInstitute" id="schoolInstitute"
-					ng-model="partnerSchool.schoolInstitute"> <md-option
-					ng-value="tempInstitute"
-					ng-selected="partnerSchool.schoolInstitute.id == tempInstitute.id"
-					ng-repeat="tempInstitute in tempInstituteList">{{tempInstitute.instituteName}}</md-option>
-				</md-select> </md-input-container>
-			</div>
-
-			<div layout="row" layout-xs="column" flex>
-
-				<md-input-container flex> <label>Category<span
-					style="color: red"
-					ng-show="partnerSchoolForm.category.$error.required"
-					class="mandatory">*</span></label> <md-select name="category" id="category"
-					ng-model="partnerSchool.category" ng-required="true"> <md-option
-					ng-value="category" ng-repeat="category in partnerSchoolLevels">{{category}}</md-option>
-				</md-select>
-				<div ng-messages="partnerSchoolForm.category.$error"
-					ng-if="partnerSchoolForm.category.$submitted || partnerSchoolForm.category.$touched">
-					<div ng-message="required">Please Select Category.</div>
-				</div>
-				</md-input-container>
-
+				<md-input-container flex=20> <md-checkbox
+					ng-model="partnerSchool.freeSchoolReg" ng-true-value="true"
+					ng-false-value="false"> Free School Registration</md-checkbox> </md-input-container>
 				<md-input-container flex> <label> Form
 					Number <!-- <span style="color: red"
 				ng-show="partnerSchoolForm.formNumber.$error.required"
@@ -106,6 +82,32 @@
 						     Calculating....</div>
 				</div>
 				</md-input-container>
+				<!-- <md-input-container flex> <label>Institute
+					Name </label> <input name="instName" ng-model="partnerSchool.instName"></md-input-container> -->
+
+			</div>
+
+			<div layout="row" layout-xs="column" flex>
+
+				<md-input-container flex> <label>Category<span
+					style="color: red"
+					ng-show="partnerSchoolForm.category.$error.required"
+					class="mandatory">*</span></label> <md-select name="category" id="category"
+					ng-model="partnerSchool.category" ng-required="true"> <md-option
+					ng-value="category" ng-repeat="category in partnerSchoolLevels">{{category}}</md-option>
+				</md-select>
+				<div ng-messages="partnerSchoolForm.category.$error"
+					ng-if="partnerSchoolForm.category.$submitted || partnerSchoolForm.category.$touched">
+					<div ng-message="required">Please Select Category.</div>
+				</div>
+				</md-input-container>
+				<md-input-container flex> <label>Institute
+					Name</label> <md-select name="schoolInstitute" id="schoolInstitute"
+					ng-model="partnerSchool.schoolInstitute"> <md-option
+					ng-value="tempInstitute"
+					ng-selected="partnerSchool.schoolInstitute.id == tempInstitute.id"
+					ng-repeat="tempInstitute in tempInstituteList">{{tempInstitute.instituteName}}</md-option>
+				</md-select> </md-input-container>
 
 			</div>
 
