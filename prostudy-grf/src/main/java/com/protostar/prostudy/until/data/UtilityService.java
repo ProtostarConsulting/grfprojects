@@ -9,6 +9,8 @@ import java.io.InputStreamReader;
 import java.util.Calendar;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Work;
 
@@ -22,16 +24,39 @@ public class UtilityService {
 		}
 
 		int cy = rightNow.get(Calendar.YEAR);
-		return role.toUpperCase().charAt(0) + "-" + cy + "-"
-				+ String.format("%05d", getCurrentYearNextCounter(cy));
+		return role.toUpperCase().charAt(0) + "-" + cy + "-" + String.format("%05d", getCurrentYearNextCounter(cy));
+	}
+
+	public static String getNextPRN(String role, String currentYear) {
+		Calendar rightNow = Calendar.getInstance();
+
+		if (StringUtils.isEmpty(role)) {
+			throw new RuntimeException("Role must not be null or empty");
+		}
+		if (StringUtils.isEmpty(currentYear)) {
+			throw new RuntimeException("currentYear must not be null or empty");
+		}
+
+		int cy = rightNow.get(Calendar.YEAR);
+		String[] split = currentYear.split("-");
+		// System.out.println("split[0]" + split[0]);
+		// System.out.println("split[1]" + split[1]);
+		if (split != null && split.length > 0) {
+			try {
+				cy = Integer.valueOf(split[0]);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return role.toUpperCase().charAt(0) + "-" + cy + "-" + String.format("%05d", getCurrentYearNextCounter(cy));
 	}
 
 	private static Long getCurrentYearNextCounter(final long cy) {
 
 		final Key<YearCounterEntity> eKey;
 
-		List<YearCounterEntity> list = ofy().load()
-				.type(YearCounterEntity.class).filter("year", cy).list();
+		List<YearCounterEntity> list = ofy().load().type(YearCounterEntity.class).filter("year", cy).list();
 
 		if (list == null || list.isEmpty()) {
 			YearCounterEntity yc = new YearCounterEntity();
@@ -59,8 +84,7 @@ public class UtilityService {
 
 	public static String read(InputStream stream) {
 		StringBuilder sb = new StringBuilder();
-		BufferedReader reader = new BufferedReader(
-				new InputStreamReader(stream));
+		BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
 		try {
 			String line;
 			while ((line = reader.readLine()) != null) {
@@ -79,14 +103,14 @@ public class UtilityService {
 	}
 
 	public static String trimForCSV(String val) {
-		if(val == null)
+		if (val == null)
 			return "";
-		
+
 		val = val.replace("\n", "").replace("\r", "").trim();
-		val = val.replace(',', '-');		
-		return val.trim();					
+		val = val.replace(',', '-');
+		return val.trim();
 	}
-	
+
 	public static String getCurrentAppURL() {
 		String hostUrl;
 		String environment = System.getProperty("com.google.appengine.runtime.environment");

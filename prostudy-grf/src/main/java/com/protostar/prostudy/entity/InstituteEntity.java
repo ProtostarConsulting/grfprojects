@@ -23,6 +23,7 @@ public class InstituteEntity extends BaseEntity {
 
 	private AppSettingEntity settings;
 	private String yearofExam;
+	private int yearOfExamInt;
 	private String sendGridApiKey;
 
 	public String getLogBlobKey() {
@@ -140,6 +141,14 @@ public class InstituteEntity extends BaseEntity {
 			sendGridApiKey = sendGridApiKey.substring(3);
 		}
 		this.sendGridApiKey = sendGridApiKey;
+	}
+
+	public int getYearOfExamInt() {
+		return yearOfExamInt;
+	}
+
+	public void setYearOfExamInt(int yearOfExamInt) {
+		this.yearOfExamInt = yearOfExamInt;
 	}
 
 }
