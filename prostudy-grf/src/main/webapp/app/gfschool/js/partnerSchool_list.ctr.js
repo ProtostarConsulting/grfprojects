@@ -163,8 +163,8 @@ angular
 						if (enteredGrfRegNo && enteredGrfRegNo.length >= 5) {
 							$scope.query.searchSchoolTxt = "";
 							$scope.query.page = 1;
-							var grfRegNo = (enteredGrfRegNo.startsWith('P-2018-') && enteredGrfRegNo.length >= 12) ? enteredGrfRegNo
-									: 'P-2018-' + enteredGrfRegNo;
+							var grfRegNo = (enteredGrfRegNo.startsWith('P-2019-') && enteredGrfRegNo.length >= 12) ? enteredGrfRegNo
+									: 'P-2019-' + enteredGrfRegNo;
 
 							$scope.grfRegNoChange(grfRegNo, yearOfExam);
 						} else {

@@ -119,9 +119,10 @@ public class ProtostarAdminService {
 
 			UserEntity userEntity4 = new UserEntity();
 			userEntity4.setInstituteID(instituteEntity.getId());
-			userEntity4.setEmail_id("deepali@protostar.co.in");
-			userEntity4.setFirstName("Deepali");
-			userEntity4.setLastName("M");
+			userEntity4.setEmail_id("pranav@proerp.cloud");
+			userEntity4.setPassword("temp1");
+			userEntity4.setFirstName("Pranav");
+			userEntity4.setLastName("Joshi");
 			userEntity4.setIsGoogleUser(true);
 			userEntity4.setAuthority(Arrays.asList("admin"));
 			userEntity4.setRole("Admin");
