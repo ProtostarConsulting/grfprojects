@@ -216,8 +216,8 @@ angular
 							$scope.query.pastEightDays = false;
 							$scope.query.page = 1;
 							var grfRegNo = (enteredGrfRegNo
-									.startsWith('P-2018-') && enteredGrfRegNo.length >= 12) ? enteredGrfRegNo
-									: 'P-2018-' + enteredGrfRegNo;
+									.startsWith('P-2019-') && enteredGrfRegNo.length >= 12) ? enteredGrfRegNo
+									: 'P-2019-' + enteredGrfRegNo;
 
 							$scope.grfRegNoChange(grfRegNo);
 						} else {
