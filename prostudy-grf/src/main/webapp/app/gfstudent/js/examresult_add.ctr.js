@@ -83,14 +83,16 @@ angular
 
 						return tempExamResultList;
 					}
-
+					$scope.examYearString=[];
 					$scope.grfRegNoChange = function(enteredGrfRegNo) {
 
 						$scope.loading = true;
-
-						var grfRegNo = (enteredGrfRegNo.startsWith('P-2018-') && enteredGrfRegNo.length >= 12) ? enteredGrfRegNo
-								: 'P-2018-' + enteredGrfRegNo;
-
+						$scope.examYearString=$scope.curUser.instituteObj.yearofExam.split("-");
+						$scope.searchString='P-'+$scope.examYearString[0]+'-';
+//						var grfRegNo = (enteredGrfRegNo.startsWith('P-2018-') && enteredGrfRegNo.length >= 12) ? enteredGrfRegNo
+//								: 'P-2018-' + enteredGrfRegNo;
+						var grfRegNo = (enteredGrfRegNo.startsWith($scope.searchString) && enteredGrfRegNo.length >= 12) ? enteredGrfRegNo
+								: $scope.searchString + enteredGrfRegNo;
 						$scope.examResultList = [];
 						$scope.currentSchoolStandardList = [];
 						$scope.foundSchool = null;
