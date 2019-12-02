@@ -13,13 +13,13 @@ angular
 
 					$scope.printGRfAccountReport = function(fromGrfNo, toGrfNo) {
 						var enteredFromGrfNo;
-						if(fromGrfNo != undefined){
+						if (fromGrfNo != undefined) {
 							enteredFromGrfNo = fromGrfNo.trim();
-						}else{
+						} else {
 							$scope.isError = true;
 							$scope.errorMsg = "Please Enter GRF No."
 						}
-						//var enteredFromGrfNo = fromGrfNo.trim();
+						// var enteredFromGrfNo = fromGrfNo.trim();
 						var enteredToGrfNo;
 						if (toGrfNo != undefined) {
 							enteredToGrfNo = toGrfNo.trim();
@@ -27,11 +27,26 @@ angular
 							enteredToGrfNo = "";
 						}
 
+						$scope.examYearString = $scope.curUser.instituteObj.yearofExam
+								.split("-");
+						$scope.searchString = 'P-' + $scope.examYearString[0]
+								+ '-';
 						var fromGRfRegNo = (enteredFromGrfNo
-								.startsWith('P-2018-') && enteredFromGrfNo.length >= 12) ? enteredFromGrfNo
-								: 'P-2018-' + enteredFromGrfNo;
-						var toGRfRegNo = (enteredToGrfNo.startsWith('P-2018-') && enteredToGrfNo.length >= 12) ? enteredToGrfNo
-								: 'P-2018-' + enteredToGrfNo;
+								.startsWith($scope.searchString) && enteredFromGrfNo.length >= 12) ? enteredFromGrfNo
+								: $scope.searchString + enteredFromGrfNo;
+
+						var fromGRfRegNo = (enteredToGrfNo
+								.startsWith($scope.searchString) && enteredToGrfNo.length >= 12) ? enteredToGrfNo
+								: $scope.searchString + enteredToGrfNo;
+
+						// var fromGRfRegNo = (enteredFromGrfNo
+						// .startsWith('P-2018-') && enteredFromGrfNo.length >=
+						// 12) ? enteredFromGrfNo
+						// : 'P-2018-' + enteredFromGrfNo;
+						// var toGRfRegNo =
+						// (enteredToGrfNo.startsWith('P-2018-') &&
+						// enteredToGrfNo.length >= 12) ? enteredToGrfNo
+						// : 'P-2018-' + enteredToGrfNo;
 
 						/*
 						 * $http .get(
@@ -43,9 +58,9 @@ angular
 						 */
 
 						window.open("PrintBookDetailPdf?yearOfExam="
-										+ $scope.curUser.instituteObj.yearofExam
-										+ "&fromGRfRegNo=" + fromGRfRegNo
-										+ "&toGRfRegNo=" + toGRfRegNo);
+								+ $scope.curUser.instituteObj.yearofExam
+								+ "&fromGRfRegNo=" + fromGRfRegNo
+								+ "&toGRfRegNo=" + toGRfRegNo);
 						$scope.isError = false;
 					}
 				});
