@@ -215,11 +215,7 @@ angular
 							$scope.query.courierType = $scope.query.optionValueAll;
 							$scope.query.pastEightDays = false;
 							$scope.query.page = 1;
-							var grfRegNo = (enteredGrfRegNo
-									.startsWith('P-2019-') && enteredGrfRegNo.length >= 12) ? enteredGrfRegNo
-									: 'P-2019-' + enteredGrfRegNo;
-
-							$scope.grfRegNoChange(grfRegNo);
+							$scope.grfRegNoChange(enteredGrfRegNo);
 						} else {
 							// let user type whole 5 chars of GRF No
 							// restore $scope.gfCouriertList if was filtered

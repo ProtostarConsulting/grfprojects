@@ -160,13 +160,10 @@ angular
 					$scope.searchByGrfRegNoChange = function(yearOfExam) {
 						var enteredGrfRegNo = $scope.query.searchByGrfRegNo
 								.trim();
-						if (enteredGrfRegNo && enteredGrfRegNo.length >= 5) {
+						if (enteredGrfRegNo && enteredGrfRegNo.length >= 1) {
 							$scope.query.searchSchoolTxt = "";
 							$scope.query.page = 1;
-							var grfRegNo = (enteredGrfRegNo.startsWith('P-2019-') && enteredGrfRegNo.length >= 12) ? enteredGrfRegNo
-									: 'P-2019-' + enteredGrfRegNo;
-
-							$scope.grfRegNoChange(grfRegNo, yearOfExam);
+							$scope.grfRegNoChange(enteredGrfRegNo, yearOfExam);
 						} else {
 							// let user type whole 5 chars of GRF No
 							// restore $scope.schools if was filtered
